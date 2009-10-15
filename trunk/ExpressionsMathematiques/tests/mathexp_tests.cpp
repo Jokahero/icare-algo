@@ -41,6 +41,12 @@ void MathExp_tests::testMathExp() {
     QCOMPARE(m->calcul(), (double)25);
     m->setExpression("(1)");
     QCOMPARE(m->calcul(), (double)1);
+    m->setExpression("2+(3+(1+1)*1)");
+    QCOMPARE(m->calcul(), (double)7);
+    m->setExpression("2+(3*(1+1)+1)");
+    QCOMPARE(m->calcul(), (double)9);
+    m->setExpression("2+(3*(1+1*(3-1))+1)");
+    QCOMPARE(m->calcul(), (double)12);
     delete m;
 }
 
