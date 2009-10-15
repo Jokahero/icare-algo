@@ -23,19 +23,69 @@ Arbre* MathExp::parseExp(QString pExpression) {
         return NULL;
     Arbre* t = new Arbre();
 
-    if (pExpression.startsWith("(") && pExpression.endsWith(")")) {
-        QString str = pExpression.left(pExpression.length() - 1);
-        str = str.right(str.length() - 1);
-        return parseExp(str);
-    } else if (pExpression.startsWith("(") && !pExpression.endsWith(")")) {
-        int lp = pExpression.lastIndexOf(")") + 1;
-        qDebug() << "PARENTHESES";
-        qDebug() << "Contenu : " << pExpression.at(lp);
-        qDebug() << "Sag : " << pExpression.left(lp);
-        qDebug() << "Sad : " << pExpression.right(pExpression.length() - lp - 1);
-        t->setContenu(pExpression.at(lp));
-        t->setSag(parseExp(pExpression.left(lp)));
-        t->setSad(parseExp(pExpression.right(pExpression.length() - lp - 1)));
+    // Test de l'utilité des parenthèses : (1+1) → 1+1
+    if (pExpression.left(1) == "(" && pExpression.right(1) == ")") {
+        int i, cpt = 0;
+        for (i = 1; i < pExpression.length() && cpt > 0; i++) {
+            if (pExpression.at(i) == '(')
+                cpt++;
+            else if (pExpression.at(i) == ')')
+                cpt--;
+        }
+        if (i < pExpression.length() && cpt == 0) {
+            pExpression = pExpression.left(pExpression.length() - 1);
+            pExpression = pExpression.right(pExpression.length() - 1);
+            qDebug() << "Parentheses supprimees. Nouvelle expression : " << pExpression;
+        }
+    }
+
+    if (pExpression.contains("(")) {
+        qDebug() << "Parenthèses";
+        int firstOP = pExpression.indexOf("(");
+
+        if (firstOP > 0) {
+            int i, cpt = 1;
+            for (i = (firstOP + 1); i < pExpression.length() && cpt > 0; i++) {
+                if (pExpression.at(i) == '(')
+                    cpt++;
+                else if (pExpression.at(i) == ')')
+                    cpt--;
+            }
+            if (i < pExpression.length() && cpt == 0) {
+                if ((pExpression.at(firstOP - 1) == '*' || pExpression.at(firstOP - 1) == '/') && (pExpression.at(i) == '+' || pExpression.at(i) == '-')) {
+                    qDebug() << "contenu : " << pExpression.at(i);
+                    t->setContenu(pExpression.at(i));
+                    qDebug() << "sag : " << pExpression.left(i);
+                    qDebug() << "sad : " << pExpression.right(pExpression.length() - i - 1);
+                    t->setSag(parseExp(pExpression.left(i)));
+                    t->setSad(parseExp(pExpression.right(pExpression.length() - i - 1)));
+                } else {
+                    qDebug() << "contenu : " << pExpression.at(firstOP - 1);
+                    t->setContenu(pExpression.at(firstOP - 1));
+                    qDebug() << "sag : " << pExpression.left(firstOP - 1);
+                    qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP);
+                    t->setSag(parseExp(pExpression.left(firstOP - 1)));
+                    t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP)));
+                }
+            } else {
+                qDebug() << "contenu : " << pExpression.at(firstOP - 1);
+                t->setContenu(pExpression.at(firstOP - 1));
+                qDebug() << "sag : " << pExpression.left(firstOP - 1);
+                qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP);
+                t->setSag(parseExp(pExpression.left(firstOP - 1)));
+                t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP)));
+            }
+
+        } else if (pExpression.lastIndexOf(")") < pExpression.length()) {
+            firstOP = pExpression.indexOf(")");
+            qDebug() << "contenu : " << pExpression.at(firstOP + 1);
+            qDebug() << "sag : " << pExpression.left(firstOP + 1);
+            qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP - 2);
+
+            t->setContenu(pExpression.at(firstOP + 1));
+            t->setSag(parseExp(pExpression.left(firstOP + 1)));
+            t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP - 2)));
+        }
     } else {
         if (pExpression.contains("+")) {
             t->setContenu("+");
@@ -57,8 +107,9 @@ Arbre* MathExp::parseExp(QString pExpression) {
             t->setSag(parseExp(pExpression.left(pExpression.indexOf("/"))));
             t->setSad(parseExp(pExpression.right(pExpression.length() - pExpression.indexOf("/") - 1)));
         }
-        else
+        else {
             t->setContenu(pExpression);
+        }
     }
 
 
@@ -67,6 +118,8 @@ Arbre* MathExp::parseExp(QString pExpression) {
 }
 
 double MathExp::calculRec(Arbre* pArbre) {
+    if (pArbre->estFeuille())
+        return pArbre->getContenu().toDouble();
     double g, d;
     if (pArbre->getSag()->estFeuille())
         g = pArbre->getSag()->getContenu().toDouble();

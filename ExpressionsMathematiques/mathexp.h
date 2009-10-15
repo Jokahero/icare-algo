@@ -5,6 +5,10 @@
 #include <QtCore>
 #include "arbre.h"
 
+/*! \brief Résout une expression mathématique.
+
+  Les priorités des opérations (+-×÷) sont respectées, ainsi que les parenthèses.
+*/
 class MATHEXPSHARED_EXPORT MathExp {
 public:
     MathExp();
