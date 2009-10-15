@@ -137,7 +137,7 @@
     <value type="QString" >_=/usr/bin/gmrun</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >/home/marc/Dev/MathExp/MathExp.pro</value>
+    <value type="QString" >/home/marc/Dev/icare-algo/trunk/ExpressionsMathematiques/MathExp.pro</value>
     <value type="QString" >-spec</value>
     <value type="QString" >/usr/share/qt4/mkspecs/linux-g++</value>
     <value type="QString" >-r</value>
@@ -145,7 +145,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool" >false</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/marc/Dev/MathExp</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/marc/Dev/icare-algo/trunk/ExpressionsMathematiques</value>
    <value key="buildConfiguration" type="" ></value>
   </valuemap>
  </data>
@@ -223,7 +223,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/marc/Dev/MathExp</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/marc/Dev/icare-algo/trunk/ExpressionsMathematiques</value>
   </valuemap>
  </data>
  <data>
