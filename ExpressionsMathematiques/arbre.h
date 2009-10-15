@@ -3,6 +3,8 @@
 
 #include <QtCore>
 
+/*! \brief Cette classe implémente les arbres binaires.
+*/
 class Arbre {
 public:
     Arbre();
