@@ -141,6 +141,7 @@ double MathExp::calculRec(Arbre* pArbre) {
             return (g / d);
         else {
             qDebug() << "Division par 0 !";
+            emit divisionParZero();
             return -1;
         }
     }

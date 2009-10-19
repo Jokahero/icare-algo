@@ -9,7 +9,10 @@
 
   Les priorités des opérations (+-×÷) sont respectées, ainsi que les parenthèses.
 */
-class MATHEXPSHARED_EXPORT MathExp {
+class MATHEXPSHARED_EXPORT MathExp : public QObject {
+
+    Q_OBJECT
+
 public:
     MathExp();
     void setExpression(QString pExpression);
@@ -22,6 +25,9 @@ private:
 
     QString m_expression;
     Arbre* m_calcul;
+
+signals:
+    void divisionParZero();
 };
 
 #endif // MATHEXP_H
