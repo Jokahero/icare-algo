@@ -56,7 +56,7 @@
    <value key="ToolChain" type="int" >0</value>
    <value key="addQDumper" type="" ></value>
    <value key="buildConfiguration" type="int" >2</value>
-   <value key="buildDirectory" type="QString" >/home/marc/Dev/MathExp</value>
+   <value key="buildDirectory" type="QString" >/home/marc/Dev/icare-algo/trunk/ExpressionsMathematiques</value>
   </valuemap>
  </data>
  <data>
@@ -86,6 +86,7 @@
     <value type="QString" >DISTCC_LOG=</value>
     <value type="QString" >DISTCC_VERBOSE=</value>
     <value type="QString" >EDITOR=/usr/bin/nano</value>
+    <value type="QString" >FLTK_DOCDIR=/usr/share/doc/fltk-1.1.9-r1/html</value>
     <value type="QString" >GCC_SPECS=</value>
     <value type="QString" >GDK_USE_XFT=1</value>
     <value type="QString" >GENERATION=2</value>
@@ -167,6 +168,7 @@
     <value type="QString" >DISTCC_LOG=</value>
     <value type="QString" >DISTCC_VERBOSE=</value>
     <value type="QString" >EDITOR=/usr/bin/nano</value>
+    <value type="QString" >FLTK_DOCDIR=/usr/share/doc/fltk-1.1.9-r1/html</value>
     <value type="QString" >GCC_SPECS=</value>
     <value type="QString" >GDK_USE_XFT=1</value>
     <value type="QString" >GENERATION=2</value>
