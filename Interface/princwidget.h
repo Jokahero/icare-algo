@@ -4,6 +4,8 @@
 #include <QtGui>
 #include <QWidget>
 
+#include "textedit.h"
+
 class PrincWidget : public QWidget
 {
 
@@ -19,6 +21,10 @@ public:
     QLineEdit *m_fichier;
     QPushButton *m_parcourir;
 
+    // Modification du fichier
+    TextEdit *m_zoneTexte;
+
+    QPushButton *m_quitter;
 
 
 };

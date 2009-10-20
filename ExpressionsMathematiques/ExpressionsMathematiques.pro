@@ -10,3 +10,5 @@ SOURCES += mathexp.cpp \
 HEADERS += mathexp.h \
     MathExp_global.h \
     arbre.h
+
+DESTDIR = ../
