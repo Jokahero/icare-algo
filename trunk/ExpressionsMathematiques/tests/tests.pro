@@ -10,6 +10,6 @@ TEMPLATE = app
 SOURCES += mathexp_tests.cpp
 HEADERS += mathexp_tests.h
 
-LIBS += -L.. -lMathExp
+LIBS += -L../.. -lMathExp
 
-DESTDIR = ../
+DESTDIR = ../../

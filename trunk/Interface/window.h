@@ -4,6 +4,8 @@
 #include <QtGui>
 #include <QtCore>
 
+#include "GUI_global.h"
+
 #include "apropos.h"
 #include "princwidget.h"
 
