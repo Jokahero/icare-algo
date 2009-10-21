@@ -62,6 +62,6 @@ Window::Window() : QMainWindow()
 
     QObject::connect(m_aPropos, SIGNAL(triggered()), m_fenApropos, SLOT(show()));
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
+    QObject::connect(m_ouvrir, SIGNAL(triggered()), m_widgetPrincipal, SLOT(ouvrirFichier()));
 }
 
-// Window::~Window() {}
