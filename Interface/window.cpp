@@ -10,9 +10,12 @@ Window::Window() : QMainWindow()
 
     /* Mise en place du menu principal */
     m_mainMenu = new QMenu (m_barreMenu);
+    m_ouvrir = new QAction(tr("Ouvrir"), this);
+    m_ouvrir->setShortcut(tr("Ctrl+N"));
     m_quitter = new QAction (tr("Quitter"), this);
     m_quitter->setShortcut(tr("Ctrl+Q"));
     m_mainMenu->setTitle(tr("&Fichier"));
+    m_mainMenu->addAction(m_ouvrir);
     m_mainMenu->addAction(m_quitter);
 
     /* Mise en place du menu d'aide */
@@ -35,6 +38,27 @@ Window::Window() : QMainWindow()
     /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("A propos de Icare");
+
+    /* Boutons de tests */
+    m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
+    m_testOperation = new QAction (tr("Tester les &operations"), this);
+    m_testComplet = new QAction (tr("Test complet"), this);
+
+    m_executer = new QAction (this);
+    m_icone = QIcon("go.png");
+    m_executer->setIcon(m_icone);
+    m_executer->setToolTip(tr("Executer"));
+
+        /* Test de la toolbar */
+    m_barreOutilsTests = new QToolBar;
+    m_barreOutilsTests->setMovable(1);
+
+    m_barreOutilsTests->addAction(m_testSyntaxe);
+    m_barreOutilsTests->addAction(m_testOperation);
+    m_barreOutilsTests->addAction(m_testComplet);
+    m_barreOutilsTests->addAction(m_executer);
+
+    addToolBar(m_barreOutilsTests);
 
     QObject::connect(m_aPropos, SIGNAL(triggered()), m_fenApropos, SLOT(show()));
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));

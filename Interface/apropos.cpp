@@ -5,10 +5,14 @@ Apropos::Apropos() : QWidget()
         QVBoxLayout *m_layout = new QVBoxLayout (this);
         m_texte = new QLabel ();
         m_texte->setText(tr("Work in progress ..."));
-        m_layout->insertWidget(0, m_texte);
+        m_icone = new QLabel();
+        m_image = QPixmap("men@work.gif");
+        m_icone->setPixmap(m_image);
+        m_layout->insertWidget(1, m_texte);
+        m_layout->insertWidget(0,m_icone);
 
         m_close = new QPushButton(tr("&Fermer"));
-        m_layout->insertWidget(1, m_close);
+        m_layout->insertWidget(2, m_close);
 
         setLayout(m_layout);
 
