@@ -9,6 +9,8 @@
 #include "apropos.h"
 #include "princwidget.h"
 
+/*! \brief Fenêtre principale
+  */
 class Window : public QMainWindow
 {
     Q_OBJECT
@@ -22,6 +24,7 @@ private:
     QMenuBar *m_barreMenu;
 
     QMenu *m_mainMenu;
+    QAction *m_ouvrir;
     QAction *m_quitter;
 
     QMenu *m_help;
@@ -30,5 +33,16 @@ private:
     PrincWidget *m_widgetPrincipal;
 
     Apropos *m_fenApropos;
+
+        // Tests
+    QAction *m_testSyntaxe;
+    QAction *m_testOperation;
+    QAction *m_testComplet;
+    QAction *m_executer;
+    QIcon m_icone;
+
+    QToolBar *m_barreOutilsTests;
+
+
 };
 #endif // WINDOW_H
