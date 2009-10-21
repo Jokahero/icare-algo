@@ -17,3 +17,18 @@ PrincWidget::PrincWidget()
 
     QObject::connect(m_quitter, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
+
+
+void PrincWidget::ouvrirFichier()
+{
+    QString m_nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), "/home/moi/Dev/icare-algo", "Algorithmes (*.algo)");
+    m_fichier.setFileName(m_nomFichier);
+
+    if(!m_fichier.open(QIODevice::ReadOnly | QIODevice::Text))
+                        return;
+
+    //On créer un flux de texte
+    QTextStream flux(&m_fichier);
+    m_zoneTexte->setPlainText(flux.readAll());
+    m_fichier.close();
+}

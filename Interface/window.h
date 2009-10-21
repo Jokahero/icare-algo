@@ -17,10 +17,8 @@ class Window : public QMainWindow
 
 public:
     Window();
-    // ~Window();
 
 private:
-
     QMenuBar *m_barreMenu;
 
     QMenu *m_mainMenu;
@@ -34,7 +32,7 @@ private:
 
     Apropos *m_fenApropos;
 
-        // Tests
+    // Tests
     QAction *m_testSyntaxe;
     QAction *m_testOperation;
     QAction *m_testComplet;
@@ -42,7 +40,5 @@ private:
     QIcon m_icone;
 
     QToolBar *m_barreOutilsTests;
-
-
 };
 #endif // WINDOW_H
