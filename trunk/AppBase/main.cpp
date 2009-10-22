@@ -1,6 +1,7 @@
 #include <QtCore/QCoreApplication>
 
 #include "../Interface/window.h"
+#include "../Interface/gestionnaireplugins.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,17 @@ int main(int argc, char *argv[])
     translator.load(QString("icare_") + locale);
     a.installTranslator(&translator);
 
+    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&translator);
+
+    GestionnairePlugins g;
+    bool b = g.chargerPlugin("WidgetExec");
+    if (b) {
+        qDebug() << "Plugin chargé avec succès.";
+        g.getPlugin("WidgetExec")->getWidget()->show();
+    }
+    else
+        qDebug() << "Erreur au chargement du plugin.";
 
     Window *fenetre = new Window();
     fenetre->show();
