@@ -23,6 +23,7 @@ private:
 
     QMenu *m_mainMenu;
     QAction *m_ouvrir;
+    QAction *m_enregistrer;
     QAction *m_quitter;
 
     QMenu *m_help;

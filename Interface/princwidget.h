@@ -23,6 +23,8 @@ public:
 
     public slots:
         void ouvrirFichier();
+
+        void enregistrerFichier();
 };
 
 #endif // PRINCWIDGET_H

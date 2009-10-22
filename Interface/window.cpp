@@ -11,11 +11,15 @@ Window::Window() : QMainWindow()
     /* Mise en place du menu principal */
     m_mainMenu = new QMenu (m_barreMenu);
     m_ouvrir = new QAction(tr("Ouvrir"), this);
-    m_ouvrir->setShortcut(tr("Ctrl+N"));
+    m_ouvrir->setShortcut(tr("Ctrl+O"));
+    m_enregistrer = new QAction(tr("Enregistrer"), this);
+    m_enregistrer->setShortcut(tr("Ctrl+S"));
     m_quitter = new QAction (tr("Quitter"), this);
     m_quitter->setShortcut(tr("Ctrl+Q"));
     m_mainMenu->setTitle(tr("&Fichier"));
     m_mainMenu->addAction(m_ouvrir);
+    m_mainMenu->addSeparator();
+    m_mainMenu->addAction(m_enregistrer);
     m_mainMenu->addAction(m_quitter);
 
     /* Mise en place du menu d'aide */
@@ -63,5 +67,6 @@ Window::Window() : QMainWindow()
     QObject::connect(m_aPropos, SIGNAL(triggered()), m_fenApropos, SLOT(show()));
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(m_ouvrir, SIGNAL(triggered()), m_widgetPrincipal, SLOT(ouvrirFichier()));
+    QObject::connect(m_enregistrer, SIGNAL(triggered()), m_widgetPrincipal, SLOT(enregistrerFichier()));
 }
 
