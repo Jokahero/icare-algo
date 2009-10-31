@@ -9,4 +9,10 @@
 #  define MATHEXPSHARED_EXPORT Q_DECL_IMPORT
 #endif
 
+#if defined(ARBRE_LIB)
+#  define ARBRESHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define ARBRESHARED_EXPORT Q_DECL_IMPORT
+#endif
+
 #endif // MATHEXP_GLOBAL_H

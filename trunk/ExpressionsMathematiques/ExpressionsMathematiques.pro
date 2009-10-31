@@ -4,7 +4,7 @@
 QT -= gui
 TARGET = MathExp
 TEMPLATE = lib
-DEFINES += MATHEXP_LIBRARY
+DEFINES += MATHEXP_LIBRARY ARBRE_LIB
 SOURCES += mathexp.cpp \
     arbre.cpp
 HEADERS += mathexp.h \
