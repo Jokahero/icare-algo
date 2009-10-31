@@ -3,9 +3,11 @@
 
 #include <QtCore>
 
+#include "MathExp_global.h"
+
 /*! \brief Cette classe implémente les arbres binaires.
 */
-class Arbre {
+class ARBRESHARED_EXPORT Arbre {
 public:
     Arbre();
     Arbre(QString pContenu, Arbre* pSag, Arbre* pSad);
