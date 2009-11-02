@@ -5,7 +5,7 @@
 
 #include "MathExp_global.h"
 
-/*! \brief Cette classe implémente les arbres binaires.
+/*! \brief Implémente les arbres binaires.
 */
 class ARBRESHARED_EXPORT Arbre {
 public:

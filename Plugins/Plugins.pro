@@ -8,8 +8,4 @@ QT       -= gui
 
 TEMPLATE = subdirs
 
-SUBDIRS += ExpressionsMathematiques Interface Plugins
-
-SUBDIRS += AppBase
-
-SUBDIRS += ExpressionsMathematiques/tests
+SUBDIRS += WidgetExec
