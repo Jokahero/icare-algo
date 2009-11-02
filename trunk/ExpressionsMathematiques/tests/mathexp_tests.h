@@ -5,6 +5,10 @@
 #include <QtCore>
 #include <QtTest>
 
+/*! \brief Tests du module d'expressions mathématiques.
+
+  Teste \em Arbre et MathExp.
+*/
 class MathExp_tests : public QObject {
     Q_OBJECT
 private slots:

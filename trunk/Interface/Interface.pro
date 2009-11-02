@@ -11,11 +11,13 @@ DEFINES += GUI_LIBRARY
 SOURCES += window.cpp \
     apropos.cpp \
     princwidget.cpp \
-    textedit.cpp
+    textedit.cpp \
+    gestionnaireplugins.cpp
 HEADERS += window.h \
     apropos.h \
     princwidget.h \
     textedit.h \
-    GUI_global.h
-
+    GUI_global.h \
+    plugininterface.h \
+    gestionnaireplugins.h
 DESTDIR = ../
