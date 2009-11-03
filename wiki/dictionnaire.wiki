@@ -1,0 +1,100 @@
+#labels Phase-Design
+glossaire:
+Glossaire:
+
+entier val1;
+
+reel
+flottant val2;
+flot
+
+caractere val3;
+carac
+car
+
+chaine val4;
+
+booleen val5;
+
+FinGlossaire
+
+
+
+Debut:
+
+if
+	Si()
+	si()
+else
+	Sinon
+	sinon
+
+FinSi
+finSi
+finsi
+
+switch
+	Menu()
+	menu()
+case 1:
+	Cas 1:
+	cas 1:
+break;
+	Stop;
+	stop;
+
+FinMenu
+finMenu
+finmenu
+
+while
+	TantQue()
+	tantQue()
+	tantque()
+
+FinTantQue
+finTantQue
+fintantque
+finTantque
+
+
+do
+
+while
+repeter
+jusqu'a
+
+
+
+
+
+for
+	Pour i de 1 à nb [incremente/decremente] faire
+
+finPour
+FinPour
+finpour
+
+
+
+
+Fin
+
+
+
+
+Liaision
+
+Et
+et
+Ou
+ou
+Non
+non
+=
+<=
+>=
+!= <>
+
+affectation
+<-
