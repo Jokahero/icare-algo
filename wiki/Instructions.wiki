@@ -1,0 +1,17 @@
+#labels Phase-Design
+afficher()
+//retourne()
+imprime()
+lireFichier()
+
+saisir()
+
+//saisirEntier()
+//saisirReel()
+//saisirCaractere()
+//saisirChaine()
+
+attendre()
+pause()
+
+
