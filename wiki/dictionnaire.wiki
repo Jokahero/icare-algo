@@ -1,100 +1,91 @@
+#summary Mots clés du langage
 #labels Phase-Design
-glossaire:
+
+<wiki:toc max_depth="1" />
+
+_À déterminer : prise en compte des majuscules ?_
+
+== Glossaire ==
+{{{
 Glossaire:
-
-entier val1;
-
-reel
-flottant val2;
-flot
-
-caractere val3;
-carac
-car
-
-chaine val4;
-
-booleen val5;
-
+entier				val1	description de la variable
+reel/réel/flottant/flot		val2
+caractere/carac/car		val3
+chaine/chaîne			val4
+booleen/booléen			val5
 FinGlossaire
+}}}
+_Détecter automatiquement une ligne qui n'est pas sous la forme d'une déclaration de variable ?_
 
 
+== Algorithme ==
 
-Debut:
+{{{
+Debut:/Début:
+}}}
 
-if
-	Si()
-	si()
-else
-	Sinon
-	sinon
-
-FinSi
-finSi
+=== if/else ===
+{{{
+si(condition) alors
+	// …
+sinon si (condition) alors
+	// …
+sinon
+	// …
 finsi
+}}}
 
-switch
-	Menu()
-	menu()
-case 1:
-	Cas 1:
-	cas 1:
-break;
-	Stop;
-	stop;
+=== switch ===
+{{{
+selon(variable)
+cas 1:
+	// …
+défaut:
+	// …
+finselon
+}}}
 
-FinMenu
-finMenu
-finmenu
-
-while
-	TantQue()
-	tantQue()
-	tantque()
-
-FinTantQue
-finTantQue
+=== while ===
+{{{
+tantque(condition) faire
+	// …
 fintantque
-finTantque
+}}}
 
-
-do
-
-while
+=== do/while ===
+{{{
 repeter
-jusqu'a
+	// …
+jusqua(condition)
+}}}
 
-
-
-
-
-for
-	Pour i de 1 à nb [incremente/decremente] faire
-
-finPour
-FinPour
+=== for ===
+{{{
+Pour i de 1 à nb [pas de 1] faire
+	// …
 finpour
+}}}
+
+{{{
+fin
+}}}
 
 
-
-
-Fin
-
-
-
-
-Liaision
-
-Et
+== Liaisons ==
+{{{
 et
-Ou
 ou
-Non
 non
 =
-<=
->=
-!= <>
+<
+>
+<=/≤
+>=/≤
+!=/<>/≠
+}}}
 
-affectation
-<-
+
+== Affectations ==
+{{{
+<-/←
+}}}

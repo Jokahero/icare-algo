@@ -1,17 +1,11 @@
+#summary Instructions standard à implémenter
 #labels Phase-Design
-afficher()
-//retourne()
-imprime()
-lireFichier()
 
-saisir()
+ * `afficher(chaîne, entier, …)`
+ * `imprimer(chaîne, entier, …)`
+ * `lireFichier(chaîne nomFichier)`
 
-//saisirEntier()
-//saisirReel()
-//saisirCaractere()
-//saisirChaine()
+ * `var saisir()`
 
-attendre()
-pause()
-
-
+ * `attendre(entier nombreSecondes)`
+ * `pause()`
