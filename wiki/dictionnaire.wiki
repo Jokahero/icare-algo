@@ -1,9 +1,7 @@
 #summary Mots clés du langage
 #labels Phase-Design
 
-<wiki:toc max_depth="1" />
-
-_À déterminer : prise en compte des majuscules ?_
+_Les mots clés ne sont pas sensible à la casse._
 
 == Glossaire ==
 {{{
@@ -13,10 +11,10 @@ reel/réel/flottant/flot		val2
 caractere/carac/car		val3
 chaine/chaîne			val4
 booleen/booléen			val5
-FinGlossaire
+TYPE[TAILLE]			tab1	tableau de type TYPE comportant TAILLE éléments
 }}}
-_Détecter automatiquement une ligne qui n'est pas sous la forme d'une déclaration de variable ?_
 
+`// Commentaire`
 
 == Algorithme ==
 
