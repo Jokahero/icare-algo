@@ -3,6 +3,7 @@
 # Project created by QtCreator 2009-10-20T16:45:27
 #
 #-------------------------------------------------
+CONFIG += release
 
 TARGET = Icare
 CONFIG   -= app_bundle
@@ -14,4 +15,4 @@ SOURCES += main.cpp
 
 DESTDIR = ../
 
-LIBS += -L.. -lGUI
+LIBS += -L.. -lGUI -lMathExp
