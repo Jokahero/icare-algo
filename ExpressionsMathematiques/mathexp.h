@@ -4,6 +4,7 @@
 #include "MathExp_global.h"
 #include <QtCore>
 #include "arbre.h"
+#include "erreur.h"
 
 /*! \brief Résout une expression mathématique.
 
@@ -27,7 +28,7 @@ private:
     Arbre* m_calcul;
 
 signals:
-    void divisionParZero();
+    void erreur(int);
 };
 
 #endif // MATHEXP_H
