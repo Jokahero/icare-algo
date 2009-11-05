@@ -1,6 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-09-29T21:02:22
 # -------------------------------------------------
+CONFIG += release
 QT -= gui
 TARGET = Analyse
 TEMPLATE = lib
