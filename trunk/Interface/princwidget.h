@@ -17,7 +17,7 @@ public:
     // Modification du fichier
     TextEdit *m_zoneTexte;
 
-    QFile m_fichier;
+    QFile *m_fichier;
 
     QPushButton *m_quitter;
 
@@ -25,6 +25,8 @@ public:
         void ouvrirFichier();
 
         void enregistrerFichier();
+
+
 };
 
 #endif // PRINCWIDGET_H

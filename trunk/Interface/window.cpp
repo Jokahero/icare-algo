@@ -1,4 +1,5 @@
 #include "window.h"
+#include "../ExpressionsMathematiques/erreur.h"
 
 Window::Window() : QMainWindow()
 {
@@ -68,5 +69,18 @@ Window::Window() : QMainWindow()
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(m_ouvrir, SIGNAL(triggered()), m_widgetPrincipal, SLOT(ouvrirFichier()));
     QObject::connect(m_enregistrer, SIGNAL(triggered()), m_widgetPrincipal, SLOT(enregistrerFichier()));
+    QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
 }
 
+void Window::erreurMath(int pCodeErreur)
+{
+    if(pCodeErreur == Erreur::DivisionParZero)
+        QMessageBox::information(this, "Erreur", "Division par zero");
+    else
+        QMessageBox::information(this, "Erreur", "Erreur inconnue");
+}
+
+void Window::execution()
+{
+    //emit executer()
+        }

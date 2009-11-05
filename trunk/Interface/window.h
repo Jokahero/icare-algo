@@ -41,5 +41,13 @@ private:
     QIcon m_icone;
 
     QToolBar *m_barreOutilsTests;
+
+    public slots:
+       void erreurMath(int);
+
+       void execution();
+
+    signals:
+       void executer(QFile*);
 };
 #endif // WINDOW_H

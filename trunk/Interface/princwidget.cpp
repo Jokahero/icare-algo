@@ -7,6 +7,8 @@ PrincWidget::PrincWidget()
 
     m_quitter = new QPushButton ("&Quitter", this);
 
+    m_fichier = new QFile(this);
+
     /* On ajoute une grille principale pour y insérer les différents objets */
     QGridLayout *m_princGrille = new QGridLayout (this);
 
@@ -22,23 +24,25 @@ PrincWidget::PrincWidget()
 void PrincWidget::ouvrirFichier()
 {
     QString m_nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo)");
-    m_fichier.setFileName(m_nomFichier);
+    m_fichier->setFileName(m_nomFichier);
 
-    if(!m_fichier.open(QIODevice::ReadOnly | QIODevice::Text))
+    if(!m_fichier->open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
     //On créer un flux de texte
-    QTextStream flux(&m_fichier);
+    QTextStream flux(m_fichier);
     m_zoneTexte->setPlainText(flux.readAll());
-    m_fichier.close();
+    m_fichier->close();
 }
 
 void PrincWidget::enregistrerFichier()
 {
-    if(!m_fichier.open(QIODevice::WriteOnly | QIODevice::Text))
+    if(!m_fichier->open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
     QString texte = m_zoneTexte->toPlainText();
-    m_fichier.write(texte.toLocal8Bit());
-    m_fichier.close();
+    m_fichier->write(texte.toLocal8Bit());
+    m_fichier->close();
 }
+
+
