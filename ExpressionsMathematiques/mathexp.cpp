@@ -23,6 +23,13 @@ Arbre* MathExp::parseExp(QString pExpression) {
         return NULL;
     Arbre* t = new Arbre();
 
+    // Erreur de parenthèses
+    if (pExpression.count("(") != pExpression.count(")")) {
+        qDebug() << "Erreur de parentheses dans l'expression " << pExpression;
+        emit erreur(Erreur::Parentheses);
+        return NULL;
+    }
+
     // Test de l'utilité des parenthèses : (1+1) → 1+1
     if (pExpression.left(1) == "(" && pExpression.right(1) == ")") {
         int i, cpt = 0;
@@ -32,6 +39,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
             else if (pExpression.at(i) == ')')
                 cpt--;
         }
+
         if (i < pExpression.length() && cpt == 0) {
             pExpression = pExpression.left(pExpression.length() - 1);
             pExpression = pExpression.right(pExpression.length() - 1);
