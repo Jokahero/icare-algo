@@ -33,8 +33,10 @@ void MathExp_tests::testArbre() {
 
 void MathExp_tests::testMathExp() {
     MathExp* m = new MathExp();
-    QSignalSpy divisionParZeroSpy(m, SIGNAL(divisionParZero()));
+    QSignalSpy divisionParZeroSpy(m, SIGNAL(erreur(int)));
     m->setExpression("1/0");
+    QCOMPARE(m->calcul(), (double)-1);
+    m->setExpression("5*(4))");
     QCOMPARE(m->calcul(), (double)-1);
     QVERIFY(divisionParZeroSpy.isEmpty() == false);
     m->setExpression("3*5-2*2");
