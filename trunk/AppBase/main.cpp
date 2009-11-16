@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
 
-    fenetre->show();
+    fenetre->showMaximized();
 
     return a.exec();
 }

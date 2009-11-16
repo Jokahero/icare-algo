@@ -23,6 +23,7 @@ public:
 
     public slots:
         void ouvrirFichier();
+        void ouvrirFichier(QString pNomFichier);
 
         void enregistrerFichier();
 

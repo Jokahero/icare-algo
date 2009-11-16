@@ -2,6 +2,8 @@
 
 Apropos::Apropos() : QWidget()
 {
+        setMinimumSize(300,150);
+
         QVBoxLayout *m_layout = new QVBoxLayout (this);
         m_texte = new QLabel ();
         m_texte->setText(tr("Work in progress ..."));
