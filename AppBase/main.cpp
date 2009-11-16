@@ -24,10 +24,15 @@ int main(int argc, char *argv[])
     if (b) {
         qDebug() << "Plugin chargé avec succès.";
         fenetre->addDockWidget(Qt::BottomDockWidgetArea, g.getPlugin("WidgetExec")->getDockWidget());
-        //g.getPlugin("WidgetExec")->getDockWidget()->show();
     }
     else
         qDebug() << "Erreur au chargement du plugin.";
+
+    // Chargement d'un fichier passé en paramètre
+    if (argc > 1) {
+        fenetre->m_widgetPrincipal->ouvrirFichier(argv[1]);
+        qDebug() << argv[1];
+    }
 
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
 
