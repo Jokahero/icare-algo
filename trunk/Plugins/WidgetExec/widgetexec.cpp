@@ -3,11 +3,15 @@
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
 */
 WidgetExec::WidgetExec() {
-    //QHBoxLayout *layout = new QHBoxLayout(this);
+    m_dockWidget = new QDockWidget;
+    QWidget* tmp = new QWidget();
+    QHBoxLayout *layout = new QHBoxLayout(tmp);
     m_textEdit = new QTextEdit;
-    //layout->addWidget(m_textEdit);
+    layout->addWidget(m_textEdit);
     m_textEdit->setReadOnly(true);
-    //setLayout(layout);
+    tmp->setLayout(layout);
+    m_dockWidget->setWidget(tmp);
+    m_dockWidget->setWindowTitle(getNom());
 }
 
 /*! \brief Ajoute le texte indiqué à la suite du texte présent.
@@ -39,8 +43,8 @@ QString WidgetExec::getNom() {
     return QString("WidgetExec");
 }
 
-QWidget* WidgetExec::getWidget() {
-    return m_textEdit;
+QDockWidget* WidgetExec::getDockWidget() {
+    return m_dockWidget;
 }
 
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);

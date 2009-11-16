@@ -17,16 +17,17 @@ int main(int argc, char *argv[])
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&translator);
 
+    Window *fenetre = new Window();
+
     GestionnairePlugins g;
     bool b = g.chargerPlugin("WidgetExec");
     if (b) {
         qDebug() << "Plugin chargé avec succès.";
-        g.getPlugin("WidgetExec")->getWidget()->show();
+        fenetre->addDockWidget(Qt::BottomDockWidgetArea, g.getPlugin("WidgetExec")->getDockWidget());
+        //g.getPlugin("WidgetExec")->getDockWidget()->show();
     }
     else
         qDebug() << "Erreur au chargement du plugin.";
-
-    Window *fenetre = new Window();
 
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
 
