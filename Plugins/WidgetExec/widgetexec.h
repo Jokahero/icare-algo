@@ -16,7 +16,7 @@ class WidgetExec : public QObject, PluginInterface {
 public:
     WidgetExec();
     QString getNom();
-    QWidget* getWidget();
+    QDockWidget* getDockWidget();
 
 private slots:
     void ajouterTexte(QString pTexte);
@@ -25,6 +25,7 @@ private slots:
 
 private:
     QTextEdit* m_textEdit;
+    QDockWidget* m_dockWidget;
 };
 
 #endif // WIDGETEXEC_H
