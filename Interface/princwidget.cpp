@@ -23,8 +23,14 @@ PrincWidget::PrincWidget()
 
 void PrincWidget::ouvrirFichier()
 {
-    QString m_nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo)");
-    m_fichier->setFileName(m_nomFichier);
+    QString nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
+
+    ouvrirFichier(nomFichier);
+}
+
+void PrincWidget::ouvrirFichier(QString pNomFichier)
+{
+    m_fichier->setFileName(pNomFichier);
 
     if(!m_fichier->open(QIODevice::ReadOnly | QIODevice::Text))
         return;
