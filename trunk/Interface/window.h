@@ -18,6 +18,8 @@ class Window : public QMainWindow
 public:
     Window();
 
+    PrincWidget *m_widgetPrincipal;
+
 private:
     QMenuBar *m_barreMenu;
 
@@ -28,8 +30,6 @@ private:
 
     QMenu *m_help;
     QAction *m_aPropos;
-
-    PrincWidget *m_widgetPrincipal;
 
     Apropos *m_fenApropos;
 
