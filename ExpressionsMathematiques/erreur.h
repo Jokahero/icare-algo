@@ -2,10 +2,7 @@
 #define ERREUR_H
 
 class Erreur {
-
 public:
-    Erreur();
-
     enum {
         DivisionParZero,
         PositionOperateurs,

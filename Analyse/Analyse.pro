@@ -5,10 +5,13 @@ CONFIG += release
 QT -= gui
 TARGET = Analyse
 TEMPLATE = lib
-DEFINES += ANALYSESEMANTIQUE_LIBRARY ANALYSESYNTAXIQUE_LIBRARY
+DEFINES += ANALYSESEMANTIQUE_LIBRARY \
+    ANALYSESYNTAXIQUE_LIBRARY
 SOURCES += analysesyntaxique.cpp \
-    analysesemantique.cpp
+    analysesemantique.cpp \
+    glossaire.cpp
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
-    analysesemantique.h
+    analysesemantique.h \
+    glossaire.h
 DESTDIR = ../
