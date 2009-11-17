@@ -5,10 +5,10 @@ CONFIG += release
 QT -= gui
 TARGET = MathExp
 TEMPLATE = lib
-DEFINES += MATHEXP_LIBRARY ARBRE_LIB
+DEFINES += MATHEXP_LIBRARY \
+    ARBRE_LIB
 SOURCES += mathexp.cpp \
-    arbre.cpp \
-    erreur.cpp
+    arbre.cpp
 HEADERS += mathexp.h \
     MathExp_global.h \
     arbre.h \

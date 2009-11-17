@@ -13,4 +13,4 @@ SUBDIRS += Analyse ExpressionsMathematiques Interface Plugins
 
 SUBDIRS += AppBase
 
-SUBDIRS += ExpressionsMathematiques/tests
+SUBDIRS += Analyse/TestsAnalyse ExpressionsMathematiques/tests
