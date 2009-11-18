@@ -17,13 +17,17 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 
   # _Ouvrir un fichier *|OK|*
   # Analyse syntaxique_
+    * implémenter le dictionnaire
     * récupérer les variables
     * stocker les variables (Glossaire) *|Marc|*
     * récupérer les instructions
     * stocker les instructions
     * Vérifier la syntaxe de chaque instruction 
   # _Analyse mathématique *|Marc|*
-  # Analyse sémantique_
+  # Analyse sémantique
+  # Execution_
+    * implémenter les instructions
+    * executer
 
 *Interface:*
  
