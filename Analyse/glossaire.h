@@ -7,17 +7,31 @@
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
 class Glossaire : public QObject {
+    Q_OBJECT
+
 public:
     Glossaire();
     bool existe(QString pNomVar);
-    bool ajout(QString pNomVar, int pValeur);
-    bool ajout(QString pNomVar, QString pValeur);
-    bool ajout(QString pNomVar, double pValeur);
+    bool ajoutEntier(QString pNomVar, QString pDescription);
+    bool ajoutChaine(QString pNomVar, QString pDescription);
+    bool ajoutDouble(QString pNomVar, QString pDescription);
+
+    int getValeurEntier(QString pNomVar);
+    QString getValeurChaine(QString pNomVar);
+    double getValeurDouble(QString pNomVar);
+
+    void setValeurEntier(QString pNomVar, int pValeur);
+    void setValeurChaine(QString pNomVar, QString pValeur);
+    void setValeurDouble(QString pNomVar, double pValeur);
 
 private:
-    QHash<QString, int>* m_listeInt;
+    QHash<QString, int>* m_listeEntier;
     QHash<QString, QString>* m_listeChaine;
     QHash<QString, double>* m_listeDouble;
+    QHash<QString, QString>* m_description;
+
+signals:
+    void erreur(int);
 };
 
 #endif // GLOSSAIRE_H

@@ -13,5 +13,6 @@ SOURCES += analysesyntaxique.cpp \
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
-    glossaire.h
+    glossaire.h \
+    erreuranalyse.h
 DESTDIR = ../
