@@ -2,9 +2,13 @@
 
 void Analyse_tests::testGlossaire() {
     QVERIFY(!g->existe("Toto"));
-    QVERIFY(g->ajout("Toto", 5));
+    QVERIFY(g->ajoutEntier("Toto", "Variable de test"));
     QVERIFY(g->existe("Toto"));
-    QVERIFY(!g->ajout("Toto", "test"));
+    QVERIFY(!g->ajoutChaine("Toto", "test"));
+    QVERIFY(g->getValeurChaine("Toto") == QString::null);
+    QVERIFY(g->getValeurEntier("Toto") == 0);
+    g->setValeurEntier("Toto", 42);
+    QVERIFY(g->getValeurEntier("Toto") == 42);
 }
 
 void Analyse_tests::initTestCase() {
