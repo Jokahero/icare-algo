@@ -1,0 +1,37 @@
+#summary Liste des tâches à faire, en cours, faites.
+
+= Introduction =
+Sont listées ici les tâches en cours, à faire et réalisées.
+
+L'avancement est noté:
+
+|Toto|: En cours, Toto se charge de cette tâche.
+
+|OK|: Fini.
+
+Si l'avancement n'est pas spécifié, la tâche est à faire.
+
+= Details =
+
+*Traitement:*
+
+  # _Ouvrir un fichier *|OK|*
+  # Analyse syntaxique_
+    * récupérer les variables
+    * stocker les variables (Glossaire) *|Marc|*
+    * récupérer les instructions
+    * stocker les instructions
+    * Vérifier la syntaxe de chaque instruction 
+  # _Analyse mathématique *|Marc|*
+  # Analyse sémantique_
+
+*Interface:*
+ 
+  # _Coloration syntaxique
+  # Affichage du glossaire
+  # Menus_
+    * Principal
+    * Analyse *|Nicolas|*
+    * Options *|Nicolas|*
+    * Aide
+ 
