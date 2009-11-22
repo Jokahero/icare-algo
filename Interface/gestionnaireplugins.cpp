@@ -1,8 +1,10 @@
 #include "gestionnaireplugins.h"
 
-GestionnairePlugins::GestionnairePlugins() {
-}
+/*! \brief Charge le plugin de nom pNomPlugin.
 
+  \param pNomPlugin Nom du plugin à charger.
+  \return Vrai si le plugin a été chargé, faux sinon.
+*/
 bool GestionnairePlugins::chargerPlugin(QString pNomPlugin) {
     QDir pluginsDir(qApp->applicationDirPath());
 #if defined(Q_OS_WIN)
@@ -34,6 +36,11 @@ bool GestionnairePlugins::chargerPlugin(QString pNomPlugin) {
     return false;
 }
 
+/*! \brief Renvoie un pointeur vers l'instance du plugin de nom pNomPlugin.
+
+  \param pNomPlugin Nom du plugin recherché.
+  \return Un pointeur vers l'instance du plugin, NULL si il n'a pas été trouvé.
+*/
 PluginInterface* GestionnairePlugins::getPlugin(QString pNomPlugin) {
     for (int i = 0; i < m_listePlugins.size(); i++)
         if (m_listePlugins.at(i)->getNom() == pNomPlugin)

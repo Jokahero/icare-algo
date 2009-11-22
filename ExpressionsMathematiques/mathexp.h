@@ -24,8 +24,8 @@ private:
     Arbre* parseExp(QString pExpression);
     double calculRec(Arbre* pArbre);
 
-    QString m_expression;
-    Arbre* m_calcul;
+    QString m_expression;                       /*!<\brief Expression mathématique à calculer. */
+    Arbre* m_calcul;                            /*!<\brief Racine de l'arbre utilisé pour le calcul. */
 
 signals:
     void erreur(int);
