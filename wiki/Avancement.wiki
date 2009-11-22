@@ -18,8 +18,8 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
   # _Ouvrir un fichier *|OK|*
   # Analyse syntaxique_
     * implémenter le dictionnaire
-    * récupérer les variables
-    * stocker les variables (Glossaire) *|Marc|*
+    * récupérer les variables *|Marc|*
+    * stocker les variables (Glossaire) *|Ok|*
     * récupérer les instructions
     * stocker les instructions
     * Vérifier la syntaxe de chaque instruction 
