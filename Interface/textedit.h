@@ -8,6 +8,14 @@ class TextEdit : public QTextEdit
 {
 public:
     TextEdit();
+
+    QString lectureLigne(int pNumLigne);
+    QString lectureLigne();
+    bool finFichier(int pNumLigne);
+    bool finFichier();
+
+private:
+    int m_derniereLigneLue;
 };
 
 #endif // TEXTEDIT_H
