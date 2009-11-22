@@ -71,6 +71,11 @@ bool Glossaire::ajoutDouble(QString pNomVar, QString pDescription) {
     return true;
 }
 
+/*! \brief Récupère la valeur d'un entier.
+
+  \param pNomVar Nom de la variable a récupérer.
+  \return La valeur de la variable récupérée.
+*/
 int Glossaire::getValeurEntier(QString pNomVar) {
     if (!existe(pNomVar)) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
@@ -82,6 +87,11 @@ int Glossaire::getValeurEntier(QString pNomVar) {
         return m_listeEntier->value(pNomVar);
 }
 
+/*! \brief Récupère la valeur d'une chaîne.
+
+  \param pNomVar Nom de la variable a récupérer.
+  \return La valeur de la variable récupérée.
+*/
 QString Glossaire::getValeurChaine(QString pNomVar) {
     if (!existe(pNomVar)) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
@@ -93,6 +103,11 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
         return m_listeChaine->value(pNomVar);
 }
 
+/*! \brief Récupère la valeur d'un double.
+
+  \param pNomVar Nom de la variable a récupérer.
+  \return La valeur de la variable récupérée.
+*/
 double Glossaire::getValeurDouble(QString pNomVar) {
     if (!existe(pNomVar)) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
@@ -104,6 +119,11 @@ double Glossaire::getValeurDouble(QString pNomVar) {
         return m_listeDouble->value(pNomVar);
 }
 
+/*! \brief Définit la valeur d'un entier.
+
+  \param pNomVar Nom de la variable a modifier.
+  \param pValeur L'entier à lui affecter.
+*/
 void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
     if (m_listeEntier->contains(pNomVar))
         (*m_listeEntier)[pNomVar] = pValeur;
@@ -113,6 +133,11 @@ void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
 }
 
+/*! \brief Définit la valeur d'une chaîne.
+
+  \param pNomVar Nom de la variable a modifier.
+  \param pValeur La chaîne à lui affecter.
+*/
 void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
     if (m_listeChaine->contains(pNomVar))
         (*m_listeChaine)[pNomVar] = pValeur;
@@ -122,6 +147,11 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
 }
 
+/*! \brief Définit la valeur d'un double.
+
+  \param pNomVar Nom de la variable a modifier.
+  \param pValeur Le double à lui affecter.
+*/
 void Glossaire::setValeurDouble(QString pNomVar, double pValeur) {
     if (m_listeDouble->contains(pNomVar))
         (*m_listeDouble)[pNomVar] = pValeur;

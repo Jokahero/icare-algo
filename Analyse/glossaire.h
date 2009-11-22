@@ -3,10 +3,11 @@
 
 #include <QObject>
 #include <QtCore/QHash>
+#include "Analyse_global.h"
 
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
-class Glossaire : public QObject {
+class ANALYSESEMANTIQUESHARED_EXPORT Glossaire : public QObject {
     Q_OBJECT
 
 public:
