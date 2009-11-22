@@ -2,6 +2,9 @@
 
 TextEdit::TextEdit() {
     m_derniereLigneLue = 0;
+    m_texteModifie = true;
+
+    QObject::connect(this, SIGNAL(textChanged()), this, SLOT(texteModifie()));
 }
 
 /*! \brief Retourne le contenu de la ligne pNumLigne.
@@ -15,10 +18,12 @@ QString TextEdit::lectureLigne(int pNumLigne) {
         m_derniereLigneLue = pNumLigne;
     else
         m_derniereLigneLue = 1;
-
-    QStringList liste = toPlainText().split('\n');
-    if (liste.size() >= (m_derniereLigneLue - 1))
-        return liste.at(m_derniereLigneLue - 1);
+    if (m_texteModifie) {
+        m_listeLignes = toPlainText().split('\n');
+        m_texteModifie = false;
+    }
+    if (m_listeLignes.size() >= (m_derniereLigneLue - 1))
+        return m_listeLignes.at(m_derniereLigneLue - 1);
     else
         return QString::null;
 }
@@ -38,7 +43,11 @@ QString TextEdit::lectureLigne() {
   \return Vrai si la fin du fichier est atteinte, faux sinon.
 */
 bool TextEdit::finFichier(int pNumLigne) {
-    if (toPlainText().split('\n').size() > (pNumLigne + 1))
+    if (m_texteModifie) {
+        m_listeLignes = toPlainText().split('\n');
+        m_texteModifie = false;
+    }
+    if (m_listeLignes.size() > (pNumLigne + 1))
         return false;
     else
         return true;
@@ -50,4 +59,9 @@ bool TextEdit::finFichier(int pNumLigne) {
 */
 bool TextEdit::finFichier() {
     return finFichier(m_derniereLigneLue);
+}
+
+void TextEdit::texteModifie() {
+    if (!m_texteModifie)
+        m_texteModifie = true;
 }

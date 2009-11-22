@@ -3,9 +3,9 @@
 
 #include <QtGui>
 /*! \brief Zone de texte permettant d'afficher et de modifier le contenu du fichier
-  */
-class TextEdit : public QTextEdit
-{
+*/
+class TextEdit : public QTextEdit {
+    Q_OBJECT
 public:
     TextEdit();
 
@@ -16,6 +16,11 @@ public:
 
 private:
     int m_derniereLigneLue;
+    bool m_texteModifie;
+    QStringList m_listeLignes;
+
+private slots:
+    void texteModifie();
 };
 
 #endif // TEXTEDIT_H
