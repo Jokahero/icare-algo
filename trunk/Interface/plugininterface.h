@@ -5,6 +5,9 @@
 #include <QtPlugin>
 #include <QtGui/QDockWidget>
 
+/*!
+  \brief Définit l'interface utilisable par les plugins.
+*/
 class PluginInterface {
 public:
     virtual ~PluginInterface() {}

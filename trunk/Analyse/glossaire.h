@@ -26,10 +26,10 @@ public:
     void setValeurDouble(QString pNomVar, double pValeur);
 
 private:
-    QHash<QString, int>* m_listeEntier;
-    QHash<QString, QString>* m_listeChaine;
-    QHash<QString, double>* m_listeDouble;
-    QHash<QString, QString>* m_description;
+    QHash<QString, int>* m_listeEntier;                      /*!<\brief Stocke les variables entières. */
+    QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaînes de caractères. */
+    QHash<QString, double>* m_listeDouble;                   /*!<\brief Stocke les variables à virgules. */
+    QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
 
 signals:
     void erreur(int);

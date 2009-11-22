@@ -4,9 +4,10 @@
 #include "plugininterface.h"
 #include <QtCore>
 
+/*! \brief Charge et stocke les plugins.
+  */
 class GestionnairePlugins {
 public:
-    GestionnairePlugins();
     bool chargerPlugin(QString pNomPlugin);
     PluginInterface* getPlugin(QString pNomPlugin);
 
