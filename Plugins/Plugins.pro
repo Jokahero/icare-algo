@@ -9,4 +9,4 @@ QT       -= gui
 
 TEMPLATE = subdirs
 
-SUBDIRS += WidgetExec
+SUBDIRS += WidgetExec WidgetGlossaire

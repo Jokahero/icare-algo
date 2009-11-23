@@ -47,3 +47,7 @@ PluginInterface* GestionnairePlugins::getPlugin(QString pNomPlugin) {
             return m_listePlugins.at(i);
     return NULL;
 }
+
+QList<PluginInterface*> GestionnairePlugins::getListePlugins() {
+    return m_listePlugins;
+}

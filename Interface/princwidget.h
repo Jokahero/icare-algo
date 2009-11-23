@@ -19,8 +19,6 @@ public:
 
     QFile *m_fichier;
 
-    QPushButton *m_quitter;
-
     public slots:
         void ouvrirFichier();
         void ouvrirFichier(QString pNomFichier);

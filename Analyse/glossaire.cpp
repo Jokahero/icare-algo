@@ -36,6 +36,7 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
     }
     m_listeEntier->insert(pNomVar, 0);
     m_description->insert(pNomVar, pDescription);
+    emit variableAjoutee(pNomVar, "Entier", pDescription);
     return true;
 }
 
@@ -52,6 +53,7 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
     }
     m_listeChaine->insert(pNomVar, QString::null);
     m_description->insert(pNomVar, pDescription);
+    emit variableAjoutee(pNomVar, "Chaîne", pDescription);
     return true;
 }
 
@@ -68,6 +70,7 @@ bool Glossaire::ajoutDouble(QString pNomVar, QString pDescription) {
     }
     m_listeDouble->insert(pNomVar, 0);
     m_description->insert(pNomVar, pDescription);
+    emit variableAjoutee(pNomVar, "Double", pDescription);
     return true;
 }
 
@@ -125,9 +128,10 @@ double Glossaire::getValeurDouble(QString pNomVar) {
   \param pValeur L'entier à lui affecter.
 */
 void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
-    if (m_listeEntier->contains(pNomVar))
+    if (m_listeEntier->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, QString::number(pValeur));
         (*m_listeEntier)[pNomVar] = pValeur;
-    else if (existe(pNomVar))
+    } else if (existe(pNomVar))
         emit(erreur(ErreurAnalyse::TypeIncorrect));
     else
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
@@ -139,9 +143,10 @@ void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
   \param pValeur La chaîne à lui affecter.
 */
 void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
-    if (m_listeChaine->contains(pNomVar))
+    if (m_listeChaine->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, pValeur);
         (*m_listeChaine)[pNomVar] = pValeur;
-    else if (existe(pNomVar))
+    } else if (existe(pNomVar))
         emit(erreur(ErreurAnalyse::TypeIncorrect));
     else
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
@@ -153,9 +158,10 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
   \param pValeur Le double à lui affecter.
 */
 void Glossaire::setValeurDouble(QString pNomVar, double pValeur) {
-    if (m_listeDouble->contains(pNomVar))
+    if (m_listeDouble->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, QString::number(pValeur));
         (*m_listeDouble)[pNomVar] = pValeur;
-    else if (existe(pNomVar))
+    } else if (existe(pNomVar))
         emit(erreur(ErreurAnalyse::TypeIncorrect));
     else
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
