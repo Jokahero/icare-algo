@@ -18,7 +18,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
   # _Ouvrir un fichier *|OK|*
   # Analyse syntaxique_
     * implémenter le dictionnaire
-    * récupérer les variables *|Marc|*
+    * récupérer les variables *|Ok|*
     * stocker les variables (Glossaire) *|Ok|*
     * récupérer les instructions
     * stocker les instructions
@@ -32,7 +32,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 *Interface:*
  
   # _Coloration syntaxique
-  # Affichage du glossaire
+  # Affichage du glossaire *|Marc|*
   # Menus_
     * Principal
     * Analyse *|Nicolas|*
