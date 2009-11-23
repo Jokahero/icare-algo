@@ -8,7 +8,7 @@
 
 /*! \brief Widget affichant le résultat des analyses, les sorties d'exécutions et permet la saisie lors des exécutions.
 */
-class WidgetExec : public QObject, PluginInterface {
+class WidgetExec : public PluginInterface {
 
     Q_OBJECT
     Q_INTERFACES(PluginInterface)

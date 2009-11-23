@@ -40,7 +40,7 @@ void WidgetExec::remplacerTexte(QString pTexte) {
 }
 
 QString WidgetExec::getNom() {
-    return QString("WidgetExec");
+    return QString(tr("WidgetExec"));
 }
 
 QDockWidget* WidgetExec::getDockWidget() {

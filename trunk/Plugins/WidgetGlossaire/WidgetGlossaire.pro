@@ -12,5 +12,5 @@ INCLUDEPATH += .
 DESTDIR = ../
 
 # Input
-HEADERS += widgetexec.h
-SOURCES += widgetexec.cpp
+HEADERS += widgetglossaire.h
+SOURCES += widgetglossaire.cpp

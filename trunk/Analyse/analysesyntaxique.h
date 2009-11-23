@@ -12,6 +12,7 @@ class ANALYSESYNTAXIQUESHARED_EXPORT AnalyseSyntaxique : public QObject {
 
 public:
     AnalyseSyntaxique(TextEdit* pTextEdit);
+    Glossaire* getGlossaire();
 
 public slots:
     void lancer();

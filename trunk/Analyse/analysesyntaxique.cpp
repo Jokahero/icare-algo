@@ -55,3 +55,7 @@ void AnalyseSyntaxique::lectureGlossaire() {
     }
     qDebug() << "Lecture du glossaire terminée.";
 }
+
+Glossaire* AnalyseSyntaxique::getGlossaire() {
+    return m_glossaire;
+}

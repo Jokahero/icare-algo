@@ -33,6 +33,8 @@ private:
 
 signals:
     void erreur(int);
+    void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
+    void variableModifiee(QString pNomVar, QString pValeur);
 };
 
 #endif // GLOSSAIRE_H
