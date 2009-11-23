@@ -41,8 +41,9 @@ void AnalyseSyntaxique::lectureGlossaire() {
             QString type = ligneAct.left(ligneAct.indexOf(' ')).toLower();
             if (type == "entier" || type == "double" || type == "chaine" || type == "chaîne" || type == "caractere" || type == "caractère") {
                 QString nomVar = ligneAct.right(ligneAct.size() - type.size() - 1);
-                QString desc = nomVar.right(nomVar.size() - type.size() - 3);
+                QString desc = nomVar;
                 nomVar = nomVar.left(nomVar.indexOf(' '));
+                desc = desc.right(desc.size() - nomVar.size() - 1);
                 if (type == "entier") {
                     m_glossaire->ajoutEntier(nomVar, desc);
                 } else if (type == "double") {
