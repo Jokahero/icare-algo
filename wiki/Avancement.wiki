@@ -32,7 +32,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 *Interface:*
  
   # _Coloration syntaxique
-  # Affichage du glossaire *|Marc|*
+  # Affichage du glossaire *|Ok|*
   # Menus_
     * Principal
     * Analyse *|Nicolas|*
