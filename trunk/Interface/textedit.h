@@ -13,6 +13,8 @@ public:
     QString lectureLigne();
     bool finFichier(int pNumLigne);
     bool finFichier();
+    void retourDebut();
+    int numLigneActuelle();
 
 private:
     int m_derniereLigneLue;

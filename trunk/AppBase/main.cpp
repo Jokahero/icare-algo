@@ -2,6 +2,7 @@
 #include "../Interface/window.h"
 #include "../ExpressionsMathematiques/mathexp.h"
 #include "../Interface/gestionnaireplugins.h"
+#include "../Analyse/analysesyntaxique.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
 
     Window *fenetre = new Window();
 
+    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique(fenetre->m_widgetPrincipal->m_zoneTexte);
+
     GestionnairePlugins g;
     bool b = g.chargerPlugin("WidgetExec");
     if (b) {
@@ -35,6 +38,7 @@ int main(int argc, char *argv[])
     }
 
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
+    QObject::connect(fenetre->m_testSyntaxe, SIGNAL(triggered()), analyseSyntaxique, SLOT(lancer()));
 
     fenetre->showMaximized();
 

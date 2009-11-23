@@ -39,9 +39,6 @@ void PrincWidget::ouvrirFichier(QString pNomFichier)
     QTextStream flux(m_fichier);
     m_zoneTexte->setPlainText(flux.readAll());
     m_fichier->close();
-
-    while (!m_zoneTexte->finFichier())
-        qDebug() << m_zoneTexte->lectureLigne();
 }
 
 void PrincWidget::enregistrerFichier()
