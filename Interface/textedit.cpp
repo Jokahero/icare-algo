@@ -65,3 +65,11 @@ void TextEdit::texteModifie() {
     if (!m_texteModifie)
         m_texteModifie = true;
 }
+
+void TextEdit::retourDebut() {
+    m_derniereLigneLue = 0;
+}
+
+int TextEdit::numLigneActuelle() {
+    return (m_derniereLigneLue + 1);
+}

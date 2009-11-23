@@ -20,6 +20,12 @@ public:
 
     PrincWidget *m_widgetPrincipal;
 
+    // Tests
+    QAction *m_testSyntaxe;
+    QAction *m_testOperation;
+    QAction *m_testComplet;
+    QAction *m_executer;
+
 private:
     QMenuBar *m_barreMenu;
 
@@ -33,11 +39,6 @@ private:
 
     Apropos *m_fenApropos;
 
-    // Tests
-    QAction *m_testSyntaxe;
-    QAction *m_testOperation;
-    QAction *m_testComplet;
-    QAction *m_executer;
     QIcon m_icone;
 
     QToolBar *m_barreOutilsTests;
