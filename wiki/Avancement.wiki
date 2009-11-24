@@ -17,10 +17,10 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 
   # _Ouvrir un fichier *|OK|*
   # Analyse syntaxique_
-    * implémenter le dictionnaire
+    * implémenter le dictionnaire *|Vincent|*
     * récupérer les variables *|Ok|*
     * stocker les variables (Glossaire) *|Ok|*
-    * récupérer les instructions
+    * récupérer les instructions *|Clémence|*
     * stocker les instructions
     * Vérifier la syntaxe de chaque instruction 
   # _Analyse mathématique *|Marc|*
