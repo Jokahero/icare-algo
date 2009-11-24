@@ -30,7 +30,7 @@ void AnalyseSyntaxique::lectureGlossaire() {
         if (ligneAct == "glossaire")
             debutGlossaire = m_zoneTexte->numLigneActuelle();
         else if (ligneAct == "debut" || ligneAct == "début")
-            finGlossaire = (m_zoneTexte->numLigneActuelle() - 1);
+            finGlossaire = (m_zoneTexte->numLigneActuelle() - 1);//break;
     }
 
     // Si il y a un glossaire :
@@ -38,7 +38,7 @@ void AnalyseSyntaxique::lectureGlossaire() {
         for (int i = debutGlossaire; i < finGlossaire; i++) {
             ligneAct = m_zoneTexte->lectureLigne(i).simplified();
             qDebug() << "ligneAct : " << ligneAct;
-            QString type = ligneAct.left(ligneAct.indexOf(' ')).toLower();
+            QString type = ligneAct.left(ligneAct.indexOf(' ')).toLower(); //met tout en minuscules
             if (type == "entier" || type == "double" || type == "chaine" || type == "chaîne" || type == "caractere" || type == "caractère") {
                 QString nomVar = ligneAct.right(ligneAct.size() - type.size() - 1);
                 QString desc = nomVar;

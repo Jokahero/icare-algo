@@ -59,5 +59,8 @@ int main(int argc, char *argv[])
 
     fenetre->showMaximized();
 
+    Dictionnaire dico;
+   // dico = new Dictionnaire();
+
     return a.exec();
 }

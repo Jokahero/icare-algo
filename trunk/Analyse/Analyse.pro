@@ -8,10 +8,14 @@ DEFINES += ANALYSESEMANTIQUE_LIBRARY \
     ANALYSESYNTAXIQUE_LIBRARY
 SOURCES += analysesyntaxique.cpp \
     analysesemantique.cpp \
-    glossaire.cpp
+    glossaire.cpp \
+    dictionnaire.cpp \
+    instruction.cpp
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
     glossaire.h \
-    erreuranalyse.h
+    erreuranalyse.h \
+    dictionnaire.h \
+    instruction.h
 DESTDIR = ../
