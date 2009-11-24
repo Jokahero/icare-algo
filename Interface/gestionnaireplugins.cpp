@@ -18,10 +18,8 @@ bool GestionnairePlugins::chargerPlugin(QString pNomPlugin) {
     }
 #endif
     pluginsDir.cd("Plugins");
-    qDebug() << pluginsDir;
     foreach (QString nomFichier, pluginsDir.entryList(QDir::Files)) {
         QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(nomFichier));
-        qDebug() << pluginsDir.absoluteFilePath(nomFichier);
         QObject *plugin = pluginLoader.instance();
         if (plugin) {
             PluginInterface* pluginInt = qobject_cast<PluginInterface*>(plugin);
