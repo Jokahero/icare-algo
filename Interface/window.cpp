@@ -40,7 +40,7 @@ Window::Window() : QMainWindow()
     m_widgetPrincipal = new PrincWidget;
     setCentralWidget(m_widgetPrincipal);
 
-    /* Mise en place de la fenêtre d'à propos */
+    /* Mise en place de la fenêtre d'�  propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("A propos de Icare");
 
@@ -70,6 +70,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_ouvrir, SIGNAL(triggered()), m_widgetPrincipal, SLOT(ouvrirFichier()));
     QObject::connect(m_enregistrer, SIGNAL(triggered()), m_widgetPrincipal, SLOT(enregistrerFichier()));
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
+
 }
 
 void Window::erreurMath(int pCodeErreur)
@@ -83,4 +84,4 @@ void Window::erreurMath(int pCodeErreur)
 void Window::execution()
 {
     //emit executer()
-        }
+}
