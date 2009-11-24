@@ -4,27 +4,29 @@
 #include "../Interface/gestionnaireplugins.h"
 #include "../Analyse/analysesyntaxique.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
+    // Réglage de l'encodage
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
-    MathExp *math = new MathExp();
+    // Application de la traduction
     QString locale = QLocale::system().name().section('_', 0, 0);
-
     QTranslator translator;
+    // De l'application elle même
     translator.load(QString("icare_") + locale);
     a.installTranslator(&translator);
-
+    // Et de Qt
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&translator);
 
+    // Création des différents modules
+    MathExp *math = new MathExp();
     Window *fenetre = new Window();
-
     AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique(fenetre->m_widgetPrincipal->m_zoneTexte);
-
     GestionnairePlugins g;
+
+    // Chargement des plugins, temporaire
     bool b = g.chargerPlugin("WidgetExec");
     if (b) {
         qDebug() << "Plugin WidgetExec chargé avec succès.";
@@ -47,6 +49,7 @@ int main(int argc, char *argv[])
         qDebug() << argv[1];
     }
 
+    // Connects des modules
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
     QObject::connect(fenetre->m_testSyntaxe, SIGNAL(triggered()), analyseSyntaxique, SLOT(lancer()));
     //QObject::connect(AnalyseSyntaxique->m_glossaire, SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
@@ -57,10 +60,8 @@ int main(int argc, char *argv[])
         QObject::connect(analyseSyntaxique->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
     }
 
+    // Affichage de la fenêtre
     fenetre->showMaximized();
-
-    Dictionnaire dico;
-   // dico = new Dictionnaire();
 
     return a.exec();
 }
