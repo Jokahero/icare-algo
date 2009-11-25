@@ -18,6 +18,8 @@ class Window : public QMainWindow
 public:
     Window();
 
+private:
+
     // Analyse
     QAction *m_testSyntaxe;
     QAction *m_testOperation;
@@ -26,7 +28,6 @@ public:
 
     TextEdit *m_zoneTexte;
 
-private:
     QMenuBar *m_barreMenu;
 
     QMenu *m_mainMenu;
@@ -54,6 +55,7 @@ private:
 public slots:
        void erreurMath(int);
 
+       void analyseSyntaxique();
        void execution();
 
        void afficherApropos();
@@ -65,6 +67,7 @@ public slots:
        void enregistrerFichier();
 
     signals:
+       void analyseSyntaxique(QFile*);
        void executer(QFile*);
 };
 #endif // WINDOW_H

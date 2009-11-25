@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     // Création des différents modules
     MathExp *math = new MathExp();
     Window *fenetre = new Window();
-    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique(fenetre->m_zoneTexte);
+    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique();
     GestionnairePlugins g;
 
     // Chargement des plugins, temporaire
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 
     // Connects des modules
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
-    QObject::connect(fenetre->m_testSyntaxe, SIGNAL(triggered()), analyseSyntaxique, SLOT(lancer()));
+    QObject::connect(fenetre, SIGNAL(analyseSyntaxique(QFile*)), analyseSyntaxique, SLOT(lancer(QFile*)));
     //QObject::connect(AnalyseSyntaxique->m_glossaire, SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
 
     // Connects des plugins

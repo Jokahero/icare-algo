@@ -4,23 +4,21 @@
 #include <QtCore>
 #include "Analyse_global.h"
 #include "glossaire.h"
-#include "../Interface/textedit.h"
 
 class ANALYSESYNTAXIQUESHARED_EXPORT AnalyseSyntaxique : public QObject {
 
     Q_OBJECT
 
 public:
-    AnalyseSyntaxique(TextEdit* pTextEdit);
+    AnalyseSyntaxique();
     Glossaire* getGlossaire();
 
 public slots:
-    void lancer();
+    void lancer(QFile* pFichier);
 
 private:
-    void lectureGlossaire();
+    void lectureGlossaire(QFile* pFichier);
     Glossaire* m_glossaire;
-    TextEdit* m_zoneTexte;
 
 signals:
     void terminee();
