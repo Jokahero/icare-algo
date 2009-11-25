@@ -125,7 +125,8 @@ FULL_PATH_NAMES        = YES
 # path to strip.
 
 STRIP_FROM_PATH        = /home/moi/Dev/icare-algo/ \
-                         /home/marc/Dev/icare-algo/trunk/
+                         /home/marc/Dev/icare-algo/trunk/ \
+                         /var/lib/buildslave/icare_doc/build/
 
 # The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part of 
 # the path mentioned in the documentation of a class, which tells 
