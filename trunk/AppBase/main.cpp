@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     // Création des différents modules
     MathExp *math = new MathExp();
     Window *fenetre = new Window();
-    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique(fenetre->m_widgetPrincipal->m_zoneTexte);
+    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique(fenetre->m_zoneTexte);
     GestionnairePlugins g;
 
     // Chargement des plugins, temporaire
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {
-        fenetre->m_widgetPrincipal->ouvrirFichier(argv[1]);
+        fenetre->ouvrirFichier(argv[1]);
         qDebug() << argv[1];
     }
 

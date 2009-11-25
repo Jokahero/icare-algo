@@ -11,12 +11,10 @@ DEFINES += GUI_LIBRARY
 # Input
 SOURCES += window.cpp \
     apropos.cpp \
-    princwidget.cpp \
     textedit.cpp \
     gestionnaireplugins.cpp
 HEADERS += window.h \
     apropos.h \
-    princwidget.h \
     textedit.h \
     GUI_global.h \
     plugininterface.h \
