@@ -83,6 +83,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
     QObject::connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
+    QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
 
 }
@@ -97,7 +98,11 @@ void Window::erreurMath(int pCodeErreur)
 
 void Window::execution()
 {
-    //emit executer()
+    emit executer(m_fichier);
+}
+
+void Window::analyseSyntaxique() {
+    emit analyseSyntaxique(m_fichier);
 }
 
 void Window::afficherApropos()

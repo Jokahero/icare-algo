@@ -8,6 +8,6 @@ TEMPLATE = app
 SOURCES += analyse_tests.cpp
 HEADERS += analyse_tests.h
 
-LIBS += -L../.. -lAnalyse -lGUI
+LIBS += -L../.. -lAnalyse
 
 DESTDIR = ../../

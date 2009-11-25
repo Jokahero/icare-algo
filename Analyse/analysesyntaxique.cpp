@@ -1,18 +1,17 @@
 #include "analysesyntaxique.h"
 
-AnalyseSyntaxique::AnalyseSyntaxique(TextEdit* pTextEdit) {
+AnalyseSyntaxique::AnalyseSyntaxique() {
     m_glossaire = new Glossaire();
-    m_zoneTexte = pTextEdit;
 }
 
-void AnalyseSyntaxique::lancer() {
+void AnalyseSyntaxique::lancer(QFile* pFichier) {
     qDebug() << "Analyse syntaxique commencée.";
-    lectureGlossaire();
+    lectureGlossaire(pFichier);
     emit terminee();
     qDebug() << "Analyse syntaxique terminée.";
 }
 
-void AnalyseSyntaxique::lectureGlossaire() {
+void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     qDebug() << "Lecture du glossaire commencée.";
 
     int debutGlossaire = -1;
@@ -34,21 +33,21 @@ void AnalyseSyntaxique::lectureGlossaire() {
     rxChaine.setCaseSensitivity(Qt::CaseInsensitive);
     rxCaractere.setCaseSensitivity(Qt::CaseInsensitive);
 
-    m_zoneTexte->retourDebut();
+    pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    // On cherche le début et la fin du glossaire
-    while (!m_zoneTexte->finFichier() && finGlossaire < 0) {
-        ligneAct = m_zoneTexte->lectureLigne();
+    while (!pFichier->atEnd() && finGlossaire < 0) {
+        ligneAct = pFichier->readLine().trimmed();
         if (rxGlossaire.exactMatch(ligneAct))
-            debutGlossaire = m_zoneTexte->numLigneActuelle();
+            debutGlossaire = pFichier->pos();
         else if (rxDebut.exactMatch(ligneAct))
-            finGlossaire = (m_zoneTexte->numLigneActuelle() - 1);
+            finGlossaire = pFichier->pos();
     }
 
     // Si il y a un glossaire :
     if (debutGlossaire > -1) {
-        for (int i = debutGlossaire; i < finGlossaire; i++) {
-            ligneAct = m_zoneTexte->lectureLigne(i);
+        pFichier->seek(debutGlossaire);
+        while (pFichier->pos() < finGlossaire) {
+            ligneAct = pFichier->readLine().trimmed();
             if (rxVariable.exactMatch(ligneAct)) {
                 QString type = rxVariable.cap(1);
                 QString nomVar = rxVariable.cap(2);
@@ -63,6 +62,9 @@ void AnalyseSyntaxique::lectureGlossaire() {
             }
         }
     }
+
+    pFichier->close();
+
     qDebug() << "Lecture du glossaire terminée.";
 }
 
