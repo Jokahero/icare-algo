@@ -25,8 +25,11 @@ Window::Window() : QMainWindow()
 
     /* Mise en place du menu d'options */
     m_menuOptions= new QMenu (m_barreMenu);
+    m_menuOptions->setTitle(tr("&Options"));
     m_plugins = new QAction(tr("Plu&gins..."), this);
     m_preferences = new QAction(tr("&Préférences..."), this);
+    m_menuOptions->addAction(m_plugins);
+    m_menuOptions->addAction(m_preferences);
 
     /* Mise en place du menu d'aide */
     m_help = new QMenu (m_barreMenu);
