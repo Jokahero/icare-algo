@@ -4,6 +4,10 @@ TextEdit::TextEdit() {
     m_derniereLigneLue = 0;
     m_texteModifie = true;
 
+    setTabStopWidth(16);
+
+    m_color = new Coloration(this);
+
     QObject::connect(this, SIGNAL(textChanged()), this, SLOT(texteModifie()));
 }
 

@@ -2,6 +2,8 @@
 #define TEXTEDIT_H
 
 #include <QtGui>
+#include "coloration.h"
+
 /*! \brief Zone de texte permettant d'afficher et de modifier le contenu du fichier
 */
 class TextEdit : public QTextEdit {
@@ -20,6 +22,7 @@ private:
     int m_derniereLigneLue;
     bool m_texteModifie;
     QStringList m_listeLignes;
+    Coloration *m_color;
 
 private slots:
     void texteModifie();

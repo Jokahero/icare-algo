@@ -6,6 +6,7 @@ Double	prodJourna	Production journalière du troupeau
 Debut
 Afficher "Saisir le nombre de chèvres du troupeau : "
 Saisir nbChevre
+// Ceci est un commentaire (coloré en plus!! \o/)
 Afficher "Saisir la production journalière d'une chèvre : "
 Saisir production
 prodJourna ← nbChevre × production
