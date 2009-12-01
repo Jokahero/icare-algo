@@ -2,34 +2,55 @@
 
 Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
 {
-    HighlightingRule rule;
+    HighlightingRule type;
+    HighlightingRule controle;
+    HighlightingRule comment;
 
-    /*Nous indiquons une couleur et un format de police aux mots-clés.
- Nous créons ensuite une liste (stringlist, ici un QStringList) contenant les mots-clés sous forme de regexp.
- Nous faisons ensuite une boucle pour inscrire dans notre structure chaque mot-clé en regexp avec le format.
- Nous appelons ensuite une fonction faisant un petit traitement et qui appel ensuite highlightingBlock.*/
-    keywordFormat.setForeground(QColor(0, 153, 255));
-    keywordFormat.setFontWeight(QFont::Bold);
-    QStringList keywordPatterns;
+    /* Coloration des types de variables */
+    // Nous indiquons une couleur et un format de police aux mots-clés.
+    typeFormat.setForeground(QColor(0, 0, 255));
+    typeFormat.setFontWeight(QFont::Bold);
 
-    // ****************
-    // A modifier
-    keywordPatterns << "\\bchar\\b" << "\\bclass\\b" << "\\bconst\\b"
-            << "\\bdouble\\b" << "\\benum\\b" ;
-    // ****************
+    // Nous créons ensuite une liste contenant les mots-clés sous forme de regexp.
+    QStringList typePatterns;
+    typePatterns << "\\bentier\\b"
+            << "\\br[ée]el" << "\\bcaract[èe]re\\b"
+            << "\\bbool[ée]en\\b" << "\\bcha[îi]ne\\b";
 
-    foreach (const QString &pattern, keywordPatterns) {
-        rule.pattern = QRegExp(pattern);
-        rule.format = keywordFormat;
-        highlightingRules.append(rule);
+    // Nous faisons ensuite une boucle pour inscrire dans notre structure chaque mot-clé en regexp avec le format.
+    foreach (const QString &pattern, typePatterns) {
+        type.pattern = QRegExp(pattern);
+        type.pattern.setCaseSensitivity(Qt::CaseInsensitive);
+        type.format = typeFormat;
+        highlightingRules.append(type);
     }
 
-    /*Comme ci-dessus pour les mots-clés, mais ici comme c'est des commentaires sur une ligne (donc simple),
- il n'y a pas besoin de faire un foreach ni stringList.*/
+    /* Coloration des structures de contrôle */
+    structureFormat.setForeground(QColor(255, 165, 00));
+    structureFormat.setFontWeight(QFont::Normal);
+
+    QStringList structurePatterns;
+    structurePatterns << "\\bsi\\b" << "\\balors\\b"
+            << "\\bsinon\\b" << "\\bfinsi\\b";
+
+    foreach (const QString &pattern, structurePatterns) {
+        controle.pattern = QRegExp(pattern);
+        controle.pattern.setCaseSensitivity(Qt::CaseInsensitive);
+        controle.format = structureFormat;
+        highlightingRules.append(controle);
+    }
+
+
+    /* Coloration des commentaires */
     commentFormat.setForeground(QColor(0,180,0));
-    rule.pattern = QRegExp("//[^\n]*");
-    rule.format = commentFormat;
-    highlightingRules.append(rule);
+
+    QStringList commentPatterns;
+    commentPatterns << "/\\*.*\\*/" << "//[^\n]*";
+    foreach (const QString &pattern, commentPatterns) {
+        comment.pattern = QRegExp(pattern);
+        comment.format = commentFormat;
+        highlightingRules.append(comment);
+    }
 }
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
