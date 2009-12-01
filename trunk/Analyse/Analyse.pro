@@ -10,12 +10,14 @@ SOURCES += analysesyntaxique.cpp \
     analysesemantique.cpp \
     glossaire.cpp \
     dictionnaire.cpp \
-    instruction.cpp
+    instruction.cpp \
+    analyse.cpp
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
     glossaire.h \
     erreuranalyse.h \
     dictionnaire.h \
-    instruction.h
+    instruction.h \
+    analyse.h
 DESTDIR = ../

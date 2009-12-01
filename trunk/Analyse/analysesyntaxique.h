@@ -2,23 +2,25 @@
 #define ANALYSESYNTAXIQUE_H
 
 #include <QtCore>
-#include "Analyse_global.h"
-#include "glossaire.h"
+#include "analyse.h"
 
-class ANALYSESYNTAXIQUESHARED_EXPORT AnalyseSyntaxique : public QObject {
+/*! \brief  Vérifier que chaque ligne du fichier soit convenablement structurée.
+            exemple: regarde que ce soit bien "Pour i de 3 à 5 Faire" et non "Pour i de 3 5 à Faire"
+ */
+
+class AnalyseSyntaxique : public QObject { //extends
 
     Q_OBJECT
 
 public:
-    AnalyseSyntaxique();
-    Glossaire* getGlossaire();
+    AnalyseSyntaxique(Analyse* pAnalyse);
 
 public slots:
     void lancer(QFile* pFichier);
 
 private:
     void lectureGlossaire(QFile* pFichier);
-    Glossaire* m_glossaire;
+    Analyse* m_analyse;
 
 signals:
     void terminee();
