@@ -1,11 +1,11 @@
 #include "analysesyntaxique.h"
 
-AnalyseSyntaxique::AnalyseSyntaxique() {
-    m_glossaire = new Glossaire();
+AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
+    m_analyse = pAnalyse;
 }
 
 void AnalyseSyntaxique::lancer(QFile* pFichier) {
-    qDebug() << "Analyse syntaxique commencée.";
+    qDebug() << "Analyse syntaxique commencée.";    //permet d'afficher un message
     lectureGlossaire(pFichier);
     emit terminee();
     qDebug() << "Analyse syntaxique terminée.";
@@ -53,11 +53,11 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
                 QString nomVar = rxVariable.cap(2);
                 QString desc = rxVariable.cap(3);
                 if (rxEntier.exactMatch(type)) {
-                    m_glossaire->ajoutEntier(nomVar, desc);
+                    m_analyse->getGlossaire()->ajoutEntier(nomVar, desc);
                 } else if (rxDouble.exactMatch(type)) {
-                    m_glossaire->ajoutDouble(nomVar, desc);
+                    m_analyse->getGlossaire()->ajoutDouble(nomVar, desc);
                 } else if (rxChaine.exactMatch(type) || rxCaractere.exactMatch(type)) {
-                    m_glossaire->ajoutChaine(nomVar, desc);
+                    m_analyse->getGlossaire()->ajoutChaine(nomVar, desc);
                 }
             }
         }
@@ -66,8 +66,4 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     pFichier->close();
 
     qDebug() << "Lecture du glossaire terminée.";
-}
-
-Glossaire* AnalyseSyntaxique::getGlossaire() {
-    return m_glossaire;
 }

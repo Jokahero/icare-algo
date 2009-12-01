@@ -2,7 +2,7 @@
 #include "../Interface/window.h"
 #include "../ExpressionsMathematiques/mathexp.h"
 #include "../Interface/gestionnaireplugins.h"
-#include "../Analyse/analysesyntaxique.h"
+#include "../Analyse/analyse.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     // Création des différents modules
     MathExp *math = new MathExp();
     Window *fenetre = new Window();
-    AnalyseSyntaxique *analyseSyntaxique = new AnalyseSyntaxique();
+    Analyse *analyse = new Analyse();
     GestionnairePlugins g;
 
     // Chargement des plugins, temporaire
@@ -56,8 +56,8 @@ int main(int argc, char *argv[]) {
 
     // Connects des plugins
     for (int i = 0; i < g.getListePlugins().size(); i++) {
-        QObject::connect(analyseSyntaxique->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g.getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
-        QObject::connect(analyseSyntaxique->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
+        QObject::connect(analyse->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g.getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
+        QObject::connect(analyse->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
     }
 
     // Affichage de la fenêtre

@@ -7,26 +7,26 @@ Instruction::Instruction(int pNumLigne, QString pLigne, QString pCategorie) {
 }
 
 int Instruction::getNumLigne() {
-    return this->m_numLigne;
+    return m_numLigne;
 }
 
 QString Instruction::getLigne() {
-    return this->m_ligne;
+    return m_ligne;
 }
 
 QString Instruction::getCategorie() {
-    return this->m_categorie;
+    return m_categorie;
 }
 
 void Instruction::setNumLigne(int pNumLigne) {
-    this->m_numLigne = pNumLigne;
+    m_numLigne = pNumLigne;
 }
 
 void Instruction::setLigne(QString pLigne) {
-    this->m_ligne = pLigne;
+    m_ligne = pLigne;
 }
 
-void Instruction::setCategorie(QString pcategorie) {
-    this->m_categorie = pcategorie;
+void Instruction::setCategorie(QString pCategorie) {
+    m_categorie = pCategorie;
 }
 
