@@ -18,11 +18,12 @@ private:
  };
  QVector<HighlightingRule> highlightingRules;
 
- QTextCharFormat keywordFormat; //Format des mots-clÃ©s
+ QTextCharFormat typeFormat; //Format des types
+ QTextCharFormat structureFormat; // Format des structures de controle
  QTextCharFormat commentFormat; //Format des commentaires simples
 
 protected:
- void highlightBlock(const QString &text); //DÃ©claration en fonction protÃ©gÃ© car c'est en protÃ©gÃ© qu'elle est dÃ©clarÃ© dans sa classe parente
+ void highlightBlock(const QString &text); //Déclaration en fonction protégé car c'est en protégé qu'elle est déclaré dans sa classe parente
 
 };
 

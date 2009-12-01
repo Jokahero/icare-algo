@@ -1,7 +1,7 @@
 Glossaire:
 Entier	nbChevre	Nombre de chèvres du troupeau
-Double	production	Volume de lait produit par une chèvre en une journée
-Double	prodJourna	Production journalière du troupeau
+Réel		production	Volume de lait produit par une chèvre en une journée
+Réel		prodJourna	Production journalière du troupeau
 
 Debut
 Afficher "Saisir le nombre de chèvres du troupeau : "
