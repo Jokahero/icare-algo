@@ -51,8 +51,8 @@ int main(int argc, char *argv[]) {
 
     // Connects des modules
     QObject::connect(math, SIGNAL(erreur(int)), fenetre, SLOT(erreurMath(int)));
-    QObject::connect(fenetre, SIGNAL(analyseSyntaxique(QFile*)), analyseSyntaxique, SLOT(lancer(QFile*)));
-    //QObject::connect(AnalyseSyntaxique->m_glossaire, SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
+    QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), analyse, SLOT(lancerAnalyseSyntaxique(QFile*)));
+    //QObject::connect(analyse->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
 
     // Connects des plugins
     for (int i = 0; i < g.getListePlugins().size(); i++) {

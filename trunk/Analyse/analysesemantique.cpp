@@ -1,5 +1,5 @@
 #include "analysesemantique.h"
 
-AnalyseSemantique::AnalyseSemantique()
-{
+AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
+    m_analyse = pAnalyse;
 }

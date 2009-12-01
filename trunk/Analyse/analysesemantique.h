@@ -2,12 +2,15 @@
 #define ANALYSESEMANTIQUE_H
 
 #include <QObject>
-#include "Analyse_global.h"
+#include "analyse.h"
 
-class ANALYSESEMANTIQUESHARED_EXPORT AnalyseSemantique : public QObject
+class AnalyseSemantique : public QObject
 {
 public:
-    AnalyseSemantique();
+    AnalyseSemantique(Analyse* pAnalyse);
+
+private:
+    Analyse* m_analyse;
 };
 
 #endif // ANALYSESEMANTIQUE_H

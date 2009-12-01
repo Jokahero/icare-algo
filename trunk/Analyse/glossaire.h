@@ -7,7 +7,7 @@
 
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
-class ANALYSESEMANTIQUESHARED_EXPORT Glossaire : public QObject {
+class Glossaire : public QObject {
     Q_OBJECT
 
 public:
@@ -27,8 +27,8 @@ public:
 
 private:
     QHash<QString, int>* m_listeEntier;                      /*!<\brief Stocke les variables entieres. */
-    QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaines de caractÃ¨res. */
-    QHash<QString, double>* m_listeDouble;                   /*!<\brief Stocke les variables à virgules. */
+    QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaines de caracteres. */
+    QHash<QString, double>* m_listeDouble;                   /*!<\brief Stocke les variables a virgules. */
     QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
 
 signals:

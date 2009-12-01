@@ -2,10 +2,8 @@
 #define DICTIONNAIRE_H
 
 #include <QtCore>
-#include "Analyse_global.h"
 
-class ANALYSESEMANTIQUESHARED_EXPORT Dictionnaire
-{
+class Dictionnaire {
 public:
 
     Dictionnaire();
