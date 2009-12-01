@@ -8,11 +8,13 @@ TextEdit::TextEdit() {
 }
 
 void TextEdit::keyPressEvent(QKeyEvent* pEvent) {
+    QTextEdit::keyPressEvent(pEvent);
     if (pEvent->key() == Qt::Key_Control)
         m_ctrl = true;
 }
 
 void TextEdit::keyReleaseEvent(QKeyEvent* pEvent) {
+    QTextEdit::keyReleaseEvent(pEvent);
     if (pEvent->key() == Qt::Key_Control)
         m_ctrl = false;
 }
