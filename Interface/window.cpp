@@ -105,7 +105,7 @@ void Window::execution()
 }
 
 void Window::analyseSyntaxique() {
-    emit analyseSyntaxique(m_fichier);
+    emit lancerAnalyseSyntaxique(m_fichier);
 }
 
 void Window::afficherApropos()

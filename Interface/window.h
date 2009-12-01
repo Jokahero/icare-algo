@@ -11,8 +11,7 @@
 
 /*! \brief Fenêtre principale
   */
-class Window : public QMainWindow
-{
+class Window : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -53,21 +52,21 @@ private:
     QFile *m_fichier;
 
 public slots:
-       void erreurMath(int);
+    void erreurMath(int);
 
-       void analyseSyntaxique();
-       void execution();
+    void analyseSyntaxique();
+    void execution();
 
-       void afficherApropos();
+    void afficherApropos();
 
-       void ouvrirFichier();
+    void ouvrirFichier();
 
-       void ouvrirFichier(QString pNomFichier);
+    void ouvrirFichier(QString pNomFichier);
 
-       void enregistrerFichier();
+    void enregistrerFichier();
 
-    signals:
-       void analyseSyntaxique(QFile*);
-       void executer(QFile*);
+signals:
+    void lancerAnalyseSyntaxique(QFile*);
+    void executer(QFile*);
 };
 #endif // WINDOW_H
