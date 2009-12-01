@@ -11,21 +11,12 @@ class TextEdit : public QTextEdit {
 public:
     TextEdit();
 
-    QString lectureLigne(int pNumLigne);
-    QString lectureLigne();
-    bool finFichier(int pNumLigne);
-    bool finFichier();
-    void retourDebut();
-    int numLigneActuelle();
-
 private:
-    int m_derniereLigneLue;
-    bool m_texteModifie;
-    QStringList m_listeLignes;
     Coloration *m_color;
-
-private slots:
-    void texteModifie();
+    bool m_ctrl;
+    void keyPressEvent(QKeyEvent* pEvent);
+    void keyReleaseEvent(QKeyEvent* pEvent);
+    void wheelEvent(QWheelEvent* pEvent);
 };
 
 #endif // TEXTEDIT_H
