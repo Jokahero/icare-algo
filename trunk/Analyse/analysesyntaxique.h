@@ -21,6 +21,7 @@ public slots:
 
 private:
     void lectureGlossaire(QFile* pFichier);
+    void lectureInstructions(QFile* pFichier);
     Analyse* m_analyse;
 
 signals:

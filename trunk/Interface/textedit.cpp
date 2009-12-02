@@ -8,7 +8,7 @@ TextEdit::TextEdit() {
 
 
 void TextEdit::wheelEvent(QWheelEvent* pEvent) {
-    if (!qApp->keyboardModifiers() & Qt::ControlModifier)
+    if (!qApp->keyboardModifiers() && Qt::ControlModifier)
         QTextEdit::wheelEvent(pEvent);
     else if (pEvent->delta() > 0)
         zoomIn();
