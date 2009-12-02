@@ -2,10 +2,13 @@
 #define ANALYSESEMANTIQUE_H
 
 #include <QObject>
-#include "analyse.h"
 
-class AnalyseSemantique : public QObject
-{
+class Analyse;
+
+class AnalyseSemantique : public QObject {
+
+    Q_OBJECT
+
 public:
     AnalyseSemantique(Analyse* pAnalyse);
 

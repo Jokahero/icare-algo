@@ -2,7 +2,8 @@
 #define ANALYSESYNTAXIQUE_H
 
 #include <QtCore>
-#include "analyse.h"
+
+class Analyse;
 
 /*! \brief  Vérifier que chaque ligne du fichier soit convenablement structurée.
             exemple: regarde que ce soit bien "Pour i de 3 à 5 Faire" et non "Pour i de 3 5 à Faire"

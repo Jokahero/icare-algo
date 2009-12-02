@@ -6,7 +6,7 @@
 Glossaire::Glossaire() {
     m_listeEntier = new QHash<QString, int>;
     m_listeChaine = new QHash<QString, QString>;
-    m_listeDouble = new QHash<QString, double>;
+    m_listeReel = new QHash<QString, double>;
     m_description = new QHash<QString, QString>;
 }
 
@@ -18,7 +18,7 @@ Glossaire::Glossaire() {
   \return Vrai si la variable existe, faux sinon.
 */
 bool Glossaire::existe(QString pNomVar) {
-    if (m_listeEntier->contains(pNomVar) || m_listeChaine->contains(pNomVar) || m_listeDouble->contains(pNomVar))
+    if (m_listeEntier->contains(pNomVar) || m_listeChaine->contains(pNomVar) || m_listeReel->contains(pNomVar))
         return true;
     return false;
 }
@@ -57,20 +57,20 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
     return true;
 }
 
-/*! \brief Ajoute un double au glossaire.
+/*! \brief Ajoute un réel au glossaire.
 
-  \param pNomVar Nom du double à ajouter.
+  \param pNomVar Nom du réel à ajouter.
   \param pDescription Description de la variable.
-  \return Vrai si le double a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
+  \return Vrai si le réel a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
 */
-bool Glossaire::ajoutDouble(QString pNomVar, QString pDescription) {
+bool Glossaire::ajoutReel(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
         emit erreur(ErreurAnalyse::VariableDejaDeclaree);
         return false;
     }
-    m_listeDouble->insert(pNomVar, 0);
+    m_listeReel->insert(pNomVar, 0);
     m_description->insert(pNomVar, pDescription);
-    emit variableAjoutee(pNomVar, "Double", pDescription);
+    emit variableAjoutee(pNomVar, "Réel", pDescription);
     return true;
 }
 
@@ -106,20 +106,20 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
         return m_listeChaine->value(pNomVar);
 }
 
-/*! \brief Récupère la valeur d'un double.
+/*! \brief Récupère la valeur d'un réel.
 
   \param pNomVar Nom de la variable a récupérer.
   \return La valeur de la variable récupérée.
 */
-double Glossaire::getValeurDouble(QString pNomVar) {
+double Glossaire::getValeurReel(QString pNomVar) {
     if (!existe(pNomVar)) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
         return 0;
-    } else if (!m_listeDouble->contains(pNomVar)) {
+    } else if (!m_listeReel->contains(pNomVar)) {
         emit(erreur(ErreurAnalyse::TypeIncorrect));
         return 0;
     } else
-        return m_listeDouble->value(pNomVar);
+        return m_listeReel->value(pNomVar);
 }
 
 /*! \brief Définit la valeur d'un entier.
@@ -152,15 +152,15 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
         emit(erreur(ErreurAnalyse::VariableNonDeclaree));
 }
 
-/*! \brief Définit la valeur d'un double.
+/*! \brief Définit la valeur d'un réel.
 
   \param pNomVar Nom de la variable a modifier.
-  \param pValeur Le double à lui affecter.
+  \param pValeur Le réel à lui affecter.
 */
-void Glossaire::setValeurDouble(QString pNomVar, double pValeur) {
-    if (m_listeDouble->contains(pNomVar)) {
+void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
+    if (m_listeReel->contains(pNomVar)) {
         emit variableModifiee(pNomVar, QString::number(pValeur));
-        (*m_listeDouble)[pNomVar] = pValeur;
+        (*m_listeReel)[pNomVar] = pValeur;
     } else if (existe(pNomVar))
         emit(erreur(ErreurAnalyse::TypeIncorrect));
     else

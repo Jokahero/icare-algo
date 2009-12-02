@@ -13,9 +13,6 @@ public:
 
 private:
     Coloration *m_color;
-    bool m_ctrl;
-    void keyPressEvent(QKeyEvent* pEvent);
-    void keyReleaseEvent(QKeyEvent* pEvent);
     void wheelEvent(QWheelEvent* pEvent);
 };
 
