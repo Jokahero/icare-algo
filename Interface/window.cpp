@@ -42,7 +42,7 @@ Window::Window() : QMainWindow()
     m_barreMenu->addMenu(m_menuOptions);
     m_barreMenu->addMenu(m_help);
 
-    /* Definition de la barre de Menu de la fenÃªtre */
+    /* Definition de la barre de Menu de la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -110,7 +110,7 @@ void Window::analyseSyntaxique() {
 
 void Window::afficherApropos()
 {
-    /* Mise en place de la fenêtre d'Ã  propos */
+    /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("A propos de Icare");
     m_fenApropos->show();

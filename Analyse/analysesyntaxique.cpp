@@ -1,4 +1,5 @@
 #include "analysesyntaxique.h"
+#include "analyse.h"
 
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -19,9 +20,9 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     QString ligneAct;
     QRegExp rxGlossaire("^glossaire\\s*:?$");
     QRegExp rxDebut("^d[eé]but\\s*:?$");
-    QRegExp rxVariable("^(entier|double|cha[îi]ne|caract[eè]re)\\s+([a-zA-Z]+)\\s+((?:\\w*\\s*)*)$");
+    QRegExp rxVariable("^(entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([a-zA-Z]+)\\s+((?:\\w*\\s*)*)$");
     QRegExp rxEntier("^entier$");
-    QRegExp rxDouble("^double$");
+    QRegExp rxReel("^r[ée]el$");
     QRegExp rxChaine("^cha[îi]ne$");
     QRegExp rxCaractere("^caract[èe]re$");
 
@@ -29,7 +30,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     rxDebut.setCaseSensitivity(Qt::CaseInsensitive);
     rxVariable.setCaseSensitivity(Qt::CaseInsensitive);
     rxEntier.setCaseSensitivity(Qt::CaseInsensitive);
-    rxDouble.setCaseSensitivity(Qt::CaseInsensitive);
+    rxReel.setCaseSensitivity(Qt::CaseInsensitive);
     rxChaine.setCaseSensitivity(Qt::CaseInsensitive);
     rxCaractere.setCaseSensitivity(Qt::CaseInsensitive);
 
@@ -54,8 +55,8 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
                 QString desc = rxVariable.cap(3);
                 if (rxEntier.exactMatch(type)) {
                     m_analyse->getGlossaire()->ajoutEntier(nomVar, desc);
-                } else if (rxDouble.exactMatch(type)) {
-                    m_analyse->getGlossaire()->ajoutDouble(nomVar, desc);
+                } else if (rxReel.exactMatch(type)) {
+                    m_analyse->getGlossaire()->ajoutReel(nomVar, desc);
                 } else if (rxChaine.exactMatch(type) || rxCaractere.exactMatch(type)) {
                     m_analyse->getGlossaire()->ajoutChaine(nomVar, desc);
                 }

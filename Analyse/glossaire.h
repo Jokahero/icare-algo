@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QtCore/QHash>
-#include "Analyse_global.h"
 
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
@@ -15,20 +14,20 @@ public:
     bool existe(QString pNomVar);
     bool ajoutEntier(QString pNomVar, QString pDescription);
     bool ajoutChaine(QString pNomVar, QString pDescription);
-    bool ajoutDouble(QString pNomVar, QString pDescription);
+    bool ajoutReel(QString pNomVar, QString pDescription);
 
     int getValeurEntier(QString pNomVar);
     QString getValeurChaine(QString pNomVar);
-    double getValeurDouble(QString pNomVar);
+    double getValeurReel(QString pNomVar);
 
     void setValeurEntier(QString pNomVar, int pValeur);
     void setValeurChaine(QString pNomVar, QString pValeur);
-    void setValeurDouble(QString pNomVar, double pValeur);
+    void setValeurReel(QString pNomVar, double pValeur);
 
 private:
     QHash<QString, int>* m_listeEntier;                      /*!<\brief Stocke les variables entieres. */
     QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaines de caracteres. */
-    QHash<QString, double>* m_listeDouble;                   /*!<\brief Stocke les variables a virgules. */
+    QHash<QString, double>* m_listeReel;                     /*!<\brief Stocke les variables a virgules. */
     QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
 
 signals:
