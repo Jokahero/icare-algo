@@ -45,11 +45,11 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit) {
         highlightingRules.append(controle);
     }
 
-    /* Coloration des commentaires */
+    /* Coloration des commentaires et des chaînes*/
     commentFormat.setForeground(QColor(0,180,0));
 
     QStringList commentPatterns;
-    commentPatterns << "/\\*.*\\*/" << "//[^\n]*";
+    commentPatterns << "/\\*.*\\*/" << "//[^\n]*" << "\".*\"";
     foreach (const QString &pattern, commentPatterns) {
         comment.pattern = QRegExp(pattern);
         comment.format = commentFormat;
@@ -74,15 +74,9 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit) {
     numeriqueFormat.setForeground(QColor(200,0,200));
     numeriqueFormat.setFontWeight(QFont::Normal);
 
-    /*QStringList bornePatterns;
-    numeriquePatterns << "\\b[0-9]+\\.?[0-9]*\\b";*/
-
-    /*foreach (const QString &pattern, bornePatterns) {*/
-        numerique.pattern = QRegExp("\\b[0-9]+\\.?[0-9]*\\b");
-      //  borne.pattern.setCaseSensitivity(Qt::CaseInsensitive);
-        numerique.format = numeriqueFormat;
-        highlightingRules.append(numerique);
-    //}
+    numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
+    numerique.format = numeriqueFormat;
+    highlightingRules.append(numerique);
 }
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
