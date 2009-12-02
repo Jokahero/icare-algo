@@ -3,6 +3,7 @@ Entier	nbChevre	Nombre de chèvres du troupeau
 Réel		production	Volume de lait produit par une chèvre en une journée
 Réel		prodJourna	Production journalière du troupeau
 
+ 
 Debut
 Afficher "Saisir le nombre de chèvres du troupeau : "
 Saisir nbChevre
@@ -11,5 +12,16 @@ Afficher "Saisir la production journalière d'une chèvre : "
 Saisir production
 prodJourna ← nbChevre × production
 Afficher "La production journalière du troupeau est de : "
+Afficher prodJourna 
+
+/* Les commentaires c'est bien! */
+nbChevre ← 12
+production ← 8.6
+prodJourna ← nbChevre × production
+Afficher "La production journalière du troupeau est de : "
 Afficher prodJourna
+
+Pour i de nbChevre à 0 Faire
+ Afficher i
+FinPour
 Fin

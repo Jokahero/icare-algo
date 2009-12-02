@@ -1,10 +1,11 @@
 #include "coloration.h"
 
-Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
-{
+Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit) {
     HighlightingRule type;
     HighlightingRule controle;
     HighlightingRule comment;
+    HighlightingRule borne;
+    HighlightingRule numerique;
 
     /* Coloration des types de variables */
     // Nous indiquons une couleur et un format de police aux mots-clés.
@@ -26,12 +27,16 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
     }
 
     /* Coloration des structures de contrôle */
-    structureFormat.setForeground(QColor(255, 165, 00));
+    structureFormat.setForeground(QColor(255,185,0));
     structureFormat.setFontWeight(QFont::Normal);
 
     QStringList structurePatterns;
     structurePatterns << "\\bsi\\b" << "\\balors\\b"
-            << "\\bsinon\\b" << "\\bfinsi\\b";
+            << "\\bsinon\\b" << "\\bfinsi\\b" << "\\bselon\\b"
+            << "\\bcas\\b" << "\\bd[ée]faut\\b" << "\\bfinselon\\b"
+            << "\\btantque\\b" << "\\bfaire\\b" << "\\bfintantque\\b"
+            << "\\br[ée]p[ée]ter\\b" << "\\bjusqu'?[àa]\\b" << "\\bpour\\b"
+            << "\\bde\\b" << "\\b[àa]\\b" <<  "\\bfinpour\\b";
 
     foreach (const QString &pattern, structurePatterns) {
         controle.pattern = QRegExp(pattern);
@@ -39,7 +44,6 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
         controle.format = structureFormat;
         highlightingRules.append(controle);
     }
-
 
     /* Coloration des commentaires */
     commentFormat.setForeground(QColor(0,180,0));
@@ -51,6 +55,34 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
         comment.format = commentFormat;
         highlightingRules.append(comment);
     }
+
+    /* Coloration des structures de contrôle */
+    borneFormat.setForeground(QColor(255,0,0));
+    borneFormat.setFontWeight(QFont::Bold);
+
+    QStringList bornePatterns;
+    bornePatterns << "\\bglossaire\\b" << "\\bd[ée]but\\b" << "\\bfin\\b";
+
+    foreach (const QString &pattern, bornePatterns) {
+        borne.pattern = QRegExp(pattern);
+        borne.pattern.setCaseSensitivity(Qt::CaseInsensitive);
+        borne.format = borneFormat;
+        highlightingRules.append(borne);
+    }
+
+    /* Coloration des valeurs numériques */
+    numeriqueFormat.setForeground(QColor(200,0,200));
+    numeriqueFormat.setFontWeight(QFont::Normal);
+
+    /*QStringList bornePatterns;
+    numeriquePatterns << "\\b[0-9]+\\.?[0-9]*\\b";*/
+
+    /*foreach (const QString &pattern, bornePatterns) {*/
+        numerique.pattern = QRegExp("\\b[0-9]+\\.?[0-9]*\\b");
+      //  borne.pattern.setCaseSensitivity(Qt::CaseInsensitive);
+        numerique.format = numeriqueFormat;
+        highlightingRules.append(numerique);
+    //}
 }
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
