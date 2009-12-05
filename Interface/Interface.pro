@@ -7,7 +7,7 @@ TARGET = GUI
 DEPENDPATH += .
 INCLUDEPATH += .
 DEFINES += GUI_LIBRARY
-
+CONFIG += release
 # Input
 SOURCES += window.cpp \
     apropos.cpp \

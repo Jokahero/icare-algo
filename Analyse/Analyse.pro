@@ -4,8 +4,7 @@
 CONFIG += release
 TARGET = Analyse
 TEMPLATE = lib
-DEFINES += ANALYSESEMANTIQUE_LIBRARY \
-    ANALYSESYNTAXIQUE_LIBRARY
+DEFINES += ANALYSE_LIBRARY
 SOURCES += analysesyntaxique.cpp \
     analysesemantique.cpp \
     glossaire.cpp \
