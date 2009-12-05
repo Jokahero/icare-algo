@@ -6,7 +6,7 @@
 CONFIG += release
 
 QT       -= gui
-
+CONFIG += release
 TEMPLATE = subdirs
 
 SUBDIRS += Analyse ExpressionsMathematiques Interface Plugins

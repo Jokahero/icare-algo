@@ -7,7 +7,7 @@ CONFIG += release
 
 TARGET = Icare
 CONFIG   -= app_bundle
-
+CONFIG += release
 TEMPLATE = app
 
 

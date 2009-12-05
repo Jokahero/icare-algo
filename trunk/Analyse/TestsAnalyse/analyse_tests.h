@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QtCore>
 #include <QtTest>
-#include "../glossaire.h"
+//#include "../glossaire.h"
 
 /*! \brief Tests du module d'analyses.
 
@@ -14,11 +14,11 @@ class Analyse_tests : public QObject {
     Q_OBJECT
 private slots:
     void initTestCase();
-    void testGlossaire();
+    //void testGlossaire();
     void cleanupTestCase();
 
 private:
-    Glossaire* g;
+    //Glossaire* g;
 };
 
 #endif // ANALYSE_TESTS_H
