@@ -33,9 +33,9 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
  
   # _Coloration syntaxique *|Ok|*
   # Affichage du glossaire *|Ok|*
-  # Menus_
+  # Menus_ *|Nicolas|*
     * Principal
-    * Analyse *|Nicolas|*
-    * Options *|Nicolas|*
+    * Analyse *|Ok|*
+    * Options 
     * Aide
  
