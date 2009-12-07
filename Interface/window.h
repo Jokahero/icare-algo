@@ -8,6 +8,7 @@
 
 #include "apropos.h"
 #include "textedit.h"
+#include "preferences.h"
 
 /*! \brief Fenêtre principale
   */
@@ -42,6 +43,7 @@ private:
     QAction *m_aPropos;
 
     Apropos *m_fenApropos;
+    Preferences *m_pref;
 
     QIcon m_icone;
 
@@ -63,7 +65,11 @@ public slots:
 
     void ouvrirFichier(QString pNomFichier);
 
+    void afficherPreferences();
+
     void enregistrerFichier();
+
+    void quitter();
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);

@@ -7,6 +7,10 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
+    QCoreApplication::setOrganizationName("IUT Blagnac");
+    QCoreApplication::setOrganizationDomain("code.google.com/p/icare-algo");
+    QCoreApplication::setApplicationName("Icare");
+
     // Réglage de l'encodage
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Affichage de la fenêtre
-    fenetre->showMaximized();
+    fenetre->show();
 
     return a.exec();
 }
