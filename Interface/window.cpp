@@ -23,6 +23,18 @@ Window::Window() : QMainWindow()
     m_mainMenu->addAction(m_enregistrer);
     m_mainMenu->addAction(m_quitter);
 
+    /* Mise en place du menu d'analyse */
+    m_menuAnalyse = new QMenu(m_barreMenu);
+    m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
+    m_testOperation = new QAction (tr("Tester les &opérations"), this);
+    m_testComplet = new QAction (tr("Test complet"), this);
+    m_executer = new QAction (tr("Exécuter"), this);
+    m_menuAnalyse->setTitle(tr("&Analyse"));
+    m_menuAnalyse->addAction(m_testSyntaxe);
+    m_menuAnalyse->addAction(m_testOperation);
+    m_menuAnalyse->addAction(m_testComplet);
+    m_menuAnalyse->addAction(m_executer);
+
     /* Mise en place du menu d'options */
     m_menuOptions= new QMenu (m_barreMenu);
     m_menuOptions->setTitle(tr("&Options"));
@@ -39,6 +51,7 @@ Window::Window() : QMainWindow()
 
     /* Insertion des menus dans la barre de Menu */
     m_barreMenu->addMenu(m_mainMenu);
+    m_barreMenu->addMenu(m_menuAnalyse);
     m_barreMenu->addMenu(m_menuOptions);
     m_barreMenu->addMenu(m_help);
 
@@ -50,12 +63,7 @@ Window::Window() : QMainWindow()
     setCentralWidget(m_zoneTexte);
     m_fichier = new QFile(this);
 
-    /* Boutons de tests */
-    m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
-    m_testOperation = new QAction (tr("Tester les &opérations"), this);
-    m_testComplet = new QAction (tr("Test complet"), this);
-
-    m_executer = new QAction (this);
+    /* Mise en place d'icône et de tooltips sur les boutons des barres d'outils */
     m_icone = QIcon("go.png");
     m_executer->setIcon(m_icone);
     m_executer->setToolTip(tr("Exécuter"));
