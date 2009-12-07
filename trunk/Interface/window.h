@@ -19,12 +19,6 @@ public:
 
 private:
 
-    // Analyse
-    QAction *m_testSyntaxe;
-    QAction *m_testOperation;
-    QAction *m_testComplet;
-    QAction *m_executer;
-
     TextEdit *m_zoneTexte;
 
     QMenuBar *m_barreMenu;
@@ -33,6 +27,12 @@ private:
     QAction *m_ouvrir;
     QAction *m_enregistrer;
     QAction *m_quitter;
+
+    QMenu *m_menuAnalyse;
+    QAction *m_testSyntaxe;
+    QAction *m_testOperation;
+    QAction *m_testComplet;
+    QAction *m_executer;
 
     QMenu *m_menuOptions;
     QAction *m_plugins;
