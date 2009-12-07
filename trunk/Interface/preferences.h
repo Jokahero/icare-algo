@@ -12,8 +12,11 @@ public:
 
 private:
     QTabWidget *m_onglets;
-    QWidget *m_color;
 
+    /* Onglet des préférences de la coloration syntaxique */
+    QWidget *m_color; // C'est le widget qui sera affiché dans l'onglet
+
+    /* Le widget m_color contiendra ces éléments */
     QLabel *m_commentairesLabel;
     QPushButton *m_commentairesBouton;
 
@@ -29,8 +32,9 @@ private:
     QLabel *m_typeLabel;
     QPushButton *m_typeBouton;
 
-    QPushButton *m_annuler;
-    QPushButton *m_quitter;
+    /* Pour les boutons Ok et Annuler */
+    QDialogButtonBox *buttonBox;
+
 public slots:
     void modifierCouleur();
 };

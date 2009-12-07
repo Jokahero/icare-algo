@@ -3,13 +3,17 @@
 Preferences::Preferences() : QDialog()
 {
     setWindowTitle("Préférences");
-    setModal(true);
+    setMinimumSize(400,150);
+    setModal(true); // La fenêtre de préférences doit être fermée pour que l'on puisse revenir à l'application
 
-    QFormLayout *test = new QFormLayout(this);
-    m_onglets = new QTabWidget(this);
-    test->addWidget(m_onglets);
+    QVBoxLayout *m_layout = new QVBoxLayout(this);
+    m_onglets = new QTabWidget();
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
-    QFormLayout *m_layout = new QFormLayout();
+    m_layout->addWidget(m_onglets);
+    m_layout->addWidget(buttonBox);
+
+    QFormLayout *m_layoutOnglet = new QFormLayout();
 
     m_commentairesLabel = new QLabel(tr("Couleur des commentaires et des chaînes:"));
     m_commentairesBouton = new QPushButton(tr("Modifier"));
@@ -26,24 +30,26 @@ Preferences::Preferences() : QDialog()
     m_typeLabel = new QLabel(tr("Couleur des types:"));
     m_typeBouton = new QPushButton(tr("Modifier"));
 
-    m_layout->addRow(m_commentairesLabel, m_commentairesBouton);
-    m_layout->addRow(m_bornesLabel, m_bornesBouton);
-    m_layout->addRow(m_structuresLabel, m_structuresBouton);
-    m_layout->addRow(m_numeriqueLabel, m_numeriqueBouton);
-    m_layout->addRow(m_typeLabel, m_typeBouton);
+    m_layoutOnglet->addRow(m_commentairesLabel, m_commentairesBouton);
+    m_layoutOnglet->addRow(m_bornesLabel, m_bornesBouton);
+    m_layoutOnglet->addRow(m_structuresLabel, m_structuresBouton);
+    m_layoutOnglet->addRow(m_numeriqueLabel, m_numeriqueBouton);
+    m_layoutOnglet->addRow(m_typeLabel, m_typeBouton);
 
     m_color = new QWidget(this);
-    m_color->setLayout(m_layout);
+    m_color->setLayout(m_layoutOnglet);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
 
-    setLayout(test);
+    setLayout(m_layout);
 
     QObject::connect(m_commentairesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_bornesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_structuresBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_numeriqueBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_typeBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 void Preferences::modifierCouleur()
