@@ -33,7 +33,7 @@ private:
     QPushButton *m_typeBouton;
 
     /* Pour les boutons Ok et Annuler */
-    QDialogButtonBox *buttonBox;
+    QDialogButtonBox *m_buttonBox;
 
 public slots:
     void modifierCouleur();
