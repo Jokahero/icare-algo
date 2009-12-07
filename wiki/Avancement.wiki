@@ -38,4 +38,5 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
     * Analyse *|Ok|*
     * Options 
     * Aide
+  # Affichage des erreurs d'analyse *|Marc|*
  
