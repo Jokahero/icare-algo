@@ -1,5 +1,6 @@
 #include "analysesyntaxique.h"
 #include "analyse.h"
+#include "glossaire.h"
 
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;

@@ -9,6 +9,7 @@
 #include "apropos.h"
 #include "textedit.h"
 #include "preferences.h"
+#include "../ExpressionsMathematiques/mathexp.h"
 
 /*! \brief Fenêtre principale
   */
@@ -54,7 +55,7 @@ private:
     QFile *m_fichier;
 
 public slots:
-    void erreurMath(int);
+    void erreurMath(MathExp::erreur);
 
     void analyseSyntaxique();
     void execution();

@@ -1,6 +1,7 @@
 #include "analyse.h"
 #include "analysesyntaxique.h"
 #include "analysesemantique.h"
+#include "glossaire.h"
 
 Analyse::Analyse() {
     m_listeInstruction = new QList<Instruction*>;
@@ -15,6 +16,7 @@ Analyse::Analyse() {
     m_finAlgo = -1;
 
     QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
+    QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur)), this, SIGNAL(sigErreur(Analyse::erreur)));
 }
 
 Glossaire* Analyse::getGlossaire() {

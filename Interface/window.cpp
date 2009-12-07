@@ -1,5 +1,4 @@
 #include "window.h"
-#include "../ExpressionsMathematiques/erreur.h"
 
 Window::Window() : QMainWindow()
 {
@@ -102,9 +101,9 @@ Window::Window() : QMainWindow()
 
 }
 
-void Window::erreurMath(int pCodeErreur)
+void Window::erreurMath(MathExp::erreur pCodeErreur)
 {
-    if(pCodeErreur == Erreur::DivisionParZero)
+    if(pCodeErreur == MathExp::DivisionParZero)
         QMessageBox::information(this, "Erreur", "Division par zero");
     else
         QMessageBox::information(this, "Erreur", "Erreur inconnue");
