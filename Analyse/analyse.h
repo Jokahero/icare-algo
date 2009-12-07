@@ -17,6 +17,17 @@ class ANALYSESHARED_EXPORT Analyse : public QObject {
 public:
     Analyse();
     Glossaire* getGlossaire();
+    QList<Instruction*>* getListeInstruction();
+
+    void setDebutGlossaire(int pNumLigne);
+    void setFinGlossaire(int pNumLigne);
+    void setDebutAlgo(int pNumLigne);
+    void setFinAlgo(int pNumLigne);
+
+    int getDebutGlossaire();
+    int getFinGlossaire();
+    int getDebutAlgo();
+    int getFinAlgo();
 
 public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
@@ -27,11 +38,15 @@ signals:
     void sigLancerAnalyseSemantique(QFile* pFichier);
 
 private:
-    QList<Instruction*> m_listeInstruction;
+    QList<Instruction*>* m_listeInstruction;
     Dictionnaire* m_dictionnaire;
     Glossaire* m_glossaire;
     AnalyseSyntaxique* m_analyseSyntaxique;
     AnalyseSemantique* m_analyseSemantique;
+    int m_debutGlossaire;
+    int m_finGlossaire;
+    int m_debutAlgo;
+    int m_finAlgo;
 };
 
 #endif // ANALYSE_H

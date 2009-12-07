@@ -18,6 +18,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 
     int debutGlossaire = -1;
     int finGlossaire = -1;
+    int cptLigne;
     QString ligneAct;
     QRegExp rxGlossaire("^glossaire\\s*:?$");
     QRegExp rxDebut("^d[eé]but\\s*:?$");
@@ -26,6 +27,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     QRegExp rxReel("^r[ée]el$");
     QRegExp rxChaine("^cha[îi]ne$");
     QRegExp rxCaractere("^caract[èe]re$");
+    QRegExp rxFin("^fin$");
 
     rxGlossaire.setCaseSensitivity(Qt::CaseInsensitive);
     rxDebut.setCaseSensitivity(Qt::CaseInsensitive);
@@ -37,12 +39,18 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    while (!pFichier->atEnd() && finGlossaire < 0) {
+    for (cptLigne = 1; !pFichier->atEnd(); cptLigne++) {
         ligneAct = pFichier->readLine().trimmed();
-        if (rxGlossaire.exactMatch(ligneAct))
+        if (rxGlossaire.exactMatch(ligneAct)) {
             debutGlossaire = pFichier->pos();
-        else if (rxDebut.exactMatch(ligneAct))
+            m_analyse->setDebutGlossaire(cptLigne);
+        } else if (rxDebut.exactMatch(ligneAct)) {
             finGlossaire = pFichier->pos();
+            m_analyse->setFinGlossaire(cptLigne);
+            m_analyse->setDebutAlgo(cptLigne);
+        } else if (rxFin.exactMatch(ligneAct)) {
+            m_analyse->setFinAlgo(cptLigne);
+        }
     }
 
     // Si il y a un glossaire :
@@ -75,6 +83,8 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
 
     int debutAlgo = -1;
     int finAlgo= -1;
+    int cptLigne;
+    Instruction* instructionAct;
     QString ligneAct;
     QRegExp rxDebut("^d[eé]but\\s*:?$");
     QRegExp rxFin("^fin$");
@@ -93,9 +103,12 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     }
 
     pFichier->seek(debutAlgo);
-    while (pFichier->pos() < finAlgo) {
+    for (cptLigne = m_analyse->getDebutAlgo(); pFichier->pos() < finAlgo; cptLigne++) {
         ligneAct = pFichier->readLine().trimmed();
         // Si ce n'est pas un commentaire ou une ligne vide, l'ajouter à la liste d'instructions
+        instructionAct = new Instruction(cptLigne, ligneAct, QString::null);
+        qDebug() << "nouvelle instruction ajoutée : " << instructionAct->getNumLigne() << " : " << instructionAct->getLigne();
+        m_analyse->getListeInstruction()->append(instructionAct);
     }
 
     pFichier->close();
