@@ -11,7 +11,7 @@ Preferences::Preferences() : QDialog()
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
     m_layout->addWidget(m_onglets);
-    m_layout->addWidget(buttonBox);
+    m_layout->addWidget(m_buttonBox);
 
     QFormLayout *m_layoutOnglet = new QFormLayout();
 
