@@ -31,7 +31,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 
 *Interface:*
  
-  # _Coloration syntaxique
+  # _Coloration syntaxique *|Ok|*
   # Affichage du glossaire *|Ok|*
   # Menus_
     * Principal
