@@ -166,6 +166,7 @@ void Window::enregistrerFichier()
 
 void Window::quitter()
 {
-    QSettings  settings;
+    QSettings settings;
     settings.setValue("Size", saveGeometry());
+    settings.setValue("Maximized", isMaximized());
 }
