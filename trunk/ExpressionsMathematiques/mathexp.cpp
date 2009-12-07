@@ -26,7 +26,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
         qDebug() << "Erreur de parentheses dans l'expression " << pExpression;
-        emit erreur(Erreur::Parentheses);
+        emit sigErreur(MathExp::Parentheses);
         return NULL;
     }
 
@@ -149,7 +149,7 @@ double MathExp::calculRec(Arbre* pArbre) {
             return (g / d);
         else {
             qDebug() << "Division par 0 !";
-            emit erreur(Erreur::DivisionParZero);
+            emit sigErreur(MathExp::DivisionParZero);
             return -1;
         }
     }

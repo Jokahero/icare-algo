@@ -18,13 +18,22 @@ public:
     QString getNom();
     QDockWidget* getDockWidget();
 
+    enum onglet {
+        Erreurs = 0,
+        Sorties = 1,
+    };
+
+public slots:
+    void erreurMathematique(MathExp::erreur pErreur);
+    void erreurAnalyse(Analyse::erreur pErreur);
+
 private slots:
-    void ajouterTexte(QString pTexte);
-    void effacerTexte();
-    void remplacerTexte(QString pTexte);
+    void ajouterTexte(QString pTexte, WidgetExec::onglet);
+    void effacerTexte(WidgetExec::onglet);
+    void remplacerTexte(QString pTexte, WidgetExec::onglet);
 
 private:
-    QTextEdit* m_textEdit;
+    QTabWidget* m_tabWidget;
     QDockWidget* m_dockWidget;
 };
 

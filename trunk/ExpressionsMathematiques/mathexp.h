@@ -4,7 +4,6 @@
 #include "MathExp_global.h"
 #include <QtCore>
 #include "arbre.h"
-#include "erreur.h"
 
 /*! \brief Résout une expression mathématique.
 
@@ -20,6 +19,12 @@ public:
     double calcul();
     Arbre* getCalcul();
 
+    enum erreur {
+        DivisionParZero,        /*!< Une division par zéro a été rencontrée dans l'expression. */
+        PositionOperateurs,     /*!< Deux opérateurs ou plus se succèdent (3+×3). */
+        Parentheses,            /*!< Le nombre de parenthèses ouvrantes de l'expression est différent du nombre de parenthèses fermantes. */
+    };
+
 private:
     Arbre* parseExp(QString pExpression);
     double calculRec(Arbre* pArbre);
@@ -28,7 +33,7 @@ private:
     Arbre* m_calcul;                            /*!<\brief Racine de l'arbre utilisé pour le calcul. */
 
 signals:
-    void erreur(int);
+    void sigErreur(MathExp::erreur);
 };
 
 #endif // MATHEXP_H

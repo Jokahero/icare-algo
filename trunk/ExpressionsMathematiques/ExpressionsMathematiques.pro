@@ -11,6 +11,5 @@ SOURCES += mathexp.cpp \
     arbre.cpp
 HEADERS += mathexp.h \
     MathExp_global.h \
-    arbre.h \
-    erreur.h
+    arbre.h
 DESTDIR = ../

@@ -6,9 +6,10 @@
 #include "Analyse_global.h"
 #include "instruction.h"
 #include "dictionnaire.h"
-#include "glossaire.h"
 #include "analysesemantique.h"
 #include "analysesyntaxique.h"
+
+class Glossaire;
 
 class ANALYSESHARED_EXPORT Analyse : public QObject {
 
@@ -29,6 +30,12 @@ public:
     int getDebutAlgo();
     int getFinAlgo();
 
+    enum erreur {
+        VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
+        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
+        TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
+    };
+
 public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
     void lancerAnalyseSemantique(QFile* pFichier);
@@ -36,6 +43,7 @@ public slots:
 signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
     void sigLancerAnalyseSemantique(QFile* pFichier);
+    void sigErreur(Analyse::erreur);
 
 private:
     QList<Instruction*>* m_listeInstruction;

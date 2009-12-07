@@ -15,7 +15,6 @@ HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
     glossaire.h \
-    erreuranalyse.h \
     dictionnaire.h \
     instruction.h \
     analyse.h

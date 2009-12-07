@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QtCore/QHash>
 
+#include "analyse.h"
+
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
 class Glossaire : public QObject {
@@ -31,7 +33,7 @@ private:
     QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
 
 signals:
-    void erreur(int);
+    void erreur(Analyse::erreur);
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
 };

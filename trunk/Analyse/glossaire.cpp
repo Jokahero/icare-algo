@@ -1,5 +1,4 @@
 #include "glossaire.h"
-#include "erreuranalyse.h"
 
 /*! \brief Constructeur par défaut.
 */
@@ -31,7 +30,8 @@ bool Glossaire::existe(QString pNomVar) {
 */
 bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
-        emit erreur(ErreurAnalyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree);
+        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeEntier->insert(pNomVar, 0);
@@ -48,7 +48,8 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
 */
 bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
-        emit erreur(ErreurAnalyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree);
+        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeChaine->insert(pNomVar, QString::null);
@@ -65,7 +66,8 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
 */
 bool Glossaire::ajoutReel(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
-        emit erreur(ErreurAnalyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree);
+        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeReel->insert(pNomVar, 0);
@@ -81,10 +83,10 @@ bool Glossaire::ajoutReel(QString pNomVar, QString pDescription) {
 */
 int Glossaire::getValeurEntier(QString pNomVar) {
     if (!existe(pNomVar)) {
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
         return 0;
     } else if (!m_listeEntier->contains(pNomVar)) {
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else
         return m_listeEntier->value(pNomVar);
@@ -97,10 +99,10 @@ int Glossaire::getValeurEntier(QString pNomVar) {
 */
 QString Glossaire::getValeurChaine(QString pNomVar) {
     if (!existe(pNomVar)) {
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
         return 0;
     } else if (!m_listeChaine->contains(pNomVar)) {
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else
         return m_listeChaine->value(pNomVar);
@@ -113,10 +115,10 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
 */
 double Glossaire::getValeurReel(QString pNomVar) {
     if (!existe(pNomVar)) {
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
         return 0;
     } else if (!m_listeReel->contains(pNomVar)) {
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else
         return m_listeReel->value(pNomVar);
@@ -132,9 +134,9 @@ void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
         emit variableModifiee(pNomVar, QString::number(pValeur));
         (*m_listeEntier)[pNomVar] = pValeur;
     } else if (existe(pNomVar))
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
     else
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
 }
 
 /*! \brief Définit la valeur d'une chaîne.
@@ -147,9 +149,9 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
         emit variableModifiee(pNomVar, pValeur);
         (*m_listeChaine)[pNomVar] = pValeur;
     } else if (existe(pNomVar))
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
     else
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
 }
 
 /*! \brief Définit la valeur d'un réel.
@@ -162,7 +164,7 @@ void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
         emit variableModifiee(pNomVar, QString::number(pValeur));
         (*m_listeReel)[pNomVar] = pValeur;
     } else if (existe(pNomVar))
-        emit(erreur(ErreurAnalyse::TypeIncorrect));
+        emit(erreur(Analyse::TypeIncorrect));
     else
-        emit(erreur(ErreurAnalyse::VariableNonDeclaree));
+        emit(erreur(Analyse::VariableNonDeclaree));
 }
