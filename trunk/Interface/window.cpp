@@ -3,7 +3,8 @@
 
 Window::Window() : QMainWindow()
 {
-    //setMinimumSize(500, 500);
+    QSettings settings;
+    restoreGeometry(settings.value("Size").toByteArray());
     setWindowTitle(tr("Icare"));
 
     /* On instancie la barre de Menu */
@@ -96,6 +97,8 @@ Window::Window() : QMainWindow()
     QObject::connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
     QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
+    QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
+    QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
 
 }
 
@@ -145,6 +148,12 @@ void Window::ouvrirFichier(QString pNomFichier)
     m_fichier->close();
 }
 
+void Window::afficherPreferences()
+{
+    m_pref = new Preferences();
+    m_pref->show();
+}
+
 void Window::enregistrerFichier()
 {
     if(!m_fichier->open(QIODevice::WriteOnly | QIODevice::Text))
@@ -153,4 +162,10 @@ void Window::enregistrerFichier()
     QString texte = m_zoneTexte->toPlainText();
     m_fichier->write(texte.toLocal8Bit());
     m_fichier->close();
+}
+
+void Window::quitter()
+{
+    QSettings  settings;
+    settings.setValue("Size", saveGeometry());
 }

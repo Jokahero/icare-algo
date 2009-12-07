@@ -8,17 +8,20 @@ DEPENDPATH += .
 INCLUDEPATH += .
 DEFINES += GUI_LIBRARY
 CONFIG += release
+
 # Input
 SOURCES += window.cpp \
     apropos.cpp \
     textedit.cpp \
     gestionnaireplugins.cpp \
-    coloration.cpp
+    coloration.cpp \
+    preferences.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
     GUI_global.h \
     plugininterface.h \
     gestionnaireplugins.h \
-    coloration.h
+    coloration.h \
+    preferences.h
 DESTDIR = ../
