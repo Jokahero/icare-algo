@@ -8,7 +8,7 @@ class Coloration : public QSyntaxHighlighter
 Q_OBJECT
 
 public:
-    Coloration(QTextEdit *pTextEdit);
+    Coloration(QTextDocument *pTextDocument);
 
 private:
  struct HighlightingRule //Structure indiquant le regexp et le format du texte Ã  colorier

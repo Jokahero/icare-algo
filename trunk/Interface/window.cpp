@@ -1,15 +1,21 @@
 #include "window.h"
 
+/*! \brief Constructeur. Initialise la fenêtre principale.
+*/
 Window::Window() : QMainWindow()
 {
+    /* On récupère la taille et la position de la fenêtre
+       telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
     QSettings settings;
     restoreGeometry(settings.value("Size").toByteArray());
+    /* On nomme la fenêtre principale */
     setWindowTitle(tr("Icare"));
 
     /* On instancie la barre de Menu */
     m_barreMenu = new QMenuBar (this);
 
     /* Mise en place du menu principal */
+    /* On instancie et on ajoute des paramètres (nom, raccourci clavier ...) aux objets du menu */
     m_mainMenu = new QMenu (m_barreMenu);
     m_ouvrir = new QAction(tr("Ouvrir"), this);
     m_ouvrir->setShortcut(tr("Ctrl+O"));
@@ -54,12 +60,14 @@ Window::Window() : QMainWindow()
     m_help->addAction(m_aPropos);
 
     /* Insertion des menus dans la barre de Menu */
+    /* On ajoute tous les menus précédemment créés dans la barre de menu*/
     m_barreMenu->addMenu(m_mainMenu);
     m_barreMenu->addMenu(m_menuAnalyse);
     m_barreMenu->addMenu(m_menuOptions);
     m_barreMenu->addMenu(m_help);
 
     /* Definition de la barre de Menu de la fenêtre */
+    /* On ajoute la barre de menu à la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -95,6 +103,9 @@ Window::Window() : QMainWindow()
 
     addToolBar(m_barreOutilsTests);
 
+    /* Connection des signaux des objets aux slots de l'application
+       connect([Objet émetteur], SIGNAL([Signal émis]), [Objet récepteur], SLOT[Slot "activé"]);
+    */
     QObject::connect(m_aPropos, SIGNAL(triggered()), this, SLOT(afficherApropos()));
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
@@ -132,7 +143,10 @@ void Window::afficherApropos()
     m_fenApropos->show();
 }
 
-
+/*! \brief Ouverture d'un fichier.
+  Cette fonction sans paramètre ouvre une boîte de dialogue permettant d'ouvrir un fichier existant
+  et d'insérer son contenu dans la zone de texte.
+*/
 void Window::ouvrirFichier()
 {
     QString nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
@@ -140,6 +154,10 @@ void Window::ouvrirFichier()
     ouvrirFichier(nomFichier);
 }
 
+/*! \brief Ouverture d'un fichier.
+  Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
+  \param pNomFichier Nom du fichier à ouvrir.
+*/
 void Window::ouvrirFichier(QString pNomFichier)
 {
     m_fichier->setFileName(pNomFichier);

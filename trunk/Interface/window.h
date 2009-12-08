@@ -59,6 +59,7 @@ public slots:
     void erreurMath(MathExp::erreur);
 
     void analyseSyntaxique();
+
     void execution();
 
     void afficherApropos();
