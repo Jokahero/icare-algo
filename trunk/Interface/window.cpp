@@ -168,6 +168,7 @@ void Window::ouvrirFichier(QString pNomFichier)
     //On créer un flux de texte
     QTextStream flux(m_fichier);
     m_zoneTexte->setPlainText(flux.readAll());
+    m_zoneTexte->setDocumentTitle(m_fichier->fileName());
     m_fichier->close();
 }
 

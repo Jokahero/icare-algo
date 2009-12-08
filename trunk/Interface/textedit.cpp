@@ -2,7 +2,7 @@
 
 TextEdit::TextEdit() {
     setTabStopWidth(16);
-
+    setLineWrapMode(QPlainTextEdit::NoWrap);
     m_color = new Coloration(document());
 
     lineNumberArea = new LineNumberArea(this);
