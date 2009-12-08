@@ -8,9 +8,9 @@ public:
 
 
     enum typeLigne {
-        Si,        /*!< La variable recherchée n'a pas été déclarée. */
-        TantQue,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
-        FinTantQue,              /*!< La variable a été déclarée avec un type différent. */
+        Si,        /*!< La variable recherchÃ©e n'a pas Ã©tÃ© dÃ©clarÃ©e. */
+        TantQue,       /*!< Lors de l'ajout d'une variable, une variable portant le mÃªme nom a dÃ©jÃ  Ã©tÃ© dÃ©clarÃ©e. */
+        FinTantQue,              /*!< La variable a Ã©tÃ© dÃ©clarÃ©e avec un type diffÃ©rent. */
         TypeInconnu,
     };
 
