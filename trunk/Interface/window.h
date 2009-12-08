@@ -28,6 +28,7 @@ private:
     QMenu *m_mainMenu;
     QAction *m_ouvrir;
     QAction *m_enregistrer;
+    QAction *m_imprimer;
     QAction *m_quitter;
 
     QMenu *m_menuAnalyse;
@@ -69,6 +70,8 @@ public slots:
     void afficherPreferences();
 
     void enregistrerFichier();
+
+    void imprimerFichier();
 
     void quitter();
 
