@@ -55,6 +55,8 @@ private:
 
     QFile *m_fichier;
 
+    QStatusBar* m_statusBar;
+
 public slots:
     void erreurMath(MathExp::erreur);
 
@@ -75,6 +77,8 @@ public slots:
     void imprimerFichier();
 
     void quitter();
+
+    void showMessage(const QString& pMessage, int pTimeout = 0);
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);

@@ -103,6 +103,9 @@ Window::Window() : QMainWindow()
 
     addToolBar(m_barreOutilsTests);
 
+    m_statusBar = new QStatusBar(this);
+    setStatusBar(m_statusBar);
+
     /* Connection des signaux des objets aux slots de l'application
        connect([Objet émetteur], SIGNAL([Signal émis]), [Objet récepteur], SLOT[Slot "activé"]);
     */
@@ -161,8 +164,57 @@ void Window::ouvrirFichier()
 void Window::ouvrirFichier(QString pNomFichier)
 {
     m_fichier->setFileName(pNomFichier);
+    bool ouverture = m_fichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    if(!m_fichier->open(QIODevice::ReadOnly | QIODevice::Text))
+    switch (m_fichier->error()) {
+    case QFile::NoError:
+        showMessage(tr("Fichier %1 ouvert avec succès.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::ReadError:
+        showMessage(tr("Erreur lors de la lecture du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::WriteError:
+        showMessage(tr("Erreur lors de l'écriture du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::FatalError:
+        showMessage(tr("Erreur fatale."), 2000);
+        break;
+    case QFile::ResourceError:
+        showMessage(tr("Erreur de ressource."), 2000);
+        break;
+    case QFile::OpenError:
+        showMessage(tr("Le fichier %1 ne peut pas être ouvert.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::AbortError:
+        showMessage(tr("L'opération a été interrompue."), 2000);
+        break;
+    case QFile::TimeOutError:
+        showMessage(tr("Délai d'attente dépassé."), 2000);
+        break;
+    case QFile::UnspecifiedError:
+        showMessage(tr("Erreur inconnue."), 2000);
+        break;
+    case QFile::RemoveError:
+        showMessage(tr("Erreur lors de la suppression du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::RenameError:
+        showMessage(tr("Erreur lors du renommage du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::PositionError:
+        showMessage(tr("La position du fichier %1 ne peut pas être modifiée.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::ResizeError:
+        showMessage(tr("Le fichier %1 ne peut pas être redimensionné.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::PermissionsError:
+        showMessage(tr("Accès au fichier %1 impossible.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::CopyError:
+        showMessage(tr("Le fichier %1 ne peut pas être copié.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    }
+
+    if (!ouverture)
         return;
 
     //On créer un flux de texte
@@ -178,13 +230,62 @@ void Window::afficherPreferences()
     m_pref->show();
 }
 
-void Window::enregistrerFichier()
-{
-    if(!m_fichier->open(QIODevice::WriteOnly | QIODevice::Text))
+void Window::enregistrerFichier() {
+    bool ouverture = m_fichier->open(QIODevice::WriteOnly | QIODevice::Text);
+
+    switch (m_fichier->error()) {
+    case QFile::NoError:
+        showMessage(tr("Fichier %1 ouvert avec succès.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::ReadError:
+        showMessage(tr("Erreur lors de la lecture du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::WriteError:
+        showMessage(tr("Erreur lors de l'écriture du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::FatalError:
+        showMessage(tr("Erreur fatale."), 2000);
+        break;
+    case QFile::ResourceError:
+        showMessage(tr("Erreur de ressource."), 2000);
+        break;
+    case QFile::OpenError:
+        showMessage(tr("Le fichier %1 ne peut pas être ouvert.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::AbortError:
+        showMessage(tr("L'opération a été interrompue."), 2000);
+        break;
+    case QFile::TimeOutError:
+        showMessage(tr("Délai d'attente dépassé."), 2000);
+        break;
+    case QFile::UnspecifiedError:
+        showMessage(tr("Erreur inconnue."), 2000);
+        break;
+    case QFile::RemoveError:
+        showMessage(tr("Erreur lors de la suppression du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::RenameError:
+        showMessage(tr("Erreur lors du renommage du fichier %1.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::PositionError:
+        showMessage(tr("La position du fichier %1 ne peut pas être modifiée.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::ResizeError:
+        showMessage(tr("Le fichier %1 ne peut pas être redimensionné.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::PermissionsError:
+        showMessage(tr("Accès au fichier %1 impossible.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    case QFile::CopyError:
+        showMessage(tr("Le fichier %1 ne peut pas être copié.").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
+        break;
+    }
+
+    if (!ouverture)
         return;
 
     QString texte = m_zoneTexte->toPlainText();
-    m_fichier->write(texte.toLocal8Bit());
+    m_fichier->write(texte.toUtf8());
     m_fichier->close();
 }
 
@@ -200,4 +301,8 @@ void Window::imprimerFichier() {
     if (printDialog.exec() == QDialog::Accepted) {
         m_zoneTexte->print(printDialog.printer());
     }
+}
+
+void Window::showMessage(const QString& pMessage, int pTimeout) {
+    m_statusBar->showMessage(pMessage, pTimeout);
 }
