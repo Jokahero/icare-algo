@@ -1,6 +1,6 @@
 #include "coloration.h"
 
-Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit) {
+Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextDocument) {
     HighlightingRule type;
     HighlightingRule controle;
     HighlightingRule comment;
@@ -77,6 +77,8 @@ Coloration::Coloration(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit) {
     numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
     numerique.format = numeriqueFormat;
     highlightingRules.append(numerique);
+
+    //textEdit->setPlainText(highlightBlock(textEdit->toPlainText()));
 }
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
