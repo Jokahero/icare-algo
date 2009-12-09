@@ -8,14 +8,48 @@ public:
 
 
     enum typeLigne {
-        Si,        /*!< La variable recherchée n'a pas été déclarée. */
-        TantQue,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
-        FinTantQue,              /*!< La variable a été déclarée avec un type différent. */
+        Glossaire,
+        DeclarationVariable,
+        Debut,
+        Fin,
+        Commentaire,
+
+        FinPour,
+
+        Default,
+        FinSelon,
+
+        Repeter,
+        Si,
+        FinSi,
+        Sinon,
+
         TypeInconnu,
     };
 
     static Dictionnaire::typeLigne getType(QString pLigne);
-    static bool isSi(QString pLigne);
+
+    static bool Dictionnaire::isGlossaire(QString pLigne);
+    static bool Dictionnaire::isDeclarationVariable(QString pLigne);
+    static bool Dictionnaire::isDebut(QString pLigne);
+    static bool Dictionnaire::isFin(QString pLigne);
+    static bool Dictionnaire::isCommentaire(QString pLigne);
+
+    static bool Dictionnaire::isFinPour(QString pLigne);
+
+    static bool Dictionnaire::isDefault(QString pLigne);
+    static bool Dictionnaire::isFinSelon(QString pLigne);
+
+    static bool Dictionnaire::isRepeter(QString pLigne);
+
+    static bool Dictionnaire::isSi(QString pLigne);
+    static bool Dictionnaire::isFinSi(QString pLigne);
+    static bool Dictionnaire::isSinon(QString pLigne);
+
+
+
+
+
 
 private:
 

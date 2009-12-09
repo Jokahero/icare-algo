@@ -1,128 +1,168 @@
 #include "dictionnaire.h"
+#include <glossaire.h>
 #include <QRegExp>
 
-
-
 Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
-//if
-//
-//        else
-//
-//
-//
-//            else
-//
-//
-//                else
-//
-//
-
 if (isSi(pLigne))
     return Dictionnaire::Si;
 else
     return Dictionnaire::TypeInconnu;
-
-
 }
 
-bool Dictionnaire::isSi(QString pLigne) {
-    QRegExp rx("^si\\s+*$");
+
+/*! \brief Permet de savoir si le ligne est le début du Glossaire.
+
+  Indique si la ligne est une ligne "Glossaire".
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Glossaire", faux sinon.
+*/
+bool Dictionnaire::isGlossaire(QString pLigne) {
+    QRegExp rx("^glossaire\\s?:?$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est une déclaration de variable.
+
+  Indique si la ligne est une ligne de déclaration de variables.
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est une ligne de déclaration de variables, faux sinon.
+*/
+bool Dictionnaire::isDeclarationVariable(QString pLigne) {
+    QRegExp rx("^(entier|r[ée]el|cha[îi]ne|caract[eè]re|bool[ée]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est le début de l'algorithme.
+
+  Indique si la ligne est une ligne "Debut".
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Debut", faux sinon.
+*/
+bool Dictionnaire::isDebut(QString pLigne) {
+    QRegExp rx("^d[eé]but\\s?:?$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est la fin de l'algorithme.
+
+  Indique si la ligne est une ligne "Fin".
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Fin", faux sinon.
+*/
+bool Dictionnaire::isFin(QString pLigne) {
+    QRegExp rx("^fin$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est un commentaire uniligne.
+
+  Indique si la ligne est une ligne //(Commentaire).
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un //(Commentaire), faux sinon.
+*/
+bool Dictionnaire::isCommentaire(QString pLigne) {
+    QRegExp rx("^//");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
 
+/*! \brief Permet de savoir si le ligne est un "FinPour".
 
-//
-//
-//
-//Dictionnaire::Dictionnaire()
-//{
-//    m_dico << QRegExp("^glossaire\\s?:?$");
-//    m_dico << QRegExp("^d[eé]but\\s?:?$");
-//    m_dico << QRegExp("^fin$");
-//    //type
-//    m_dico << QRegExp("^(entier|r[ée]el|cha[îi]ne|caract[eè]re|bool[ée]en)\\s+([a-zA-Z]+)\\s+((?:\\w*\\s*)*)$");
-//    m_dico << "^r[ée]el ..............................";
-//    m_dico << "^entier$";
-//    m_dico << "^caract[èe]re$";
-//    m_dico << "^cha[îi]ne$";
-//    m_dico << "^bool[ée]en$";
-//    //commentaire
-//    m_dico << "^//";
+  Indique si la ligne est une ligne "FinPour".
 
-//      a ne pas mettre
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "FinPour", faux sinon.
+*/
+bool Dictionnaire::isFinPour(QString pLigne) {
+    QRegExp rx("^finpour$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
 
-//    m_dico << "^/\\*";
-//    m_dico << "\\*/";
+/*! \brief Permet de savoir si le ligne est un Default (Cas par défault de Selon).
 
+  Indique si la ligne est une ligne "Default" (Cas par défault de Selon).
 
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Default" (Cas par défault de Selon), faux sinon.
+*/
+bool Dictionnaire::isDefault(QString pLigne) {
+    QRegExp rx("^default\\s?:?$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est un FinSelon.
 
-//    //Condition
-//    m_dico << "^si[a-z]+=[]alors$";
-//    m_dico << "^sinon$";                    //apre le sinon il peut y avoir un autre si...
-//    m_dico << "^sinon+(si[]+=[]alors)";
-//    m_dico << "^finsi$";
-//    //switch
-//    m_dico << "^selon (+";
-//    m_dico << "^cas[0-9]{1,2}:?$";          //uniquement avec deschffre ou bienavec des valeur texte ?????
-//    m_dico << "^cas (*\S):$";               //() contient les differente valeur possible de la variable
-//
-//    m_dico << "^default$";
-//    m_dico << "^finselon$";
-//    //While
-//    m_dico << "^tantque      faire$";
-//    m_dico << "^fintantque$";
-//    //do..while
-//    m_dico << "^repeter$";
-//    m_dico << "^jusqua";
-//    m_dico << "^jusqu'?a";
-//    //for
-//    m_dico << "pour";
-//    m_dico << "de";
-//    m_dico << "a";
-//    m_dico << "^finpour$";
-//    //Liaison
-//    m_dico << "et";
-//    m_dico << "ou";
-//    m_dico << "non";
-//    m_dico << "=";
-//    m_dico << "<";
-//    m_dico << ">";
-//    m_dico << "<=";
-//    m_dico << ">=";
-//    m_dico << "!=";
-//
+  Indique si la ligne est une ligne "FinSelon".
 
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "FinSelon", faux sinon.
+*/
+bool Dictionnaire::isFinSelon(QString pLigne) {
+QRegExp rx("^finselon$");
+rx.setCaseSensitivity(Qt::CaseInsensitive);
+return rx.exactMatch(pLigne);
+}
 
+/*! \brief Permet de savoir si le ligne est un "Repeter".
 
-//utilisation expression reguliere
+  Indique si la ligne est une ligne "Repeter".
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Repeter", faux sinon.
+*/
+bool Dictionnaire::isRepeter(QString pLigne) {
+QRegExp rx("^repeter$");
+rx.setCaseSensitivity(Qt::CaseInsensitive);
+return rx.exactMatch(pLigne);
+}
+
+/*! \brief Permet de savoir si le ligne est un "Si".
+
+  Indique si la ligne est une ligne "Si".
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Si", faux sinon.
+*/
+bool Dictionnaire::isSi(QString pLigne) {
+    QString expression;
 
 
 
 
-//test qDebug() << m_dico.at(1);}
+    QRegExp rx("^si\\s+*$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est un "FinSi".
 
+  Indique si la ligne est une ligne "FinSi".
 
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "FinSi", faux sinon.
+*/
+bool Dictionnaire::isFinSi(QString pLigne) {
+    QRegExp rx("^finsi$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+/*! \brief Permet de savoir si le ligne est un "Sinon".
 
+  Indique si la ligne est une ligne "Sinon".
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un "Sinon", faux sinon.
+*/
+bool Dictionnaire::isSinon(QString pLigne) {
+    QRegExp rx("^sinon$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
 
 
 
