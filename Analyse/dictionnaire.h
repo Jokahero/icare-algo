@@ -29,35 +29,22 @@ public:
 
     static Dictionnaire::typeLigne getType(QString pLigne);
 
-    static bool Dictionnaire::isGlossaire(QString pLigne);
-    static bool Dictionnaire::isDeclarationVariable(QString pLigne);
-    static bool Dictionnaire::isDebut(QString pLigne);
-    static bool Dictionnaire::isFin(QString pLigne);
-    static bool Dictionnaire::isCommentaire(QString pLigne);
+    static bool isGlossaire(QString pLigne);
+    static bool isDeclarationVariable(QString pLigne);
+    static bool isDebut(QString pLigne);
+    static bool isFin(QString pLigne);
+    static bool isCommentaire(QString pLigne);
 
-    static bool Dictionnaire::isFinPour(QString pLigne);
+    static bool isFinPour(QString pLigne);
 
-    static bool Dictionnaire::isDefault(QString pLigne);
-    static bool Dictionnaire::isFinSelon(QString pLigne);
+    static bool isDefault(QString pLigne);
+    static bool isFinSelon(QString pLigne);
 
-    static bool Dictionnaire::isRepeter(QString pLigne);
+    static bool isRepeter(QString pLigne);
 
-    static bool Dictionnaire::isSi(QString pLigne);
-    static bool Dictionnaire::isFinSi(QString pLigne);
-    static bool Dictionnaire::isSinon(QString pLigne);
-
-
-
-
-
-
-private:
-
-
-
-
-
-
+    static bool isSi(QString pLigne);
+    static bool isFinSi(QString pLigne);
+    static bool isSinon(QString pLigne);
 
 };
 

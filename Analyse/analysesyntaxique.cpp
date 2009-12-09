@@ -1,6 +1,7 @@
 #include "analysesyntaxique.h"
 #include "analyse.h"
 #include "glossaire.h"
+#include "dictionnaire.h"
 
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -21,17 +22,12 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     int finGlossaire = -1;
     int cptLigne;
     QString ligneAct;
-    QRegExp rxGlossaire("^glossaire\\s*:?$");
-    QRegExp rxDebut("^d[eé]but\\s*:?$");
     QRegExp rxVariable("^(entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([a-zA-Z]+)\\s+((?:\\w*\\s*)*)$");
     QRegExp rxEntier("^entier$");
     QRegExp rxReel("^r[ée]el$");
     QRegExp rxChaine("^cha[îi]ne$");
     QRegExp rxCaractere("^caract[èe]re$");
-    QRegExp rxFin("^fin$");
 
-    rxGlossaire.setCaseSensitivity(Qt::CaseInsensitive);
-    rxDebut.setCaseSensitivity(Qt::CaseInsensitive);
     rxVariable.setCaseSensitivity(Qt::CaseInsensitive);
     rxEntier.setCaseSensitivity(Qt::CaseInsensitive);
     rxReel.setCaseSensitivity(Qt::CaseInsensitive);
@@ -40,16 +36,17 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
+    //Reperer le numero de la ligne de DebutGlossaire et de FinGlossaire
     for (cptLigne = 1; !pFichier->atEnd(); cptLigne++) {
-        ligneAct = pFichier->readLine().trimmed();
-        if (rxGlossaire.exactMatch(ligneAct)) {
-            debutGlossaire = pFichier->pos();
-            m_analyse->setDebutGlossaire(cptLigne);
-        } else if (rxDebut.exactMatch(ligneAct)) {
+        ligneAct = pFichier->readLine().trimmed();      //enlever les espaces
+        if (Dictionnaire::isGlossaire(ligneAct)) {
+            debutGlossaire = pFichier->pos();           //recuperer l'endroit exact (au bit près) d'où on se trouve
+            m_analyse->setDebutGlossaire(cptLigne);     //recuperer le numero de la ligne
+        } else if (Dictionnaire::isDebut(ligneAct)) {
             finGlossaire = pFichier->pos();
             m_analyse->setFinGlossaire(cptLigne);
             m_analyse->setDebutAlgo(cptLigne);
-        } else if (rxFin.exactMatch(ligneAct)) {
+        } else if (Dictionnaire::isFin(ligneAct)) {
             m_analyse->setFinAlgo(cptLigne);
         }
     }
@@ -79,37 +76,58 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     qDebug() << "Lecture du glossaire terminée.";
 }
 
+
+/*! \brief  Génère la liste des instructions de l'algo à stocker dans un tableau d'instruction
+            Les lignes vides ne sont pas stockées.
+            Si l'instruction est de type inconnu alors ERREUR. Sinon elle est stockée!
+  \param pFichier Fichier à analyser.
+  \todo Gestion des erreurs.
+  */
 void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     qDebug() << "Lecture des instructions commencée.";
 
-    int debutAlgo = -1;
-    int finAlgo= -1;
-    int cptLigne;
+    //ATTRIBUTS
+    int debutAlgo = -1;                     //numero de la ligne DEBUT
+    int finAlgo= -1;                        //numero de la ligne FIN
+    int cptLigne;                           //nombre de ligne de l'algo
     Instruction* instructionAct;
-    QString ligneAct;
-    QRegExp rxDebut("^d[eé]but\\s*:?$");
-    QRegExp rxFin("^fin$");
+    QString ligneAct;                       //Ligne: l'instruction actuelle (celle que l'on étudie à un moment)
 
-    rxDebut.setCaseSensitivity(Qt::CaseInsensitive);
-    rxFin.setCaseSensitivity(Qt::CaseInsensitive);
 
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
+
+    //Reperer le numero de la ligne de DEBUT et la ligne de FIN
     while (!pFichier->atEnd() && finAlgo < 0) {
         ligneAct = pFichier->readLine().trimmed();
-        if (rxDebut.exactMatch(ligneAct))
+        if (Dictionnaire::isDebut(ligneAct))
             debutAlgo = pFichier->pos();
-        else if (rxFin.exactMatch(ligneAct))
+        else if (Dictionnaire::isFin(ligneAct))
             finAlgo = pFichier->pos();
     }
 
+    //retourner à la position passée en paramètre
     pFichier->seek(debutAlgo);
+
+
+    //LECTURE DE L'ALGO
     for (cptLigne = m_analyse->getDebutAlgo(); pFichier->pos() < finAlgo; cptLigne++) {
-        ligneAct = pFichier->readLine().trimmed();
-        // Si ce n'est pas un commentaire ou une ligne vide, l'ajouter à la liste d'instructions
-        instructionAct = new Instruction(cptLigne, ligneAct, QString::null);
-        qDebug() << "nouvelle instruction ajoutée : " << instructionAct->getNumLigne() << " : " << instructionAct->getLigne();
-        m_analyse->getListeInstruction()->append(instructionAct);
+        ligneAct = pFichier->readLine().trimmed();      //trimmed: enlèbe espace au début et a la fin
+        /*
+            Si c'est une ligne vide, on ne la stocke pas
+            Si ce n'est pas une ligne vide mais est de type TypeInconnu alors ERREUR
+            Sinon Si ce n'est pas un commentaire ou une ligne vide, l'ajouter à la liste d'instructions
+        */
+        Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct);
+        if (ligneAct != QString::null && typeLigneAct == Dictionnaire::TypeInconnu) {
+            //erreur
+
+        } else if (ligneAct != QString::null && typeLigneAct != Dictionnaire::Commentaire) {
+            instructionAct = new Instruction(cptLigne, ligneAct, QString::null);
+                //  CATEGORIE de l'instruction à voir si utile
+
+            m_analyse->getListeInstruction()->append(instructionAct);
+        }
     }
 
     pFichier->close();
