@@ -1,4 +1,5 @@
 #include "preferences.h"
+#include <QtCore>
 
 Preferences::Preferences() : QDialog()
 {
@@ -13,7 +14,7 @@ Preferences::Preferences() : QDialog()
     m_layout->addWidget(m_onglets);
     m_layout->addWidget(m_buttonBox);
 
-    QFormLayout *m_layoutOnglet = new QFormLayout();
+    QFormLayout *m_layoutOngletColoration = new QFormLayout();
 
     m_commentairesLabel = new QLabel(tr("Couleur des commentaires et des chaînes:"));
     m_commentairesBouton = new QPushButton(tr("Modifier"));
@@ -30,18 +31,29 @@ Preferences::Preferences() : QDialog()
     m_typeLabel = new QLabel(tr("Couleur des types:"));
     m_typeBouton = new QPushButton(tr("Modifier"));
 
-    m_layoutOnglet->addRow(m_commentairesLabel, m_commentairesBouton);
-    m_layoutOnglet->addRow(m_bornesLabel, m_bornesBouton);
-    m_layoutOnglet->addRow(m_structuresLabel, m_structuresBouton);
-    m_layoutOnglet->addRow(m_numeriqueLabel, m_numeriqueBouton);
-    m_layoutOnglet->addRow(m_typeLabel, m_typeBouton);
+    m_layoutOngletColoration->addRow(m_commentairesLabel, m_commentairesBouton);
+    m_layoutOngletColoration->addRow(m_bornesLabel, m_bornesBouton);
+    m_layoutOngletColoration->addRow(m_structuresLabel, m_structuresBouton);
+    m_layoutOngletColoration->addRow(m_numeriqueLabel, m_numeriqueBouton);
+    m_layoutOngletColoration->addRow(m_typeLabel, m_typeBouton);
 
     m_color = new QWidget(this);
-    m_color->setLayout(m_layoutOnglet);
+    m_color->setLayout(m_layoutOngletColoration);
+
+    m_edit = new QWidget(this);
+    QFormLayout *m_layoutOngletZoneEdition = new QFormLayout();
+
+    m_numerotation = new QCheckBox("Numérotation des lignes", this);
+
+    m_layoutOngletZoneEdition->addRow(m_numerotation);
+    m_edit->setLayout(m_layoutOngletZoneEdition);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
+    m_onglets->addTab(m_edit, tr("Zone d'édition"));
 
     setLayout(m_layout);
+
+    loadSettings();
 
     QObject::connect(m_commentairesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_bornesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
@@ -61,5 +73,55 @@ void Preferences::modifierCouleur()
         pal.setColor(QPalette::Button, choix->selectedColor());
         tmp->setPalette(pal);
         tmp->repaint();
+        changeSettings(/*"Coloration"*/);
     }
+}
+
+void Preferences::changeSettings(/*QString pCategorie*/) {
+    QSettings settings;
+    //settings.beginGroup(pCategorie);
+    settings.setValue(m_commentairesLabel->text(), m_commentairesBouton->palette().color(QPalette::Button).name());
+    settings.setValue(m_bornesLabel->text(), m_bornesBouton->palette().color(QPalette::Button).name());
+    settings.setValue(m_structuresLabel->text(), m_structuresBouton->palette().color(QPalette::Button).name());
+    settings.setValue(m_numeriqueLabel->text(), m_numeriqueBouton->palette().color(QPalette::Button).name());
+    settings.setValue(m_typeLabel->text(), m_typeBouton->palette().color(QPalette::Button).name());
+    //settings.endGroup();
+}
+
+QColor Preferences::recupCouleur(QString pNomCouleur) {
+    QColor couleur;
+    couleur.setNamedColor(pNomCouleur);
+    return couleur;
+}
+
+void Preferences::loadSettings() {
+    QSettings settings;
+    QColor tmp;
+    QString str;
+    QPalette pal;
+
+    tmp = recupCouleur(settings.value(m_commentairesLabel->text()).toString());
+    pal = m_commentairesBouton->palette();
+    pal.setColor(QPalette::Button, tmp);
+    m_commentairesBouton->setPalette(pal);
+
+    tmp = recupCouleur(settings.value(m_bornesLabel->text()).toString());
+    pal = m_bornesBouton->palette();
+    pal.setColor(QPalette::Button, tmp);
+    m_bornesBouton->setPalette(pal);
+
+    tmp = recupCouleur(settings.value(m_structuresLabel->text()).toString());
+    pal = m_structuresBouton->palette();
+    pal.setColor(QPalette::Button, tmp);
+    m_structuresBouton->setPalette(pal);
+
+    tmp = recupCouleur(settings.value(m_numeriqueLabel->text()).toString());
+    pal = m_numeriqueBouton->palette();
+    pal.setColor(QPalette::Button, tmp);
+    m_numeriqueBouton->setPalette(pal);
+
+    tmp = recupCouleur(settings.value(m_typeLabel->text()).toString());
+    pal = m_typeBouton->palette();
+    pal.setColor(QPalette::Button, tmp);
+    m_typeBouton->setPalette(pal);
 }

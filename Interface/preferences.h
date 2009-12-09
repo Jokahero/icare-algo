@@ -32,11 +32,20 @@ private:
     QLabel *m_typeLabel;
     QPushButton *m_typeBouton;
 
+    /* Onglet des préférences de la zone d'édition */
+    QWidget *m_edit;
+
+    /* Le widget m_color contiendra ces éléments */
+    QCheckBox *m_numerotation;
+
     /* Pour les boutons Ok et Annuler */
     QDialogButtonBox *m_buttonBox;
 
 public slots:
     void modifierCouleur();
+    void changeSettings(/*QString pCategorie*/);
+    QColor recupCouleur(QString pNomCouleur);
+    void loadSettings();
 };
 
 #endif // PREFERENCES_H
