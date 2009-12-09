@@ -1,5 +1,5 @@
 #include "dictionnaire.h"
-#include <glossaire.h>
+#include "glossaire.h"
 #include <QRegExp>
 
 Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
@@ -14,7 +14,7 @@ else
 
   Indique si la ligne est une ligne "Glossaire".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Glossaire", faux sinon.
 */
 bool Dictionnaire::isGlossaire(QString pLigne) {
@@ -26,7 +26,7 @@ bool Dictionnaire::isGlossaire(QString pLigne) {
 
   Indique si la ligne est une ligne de d√©claration de variables.
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est une ligne de d√©claration de variables, faux sinon.
 */
 bool Dictionnaire::isDeclarationVariable(QString pLigne) {
@@ -38,7 +38,7 @@ bool Dictionnaire::isDeclarationVariable(QString pLigne) {
 
   Indique si la ligne est une ligne "Debut".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Debut", faux sinon.
 */
 bool Dictionnaire::isDebut(QString pLigne) {
@@ -50,7 +50,7 @@ bool Dictionnaire::isDebut(QString pLigne) {
 
   Indique si la ligne est une ligne "Fin".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Fin", faux sinon.
 */
 bool Dictionnaire::isFin(QString pLigne) {
@@ -62,7 +62,7 @@ bool Dictionnaire::isFin(QString pLigne) {
 
   Indique si la ligne est une ligne //(Commentaire).
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un //(Commentaire), faux sinon.
 */
 bool Dictionnaire::isCommentaire(QString pLigne) {
@@ -75,7 +75,7 @@ bool Dictionnaire::isCommentaire(QString pLigne) {
 
   Indique si la ligne est une ligne "FinPour".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "FinPour", faux sinon.
 */
 bool Dictionnaire::isFinPour(QString pLigne) {
@@ -88,7 +88,7 @@ bool Dictionnaire::isFinPour(QString pLigne) {
 
   Indique si la ligne est une ligne "Default" (Cas par d√©fault de Selon).
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Default" (Cas par d√©fault de Selon), faux sinon.
 */
 bool Dictionnaire::isDefault(QString pLigne) {
@@ -100,7 +100,7 @@ bool Dictionnaire::isDefault(QString pLigne) {
 
   Indique si la ligne est une ligne "FinSelon".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "FinSelon", faux sinon.
 */
 bool Dictionnaire::isFinSelon(QString pLigne) {
@@ -113,7 +113,7 @@ return rx.exactMatch(pLigne);
 
   Indique si la ligne est une ligne "Repeter".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Repeter", faux sinon.
 */
 bool Dictionnaire::isRepeter(QString pLigne) {
@@ -126,7 +126,7 @@ return rx.exactMatch(pLigne);
 
   Indique si la ligne est une ligne "Si".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Si", faux sinon.
 */
 bool Dictionnaire::isSi(QString pLigne) {
@@ -143,7 +143,7 @@ bool Dictionnaire::isSi(QString pLigne) {
 
   Indique si la ligne est une ligne "FinSi".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "FinSi", faux sinon.
 */
 bool Dictionnaire::isFinSi(QString pLigne) {
@@ -155,7 +155,7 @@ bool Dictionnaire::isFinSi(QString pLigne) {
 
   Indique si la ligne est une ligne "Sinon".
 
-  \param pLigne Ligne √† analyser.
+  \param pLigne Ligne √  analyser.
   \return Vrai si la ligne est un "Sinon", faux sinon.
 */
 bool Dictionnaire::isSinon(QString pLigne) {
