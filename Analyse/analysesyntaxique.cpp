@@ -8,7 +8,7 @@ AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
 }
 
 void AnalyseSyntaxique::lancer(QFile* pFichier) {
-    qDebug() << "Analyse syntaxique commencée.";    //permet d'afficher un message
+    qDebug() << "Analyse syntaxique commencée.";
     lectureGlossaire(pFichier);
     lectureInstructions(pFichier);
     emit terminee();
