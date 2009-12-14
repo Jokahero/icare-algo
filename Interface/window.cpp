@@ -83,6 +83,7 @@ Window::Window() : QMainWindow()
     /* Mise en place de la barre d'outils des fichiers */
     m_barreOutilsFichier = new QToolBar;
     m_barreOutilsFichier->setMovable(1);
+    m_barreOutilsFichier->setWindowTitle("Fichiers");
 
     // Ajout des actions dans la barre d'outils
     m_barreOutilsFichier->addAction(m_ouvrir);
@@ -94,6 +95,7 @@ Window::Window() : QMainWindow()
     /* Mise en place de la barre d'outils des tests */
     m_barreOutilsTests = new QToolBar;
     m_barreOutilsTests->setMovable(1);
+    m_barreOutilsTests->setWindowTitle("Tests");
 
     // Ajout des actions dans la barre d'outils
     m_barreOutilsTests->addAction(m_testSyntaxe);
@@ -135,6 +137,7 @@ void Window::execution()
 }
 
 void Window::analyseSyntaxique() {
+    showMessage(tr("Début de l'analyse syntaxique du fichier %1…").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
     emit lancerAnalyseSyntaxique(m_fichier);
 }
 
