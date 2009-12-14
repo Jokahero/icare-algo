@@ -25,3 +25,4 @@ HEADERS += window.h \
     coloration.h \
     preferences.h
 DESTDIR = ../
+RESOURCES += Images.qrc

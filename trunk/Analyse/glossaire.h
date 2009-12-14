@@ -26,6 +26,8 @@ public:
     void setValeurChaine(QString pNomVar, QString pValeur);
     void setValeurReel(QString pNomVar, double pValeur);
 
+    void reinit();
+
 private:
     QHash<QString, int>* m_listeEntier;                      /*!<\brief Stocke les variables entieres. */
     QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaines de caracteres. */
@@ -36,6 +38,7 @@ signals:
     void erreur(Analyse::erreur);
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
+    void sigReinit();
 };
 
 #endif // GLOSSAIRE_H

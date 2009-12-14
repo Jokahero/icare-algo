@@ -168,3 +168,13 @@ void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
     else
         emit(erreur(Analyse::VariableNonDeclaree));
 }
+
+/*! \brief Supprime toutes les entrées du glossaire.
+*/
+void Glossaire::reinit() {
+    m_listeEntier->clear();
+    m_listeReel->clear();
+    m_listeChaine->clear();
+    m_description->clear();
+    emit sigReinit();
+}

@@ -76,7 +76,7 @@ Window::Window() : QMainWindow()
     m_fichier = new QFile(this);
 
     /* Mise en place d'icône et de tooltips sur les boutons des barres d'outils */
-    m_icone = QIcon("go.png");
+    m_icone = QIcon(":/Icônes/go.png");
     m_executer->setIcon(m_icone);
     m_executer->setToolTip(tr("Exécuter"));
 

@@ -19,6 +19,8 @@ public:
 public slots:
     void variableAjoutee(QString /*pNomVar*/, QString /*pType*/, QString /*pDescription*/) {};
     void variableModifiee(QString /*pNomVar*/, QString /*pValeur*/) {};
+    void reinitialisationGlossaire();
+    void lancerAnalyse(QFile* /*pFichier*/);
     void erreurMathematique(MathExp::erreur /*pErreur*/);
     void erreurAnalyse(Analyse::erreur /*pErreur*/);
 };
