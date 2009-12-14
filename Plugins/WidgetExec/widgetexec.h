@@ -26,6 +26,7 @@ public:
 public slots:
     void erreurMathematique(MathExp::erreur pErreur);
     void erreurAnalyse(Analyse::erreur pErreur);
+    void lancerAnalyse(QFile* pFichier);
 
 private slots:
     void ajouterTexte(QString pTexte, WidgetExec::onglet);

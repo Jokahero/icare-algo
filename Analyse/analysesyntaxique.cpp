@@ -34,6 +34,8 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     rxChaine.setCaseSensitivity(Qt::CaseInsensitive);
     rxCaractere.setCaseSensitivity(Qt::CaseInsensitive);
 
+    m_analyse->getGlossaire()->reinit();
+
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
     //Reperer le numero de la ligne de DebutGlossaire et de FinGlossaire

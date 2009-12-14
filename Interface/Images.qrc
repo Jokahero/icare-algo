@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/Icônes">
+        <file>go.png</file>
+    </qresource>
+    <qresource prefix="/Images">
+        <file>menAtWork.gif</file>
+    </qresource>
+</RCC>

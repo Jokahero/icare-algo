@@ -49,4 +49,9 @@ void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
     }
 }
 
+void WidgetGlossaire::reinitialisationGlossaire() {
+    m_tableau->clearContents();
+    m_tableau->setRowCount(0);
+}
+
 Q_EXPORT_PLUGIN2(widgetglossaire, WidgetGlossaire);

@@ -23,6 +23,7 @@ public:
 public slots:
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
+    void reinitialisationGlossaire();
 
 private:
     QDockWidget* m_dockWidget;

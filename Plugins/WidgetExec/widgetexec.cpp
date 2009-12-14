@@ -88,6 +88,12 @@ void WidgetExec::erreurAnalyse(Analyse::erreur pErreur) {
         ajouterTexte(tr("Erreur inconnue"), WidgetExec::Erreurs);
         break;
     }
+    qDebug() << "WidgetExec::erreurAnalyse";
+}
+
+void WidgetExec::lancerAnalyse(QFile* pFichier) {
+    effacerTexte(WidgetExec::Erreurs);
+    qDebug() << "WidgetExec::lancerAnalyse";
 }
 
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);

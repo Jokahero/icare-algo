@@ -8,7 +8,7 @@ Apropos::Apropos() : QWidget()
         m_texte = new QLabel ();
         m_texte->setText(tr("Work in progress ..."));
         m_icone = new QLabel();
-        m_image = QPixmap("men@work.gif");
+        m_image = QPixmap(":/Images/menAtWork.gif");
         m_icone->setPixmap(m_image);
         m_layout->insertWidget(1, m_texte);
         m_layout->insertWidget(0,m_icone);

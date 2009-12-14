@@ -31,7 +31,6 @@ int main(int argc, char *argv[]) {
     // Création des différents modules
     MathExp *math = new MathExp();
     Window *fenetre = new Window();
-    Analyse *analyse = new Analyse();
     GestionnairePlugins g;
 
     // Chargement des plugins, temporaire
@@ -57,18 +56,20 @@ int main(int argc, char *argv[]) {
         qDebug() << argv[1];
     }
 
-    // Connects des modules
-    QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), fenetre, SLOT(erreurMath(MathExp::erreur)));
-    QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), analyse, SLOT(lancerAnalyseSyntaxique(QFile*)));
-    //QObject::connect(analyse->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
-
     // Connects des plugins
     for (int i = 0; i < g.getListePlugins().size(); i++) {
-        QObject::connect(analyse->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g.getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
-        QObject::connect(analyse->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g.getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g.getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
         QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g.getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
-        QObject::connect(analyse, SIGNAL(sigErreur(Analyse::erreur)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur)));
+        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur)));
+        QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g.getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
     }
+
+    // Connects des modules
+    QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), fenetre, SLOT(erreurMath(MathExp::erreur)));
+    QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), Analyse::getInstance(), SLOT(lancerAnalyseSyntaxique(QFile*)));
+    //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
 
     // Affichage de la fenêtre
     if (settings.value("Maximized", false).toBool()) {

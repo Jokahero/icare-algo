@@ -3,6 +3,14 @@
 #include "analysesemantique.h"
 #include "glossaire.h"
 
+Analyse *Analyse::_instance = 0;
+
+Analyse *Analyse::getInstance() {
+        if (_instance == 0)
+                _instance = new Analyse;
+        return _instance;
+}
+
 Analyse::Analyse() {
     m_listeInstruction = new QList<Instruction*>;
     m_glossaire = new Glossaire;
