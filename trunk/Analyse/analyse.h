@@ -34,7 +34,7 @@ public:
     enum erreur {
         VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
         VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
-        TypeIncorrect,              /*!< La variable a été dÃ©clarée avec un type différent. */
+        TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
     };
 
 public slots:
