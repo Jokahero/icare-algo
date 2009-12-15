@@ -7,7 +7,10 @@ Window::Window() : QMainWindow()
     /* On récupère la taille et la position de la fenêtre
        telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
     QSettings settings;
-    restoreGeometry(settings.value("Size").toByteArray());
+    if(!settings.value("Maximized", false).toBool()) {
+        restoreGeometry(settings.value("Size").toByteArray());
+    }
+
     /* On nomme la fenêtre principale */
     setWindowTitle(tr("Icare"));
 

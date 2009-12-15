@@ -2,6 +2,7 @@
 #define COLORATION_H
 
 #include <QtGui>
+#include <QtCore>
 
 class Coloration : public QSyntaxHighlighter
 {
@@ -23,6 +24,8 @@ private:
  QTextCharFormat commentFormat; //Format des commentaires simples
  QTextCharFormat borneFormat; //  Format des bornes du code
  QTextCharFormat numeriqueFormat; // Format des valeurs numériques
+
+ QColor couleur;
 
 protected:
  void highlightBlock(const QString &text); //Déclaration en fonction protégé car c'est en protégé qu'elle est déclaré dans sa classe parente
