@@ -27,7 +27,7 @@ public:
         TypeInconnu,
     };
 
-    static Dictionnaire::typeLigne getType(QString pLigne);
+    static typeLigne getType(QString pLigne);
 
     static bool isGlossaire(QString pLigne);
     static bool isDeclarationVariable(QString pLigne);
@@ -45,6 +45,19 @@ public:
     static bool isSi(QString pLigne);
     static bool isFinSi(QString pLigne);
     static bool isSinon(QString pLigne);
+
+
+
+
+
+
+private:
+
+    QString listePipeVariable(QStringList);
+
+
+
+
 
 };
 
