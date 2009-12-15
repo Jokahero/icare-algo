@@ -13,7 +13,7 @@ Glossaire::Glossaire() {
 
   Indique si la variable pNomVar a été déclarée ou non.
 
-  \param pNomVar Nom de la variable à vérifier.
+  \param pNomVar Nom de la variable �  vérifier.
   \return Vrai si la variable existe, faux sinon.
 */
 bool Glossaire::existe(QString pNomVar) {
@@ -24,14 +24,14 @@ bool Glossaire::existe(QString pNomVar) {
 
 /*! \brief Ajoute un entier au glossaire.
 
-  \param pNomVar Nom de l'entier à ajouter.
+  \param pNomVar Nom de l'entier �  ajouter.
   \param pDescription Description de la variable.
-  \return Vrai si l'entier a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
+  \return Vrai si l'entier a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déj�  été déclarée, …).
 */
 bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree);
-        qDebug() << "Variable déjà déclarée";
+        qDebug() << "Variable déj�  déclarée";
         return false;
     }
     m_listeEntier->insert(pNomVar, 0);
@@ -42,14 +42,14 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
 
 /*! \brief Ajoute une chaîne au glossaire.
 
-  \param pNomVar Nom de l'entier à ajouter.
+  \param pNomVar Nom de l'entier �  ajouter.
   \param pDescription Description de la variable.
-  \return Vrai si la chaîne a été ajoutée, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
+  \return Vrai si la chaîne a été ajoutée, faux si il y a eu une erreur (une variable portant le même nom a déj�  été déclarée, …).
 */
 bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree);
-        qDebug() << "Variable déjà déclarée";
+        qDebug() << "Variable déj�  déclarée";
         return false;
     }
     m_listeChaine->insert(pNomVar, QString::null);
@@ -60,14 +60,14 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
 
 /*! \brief Ajoute un réel au glossaire.
 
-  \param pNomVar Nom du réel à ajouter.
+  \param pNomVar Nom du réel �  ajouter.
   \param pDescription Description de la variable.
-  \return Vrai si le réel a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
+  \return Vrai si le réel a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déj�  été déclarée, …).
 */
 bool Glossaire::ajoutReel(QString pNomVar, QString pDescription) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree);
-        qDebug() << "Variable déjà déclarée";
+        qDebug() << "Variable déj�  déclarée";
         return false;
     }
     m_listeReel->insert(pNomVar, 0);
@@ -127,7 +127,7 @@ double Glossaire::getValeurReel(QString pNomVar) {
 /*! \brief Définit la valeur d'un entier.
 
   \param pNomVar Nom de la variable a modifier.
-  \param pValeur L'entier à lui affecter.
+  \param pValeur L'entier �  lui affecter.
 */
 void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
     if (m_listeEntier->contains(pNomVar)) {
@@ -142,7 +142,7 @@ void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
 /*! \brief Définit la valeur d'une chaîne.
 
   \param pNomVar Nom de la variable a modifier.
-  \param pValeur La chaîne à lui affecter.
+  \param pValeur La chaîne �  lui affecter.
 */
 void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
     if (m_listeChaine->contains(pNomVar)) {
@@ -157,7 +157,7 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
 /*! \brief Définit la valeur d'un réel.
 
   \param pNomVar Nom de la variable a modifier.
-  \param pValeur Le réel à lui affecter.
+  \param pValeur Le réel �  lui affecter.
 */
 void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
     if (m_listeReel->contains(pNomVar)) {
@@ -169,12 +169,30 @@ void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
         emit(erreur(Analyse::VariableNonDeclaree));
 }
 
-/*! \brief Supprime toutes les entrées du glossaire.
-*/
-void Glossaire::reinit() {
-    m_listeEntier->clear();
-    m_listeReel->clear();
-    m_listeChaine->clear();
-    m_description->clear();
-    emit sigReinit();
+
+
+
+
+
+QStringList Glossaire::getListeVariables() {
+
+    return (m_description->keys());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
