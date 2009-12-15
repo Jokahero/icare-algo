@@ -64,6 +64,8 @@ Preferences::Preferences() : QDialog()
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
+/*! \brief Modifie la couleur du bouton modifié.
+*/
 void Preferences::modifierCouleur()
 {
     QPushButton* tmp = (QPushButton*)sender();
@@ -77,6 +79,8 @@ void Preferences::modifierCouleur()
     }
 }
 
+/*! \brief Sauvegarde les changements de paramètres dans le fichier de configuration.
+*/
 void Preferences::changeSettings(/*QString pCategorie*/) {
     QSettings settings;
     //settings.beginGroup(pCategorie);
@@ -88,12 +92,18 @@ void Preferences::changeSettings(/*QString pCategorie*/) {
     //settings.endGroup();
 }
 
+/*! \brief Permet de récupérer une couleur à partir de son nom.
+  \param pNomCouleur Nom de la couleur
+  \return couleur Couleur souhaitée
+*/
 QColor Preferences::recupCouleur(QString pNomCouleur) {
     QColor couleur;
     couleur.setNamedColor(pNomCouleur);
     return couleur;
 }
 
+/*! \brief Charge les paramètres sauvegardés dans le fichier de configuration.
+*/
 void Preferences::loadSettings() {
     QSettings settings;
     QColor tmp;

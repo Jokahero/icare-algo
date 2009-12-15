@@ -7,9 +7,13 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     HighlightingRule borne;
     HighlightingRule numerique;
 
+    QSettings settings;
+
     /* Coloration des types de variables */
+    // Récupération de la couleur sauvegardées dans les préférences préférences
+    couleur.setNamedColor(settings.value("Couleur des types:").toString());
     // Nous indiquons une couleur et un format de police aux mots-clés.
-    typeFormat.setForeground(QColor(0, 0, 255));
+    typeFormat.setForeground(couleur);
     typeFormat.setFontWeight(QFont::Bold);
 
     // Nous créons ensuite une liste contenant les mots-clés sous forme de regexp.
@@ -27,7 +31,8 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des structures de contrôle */
-    structureFormat.setForeground(QColor(255,185,0));
+    couleur.setNamedColor(settings.value("Couleur des structures de contrôle:").toString());
+    structureFormat.setForeground(couleur);
     structureFormat.setFontWeight(QFont::Normal);
 
     QStringList structurePatterns;
@@ -46,7 +51,8 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des commentaires et des chaînes*/
-    commentFormat.setForeground(QColor(0,180,0));
+    couleur.setNamedColor(settings.value("Couleur des commentaires et des chaînes:").toString());
+    commentFormat.setForeground(couleur);
 
     QStringList commentPatterns;
     commentPatterns << "/\\*.*\\*/" << "//[^\n]*" << "\".*\"";
@@ -56,8 +62,9 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
         highlightingRules.append(comment);
     }
 
-    /* Coloration des structures de contrôle */
-    borneFormat.setForeground(QColor(255,0,0));
+    /* Coloration des bornes */
+    couleur.setNamedColor(settings.value("Couleur des bornes:").toString());
+    borneFormat.setForeground(couleur);
     borneFormat.setFontWeight(QFont::Bold);
 
     QStringList bornePatterns;
@@ -71,14 +78,13 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des valeurs numériques */
-    numeriqueFormat.setForeground(QColor(200,0,200));
+    couleur.setNamedColor(settings.value("Couleur des nombres:").toString());
+    numeriqueFormat.setForeground(couleur);
     numeriqueFormat.setFontWeight(QFont::Normal);
 
     numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
     numerique.format = numeriqueFormat;
     highlightingRules.append(numerique);
-
-    //textEdit->setPlainText(highlightBlock(textEdit->toPlainText()));
 }
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
