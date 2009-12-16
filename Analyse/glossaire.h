@@ -9,6 +9,7 @@
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
 class Glossaire : public QObject {
+	
     Q_OBJECT
 
 public:
@@ -27,6 +28,8 @@ public:
     void setValeurReel(QString pNomVar, double pValeur);
 
     QStringList getListeVariables();
+    
+    void reinit();
 
 
 private:
@@ -39,6 +42,7 @@ signals:
     void erreur(Analyse::erreur);
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
+    void sigReinit();
 };
 
 #endif // GLOSSAIRE_H
