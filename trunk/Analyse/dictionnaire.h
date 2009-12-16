@@ -5,8 +5,6 @@
 
 class Dictionnaire {
 public:
-
-
     enum typeLigne {
         Glossaire,
         DeclarationVariable,
@@ -46,19 +44,8 @@ public:
     static bool isFinSi(QString pLigne);
     static bool isSinon(QString pLigne);
 
-
-
-
-
-
 private:
-
-    QString listePipeVariable(QStringList);
-
-
-
-
-
+    QString listePipeVariable();
 };
 
 #endif // DICTIONNAIRE_H
