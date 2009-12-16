@@ -123,7 +123,6 @@ Window::Window() : QMainWindow()
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
     QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
-
 }
 
 void Window::erreurMath(MathExp::erreur pCodeErreur)
@@ -233,6 +232,7 @@ void Window::ouvrirFichier(QString pNomFichier)
 void Window::afficherPreferences()
 {
     m_pref = new Preferences();
+    QObject::connect(m_pref, SIGNAL(settingsChanged()), this, SLOT(rechargerPreferences()));
     m_pref->show();
 }
 
@@ -311,4 +311,12 @@ void Window::imprimerFichier() {
 
 void Window::showMessage(const QString& pMessage, int pTimeout) {
     m_statusBar->showMessage(pMessage, pTimeout);
+}
+
+void Window::rechargerPreferences() {
+    emit reloadSettings();
+}
+
+TextEdit* Window::getZoneTexte() {
+    return m_zoneTexte;
 }

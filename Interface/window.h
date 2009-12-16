@@ -20,7 +20,6 @@ public:
     Window();
 
 private:
-
     TextEdit *m_zoneTexte;
 
     QMenuBar *m_barreMenu;
@@ -80,8 +79,13 @@ public slots:
 
     void showMessage(const QString& pMessage, int pTimeout = 0);
 
+    void rechargerPreferences();
+
+    TextEdit* getZoneTexte();
+
 signals:
     void lancerAnalyseSyntaxique(QFile*);
     void executer(QFile*);
+    void reloadSettings();
 };
 #endif // WINDOW_H

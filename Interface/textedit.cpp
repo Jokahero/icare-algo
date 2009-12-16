@@ -119,3 +119,7 @@ int TextEdit::lineNumberAreaWidth()
          ++blockNumber;
      }
  }
+
+ void TextEdit::changerColoration() {
+     m_color = new Coloration(document());
+ }

@@ -18,8 +18,8 @@ public:
     TextEdit();
 
 private:
-    Coloration *m_color;
     void wheelEvent(QWheelEvent* pEvent);
+    Coloration *m_color;
 
 public:
     void lineNumberAreaPaintEvent(QPaintEvent *event);
@@ -35,6 +35,9 @@ protected:
 
  private:
      QWidget *lineNumberArea;
+
+ public slots:
+     void changerColoration();
 
 };
 

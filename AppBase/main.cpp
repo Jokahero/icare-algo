@@ -64,6 +64,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g.getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
         QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g.getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
+        QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(changerColoration()));
     }
 
     // Connects des modules

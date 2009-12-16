@@ -30,6 +30,8 @@ private:
 protected:
  void highlightBlock(const QString &text); //Déclaration en fonction protégé car c'est en protégé qu'elle est déclaré dans sa classe parente
 
+ public slots:
+    void loadSettings();
 };
 
 #endif // COLORATION_H
