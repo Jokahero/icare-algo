@@ -7,13 +7,11 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     HighlightingRule borne;
     HighlightingRule numerique;
 
-    QSettings settings;
+    loadSettings();
 
     /* Coloration des types de variables */
     // Récupération de la couleur sauvegardées dans les préférences préférences
-    couleur.setNamedColor(settings.value("Couleur des types:").toString());
     // Nous indiquons une couleur et un format de police aux mots-clés.
-    typeFormat.setForeground(couleur);
     typeFormat.setFontWeight(QFont::Bold);
 
     // Nous créons ensuite une liste contenant les mots-clés sous forme de regexp.
@@ -31,8 +29,6 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des structures de contrôle */
-    couleur.setNamedColor(settings.value("Couleur des structures de contrôle:").toString());
-    structureFormat.setForeground(couleur);
     structureFormat.setFontWeight(QFont::Normal);
 
     QStringList structurePatterns;
@@ -51,8 +47,6 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des commentaires et des chaînes*/
-    couleur.setNamedColor(settings.value("Couleur des commentaires et des chaînes:").toString());
-    commentFormat.setForeground(couleur);
 
     QStringList commentPatterns;
     commentPatterns << "/\\*.*\\*/" << "//[^\n]*" << "\".*\"";
@@ -63,8 +57,6 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des bornes */
-    couleur.setNamedColor(settings.value("Couleur des bornes:").toString());
-    borneFormat.setForeground(couleur);
     borneFormat.setFontWeight(QFont::Bold);
 
     QStringList bornePatterns;
@@ -78,8 +70,6 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     }
 
     /* Coloration des valeurs numériques */
-    couleur.setNamedColor(settings.value("Couleur des nombres:").toString());
-    numeriqueFormat.setForeground(couleur);
     numeriqueFormat.setFontWeight(QFont::Normal);
 
     numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
@@ -103,3 +93,19 @@ void Coloration::highlightBlock(const QString &text)
     }
     setCurrentBlockState(0);
 }
+
+void Coloration::loadSettings() {
+    QSettings settings;
+
+    couleur.setNamedColor(settings.value("Couleur des types:").toString());
+    typeFormat.setForeground(couleur);
+    couleur.setNamedColor(settings.value("Couleur des structures de contrôle:").toString());
+    structureFormat.setForeground(couleur);
+    couleur.setNamedColor(settings.value("Couleur des commentaires et des chaînes:").toString());
+    commentFormat.setForeground(couleur);
+    couleur.setNamedColor(settings.value("Couleur des bornes:").toString());
+    borneFormat.setForeground(couleur);
+    couleur.setNamedColor(settings.value("Couleur des nombres:").toString());
+    numeriqueFormat.setForeground(couleur);
+}
+

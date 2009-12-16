@@ -62,6 +62,7 @@ Preferences::Preferences() : QDialog()
     QObject::connect(m_typeBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    // connect ac le slot load settings de la coloration
 }
 
 /*! \brief Modifie la couleur du bouton modifié.
@@ -134,4 +135,9 @@ void Preferences::loadSettings() {
     pal = m_typeBouton->palette();
     pal.setColor(QPalette::Button, tmp);
     m_typeBouton->setPalette(pal);
+}
+
+void Preferences::accept() {
+    emit settingsChanged();
+    QDialog::accept();
 }

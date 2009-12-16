@@ -46,6 +46,10 @@ public slots:
     void changeSettings(/*QString pCategorie*/);
     QColor recupCouleur(QString pNomCouleur);
     void loadSettings();
+    void accept();
+
+signals:
+    void settingsChanged();
 };
 
 #endif // PREFERENCES_H
