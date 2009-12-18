@@ -8,17 +8,17 @@ public:
 
 
     enum typeLigne {
-//Partie General
+        //Partie General
         Glossaire,
         DeclarationVariable,
         Debut,
         Fin,
         Commentaire,
-//if...else
+        //if...else
         Si,
         FinSi,
         Sinon,
-//switch
+        //switch
         Selon,
         Default,
         Cas,
@@ -36,33 +36,34 @@ public:
     };
 
     static typeLigne getType(QString pLigne);
-//partie general
+    //partie general
     static bool isGlossaire(QString pLigne);
     static bool isDeclarationVariable(QString pLigne);
     static bool isDebut(QString pLigne);
     static bool isFin(QString pLigne);
     static bool isCommentaire(QString pLigne);
-//If
+    //If
     static bool isSi(QString pLigne);
     static bool isFinSi(QString pLigne);
     static bool isSinon(QString pLigne);
-//Switch
+    //Switch
     static bool isSelon(QString pLigne);
     static bool isCas(QString pLigne);
     static bool isDefault(QString pLigne);
     static bool isFinSelon(QString pLigne);
-//For
+    //For
+    static bool isPour(QString pLigne);
     static bool isFinPour(QString pLigne);
 
     static bool isRepeter(QString pLigne);
-
+    static bool isJusqua(QString pLigne);
 
 
 
 
 private:
 
-    QString listePipeVariable(QStringList);
+    static QString listePipeVariable();
 
 
 
