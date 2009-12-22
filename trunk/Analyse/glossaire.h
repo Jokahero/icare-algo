@@ -15,9 +15,9 @@ class Glossaire : public QObject {
 public:
     Glossaire();
     bool existe(QString pNomVar);
-    bool ajoutEntier(QString pNomVar, QString pDescription);
-    bool ajoutChaine(QString pNomVar, QString pDescription);
-    bool ajoutReel(QString pNomVar, QString pDescription);
+    bool ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne = 0);
+    bool ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne = 0);
+    bool ajoutReel(QString pNomVar, QString pDescription, int pNumLigne = 0);
 
     int getValeurEntier(QString pNomVar);
     QString getValeurChaine(QString pNomVar);
@@ -39,7 +39,7 @@ private:
     QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
 
 signals:
-    void erreur(Analyse::erreur);
+    void erreur(Analyse::erreur pErreur, int pNumLigne = 0);
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
     void sigReinit();

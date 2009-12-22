@@ -26,6 +26,7 @@ private:
 
 signals:
     void terminee();
+    void erreur(int pNumLigne);
 };
 
 #endif // ANALYSESYNTAXIQUE_H

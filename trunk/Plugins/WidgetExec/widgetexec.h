@@ -25,7 +25,7 @@ public:
 
 public slots:
     void erreurMathematique(MathExp::erreur pErreur);
-    void erreurAnalyse(Analyse::erreur pErreur);
+    void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
     void lancerAnalyse(QFile* pFichier);
 
 private slots:
