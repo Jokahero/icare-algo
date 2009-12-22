@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g.getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
         QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g.getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
-        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur)));
+        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g.getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
         QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(changerColoration()));
     }

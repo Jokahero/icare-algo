@@ -72,20 +72,20 @@ void WidgetExec::erreurMathematique(MathExp::erreur pErreur) {
     }
 }
 
-void WidgetExec::erreurAnalyse(Analyse::erreur pErreur) {
+void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
     m_tabWidget->setCurrentIndex(WidgetExec::Erreurs);
     switch (pErreur) {
     case Analyse::VariableNonDeclaree:
-        ajouterTexte(tr("Variable non déclarée"), WidgetExec::Erreurs);
+        ajouterTexte(tr("Ligne %1 : Variable non déclarée").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
         break;
     case Analyse::VariableDejaDeclaree:
-        ajouterTexte(tr("Redéfinition de variable"), WidgetExec::Erreurs);
+        ajouterTexte(tr("Ligne %1 : Redéfinition de variable").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
         break;
     case Analyse::TypeIncorrect:
-        ajouterTexte(tr("Type de la variable incorrect"), WidgetExec::Erreurs);
+        ajouterTexte(tr("Ligne %1 : Type de la variable incorrect").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
         break;
     default:
-        ajouterTexte(tr("Erreur inconnue"), WidgetExec::Erreurs);
+        ajouterTexte(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
         break;
     }
     qDebug() << "WidgetExec::erreurAnalyse";

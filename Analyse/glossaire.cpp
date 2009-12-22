@@ -30,9 +30,9 @@ bool Glossaire::existe(QString pNomVar) {
   \param pDescription Description de la variable.
   \return Vrai si l'entier a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
 */
-bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
+bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
-        emit erreur(Analyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
         qDebug() << "Variable déjà déclarée";
         return false;
     }
@@ -49,9 +49,9 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription) {
   \param pDescription Description de la variable.
   \return Vrai si la chaîne a été ajoutée, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
 */
-bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
+bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
-        emit erreur(Analyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
         qDebug() << "Variable déjà déclarée";
         return false;
     }
@@ -68,9 +68,9 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription) {
   \param pDescription Description de la variable.
   \return Vrai si le réel a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
 */
-bool Glossaire::ajoutReel(QString pNomVar, QString pDescription) {
+bool Glossaire::ajoutReel(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
-        emit erreur(Analyse::VariableDejaDeclaree);
+        emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
         qDebug() << "Variable déjà déclarée";
         return false;
     }

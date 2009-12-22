@@ -14,7 +14,6 @@ Analyse *Analyse::getInstance() {
 Analyse::Analyse() {
     m_listeInstruction = new QList<Instruction*>;
     m_glossaire = new Glossaire;
-    m_dictionnaire = new Dictionnaire;
     m_analyseSyntaxique = new AnalyseSyntaxique(this);
     m_analyseSemantique = new AnalyseSemantique(this);
 
@@ -24,7 +23,7 @@ Analyse::Analyse() {
     m_finAlgo = -1;
 
     QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
-    QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur)), this, SIGNAL(sigErreur(Analyse::erreur)));
+    QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
 }
 
 Glossaire* Analyse::getGlossaire() {
