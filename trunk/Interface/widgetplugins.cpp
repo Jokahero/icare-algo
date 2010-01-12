@@ -17,6 +17,7 @@ WidgetPlugins::WidgetPlugins()
 
     setLayout(m_layout);
 
+    loadSettings();
 
     QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -33,4 +34,11 @@ void WidgetPlugins::accept() {
     saveSettings();
     emit settingsChanged();
     QDialog::accept();
+}
+
+void WidgetPlugins::loadSettings() {
+    QSettings settings;
+
+    m_glossaire->setChecked(settings.value(m_glossaire->text()).toBool());
+    m_resultat->setChecked(settings.value(m_resultat->text()).toBool());
 }
