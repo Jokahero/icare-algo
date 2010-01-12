@@ -9,6 +9,7 @@
 #include "apropos.h"
 #include "textedit.h"
 #include "preferences.h"
+#include "widgetplugins.h"
 #include "../ExpressionsMathematiques/mathexp.h"
 
 /*! \brief Fenêtre principale
@@ -45,6 +46,7 @@ private:
 
     Apropos *m_fenApropos;
     Preferences *m_pref;
+    WidgetPlugins *m_wPlugins;
 
     QIcon m_icone;
 
@@ -70,6 +72,8 @@ public slots:
     void ouvrirFichier(QString pNomFichier);
 
     void afficherPreferences();
+
+    void afficherMenuPlugins();
 
     void enregistrerFichier();
 

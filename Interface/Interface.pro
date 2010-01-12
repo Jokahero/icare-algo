@@ -15,7 +15,8 @@ SOURCES += window.cpp \
     textedit.cpp \
     gestionnaireplugins.cpp \
     coloration.cpp \
-    preferences.cpp
+    preferences.cpp \
+    widgetplugins.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
@@ -23,6 +24,7 @@ HEADERS += window.h \
     plugininterface.h \
     gestionnaireplugins.h \
     coloration.h \
-    preferences.h
+    preferences.h \
+    widgetplugins.h
 DESTDIR = ../
 RESOURCES += Images.qrc

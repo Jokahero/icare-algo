@@ -76,7 +76,7 @@ void Preferences::modifierCouleur()
         pal.setColor(QPalette::Button, choix->selectedColor());
         tmp->setPalette(pal);
         tmp->repaint();
-        changeSettings(/*"Coloration"*/);
+//        changeSettings(/*"Coloration"*/);
     }
 }
 
@@ -91,6 +91,7 @@ void Preferences::changeSettings(/*QString pCategorie*/) {
     settings.setValue(m_numeriqueLabel->text(), m_numeriqueBouton->palette().color(QPalette::Button).name());
     settings.setValue(m_typeLabel->text(), m_typeBouton->palette().color(QPalette::Button).name());
     //settings.endGroup();
+    settings.setValue(m_numerotation->text(), m_numerotation->isChecked());
 }
 
 /*! \brief Permet de récupérer une couleur à partir de son nom.
@@ -135,9 +136,12 @@ void Preferences::loadSettings() {
     pal = m_typeBouton->palette();
     pal.setColor(QPalette::Button, tmp);
     m_typeBouton->setPalette(pal);
+
+    m_numerotation->setChecked(settings.value(m_numerotation->text()).toBool());
 }
 
 void Preferences::accept() {
+    changeSettings();
     emit settingsChanged();
     QDialog::accept();
 }

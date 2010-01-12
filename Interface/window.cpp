@@ -122,6 +122,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
     QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
+    QObject::connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
 }
 
@@ -234,6 +235,11 @@ void Window::afficherPreferences()
     m_pref = new Preferences();
     QObject::connect(m_pref, SIGNAL(settingsChanged()), this, SLOT(rechargerPreferences()));
     m_pref->show();
+}
+
+void Window::afficherMenuPlugins() {
+    m_wPlugins = new WidgetPlugins();
+    m_wPlugins->show();
 }
 
 void Window::enregistrerFichier() {
