@@ -11,19 +11,19 @@ class WidgetPlugins : public QDialog
 public:
     WidgetPlugins();
 
-    private:
+private:
 
     QCheckBox *m_glossaire;
     QCheckBox *m_resultat;
 
     QDialogButtonBox *m_buttonBox;
 
-    public slots:
-
+public slots:
     void saveSettings();
     void accept();
+    void loadSettings();
 
-    signals:
+signals:
     void settingsChanged();
 };
 
