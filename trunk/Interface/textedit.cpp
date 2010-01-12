@@ -120,6 +120,7 @@ int TextEdit::lineNumberAreaWidth()
      }
  }
 
- void TextEdit::changerColoration() {
+ void TextEdit::changerCouleur() {
+     QSettings settings;
      m_color = new Coloration(document());
  }
