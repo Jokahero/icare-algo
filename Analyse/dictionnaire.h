@@ -31,7 +31,7 @@ public:
         Repeter,
         Jusqua,
 //while
-        TanQue,
+        TantQue,
         FinTantQue,
 
 
@@ -57,17 +57,24 @@ public:
     static bool isDefault(QString pLigne);
     static bool isFinSelon(QString pLigne);
 //For
+    static bool isPour(QString pLigne);
     static bool isFinPour(QString pLigne);
 
     static bool isRepeter(QString pLigne);
 
+    static bool isTantQue(QString pLigne);
+    static bool isFinTantQue(QString pLigne);
+
+    static bool isJusqua(QString pLigne);
+
+    static bool isAffectation(QString pLigne);
 
 
 
 
 private:
 
-    static QString listePipeVariable(QStringList);
+    static QString listePipeVariable(/*QStringList*/);
 
 
 
