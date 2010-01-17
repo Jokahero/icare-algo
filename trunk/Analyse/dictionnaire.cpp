@@ -43,10 +43,10 @@ Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
     else if (isJusqua(pLigne))
         return Dictionnaire::Jusqua;
     //-----WHILE
-    else if (isTanQue(pLigne))
+    else if (isTantQue(pLigne))
         return Dictionnaire::TantQue;
     else if (isFinTantQue(pLigne))
-        return Dictionnaire::FinTanQue;
+        return Dictionnaire::FinTantQue;
 
 
 
