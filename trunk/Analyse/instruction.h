@@ -2,10 +2,10 @@
 #define INSTRUCTION_H
 
 #include "dictionnaire.h"
-#include <QtCore>
 
-class Instruction
-{
+#include <QtCore/QString>
+
+class Instruction {
 public:
     Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne);
 

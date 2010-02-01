@@ -1,5 +1,9 @@
 #include "glossaire.h"
 
+#include <QtCore/QDebug>
+#include <QtCore/QHash>
+#include <QtCore/QStringList>
+
 /*! \brief Constructeur par défaut.
 */
 Glossaire::Glossaire() {

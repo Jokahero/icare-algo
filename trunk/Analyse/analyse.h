@@ -1,19 +1,20 @@
 #ifndef ANALYSE_H
 #define ANALYSE_H
 
-#include <QObject>
-#include <QList>
 #include "Analyse_global.h"
 #include "instruction.h"
 #include "dictionnaire.h"
 #include "analysesemantique.h"
 //#include "analysesyntaxique.h"
 
+#include <QtCore/QObject>
+
 class AnalyseSyntaxique;
 class Glossaire;
+class QFile;
+template <typename T> class QList;
 
 class Analyse : public QObject {
-
     Q_OBJECT
 
 public:

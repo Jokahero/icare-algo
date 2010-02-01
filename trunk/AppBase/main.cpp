@@ -1,9 +1,16 @@
-#include <QtGui/QApplication>
 #include "../Interface/window.h"
 #include "../ExpressionsMathematiques/mathexp.h"
 #include "../Interface/gestionnaireplugins.h"
 #include "../Analyse/analyse.h"
 #include "../Analyse/glossaire.h"
+
+#include <QtCore/QDebug>
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
+#include <QtCore/QSettings>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTranslator>
+#include <QtGui/QApplication>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
