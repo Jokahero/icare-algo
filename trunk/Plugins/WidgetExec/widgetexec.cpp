@@ -1,5 +1,11 @@
 #include "widgetexec.h"
 
+#include <QtCore/QString>
+#include <QtGui/QDockWidget>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QTabWidget>
+#include <QtGui/QTextEdit>
+
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
 
   \todo Utiliser un QSettings pour la position des onglets.
@@ -83,6 +89,9 @@ void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
         break;
     case Analyse::TypeIncorrect:
         ajouterTexte(tr("Ligne %1 : Type de la variable incorrect").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
+        break;
+    case Analyse::Syntaxe:
+        ajouterTexte(tr("Ligne %1 : Erreur de syntaxe").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
         break;
     default:
         ajouterTexte(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);

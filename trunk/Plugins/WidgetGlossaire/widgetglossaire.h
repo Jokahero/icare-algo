@@ -1,10 +1,11 @@
 #ifndef WIDGETGLOSSAIRE_H
 #define WIDGETGLOSSAIRE_H
 
-#include <QtCore>
-#include <QtGui>
-
 #include "../../Interface/plugininterface.h"
+
+class QDockWidget;
+class QString;
+class QTableWidget;
 
 /*! \brief Widget affichant la liste des variables.
 

@@ -1,10 +1,11 @@
 #ifndef WIDGETEXEC_H
 #define WIDGETEXEC_H
 
-#include <QtCore>
-#include <QtGui>
-
 #include "../../Interface/plugininterface.h"
+
+class QDockWidget;
+class QString;
+class QTabWidget;
 
 /*! \brief Widget affichant le résultat des analyses, les sorties d'exécutions et permet la saisie lors des exécutions.
 */
