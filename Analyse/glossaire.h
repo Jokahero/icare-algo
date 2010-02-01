@@ -1,10 +1,11 @@
 #ifndef GLOSSAIRE_H
 #define GLOSSAIRE_H
 
-#include <QObject>
-#include <QtCore/QHash>
-
 #include "analyse.h"
+
+#include <QtCore/QObject>
+
+template <typename T, typename U> class QHash;
 
 /*! \brief Permet de stocker les variables du code algorithmique.
 */

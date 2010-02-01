@@ -1,5 +1,6 @@
 #include "widgetexec.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>

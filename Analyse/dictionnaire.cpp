@@ -1,6 +1,9 @@
 #include "dictionnaire.h"
 #include "glossaire.h"
-#include <QRegExp>
+
+#include <QtCore/QRegExp>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
     //-----PARTIE GENERALE

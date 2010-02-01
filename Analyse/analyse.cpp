@@ -3,6 +3,8 @@
 #include "analysesemantique.h"
 #include "glossaire.h"
 
+#include <QtCore/QFile>
+
 Analyse *Analyse::_instance = 0;
 
 Analyse *Analyse::getInstance() {

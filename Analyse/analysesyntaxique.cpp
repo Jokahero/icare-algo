@@ -2,6 +2,11 @@
 #include "glossaire.h"
 #include "dictionnaire.h"
 
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QString>
+#include <QtCore/QRegExp>
+
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
 }
