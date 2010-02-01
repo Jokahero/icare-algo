@@ -1,7 +1,16 @@
 #ifndef PREFERENCES_H
 #define PREFERENCES_H
 
-#include <QtGui>
+#include <QtGui/QDialog>
+
+class QTabWidget;
+class QWidget;
+class QPushButton;
+class QLabel;
+class QDialogButtonBox;
+class QColor;
+class QString;
+class QCheckBox;
 
 class Preferences : public QDialog {
 

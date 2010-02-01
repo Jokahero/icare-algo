@@ -1,5 +1,8 @@
 #include "textedit.h"
 
+#include <QtGui/QPainter>
+#include <QtCore/QSettings>
+
 TextEdit::TextEdit() {
     setTabStopWidth(16);
     setLineWrapMode(QPlainTextEdit::NoWrap);

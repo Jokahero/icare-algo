@@ -1,8 +1,10 @@
 #ifndef WIDGETPLUGINS_H
 #define WIDGETPLUGINS_H
 
-#include <QtGui>
-#include <QtCore>
+#include <QtGui/QDialog>
+
+class QCheckBox;
+class QDialogButtonBox;
 
 class WidgetPlugins : public QDialog
 {

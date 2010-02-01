@@ -1,8 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <QtGui>
-#include <QtCore>
+#include <QtGui/QMainWindow>
 
 #include "GUI_global.h"
 
@@ -11,6 +10,15 @@
 #include "preferences.h"
 #include "widgetplugins.h"
 #include "../ExpressionsMathematiques/mathexp.h"
+
+class QMenuBar;
+class QMenu;
+class QAction;
+class QIcon;
+class QToolBar;
+class QFile;
+class QStatusBar;
+class QString;
 
 /*! \brief Fenêtre principale
   */
