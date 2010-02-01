@@ -1,5 +1,7 @@
 #include "arbre.h"
 
+#include <QtCore/QDebug>
+
 /*! \brief Construit un arbre vide.
 
   Initialise les sous-arbres à NULL, et une chaîne vide comme contenu.

@@ -1,9 +1,9 @@
 #include "widgetplugins.h"
 
+#include <QtCore/QSettings>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QVBoxLayout>
-#include <QtCore/QSettings>
 
 WidgetPlugins::WidgetPlugins()
 {

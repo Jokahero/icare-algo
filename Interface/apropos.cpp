@@ -1,12 +1,11 @@
 #include "apropos.h"
 
-#include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QPixmap>
 #include <QtGui/QPushButton>
+#include <QtGui/QVBoxLayout>
 
-Apropos::Apropos() : QWidget()
-{
+Apropos::Apropos() : QWidget() {
         setMinimumSize(300,150);
 
         QVBoxLayout *m_layout = new QVBoxLayout (this);

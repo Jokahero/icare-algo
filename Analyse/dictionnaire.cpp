@@ -111,7 +111,7 @@ bool Dictionnaire::isFin(QString pLigne) {
   \return Vrai si la ligne est un //(Commentaire), faux sinon.
 */
 bool Dictionnaire::isCommentaire(QString pLigne) {
-    QRegExp rx("^//");
+    QRegExp rx("^//*$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -124,7 +124,7 @@ bool Dictionnaire::isCommentaire(QString pLigne) {
 */
 bool Dictionnaire::isAffectation(QString pLigne) {
     QString  expression = listePipeVariable();
-    QRegExp rx("^" + expression + "\\s*<-\\s*(" + expression + "|[0-9]+)$");
+    QRegExp rx("^" + expression + "\\s*(:?<-|←)\\s*(" + expression + "|[0-9]+(\\.[0-9]+)?)+$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -314,18 +314,17 @@ bool Dictionnaire::isFinTantQue(QString pLigne) {
 */
 QString Dictionnaire::listePipeVariable()
 {
-    QString expression;
+    QString expression = "(";
     QStringList listeVar = Analyse::getInstance()->getGlossaire()->getListeVariables();
-    if (!listeVar.empty())
-    {
+    if (!listeVar.empty()) {
         expression += listeVar.first();
         listeVar.removeFirst();
-        while(!listeVar.empty())
-        {
+        while(!listeVar.empty()) {
             expression += '|';
             expression += listeVar.first();
             listeVar.removeFirst();
         }
     }
+    expression += ")";
     return expression;
 }

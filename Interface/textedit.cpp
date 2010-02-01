@@ -1,7 +1,7 @@
 #include "textedit.h"
 
-#include <QtGui/QPainter>
 #include <QtCore/QSettings>
+#include <QtGui/QPainter>
 
 TextEdit::TextEdit() {
     setTabStopWidth(16);

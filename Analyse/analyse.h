@@ -7,11 +7,12 @@
 #include "instruction.h"
 #include "dictionnaire.h"
 #include "analysesemantique.h"
-#include "analysesyntaxique.h"
+//#include "analysesyntaxique.h"
 
+class AnalyseSyntaxique;
 class Glossaire;
 
-class ANALYSESHARED_EXPORT Analyse : public QObject {
+class Analyse : public QObject {
 
     Q_OBJECT
 

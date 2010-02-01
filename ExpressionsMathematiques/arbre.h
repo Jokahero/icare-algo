@@ -1,13 +1,13 @@
 #ifndef ARBRE_H
 #define ARBRE_H
 
-#include <QtCore>
-
 #include "MathExp_global.h"
+
+#include <QtCore/QString>
 
 /*! \brief Implémente les arbres binaires.
 */
-class ARBRESHARED_EXPORT Arbre {
+class Arbre {
 public:
     Arbre();
     Arbre(QString pContenu, Arbre* pSag, Arbre* pSad);
