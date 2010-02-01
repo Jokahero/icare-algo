@@ -115,10 +115,15 @@ bool Dictionnaire::isCommentaire(QString pLigne) {
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
+/*! \brief Permet de savoir si le ligne est une affectation.
 
+  Indique si la ligne est une ligne "expression <- expression".
 
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est une affectation, faux sinon.
+*/
 bool Dictionnaire::isAffectation(QString pLigne) {
-        QString  expression = listePipeVariable();
+    QString  expression = listePipeVariable();
     QRegExp rx("^" + expression + "\\s*<-\\s*(" + expression + "|[0-9]+)$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
@@ -142,7 +147,7 @@ bool Dictionnaire::isAffectation(QString pLigne) {
 bool Dictionnaire::isSi(QString pLigne) {
     //récupération de toute les variable utilisateur
     QString  expression = listePipeVariable();
-    QRegExp rx("^si\\s(" + expression + "|[0-9]+)(=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)$");
+    QRegExp rx("^si\\s(" + expression + "|[0-9]+)(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)\\salors$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -282,7 +287,7 @@ bool Dictionnaire::isJusqua(QString pLigne) {
 */
 bool Dictionnaire::isTantQue(QString pLigne) {
     QString expression = listePipeVariable();
-    QRegExp rx("^tantque\\s(" + expression + "|[0-9]+)(=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)$");
+    QRegExp rx("^tantque\\s(" + expression + "|[0-9]+)(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -301,6 +306,12 @@ bool Dictionnaire::isFinTantQue(QString pLigne) {
 
 
 //Expression réguliere de toute les variable séparé par un pipe
+/*! \brief Permet de récupéré les variables du glossaire pour les transformé en chaine de caractère séparé d'un pipe
+
+  Transformation de la liste de variable du gloassaire en : var1|var2|var3|...|varx
+
+  \return String expression
+*/
 QString Dictionnaire::listePipeVariable()
 {
     QString expression;
