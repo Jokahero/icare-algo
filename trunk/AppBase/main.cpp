@@ -1,4 +1,3 @@
-#include <QtCore/QCoreApplication>
 #include <QtGui/QApplication>
 #include "../Interface/window.h"
 #include "../ExpressionsMathematiques/mathexp.h"

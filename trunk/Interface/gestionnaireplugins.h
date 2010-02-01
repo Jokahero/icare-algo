@@ -3,8 +3,7 @@
 
 #include "plugininterface.h"
 
-#include <QtCore/QList>
-
+template <typename T> class QList;
 class QString;
 
 /*! \brief Charge et stocke les plugins.

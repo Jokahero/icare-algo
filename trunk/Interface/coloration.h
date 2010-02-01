@@ -1,24 +1,22 @@
 #ifndef COLORATION_H
 #define COLORATION_H
-#include <QtCore/QObject>
 
 #include <QtGui/QSyntaxHighlighter>
-#include <QtCore/QVector>
 
-class QRegExp;
-class QTextCharFormat;
 class QColor;
+class QRegExp;
 class QString;
+class QTextCharFormat;
+template <typename T> class QVector;
 
-class Coloration : public QSyntaxHighlighter
-{
-Q_OBJECT
+class Coloration : public QSyntaxHighlighter {
+    Q_OBJECT
 
 public:
     Coloration(QTextDocument *pTextDocument);
 
 private:
- struct HighlightingRule //Structure indiquant le regexp et le format du texte Ã  colorier
+ struct HighlightingRule //Structure indiquant le regexp et le format du texte à colorier
  {
  QRegExp pattern;
  QTextCharFormat format;
