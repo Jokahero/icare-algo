@@ -1,18 +1,19 @@
 #include "window.h"
 
-#include <QtGui/QMenuBar>
-#include <QtGui/QMenu>
-#include <QtGui/QAction>
-#include <QtGui/QIcon>
-#include <QtGui/QToolBar>
-#include <QtGui/QStatusBar>
-#include <QtGui/QMessageBox>
-#include <QtGui/QFileDialog>
-#include <QtGui/QPrintDialog>
-#include <QtCore/QString>
-#include <QtCore/QTextStream>
 #include <QtCore/QFile>
 #include <QtCore/QSettings>
+#include <QtCore/QString>
+#include <QtCore/QTextStream>
+#include <QtGui/QAction>
+#include <QtGui/QApplication>
+#include <QtGui/QFileDialog>
+#include <QtGui/QIcon>
+#include <QtGui/QMenu>
+#include <QtGui/QMenuBar>
+#include <QtGui/QMessageBox>
+#include <QtGui/QPrintDialog>
+#include <QtGui/QStatusBar>
+#include <QtGui/QToolBar>
 
 /*! \brief Constructeur. Initialise la fenêtre principale.
 */

@@ -1,5 +1,8 @@
 #include "mathexp.h"
 
+#include <QtCore/QDebug>
+#include <QtCore/QString>
+
 
 MathExp::MathExp() {
     m_calcul = new Arbre();

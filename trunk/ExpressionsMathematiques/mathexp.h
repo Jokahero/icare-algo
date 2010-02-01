@@ -2,14 +2,15 @@
 #define MATHEXP_H
 
 #include "MathExp_global.h"
-#include <QtCore>
 #include "arbre.h"
+
+#include <QtCore/QObject>
 
 /*! \brief Résout une expression mathématique.
 
   Les priorités des opérations (+-×÷) sont respectées, ainsi que les parenthèses.
 */
-class MATHEXPSHARED_EXPORT MathExp : public QObject {
+class MathExp : public QObject {
 
     Q_OBJECT
 

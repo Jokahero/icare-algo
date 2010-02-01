@@ -24,6 +24,7 @@ Analyse::Analyse() {
 
     QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
     QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    QObject::connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
 }
 
 Glossaire* Analyse::getGlossaire() {
@@ -67,7 +68,7 @@ int Analyse::getFinGlossaire() {
 }
 
 int Analyse::getDebutAlgo() {
-    return m_debutGlossaire;
+    return m_debutAlgo;
 }
 
 int Analyse::getFinAlgo() {

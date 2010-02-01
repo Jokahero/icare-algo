@@ -1,15 +1,15 @@
 #include "preferences.h"
 
-#include <QtGui/QVBoxLayout>
+#include <QtCore/QSettings>
+#include <QtGui/QCheckBox>
+#include <QtGui/QColorDialog>
 #include <QtGui/QDialogButtonBox>
-#include <QtGui/QTabWidget>
 #include <QtGui/QFormLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
+#include <QtGui/QTabWidget>
+#include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
-#include <QCheckBox>
-#include <QtGui/QColorDialog>
-#include <QtCore/QSettings>
 
 Preferences::Preferences() : QDialog()
 {

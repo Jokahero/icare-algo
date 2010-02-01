@@ -1,5 +1,4 @@
 #include "analysesyntaxique.h"
-#include "analyse.h"
 #include "glossaire.h"
 #include "dictionnaire.h"
 
@@ -55,7 +54,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
         } else if (Dictionnaire::isDebut(ligneAct)) {
             finGlossaire = pFichier->pos();
             m_analyse->setFinGlossaire(cptLigne);
-            m_analyse->setDebutAlgo(cptLigne);
+            m_analyse->setDebutAlgo(cptLigne + 1);
         } else if (Dictionnaire::isFin(ligneAct)) {
             m_analyse->setFinAlgo(cptLigne);
         }
@@ -131,11 +130,10 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
         */
         if (ligneAct != QString::null) {
             Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct);
+            qDebug() << "Type de la ligne " << ligneAct << " : " << typeLigneAct;
             if (typeLigneAct == Dictionnaire::TypeInconnu) {
-                emit erreur(cptLigne);
-                qDebug() << "Erreur à la ligne " << cptLigne;
-            }
-            else if (typeLigneAct != Dictionnaire::Commentaire) {
+                emit erreur(Analyse::Syntaxe, cptLigne);
+            } else if (typeLigneAct != Dictionnaire::Commentaire) {
                 m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct));
             }
         }

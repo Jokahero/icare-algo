@@ -3,7 +3,7 @@
 
 #include <QtCore>
 
-class Analyse;
+#include "analyse.h"
 
 /*! \brief  Vérifier que chaque ligne du fichier soit convenablement structurée.
             Exemple : Vérifie que ce soit bien "Pour i de 3 à 5 Faire" et non "Pour i de 3 5 à Faire"
@@ -26,7 +26,7 @@ private:
 
 signals:
     void terminee();
-    void erreur(int pNumLigne);
+    void erreur(Analyse::erreur pErreur, int pNumLigne);
 };
 
 #endif // ANALYSESYNTAXIQUE_H
