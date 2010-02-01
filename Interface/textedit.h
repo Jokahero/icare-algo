@@ -1,7 +1,7 @@
 #ifndef TEXTEDIT_H
 #define TEXTEDIT_H
 
-#include <QtGui>
+#include <QtGui/QPlainTextEdit>
 #include "coloration.h"
 
  class QPaintEvent;

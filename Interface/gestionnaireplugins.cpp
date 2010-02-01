@@ -1,5 +1,7 @@
 #include "gestionnaireplugins.h"
 
+#include <QtCore/QString>
+
 /*! \brief Charge le plugin de nom pNomPlugin.
 
   \param pNomPlugin Nom du plugin à charger.

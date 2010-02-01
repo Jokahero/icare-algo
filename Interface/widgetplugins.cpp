@@ -1,5 +1,10 @@
 #include "widgetplugins.h"
 
+#include <QtGui/QCheckBox>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QVBoxLayout>
+#include <QtCore/QSettings>
+
 WidgetPlugins::WidgetPlugins()
 {
     setWindowTitle("Plugins");

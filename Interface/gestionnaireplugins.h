@@ -2,7 +2,10 @@
 #define GESTIONNAIREPLUGINS_H
 
 #include "plugininterface.h"
-#include <QtCore>
+
+#include <QtCore/QList>
+
+class QString;
 
 /*! \brief Charge et stocke les plugins.
   */

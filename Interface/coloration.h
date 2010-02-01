@@ -1,8 +1,14 @@
 #ifndef COLORATION_H
 #define COLORATION_H
+#include <QtCore/QObject>
 
-#include <QtGui>
-#include <QtCore>
+#include <QtGui/QSyntaxHighlighter>
+#include <QtCore/QVector>
+
+class QRegExp;
+class QTextCharFormat;
+class QColor;
+class QString;
 
 class Coloration : public QSyntaxHighlighter
 {

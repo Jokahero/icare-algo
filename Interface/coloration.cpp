@@ -1,5 +1,13 @@
 #include "coloration.h"
 
+#include <QtGui/QColor>
+#include <QtCore/QRegExp>
+#include <QtCore/QString>
+#include <QtGui/QTextCharFormat>
+#include <QtGui/QTextDocument>
+#include <QtCore/QStringList>
+#include <QtCore/QSettings>
+
 Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextDocument) {
     HighlightingRule type;
     HighlightingRule controle;

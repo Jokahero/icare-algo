@@ -1,5 +1,10 @@
 #include "apropos.h"
 
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QPixmap>
+#include <QtGui/QPushButton>
+
 Apropos::Apropos() : QWidget()
 {
         setMinimumSize(300,150);
