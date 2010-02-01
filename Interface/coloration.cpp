@@ -4,6 +4,7 @@
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QVector>
 #include <QtGui/QColor>
 #include <QtGui/QTextCharFormat>
 #include <QtGui/QTextDocument>

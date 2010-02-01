@@ -1,5 +1,6 @@
 #include "gestionnaireplugins.h"
 
+#include <QtCore/QList>
 #include <QtCore/QString>
 
 /*! \brief Charge le plugin de nom pNomPlugin.
