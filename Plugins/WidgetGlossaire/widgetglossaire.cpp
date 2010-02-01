@@ -1,5 +1,9 @@
 #include "widgetglossaire.h"
 
+#include <QtCore/QString>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QTableWidget>
+
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
 */
 WidgetGlossaire::WidgetGlossaire() {
