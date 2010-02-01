@@ -1,9 +1,9 @@
 #include "instruction.h"
 
-Instruction::Instruction(int pNumLigne, QString pLigne, QString pCategorie) {
+Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne) {
     m_numLigne = pNumLigne;
     m_ligne = pLigne;
-    m_categorie = pCategorie;
+    m_typeLigne = pTypeLigne;
 }
 
 int Instruction::getNumLigne() {
@@ -14,8 +14,8 @@ QString Instruction::getLigne() {
     return m_ligne;
 }
 
-QString Instruction::getCategorie() {
-    return m_categorie;
+Dictionnaire::typeLigne Instruction::getTypeLigne() {
+    return m_typeLigne;
 }
 
 void Instruction::setNumLigne(int pNumLigne) {
@@ -26,7 +26,7 @@ void Instruction::setLigne(QString pLigne) {
     m_ligne = pLigne;
 }
 
-void Instruction::setCategorie(QString pCategorie) {
-    m_categorie = pCategorie;
+void Instruction::setTypeLigne(Dictionnaire::typeLigne pTypeLigne) {
+    m_typeLigne = pTypeLigne;
 }
 

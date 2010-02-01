@@ -97,16 +97,18 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     qDebug() << "Lecture des instructions commencée.";
 
-    int debutAlgo = -1;                     // Position de la ligne début.
-    int finAlgo= -1;                        // Position de la ligne fin.
-    int cptLigne;                           // Position de ligne de l'algo.
-    QString ligneAct;                       // Ligne actuelle (celle que l'on étudie à un moment).
+    int debutAlgo = -1;       // Position de la ligne début.
+    int finAlgo= -1;          // Position de la ligne fin.
+    int cptLigne;             // Position de ligne de l'algo.
+    QString ligneAct;         // Ligne actuelle (celle que l'on étudie à un moment).
 
-
+    //Ouverture du fichier pour commencer la lecture
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
 
     // Recherche du numéro de la ligne de début et de la ligne de fin
+    // Tant qu'on est pas arrivé à la fin du fichier alors on recherche si la ligne lue est de type Début
+    //   ou Fin
     while (!pFichier->atEnd() && finAlgo < 0) {
         ligneAct = pFichier->readLine().trimmed();
         if (Dictionnaire::isDebut(ligneAct))
@@ -115,7 +117,7 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
             finAlgo = pFichier->pos();
     }
 
-    // Retourne au début de l'algo.
+    // Retour au début de l'algo.
     pFichier->seek(debutAlgo);
 
 
@@ -129,10 +131,12 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
         */
         if (ligneAct != QString::null) {
             Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct);
-            if (typeLigneAct == Dictionnaire::TypeInconnu)
+            if (typeLigneAct == Dictionnaire::TypeInconnu) {
                 emit erreur(cptLigne);
+                qDebug() << "Erreur à la ligne " << cptLigne;
+            }
             else if (typeLigneAct != Dictionnaire::Commentaire) {
-                m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, QString::null));
+                m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct));
             }
         }
     }
