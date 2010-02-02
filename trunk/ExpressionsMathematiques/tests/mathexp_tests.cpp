@@ -2,6 +2,9 @@
 #include "../arbre.h"
 #include "../mathexp.h"
 
+#include <QtTest/QSignalSpy>
+#include <QtTest/QTest>
+
 void MathExp_tests::testArbre() {
     Arbre* t1 = new Arbre();
     Arbre* t2 = new Arbre();

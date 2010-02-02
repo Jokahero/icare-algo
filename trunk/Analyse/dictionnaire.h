@@ -33,6 +33,9 @@ public:
         //while
         TantQue,
         FinTantQue,
+        Afficher,
+        Saisir,
+        Imprimer,
 
 
 
@@ -68,6 +71,10 @@ public:
     static bool isJusqua(QString pLigne);
 
     static bool isAffectation(QString pLigne);
+    // Fonctions
+    static bool isAfficher(QString pLigne);
+    static bool isSaisir(QString pLigne);
+    static bool isImprimer(QString pLigne);
 
 
 

@@ -1,5 +1,7 @@
 #include "analyse_tests.h"
 
+#include <QtTest/QTest>
+
 /*;:void Analyse_tests::testGlossaire() {
     QVERIFY(!g->existe("Toto"));
     QVERIFY(g->ajoutEntier("Toto", "Variable de test"));

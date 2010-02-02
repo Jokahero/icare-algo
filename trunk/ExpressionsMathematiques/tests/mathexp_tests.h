@@ -1,9 +1,7 @@
 #ifndef MATHEXP_TESTS_H
 #define MATHEXP_TESTS_H
 
-#include <QObject>
-#include <QtCore>
-#include <QtTest>
+#include <QtCore/QObject>
 
 /*! \brief Tests du module d'expressions mathématiques.
 
@@ -11,6 +9,7 @@
 */
 class MathExp_tests : public QObject {
     Q_OBJECT
+
 private slots:
     void testArbre();
     void testMathExp();
