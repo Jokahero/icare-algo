@@ -15,7 +15,7 @@ prodJourna ← nbChevre × production
 Afficher "La production journalière du troupeau est de : "
 Afficher prodJourna 
 
-/* Les commentaires c'est bien! */
+// Les commentaires c'est bien, mais les commentaires multilignes sont pas encore gérés !
 nbChevre ← 12
 production ← 8.6
 prodJourna ← nbChevre × production

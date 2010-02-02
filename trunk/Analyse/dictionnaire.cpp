@@ -132,8 +132,7 @@ bool Dictionnaire::isCommentaire(QString pLigne) {
   \return Vrai si la ligne est une affectation, faux sinon.
 */
 bool Dictionnaire::isAffectation(QString pLigne) {
-    QString  expression = listePipeVariable();
-    QRegExp rx("^" + expression + "\\s*(:?<-|←)\\s*(" + expression + "|[0-9]+(\\.[0-9]+)?)+$");
+    QRegExp rx("^" + listePipeVariable() + "\\s*(?:<-|←)\\s*" + listeQuantites() + "$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -295,8 +294,8 @@ bool Dictionnaire::isJusqua(QString pLigne) {
   \return Vrai si la ligne est un "TantQue", faux sinon.
 */
 bool Dictionnaire::isTantQue(QString pLigne) {
-    QString expression = listePipeVariable();
-    QRegExp rx("^tantque\\s(" + expression + "|[0-9]+)(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)$");
+    QString expression = listeQuantites();
+    QRegExp rx("^tantque\\s+" + expression + "\\s+(≤|≥|≠|=|>|>=|<|<=|!=)\\s+" + expression + "$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -363,7 +362,7 @@ bool Dictionnaire::isImprimer(QString pLigne) {
 */
 QString Dictionnaire::listePipeVariable()
 {
-    QString expression = "(";
+    QString expression = "(?:";
     QStringList listeVar = Analyse::getInstance()->getGlossaire()->getListeVariables();
     if (!listeVar.empty()) {
         expression += listeVar.first();
@@ -375,5 +374,15 @@ QString Dictionnaire::listePipeVariable()
         }
     }
     expression += ")";
+    return expression;
+}
+
+QString Dictionnaire::listeQuantites() {
+    QString liste = listePipeVariable();
+    QString expression = "(?:\\(*\\s*(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*)|";
+    expression += liste;
+    expression += "\\s*\\)*(?:[+\\-\\*/×÷]\\s*\\(*\\s*(?:(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*\\s*)|";
+    expression += liste;
+    expression += ")\\s*\\)*\\s*)*\\)*\\s*)";
     return expression;
 }

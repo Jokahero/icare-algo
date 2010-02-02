@@ -82,6 +82,7 @@ public:
 private:
 
     static QString listePipeVariable(/*QStringList*/);
+    static QString listeQuantites(/*QStringList*/);
 
 
 
