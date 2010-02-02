@@ -51,6 +51,12 @@ Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
     else if (isFinTantQue(pLigne))
         return Dictionnaire::FinTantQue;
 
+    else if (isAfficher(pLigne))
+        return Dictionnaire::Afficher;
+    else if (isSaisir(pLigne))
+        return Dictionnaire::Saisir;
+    else if (isImprimer(pLigne))
+        return Dictionnaire::Imprimer;
 
 
     else
@@ -114,7 +120,7 @@ bool Dictionnaire::isFin(QString pLigne) {
   \return Vrai si la ligne est un //(Commentaire), faux sinon.
 */
 bool Dictionnaire::isCommentaire(QString pLigne) {
-    QRegExp rx("^//*$");
+    QRegExp rx("^//.*$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -238,7 +244,7 @@ bool Dictionnaire::isFinSelon(QString pLigne) {
 */
 bool Dictionnaire::isPour(QString pLigne) {
     QString expression = listePipeVariable();
-    QRegExp rx("^pour\\s("+expression+")\\sde\\s(" + expression + "|[0-9]+)[àa](" + expression + "|[0-9]+)(\\[pas\\sde\\s(" + expression + "|[0-9]+)\\])?\\sfaire$");
+    QRegExp rx("^pour\\s+("+expression+")\\s+de\\s+(" + expression + "|[0-9]+)\\s+[àa]\\s+(" + expression + "|[0-9]+)\\s+(\\[pas\\s+de\\s+(" + expression + "|[0-9]+)\\]\\s+)?faire$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     return rx.exactMatch(pLigne);
 }
@@ -307,11 +313,51 @@ bool Dictionnaire::isFinTantQue(QString pLigne) {
     return rx.exactMatch(pLigne);
 }
 
+/*! \brief Permet de savoir si le ligne est un affichage.
+
+  Indique si la ligne est une ligne Afficher …
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est un affichage, faux sinon.
+*/
+bool Dictionnaire::isAfficher(QString pLigne) {
+    QRegExp rx("^afficher\\s+.*$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+
+/*! \brief Permet de savoir si le ligne est une saisie.
+
+  Indique si la ligne est une ligne Saisir variable.
+
+  \todo Gestion des variables
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est une saisie, faux sinon.
+*/
+bool Dictionnaire::isSaisir(QString pLigne) {
+    QRegExp rx("^saisir\\s+.*$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+
+/*! \brief Permet de savoir si le ligne est une impression.
+
+  Indique si la ligne est une ligne Imprimer …
+
+  \param pLigne Ligne à analyser.
+  \return Vrai si la ligne est une impression, faux sinon.
+*/
+bool Dictionnaire::isImprimer(QString pLigne) {
+    QRegExp rx("^imprimer\\s+.*$");
+    rx.setCaseSensitivity(Qt::CaseInsensitive);
+    return rx.exactMatch(pLigne);
+}
+
 
 //Expression réguliere de toute les variable séparé par un pipe
-/*! \brief Permet de récupéré les variables du glossaire pour les transformé en chaine de caractère séparé d'un pipe
+/*! \brief Permet de récupérer les variables du glossaire pour les transformer en chaîne de caractères, séparées d'un pipe.
 
-  Transformation de la liste de variable du gloassaire en : var1|var2|var3|...|varx
+  Transformation de la liste de variables du glossaire en : var1|var2|var3|...|varx
 
   \return String expression
 */

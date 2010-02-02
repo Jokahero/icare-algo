@@ -133,14 +133,12 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
             Si ce n'est pas une ligne vide mais est de type TypeInconnu alors ERREUR
             Sinon Si ce n'est pas un commentaire ou une ligne vide, l'ajouter à la liste d'instructions
         */
-        if (ligneAct != QString::null) {
+        if (ligneAct != QString::null && ligneAct != "") {
             Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct);
-            qDebug() << "Type de la ligne " << ligneAct << " : " << typeLigneAct;
-            if (typeLigneAct == Dictionnaire::TypeInconnu) {
+            if (typeLigneAct == Dictionnaire::TypeInconnu)
                 emit erreur(Analyse::Syntaxe, cptLigne);
-            } else if (typeLigneAct != Dictionnaire::Commentaire) {
+            else if (typeLigneAct != Dictionnaire::Commentaire)
                 m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct));
-            }
         }
     }
 
