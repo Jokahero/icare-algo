@@ -25,8 +25,10 @@ Analyse::Analyse() {
     m_finAlgo = -1;
 
     QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
+    QObject::connect(this, SIGNAL(sigLancerAnalyseSemantique()), m_analyseSemantique, SLOT(lancer()));
     QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     QObject::connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    QObject::connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
 }
 
 Glossaire* Analyse::getGlossaire() {
@@ -41,8 +43,8 @@ void Analyse::lancerAnalyseSyntaxique(QFile* pFichier) {
     emit sigLancerAnalyseSyntaxique(pFichier);
 }
 
-void Analyse::lancerAnalyseSemantique(QFile *pFichier) {
-    emit sigLancerAnalyseSemantique(pFichier);
+void Analyse::lancerAnalyseSemantique() {
+    emit sigLancerAnalyseSemantique();
 }
 
 void Analyse::setDebutGlossaire(int pNumLigne) {

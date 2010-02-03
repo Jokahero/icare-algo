@@ -2,8 +2,10 @@
 #define ANALYSESEMANTIQUE_H
 
 #include <QObject>
+#include "dictionnaire.h"
+#include "analyse.h"
 
-class Analyse;
+template <typename T> class QStack;
 
 class AnalyseSemantique : public QObject {
 
@@ -14,6 +16,17 @@ public:
 
 private:
     Analyse* m_analyse;
+
+    QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
+
+    void verifStruct();
+
+public slots:
+    void lancer();
+
+signals:
+    void terminee();
+    void erreur(Analyse::erreur pErreur, int pNumLigne);
 };
 
 #endif // ANALYSESEMANTIQUE_H

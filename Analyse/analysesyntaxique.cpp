@@ -101,6 +101,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     qDebug() << "Lecture des instructions commencée.";
 
+    int posPrec = -1;
     int debutAlgo = -1;       // Position de la ligne début.
     int finAlgo= -1;          // Position de la ligne fin.
     int cptLigne;             // Position de ligne de l'algo.
@@ -116,17 +117,18 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     while (!pFichier->atEnd() && finAlgo < 0) {
         ligneAct = pFichier->readLine().trimmed();
         if (Dictionnaire::isDebut(ligneAct))
-            debutAlgo = pFichier->pos();
+            debutAlgo = posPrec;
         else if (Dictionnaire::isFin(ligneAct))
             finAlgo = pFichier->pos();
+        posPrec = pFichier->pos();
     }
 
     // Retour au début de l'algo.
     pFichier->seek(debutAlgo);
 
-
+    m_analyse->getListeInstruction()->clear();
     // Lecture de l'algo.
-    for (cptLigne = m_analyse->getDebutAlgo(); pFichier->pos() < finAlgo; cptLigne++) {
+    for (cptLigne = m_analyse->getDebutAlgo() - 1; pFichier->pos() < finAlgo; cptLigne++) {
         ligneAct = pFichier->readLine().trimmed();
         /*
             Si c'est une ligne vide, on ne la stocke pas

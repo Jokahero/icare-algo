@@ -77,6 +77,7 @@ int main(int argc, char *argv[]) {
     // Connects des modules
     QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), fenetre, SLOT(erreurMath(MathExp::erreur)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), Analyse::getInstance(), SLOT(lancerAnalyseSyntaxique(QFile*)));
+    QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), Analyse::getInstance(), SLOT(lancerAnalyseSemantique()));
     //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
 
     // Affichage de la fenêtre
