@@ -116,7 +116,6 @@ QColor Preferences::recupCouleur(QString pNomCouleur) {
 void Preferences::loadSettings() {
     QSettings settings;
     QColor tmp;
-    QPalette pal;
 
     tmp = recupCouleur(settings.value(m_commentairesLabel->text()).toString());
     m_commentairesBouton->setCouleur(tmp);

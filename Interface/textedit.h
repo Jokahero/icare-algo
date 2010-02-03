@@ -35,9 +35,11 @@ protected:
 
  private:
      QWidget *lineNumberArea;
+     bool isLineNumberArea;
+     void changerCouleur();
 
  public slots:
-     void changerCouleur();
+     void loadSettings();
 
 };
 
