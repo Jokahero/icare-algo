@@ -3,9 +3,9 @@
 
 #include <QtGui/QDialog>
 
+class BoutonCouleur;
 class QTabWidget;
 class QWidget;
-class QPushButton;
 class QLabel;
 class QDialogButtonBox;
 class QColor;
@@ -27,19 +27,19 @@ private:
 
     /* Le widget m_color contiendra ces éléments */
     QLabel *m_commentairesLabel;
-    QPushButton *m_commentairesBouton;
+    BoutonCouleur *m_commentairesBouton;
 
     QLabel *m_bornesLabel;
-    QPushButton *m_bornesBouton;
+    BoutonCouleur *m_bornesBouton;
 
     QLabel *m_structuresLabel;
-    QPushButton *m_structuresBouton;
+    BoutonCouleur *m_structuresBouton;
 
     QLabel *m_numeriqueLabel;
-    QPushButton *m_numeriqueBouton;
+    BoutonCouleur *m_numeriqueBouton;
 
     QLabel *m_typeLabel;
-    QPushButton *m_typeBouton;
+    BoutonCouleur *m_typeBouton;
 
     /* Onglet des préférences de la zone d'édition */
     QWidget *m_edit;
