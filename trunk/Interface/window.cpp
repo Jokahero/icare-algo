@@ -54,12 +54,12 @@ Window::Window() : QMainWindow()
     /* Mise en place du menu d'analyse */
     m_menuAnalyse = new QMenu(m_barreMenu);
     m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
-    m_testOperation = new QAction (tr("Tester les &opérations"), this);
+    m_testSemantique = new QAction (tr("Tester la sé&mantique"), this);
     m_testComplet = new QAction (tr("Test complet"), this);
     m_executer = new QAction (tr("Exécuter"), this);
     m_menuAnalyse->setTitle(tr("&Analyse"));
     m_menuAnalyse->addAction(m_testSyntaxe);
-    m_menuAnalyse->addAction(m_testOperation);
+    m_menuAnalyse->addAction(m_testSemantique);
     m_menuAnalyse->addAction(m_testComplet);
     m_menuAnalyse->addAction(m_executer);
 
@@ -117,7 +117,7 @@ Window::Window() : QMainWindow()
 
     // Ajout des actions dans la barre d'outils
     m_barreOutilsTests->addAction(m_testSyntaxe);
-    m_barreOutilsTests->addAction(m_testOperation);
+    m_barreOutilsTests->addAction(m_testSemantique);
     m_barreOutilsTests->addAction(m_testComplet);
     m_barreOutilsTests->addAction(m_executer);
 
@@ -135,6 +135,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
     QObject::connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
     QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
+    QObject::connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
     QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
     QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     QObject::connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
@@ -157,6 +158,10 @@ void Window::execution()
 void Window::analyseSyntaxique() {
     showMessage(tr("Début de l'analyse syntaxique du fichier %1…").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
     emit lancerAnalyseSyntaxique(m_fichier);
+}
+
+void Window::analyseSemantique() {
+    emit lancerAnalyseSemantique();
 }
 
 void Window::afficherApropos()

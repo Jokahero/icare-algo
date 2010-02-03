@@ -105,7 +105,6 @@ void Coloration::highlightBlock(const QString &text)
 
 void Coloration::loadSettings() {
     QSettings settings;
-
     couleur.setNamedColor(settings.value("Couleur des types:").toString());
     typeFormat.setForeground(couleur);
     couleur.setNamedColor(settings.value("Couleur des structures de contrôle:").toString());

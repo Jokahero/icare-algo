@@ -4,11 +4,12 @@
 #include "Analyse_global.h"
 #include "instruction.h"
 #include "dictionnaire.h"
-#include "analysesemantique.h"
+//#include "analysesemantique.h"
 //#include "analysesyntaxique.h"
 
 #include <QtCore/QObject>
 
+class AnalyseSemantique;
 class AnalyseSyntaxique;
 class Glossaire;
 class QFile;
@@ -38,15 +39,16 @@ public:
         VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
         TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
         Syntaxe,                    /*!< Une erreur de syntaxe a été trouvée. */
+        Struct,                     /*!< Une structure de contrôle n'a pas été formée correctement. */
     };
 
 public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
-    void lancerAnalyseSemantique(QFile* pFichier);
+    void lancerAnalyseSemantique();
 
 signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
-    void sigLancerAnalyseSemantique(QFile* pFichier);
+    void sigLancerAnalyseSemantique();
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
 
 private:

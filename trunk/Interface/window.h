@@ -41,7 +41,7 @@ private:
 
     QMenu *m_menuAnalyse;
     QAction *m_testSyntaxe;
-    QAction *m_testOperation;
+    QAction *m_testSemantique;
     QAction *m_testComplet;
     QAction *m_executer;
 
@@ -71,6 +71,8 @@ public slots:
 
     void analyseSyntaxique();
 
+    void analyseSemantique();
+
     void execution();
 
     void afficherApropos();
@@ -97,6 +99,7 @@ public slots:
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);
+    void lancerAnalyseSemantique();
     void executer(QFile*);
     void reloadSettings();
 };
