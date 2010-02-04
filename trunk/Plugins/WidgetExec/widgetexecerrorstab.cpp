@@ -1,10 +1,12 @@
 #include "widgetexecerrorstab.h"
 
-#include <QtCore/QDebug>
+#include <QtCore/QList>
 #include <QtGui/QListWidget>
 
 WidgetExecErrorsTab::WidgetExecErrorsTab(WidgetExec::onglet pType, QWidget *pParent) : WidgetExecTab(pType, pParent) {
     m_liste = new QListWidget(this);
+    m_listeNumLignes = new QList<int>;
+    connect(m_liste, SIGNAL(currentRowChanged(int)), this, SLOT(ligneChangee(int)));
 }
 
 void WidgetExecErrorsTab::erreurMathematique(MathExp::erreur pErreur) {
@@ -42,13 +44,19 @@ void WidgetExecErrorsTab::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) 
         m_liste->addItem(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)));
         break;
     }
+    m_listeNumLignes->append(pNumLigne);
 }
 
 void WidgetExecErrorsTab::clear() {
     m_liste->clear();
+    m_listeNumLignes->clear();
 }
 
 void WidgetExecErrorsTab::resizeEvent(QResizeEvent *pE) {
     QWidget::resizeEvent(pE);
     m_liste->resize(size());
+}
+
+void WidgetExecErrorsTab::ligneChangee(int pLigne) {
+    emit changementLigne(m_listeNumLignes->at(pLigne));
 }

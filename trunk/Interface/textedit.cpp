@@ -1,5 +1,6 @@
 #include "textedit.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QSettings>
 #include <QtGui/QPainter>
 
@@ -138,4 +139,17 @@ void TextEdit::loadSettings() {
     emit blockCountChanged(blockCount());
     update();
     repaint();
+}
+
+void TextEdit::changementLigne(int pNumLigne) {
+    QTextBlock block;
+    QTextCursor cursor;
+    QTextBlockFormat blockFormat;
+
+    block = document()->findBlockByLineNumber(pNumLigne - 1);
+    cursor = QTextCursor(block);
+    blockFormat = cursor.blockFormat();
+    blockFormat.clearBackground();
+    cursor.setBlockFormat(blockFormat);
+    setTextCursor(cursor);
 }

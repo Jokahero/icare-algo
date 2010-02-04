@@ -40,6 +40,7 @@ protected:
 
  public slots:
      void loadSettings();
+     void changementLigne(int pNumLigne);
 
 };
 

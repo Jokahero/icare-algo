@@ -29,6 +29,9 @@ public slots:
     void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
     void lancerAnalyse(QFile* pFichier);
 
+signals:
+    void changementLigne(int pNumLigne);
+
 private:
     QTabWidget* m_tabWidget;
     QDockWidget* m_dockWidget;
