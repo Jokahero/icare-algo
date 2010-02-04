@@ -1,11 +1,11 @@
 #include "widgetexec.h"
+#include "widgetexecerrorstab.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QTabWidget>
-#include <QtGui/QTextEdit>
 
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
 
@@ -17,40 +17,13 @@ WidgetExec::WidgetExec() {
     QHBoxLayout *layout = new QHBoxLayout(tmp);
     m_tabWidget = new QTabWidget;
     m_tabWidget->setTabPosition(QTabWidget::West);
-    m_tabWidget->addTab(new QTextEdit, "Erreurs");
-    m_tabWidget->addTab(new QTextEdit, "Sorties");
+    m_tabWidget->addTab(new WidgetExecErrorsTab(WidgetExec::Erreurs, m_tabWidget), "Erreurs");
+    m_tabWidget->addTab(new WidgetExecTab(WidgetExec::Sorties, m_tabWidget), "Sorties");
 
     layout->addWidget(m_tabWidget);
     tmp->setLayout(layout);
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
-}
-
-/*! \brief Ajoute le texte indiqué à la suite du texte présent dans l'onglet spécifié.
-
-  \param pTexte Texte à ajouter.
-  \param pOnglet Onglet auquel ajouter le texte.
-*/
-void WidgetExec::ajouterTexte(QString pTexte, WidgetExec::onglet pOnglet) {
-    qobject_cast<QTextEdit*>(m_tabWidget->widget(pOnglet))->append(pTexte);
-}
-
-/*! \brief Efface le contenu d'un onglet.
-
-*/
-void WidgetExec::effacerTexte(WidgetExec::onglet pOnglet) {
-    qobject_cast<QTextEdit*>(m_tabWidget->widget(pOnglet))->clear();
-}
-
-/*! \brief Remplace le texte présent d'un onglet.
-
-  Appelle successivement effacerTexte et ajouterTexte avec le texte passé en paramètre.
-  \param pTexte Texte à affecter au widget.
-  \param pOnglet Onglet auquel affecter le texte.
-*/
-void WidgetExec::remplacerTexte(QString pTexte, WidgetExec::onglet pOnglet) {
-    effacerTexte(pOnglet);
-    ajouterTexte(pTexte, pOnglet);
 }
 
 QString WidgetExec::getNom() {
@@ -63,47 +36,21 @@ QDockWidget* WidgetExec::getDockWidget() {
 
 void WidgetExec::erreurMathematique(MathExp::erreur pErreur) {
     m_tabWidget->setCurrentIndex(WidgetExec::Erreurs);
-    switch (pErreur) {
-    case MathExp::DivisionParZero:
-        ajouterTexte(tr("Division par zéro"), WidgetExec::Erreurs);
-        break;
-    case MathExp::PositionOperateurs:
-        ajouterTexte(tr("Expression mathématique malformée"), WidgetExec::Erreurs);
-        break;
-    case MathExp::Parentheses:
-        ajouterTexte(tr("Nombre de parenthèses incorrect"), WidgetExec::Erreurs);
-        break;
-    default:
-        ajouterTexte(tr("Erreur inconnue"), WidgetExec::Erreurs);
-        break;
-    }
+    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurMathematique(pErreur);
 }
 
 void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
     m_tabWidget->setCurrentIndex(WidgetExec::Erreurs);
-    switch (pErreur) {
-    case Analyse::VariableNonDeclaree:
-        ajouterTexte(tr("Ligne %1 : Variable non déclarée").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
-        break;
-    case Analyse::VariableDejaDeclaree:
-        ajouterTexte(tr("Ligne %1 : Redéfinition de variable").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
-        break;
-    case Analyse::TypeIncorrect:
-        ajouterTexte(tr("Ligne %1 : Type de la variable incorrect").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
-        break;
-    case Analyse::Syntaxe:
-        ajouterTexte(tr("Ligne %1 : Erreur de syntaxe").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
-        break;
-    default:
-        ajouterTexte(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)), WidgetExec::Erreurs);
-        break;
-    }
-    qDebug() << "WidgetExec::erreurAnalyse";
+    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurAnalyse(pErreur, pNumLigne);
 }
 
-void WidgetExec::lancerAnalyse(QFile* pFichier) {
-    effacerTexte(WidgetExec::Erreurs);
-    qDebug() << "WidgetExec::lancerAnalyse";
+void WidgetExec::lancerAnalyse(QFile* /*pFichier*/) {
+    for (int i = 0; i < m_tabWidget->count(); i++) {
+        if (i == WidgetExec::Erreurs)
+            qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(i))->clear();
+        else if (i == WidgetExec::Sorties)
+            qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
+    }
 }
 
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);

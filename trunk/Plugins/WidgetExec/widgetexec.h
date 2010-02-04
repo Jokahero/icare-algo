@@ -29,11 +29,6 @@ public slots:
     void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
     void lancerAnalyse(QFile* pFichier);
 
-private slots:
-    void ajouterTexte(QString pTexte, WidgetExec::onglet);
-    void effacerTexte(WidgetExec::onglet);
-    void remplacerTexte(QString pTexte, WidgetExec::onglet);
-
 private:
     QTabWidget* m_tabWidget;
     QDockWidget* m_dockWidget;
