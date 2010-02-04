@@ -1,7 +1,6 @@
 #include "widgetexec.h"
 #include "widgetexecerrorstab.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>
@@ -17,13 +16,16 @@ WidgetExec::WidgetExec() {
     QHBoxLayout *layout = new QHBoxLayout(tmp);
     m_tabWidget = new QTabWidget;
     m_tabWidget->setTabPosition(QTabWidget::West);
-    m_tabWidget->addTab(new WidgetExecErrorsTab(WidgetExec::Erreurs, m_tabWidget), "Erreurs");
+    WidgetExecErrorsTab* errTab = new WidgetExecErrorsTab(WidgetExec::Erreurs, m_tabWidget);
+    m_tabWidget->addTab(errTab, "Erreurs");
     m_tabWidget->addTab(new WidgetExecTab(WidgetExec::Sorties, m_tabWidget), "Sorties");
 
     layout->addWidget(m_tabWidget);
     tmp->setLayout(layout);
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
+
+    connect(errTab, SIGNAL(changementLigne(int)), this, SIGNAL(changementLigne(int)));
 }
 
 QString WidgetExec::getNom() {

@@ -140,6 +140,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     QObject::connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
+    QObject::connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
 }
 
 void Window::erreurMath(MathExp::erreur pCodeErreur)
@@ -345,4 +346,8 @@ void Window::rechargerPreferences() {
 
 TextEdit* Window::getZoneTexte() {
     return m_zoneTexte;
+}
+
+void Window::changementLigne(int pNumLigne) {
+    emit sigChangementLigne(pNumLigne);
 }

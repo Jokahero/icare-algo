@@ -28,6 +28,8 @@ class Window : public QMainWindow {
 public:
     Window();
 
+    TextEdit* getZoneTexte();
+
 private:
     TextEdit *m_zoneTexte;
 
@@ -95,12 +97,13 @@ public slots:
 
     void rechargerPreferences();
 
-    TextEdit* getZoneTexte();
+    void changementLigne(int pNumLigne);
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);
     void lancerAnalyseSemantique();
     void executer(QFile*);
     void reloadSettings();
+    void sigChangementLigne(int pNumLigne);
 };
 #endif // WINDOW_H

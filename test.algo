@@ -14,14 +14,14 @@ Saisir production
 prodJourna ← nbChevre × production
 Afficher "La production journalière du troupeau est de : "
 Afficher prodJourna 
-
+fds
 // Les commentaires c'est bien, mais les commentaires multilignes sont pas encore gérés !
 nbChevre ← 12
 production ← 8.6
 prodJourna ← nbChevre × production
 Afficher "La production journalière du troupeau est de : "
 Afficher prodJourna
-
+fd
 Pour i de 1 à nbChevre Faire
  Afficher i
 FinSi

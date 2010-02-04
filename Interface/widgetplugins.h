@@ -6,8 +6,7 @@
 class QCheckBox;
 class QDialogButtonBox;
 
-class WidgetPlugins : public QDialog
-{
+class WidgetPlugins : public QDialog {
     Q_OBJECT
 
 public:
