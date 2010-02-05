@@ -5,6 +5,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QRegExp>
 
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
@@ -136,11 +137,12 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
             Sinon Si ce n'est pas un commentaire ou une ligne vide, l'ajouter à la liste d'instructions
         */
         if (ligneAct != QString::null && ligneAct != "") {
-            Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct);
+            QStringList* params = new QStringList;
+            Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct, params);
             if (typeLigneAct == Dictionnaire::TypeInconnu)
                 emit erreur(Analyse::Syntaxe, cptLigne);
             else if (typeLigneAct != Dictionnaire::Commentaire)
-                m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct));
+                m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct, params));
         }
     }
 

@@ -2,6 +2,7 @@
 #define DICTIONNAIRE_H
 
 class QString;
+class QStringList;
 
 class Dictionnaire {
 public:
@@ -43,38 +44,38 @@ public:
         TypeInconnu,
     };
 
-    static typeLigne getType(QString pLigne);
+    static typeLigne getType(QString pLigne, QStringList* pListeArgs = 0);
     //partie general
-    static bool isGlossaire(QString pLigne);
-    static bool isDeclarationVariable(QString pLigne);
-    static bool isDebut(QString pLigne);
-    static bool isFin(QString pLigne);
-    static bool isCommentaire(QString pLigne);
+    static bool isGlossaire(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isDeclarationVariable(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isDebut(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isFin(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isCommentaire(QString pLigne, QStringList* pListeArgs = 0);
     //If
-    static bool isSi(QString pLigne);
-    static bool isFinSi(QString pLigne);
-    static bool isSinon(QString pLigne);
+    static bool isSi(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isFinSi(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isSinon(QString pLigne, QStringList* pListeArgs = 0);
     //Switch
-    static bool isSelon(QString pLigne);
-    static bool isCas(QString pLigne);
-    static bool isDefault(QString pLigne);
-    static bool isFinSelon(QString pLigne);
+    static bool isSelon(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isCas(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isDefault(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isFinSelon(QString pLigne, QStringList* pListeArgs = 0);
     //For
-    static bool isPour(QString pLigne);
-    static bool isFinPour(QString pLigne);
+    static bool isPour(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isFinPour(QString pLigne, QStringList* pListeArgs = 0);
 
-    static bool isRepeter(QString pLigne);
+    static bool isRepeter(QString pLigne, QStringList* pListeArgs = 0);
 
-    static bool isTantQue(QString pLigne);
-    static bool isFinTantQue(QString pLigne);
+    static bool isTantQue(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isFinTantQue(QString pLigne, QStringList* pListeArgs = 0);
 
-    static bool isJusqua(QString pLigne);
+    static bool isJusqua(QString pLigne, QStringList* pListeArgs = 0);
 
-    static bool isAffectation(QString pLigne);
+    static bool isAffectation(QString pLigne, QStringList* pListeArgs = 0);
     // Fonctions
-    static bool isAfficher(QString pLigne);
-    static bool isSaisir(QString pLigne);
-    static bool isImprimer(QString pLigne);
+    static bool isAfficher(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isSaisir(QString pLigne, QStringList* pListeArgs = 0);
+    static bool isImprimer(QString pLigne, QStringList* pListeArgs = 0);
 
 
 
@@ -83,10 +84,6 @@ private:
 
     static QString listePipeVariable(/*QStringList*/);
     static QString listeQuantites(/*QStringList*/);
-
-
-
-
 
 };
 

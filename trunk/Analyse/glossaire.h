@@ -24,9 +24,13 @@ public:
     QString getValeurChaine(QString pNomVar);
     double getValeurReel(QString pNomVar);
 
+    QString getValeur(QString pNomVar);
+
     void setValeurEntier(QString pNomVar, int pValeur);
     void setValeurChaine(QString pNomVar, QString pValeur);
     void setValeurReel(QString pNomVar, double pValeur);
+
+    void setValeur(QString pNomVar, QString pValeur);
 
     QStringList getListeVariables();
     

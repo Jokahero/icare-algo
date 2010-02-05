@@ -17,11 +17,8 @@ void AnalyseSemantique::lancer() {
 
 // TODO : numéro de ligne à la fin
 void AnalyseSemantique::verifStruct() {
-    qDebug() << "Début : " << Dictionnaire::Debut;
-    qDebug() << "Fin : " << Dictionnaire::Fin;
     for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
         Dictionnaire::typeLigne type = m_analyse->getListeInstruction()->at(i)->getTypeLigne();
-        qDebug() << i << " : " << type;
         if (type == Dictionnaire::Debut || type == Dictionnaire::Si || type == Dictionnaire::TantQue || type == Dictionnaire::Pour || type == Dictionnaire::Repeter)
             m_pileStructureControle->push(type);
         

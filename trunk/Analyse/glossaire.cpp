@@ -136,6 +136,26 @@ double Glossaire::getValeurReel(QString pNomVar) {
 }
 
 
+/*! \brief Récupère la valeur d'une variable.
+
+  \param pNomVar Nom de la variable a récupérer.
+  \return La valeur de la variable récupérée.
+*/
+QString Glossaire::getValeur(QString pNomVar) {
+    if (!existe(pNomVar)) {
+        emit(erreur(Analyse::VariableNonDeclaree));
+        return QString::null;
+    } else if (m_listeEntier->contains(pNomVar))
+        return QString::number((*m_listeEntier)[pNomVar]);
+    else if (m_listeChaine->contains(pNomVar))
+        return (*m_listeChaine)[pNomVar];
+    else if (m_listeReel->contains(pNomVar))
+        return QString::number((*m_listeReel)[pNomVar]);
+    else
+        return QString::null;
+}
+
+
 /*! \brief Définit la valeur d'un entier.
 
   \param pNomVar Nom de la variable a modifier.
@@ -184,6 +204,26 @@ void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
 }
 
 
+/*! \brief Définit la valeur d'une variable.
+
+  \param pNomVar Nom de la variable a modifier.
+  \param pValeur La valeur à lui affecter.
+*/
+void Glossaire::setValeur(QString pNomVar, QString pValeur) {
+    if (m_listeEntier->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, pValeur);
+        (*m_listeEntier)[pNomVar] = pValeur.toInt();
+    } else if (m_listeChaine->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, pValeur);
+        (*m_listeChaine)[pNomVar] = pValeur;
+    } else if (m_listeReel->contains(pNomVar)) {
+        emit variableModifiee(pNomVar, pValeur);
+        (*m_listeReel)[pNomVar] = pValeur.toFloat();
+    } else
+        emit(erreur(Analyse::VariableNonDeclaree));
+}
+
+
 /*! \brief Retourne la liste des noms de variables.
 
   \return Les noms de toutes les variables.
@@ -196,9 +236,9 @@ QStringList Glossaire::getListeVariables() {
 /*! \brief Supprime toutes les entrées du glossaire.
 */
 void Glossaire::reinit() {
-	m_listeEntier->clear();
-	m_listeReel->clear();
-	m_listeChaine->clear();
-	m_description->clear();
-	emit sigReinit();
+    m_listeEntier->clear();
+    m_listeReel->clear();
+    m_listeChaine->clear();
+    m_description->clear();
+    emit sigReinit();
 }

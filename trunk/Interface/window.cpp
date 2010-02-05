@@ -153,7 +153,7 @@ void Window::erreurMath(MathExp::erreur pCodeErreur)
 
 void Window::execution()
 {
-    emit executer(m_fichier);
+    emit executer();
 }
 
 void Window::analyseSyntaxique() {

@@ -78,6 +78,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), fenetre, SLOT(erreurMath(MathExp::erreur)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), Analyse::getInstance(), SLOT(lancerAnalyseSyntaxique(QFile*)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), Analyse::getInstance(), SLOT(lancerAnalyseSemantique()));
+    QObject::connect(fenetre, SIGNAL(executer()), Analyse::getInstance(), SLOT(lancerExecution()));
     //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
 

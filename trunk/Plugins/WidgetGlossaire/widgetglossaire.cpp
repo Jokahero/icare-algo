@@ -1,5 +1,6 @@
 #include "widgetglossaire.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QTableWidget>
@@ -44,10 +45,12 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
 }
 
 void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
+    qDebug() << "WidgetGlossaire::variableModifiee(" << pNomVar << ", " << pValeur << ")";
     bool modifie = false;
     for (int i = 0; i < m_tableau->rowCount() && !modifie; i++) {
-        if (m_tableau->itemAt(0, i)->text() == pNomVar) {
-            m_tableau->itemAt(2, i)->setText(pValeur);
+        if (m_tableau->item(i, 0)->text() == pNomVar) {
+            qDebug() << "Texte avant : " << m_tableau->item(i, 2)->text();
+            m_tableau->item(i, 2)->setText(pValeur);
             modifie = true;
         }
     }
