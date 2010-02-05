@@ -102,7 +102,7 @@ public slots:
 signals:
     void lancerAnalyseSyntaxique(QFile*);
     void lancerAnalyseSemantique();
-    void executer(QFile*);
+    void executer();
     void reloadSettings();
     void sigChangementLigne(int pNumLigne);
 };

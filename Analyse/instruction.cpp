@@ -1,9 +1,12 @@
 #include "instruction.h"
 
-Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne) {
+Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin) {
     m_numLigne = pNumLigne;
     m_ligne = pLigne;
     m_typeLigne = pTypeLigne;
+    m_ligneDebut = pLigneDebut;
+    m_ligneFin = pLigneFin;
+    m_args = pListeArgs;
 }
 
 int Instruction::getNumLigne() {
@@ -30,3 +33,6 @@ void Instruction::setTypeLigne(Dictionnaire::typeLigne pTypeLigne) {
     m_typeLigne = pTypeLigne;
 }
 
+QStringList* Instruction::getArgs() {
+    return m_args;
+}

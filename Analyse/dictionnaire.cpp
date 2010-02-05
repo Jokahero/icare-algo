@@ -5,57 +5,57 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
+Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne, QStringList* pListeArgs) {
     //-----PARTIE GENERALE
-    if (isGlossaire(pLigne))
+    if (isGlossaire(pLigne, pListeArgs))
         return Dictionnaire::Glossaire;
-    else if (isDeclarationVariable(pLigne))
+    else if (isDeclarationVariable(pLigne, pListeArgs))
         return Dictionnaire::DeclarationVariable;
-    else if (isDebut(pLigne))
+    else if (isDebut(pLigne, pListeArgs))
         return Dictionnaire::Debut;
-    else if (isFin(pLigne))
+    else if (isFin(pLigne, pListeArgs))
         return Dictionnaire::Fin;
-    else if (isCommentaire(pLigne))
+    else if (isCommentaire(pLigne, pListeArgs))
         return Dictionnaire::Commentaire;
-    else if (isAffectation(pLigne))
+    else if (isAffectation(pLigne, pListeArgs))
         return Dictionnaire::Affectation;
     //-----IF..ELSE..
-    else if (isSi(pLigne))
+    else if (isSi(pLigne, pListeArgs))
         return Dictionnaire::Si;
-    else if (isFinSi(pLigne))
+    else if (isFinSi(pLigne, pListeArgs))
         return Dictionnaire::FinSi;
-    else if (isSinon(pLigne))
+    else if (isSinon(pLigne, pListeArgs))
         return Dictionnaire::Sinon;
     //-----SWITCH
-    else if (isSelon(pLigne))
+    else if (isSelon(pLigne, pListeArgs))
         return Dictionnaire::Selon;
-    else if (isCas(pLigne))
+    else if (isCas(pLigne, pListeArgs))
         return Dictionnaire::Cas;
-    else if (isSelon(pLigne))
+    else if (isSelon(pLigne, pListeArgs))
         return Dictionnaire::Default;
-    else if (isFinSelon(pLigne))
+    else if (isFinSelon(pLigne, pListeArgs))
         return Dictionnaire::FinSelon;
     //-----FOR
-    else if (isPour(pLigne))
+    else if (isPour(pLigne, pListeArgs))
         return Dictionnaire::Pour;
-    else if (isFinPour(pLigne))
+    else if (isFinPour(pLigne, pListeArgs))
         return Dictionnaire::FinPour;
     //-----DO..WHILE
-    else if (isRepeter(pLigne))
+    else if (isRepeter(pLigne, pListeArgs))
         return Dictionnaire::Repeter;
-    else if (isJusqua(pLigne))
+    else if (isJusqua(pLigne, pListeArgs))
         return Dictionnaire::Jusqua;
     //-----WHILE
-    else if (isTantQue(pLigne))
+    else if (isTantQue(pLigne, pListeArgs))
         return Dictionnaire::TantQue;
-    else if (isFinTantQue(pLigne))
+    else if (isFinTantQue(pLigne, pListeArgs))
         return Dictionnaire::FinTantQue;
 
-    else if (isAfficher(pLigne))
+    else if (isAfficher(pLigne, pListeArgs))
         return Dictionnaire::Afficher;
-    else if (isSaisir(pLigne))
+    else if (isSaisir(pLigne, pListeArgs))
         return Dictionnaire::Saisir;
-    else if (isImprimer(pLigne))
+    else if (isImprimer(pLigne, pListeArgs))
         return Dictionnaire::Imprimer;
 
 
@@ -71,9 +71,11 @@ Dictionnaire::typeLigne Dictionnaire::getType(QString pLigne ){
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Glossaire", faux sinon.
 */
-bool Dictionnaire::isGlossaire(QString pLigne) {
+bool Dictionnaire::isGlossaire(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^glossaire\\s?:?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
 /*! \brief Permet de savoir si le ligne est une déclaration de variable.
@@ -83,10 +85,17 @@ bool Dictionnaire::isGlossaire(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est une ligne de déclaration de variables, faux sinon.
 */
-bool Dictionnaire::isDeclarationVariable(QString pLigne) {
+bool Dictionnaire::isDeclarationVariable(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^(entier|r[ée]el|cha[îi]ne|caract[eè]re|bool[ée]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
 /*! \brief Permet de savoir si le ligne est le début de l'algorithme.
 
@@ -95,9 +104,11 @@ bool Dictionnaire::isDeclarationVariable(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Debut", faux sinon.
 */
-bool Dictionnaire::isDebut(QString pLigne) {
+bool Dictionnaire::isDebut(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^d[eé]but\\s?:?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
 /*! \brief Permet de savoir si le ligne est la fin de l'algorithme.
@@ -107,9 +118,11 @@ bool Dictionnaire::isDebut(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Fin", faux sinon.
 */
-bool Dictionnaire::isFin(QString pLigne) {
+bool Dictionnaire::isFin(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^fin$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
 /*! \brief Permet de savoir si le ligne est un commentaire uniligne.
@@ -119,9 +132,11 @@ bool Dictionnaire::isFin(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un //(Commentaire), faux sinon.
 */
-bool Dictionnaire::isCommentaire(QString pLigne) {
+bool Dictionnaire::isCommentaire(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^//.*$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
 /*! \brief Permet de savoir si le ligne est une affectation.
@@ -131,10 +146,17 @@ bool Dictionnaire::isCommentaire(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est une affectation, faux sinon.
 */
-bool Dictionnaire::isAffectation(QString pLigne) {
-    QRegExp rx("^" + listePipeVariable() + "\\s*(?:<-|←)\\s*" + listeQuantites() + "$");
+bool Dictionnaire::isAffectation(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^(" + listePipeVariable() + ")\\s*(?:<-|←)\\s*(" + listeQuantites() + ")$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
 
 
@@ -152,13 +174,21 @@ bool Dictionnaire::isAffectation(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Si", faux sinon.
 */
-bool Dictionnaire::isSi(QString pLigne) {
+bool Dictionnaire::isSi(QString pLigne, QStringList* pListeArgs) {
     //récupération de toute les variable utilisateur
-    QString  expression = listePipeVariable();
-    QRegExp rx("^si\\s(" + expression + "|[0-9]+)(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + "|[0-9]+)\\salors$");
+    QString  expression = listeQuantites();
+    QRegExp rx("^si\\s(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\salors$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 /*! \brief Permet de savoir si le ligne est un "FinSi".
 
   Indique si la ligne est une ligne "FinSi".
@@ -166,11 +196,14 @@ bool Dictionnaire::isSi(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "FinSi", faux sinon.
 */
-bool Dictionnaire::isFinSi(QString pLigne) {
+bool Dictionnaire::isFinSi(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^finsi$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 /*! \brief Permet de savoir si le ligne est un "Sinon".
 
   Indique si la ligne est une ligne "Sinon".
@@ -178,11 +211,14 @@ bool Dictionnaire::isFinSi(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Sinon", faux sinon.
 */
-bool Dictionnaire::isSinon(QString pLigne) {
+bool Dictionnaire::isSinon(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^sinon$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 //-----SWITCH
 /*! \brief Permet de savoir si le ligne est un Selon.
 
@@ -191,12 +227,20 @@ bool Dictionnaire::isSinon(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Selon" , faux sinon.
 */
-bool Dictionnaire::isSelon(QString pLigne) {
-    QString expression = listePipeVariable();
-    QRegExp rx("^selon\\s?\\(?(" + expression + ")\\)?:?$");
+bool Dictionnaire::isSelon(QString pLigne, QStringList* pListeArgs) {
+    QString expression = listeQuantites();
+    QRegExp rx("^selon\\s?(" + expression + ")\\s?:?\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 /*! \brief Permet de savoir si le ligne est un Cas(Differents choix du selon).
 
   Indique si la ligne est une ligne "Cas"(Differents choix du selon).
@@ -204,12 +248,20 @@ bool Dictionnaire::isSelon(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Cas" , faux sinon.
 */
-bool Dictionnaire::isCas(QString pLigne) {
-    QString expression = listePipeVariable();
-    QRegExp rx("^cas\\s?(" + expression + "|[0-9]+)\\s:?$");
+bool Dictionnaire::isCas(QString pLigne, QStringList* pListeArgs) {
+    QString expression = listeQuantites();
+    QRegExp rx("^cas\\s?(" + expression + ")\\s?:?\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 /*! \brief Permet de savoir si le ligne est un Default (Cas par défault de Selon).
 
   Indique si la ligne est une ligne "Default" (Cas par défault de Selon).
@@ -217,11 +269,14 @@ bool Dictionnaire::isCas(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Default" (Cas par défault de Selon), faux sinon.
 */
-bool Dictionnaire::isDefault(QString pLigne) {
-    QRegExp rx("^default\\s?:?$");
+bool Dictionnaire::isDefault(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^d[ée]faut\\s?:?\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 /*! \brief Permet de savoir si le ligne est un FinSelon.
 
   Indique si la ligne est une ligne "FinSelon".
@@ -229,11 +284,14 @@ bool Dictionnaire::isDefault(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "FinSelon", faux sinon.
 */
-bool Dictionnaire::isFinSelon(QString pLigne) {
-    QRegExp rx("^finselon$");
+bool Dictionnaire::isFinSelon(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^finselon\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 //-----FOR
 /*! \brief Permet de savoir si le ligne est un "Pour".
 
@@ -241,12 +299,20 @@ bool Dictionnaire::isFinSelon(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Pour", faux sinon.
 */
-bool Dictionnaire::isPour(QString pLigne) {
-    QString expression = listePipeVariable();
-    QRegExp rx("^pour\\s+("+expression+")\\s+de\\s+(" + expression + "|[0-9]+)\\s+[àa]\\s+(" + expression + "|[0-9]+)\\s+(\\[pas\\s+de\\s+(" + expression + "|[0-9]+)\\]\\s+)?faire$");
+bool Dictionnaire::isPour(QString pLigne, QStringList* pListeArgs) {
+    QString expression = listeQuantites();
+    QRegExp rx("^pour\\s+(" + expression + ")\\s+de\\s+(" + expression + ")\\s+[àa]\\s+(" + expression + ")\\s+(\\[pas\\s+de\\s+(" + expression + ")\\]\\s+)?faire\\s?:?\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 /*! \brief Permet de savoir si le ligne est un "FinPour".
 
   Indique si la ligne est une ligne "FinPour".
@@ -254,11 +320,14 @@ bool Dictionnaire::isPour(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "FinPour", faux sinon.
 */
-bool Dictionnaire::isFinPour(QString pLigne) {
+bool Dictionnaire::isFinPour(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^finpour$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 //-----DO..WHILE
 /*! \brief Permet de savoir si le ligne est un "Repeter".
 
@@ -267,11 +336,14 @@ bool Dictionnaire::isFinPour(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Repeter", faux sinon.
 */
-bool Dictionnaire::isRepeter(QString pLigne) {
-    QRegExp rx("^repeter$");
+bool Dictionnaire::isRepeter(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^r[ée]p[ée]ter$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
+
 /*! \brief Permet de savoir si le ligne est un "Jusqu'a".
 
   Indique si la ligne est une ligne "Jusqu'a".
@@ -279,12 +351,20 @@ bool Dictionnaire::isRepeter(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "Jusqua", faux sinon.
 */
-bool Dictionnaire::isJusqua(QString pLigne) {
-    QString expression = listePipeVariable();
-    QRegExp rx("^jusqu[\\s']?[àa]\\s(" + expression + "|[0-9]+)$");
+bool Dictionnaire::isJusqua(QString pLigne, QStringList* pListeArgs) {
+    QString expression = listeQuantites();
+    QRegExp rx("^jusqu[\\s']?[àa]\\s(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 //WHILE
 /*! \brief Permet de savoir si le ligne est un "TantQue".
 
@@ -293,12 +373,20 @@ bool Dictionnaire::isJusqua(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "TantQue", faux sinon.
 */
-bool Dictionnaire::isTantQue(QString pLigne) {
+bool Dictionnaire::isTantQue(QString pLigne, QStringList* pListeArgs) {
     QString expression = listeQuantites();
-    QRegExp rx("^tantque\\s+" + expression + "\\s+(≤|≥|≠|=|>|>=|<|<=|!=)\\s+" + expression + "$");
+    QRegExp rx("^tantque\\s+(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
+
 /*! \brief Permet de savoir si le ligne est un "FinTantQue".
 
   Indique si la ligne est une ligne "FinTantQue".
@@ -306,9 +394,11 @@ bool Dictionnaire::isTantQue(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un "FinTantQue", faux sinon.
 */
-bool Dictionnaire::isFinTantQue(QString pLigne) {
+bool Dictionnaire::isFinTantQue(QString pLigne, QStringList* pListeArgs) {
     QRegExp rx("^fintantque$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
+    if (pListeArgs)
+        pListeArgs->clear();
     return rx.exactMatch(pLigne);
 }
 
@@ -319,10 +409,17 @@ bool Dictionnaire::isFinTantQue(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est un affichage, faux sinon.
 */
-bool Dictionnaire::isAfficher(QString pLigne) {
-    QRegExp rx("^afficher\\s+.*$");
+bool Dictionnaire::isAfficher(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^afficher\\s+(.*)\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
 
 /*! \brief Permet de savoir si le ligne est une saisie.
@@ -333,10 +430,17 @@ bool Dictionnaire::isAfficher(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est une saisie, faux sinon.
 */
-bool Dictionnaire::isSaisir(QString pLigne) {
-    QRegExp rx("^saisir\\s+.*$");
+bool Dictionnaire::isSaisir(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^saisir\\s+(" + listePipeVariable() + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
 
 /*! \brief Permet de savoir si le ligne est une impression.
@@ -346,10 +450,17 @@ bool Dictionnaire::isSaisir(QString pLigne) {
   \param pLigne Ligne à analyser.
   \return Vrai si la ligne est une impression, faux sinon.
 */
-bool Dictionnaire::isImprimer(QString pLigne) {
-    QRegExp rx("^imprimer\\s+.*$");
+bool Dictionnaire::isImprimer(QString pLigne, QStringList* pListeArgs) {
+    QRegExp rx("^imprimer\\s+(" + listePipeVariable() + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
-    return rx.exactMatch(pLigne);
+    if (pListeArgs)
+        pListeArgs->clear();
+    if (rx.exactMatch(pLigne)) {
+        if (pListeArgs)
+            *pListeArgs = rx.capturedTexts();
+        return true;
+    } else
+        return false;
 }
 
 
@@ -360,8 +471,7 @@ bool Dictionnaire::isImprimer(QString pLigne) {
 
   \return String expression
 */
-QString Dictionnaire::listePipeVariable()
-{
+QString Dictionnaire::listePipeVariable() {
     QString expression = "(?:";
     QStringList listeVar = Analyse::getInstance()->getGlossaire()->getListeVariables();
     if (!listeVar.empty()) {

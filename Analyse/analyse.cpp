@@ -1,6 +1,7 @@
 #include "analyse.h"
 #include "analysesyntaxique.h"
 #include "analysesemantique.h"
+#include "execution.h"
 #include "glossaire.h"
 
 #include <QtCore/QFile>
@@ -18,6 +19,7 @@ Analyse::Analyse() {
     m_glossaire = new Glossaire;
     m_analyseSyntaxique = new AnalyseSyntaxique(this);
     m_analyseSemantique = new AnalyseSemantique(this);
+    m_exec = new Execution(this);
 
     m_debutGlossaire = -1;
     m_finGlossaire = -1;
@@ -26,6 +28,7 @@ Analyse::Analyse() {
 
     QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
     QObject::connect(this, SIGNAL(sigLancerAnalyseSemantique()), m_analyseSemantique, SLOT(lancer()));
+    QObject::connect(this, SIGNAL(sigLancerExecution()), m_exec, SLOT(lancer()));
     QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     QObject::connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     QObject::connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
@@ -45,6 +48,10 @@ void Analyse::lancerAnalyseSyntaxique(QFile* pFichier) {
 
 void Analyse::lancerAnalyseSemantique() {
     emit sigLancerAnalyseSemantique();
+}
+
+void Analyse::lancerExecution() {
+    emit sigLancerExecution();
 }
 
 void Analyse::setDebutGlossaire(int pNumLigne) {

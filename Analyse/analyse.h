@@ -4,13 +4,12 @@
 #include "Analyse_global.h"
 #include "instruction.h"
 #include "dictionnaire.h"
-//#include "analysesemantique.h"
-//#include "analysesyntaxique.h"
 
 #include <QtCore/QObject>
 
 class AnalyseSemantique;
 class AnalyseSyntaxique;
+class Execution;
 class Glossaire;
 class QFile;
 template <typename T> class QList;
@@ -45,20 +44,23 @@ public:
 public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
     void lancerAnalyseSemantique();
+    void lancerExecution();
 
 signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
     void sigLancerAnalyseSemantique();
+    void sigLancerExecution();
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
 
 private:
-    static Analyse *_instance;                      /*!<\brief Seule instance de la classe (Singleton). */
+    static Analyse *_instance;                      /*!< \brief Seule instance de la classe (Singleton). */
     Analyse();
 
     QList<Instruction*>* m_listeInstruction;        /*!<\brief Liste des instructions extraites du code. */
     Glossaire* m_glossaire;                         /*!<\brief Glossaire où sont stockées les variables. */
     AnalyseSyntaxique* m_analyseSyntaxique;         /*!<\brief Analyseur syntaxique. */
     AnalyseSemantique* m_analyseSemantique;         /*!<\brief Analyseur sémantique. */
+    Execution* m_exec;                              /*!<\brief Exécution. */
     int m_debutGlossaire;                           /*!<\brief Contient la position du début du glossaire. */
     int m_finGlossaire;                             /*!<\brief Contient la position du fin du glossaire. */
     int m_debutAlgo;                                /*!<\brief Contient la position du début de l'algorithme. */
