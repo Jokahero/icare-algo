@@ -1,5 +1,6 @@
 #include "window.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
@@ -17,8 +18,7 @@
 
 /*! \brief Constructeur. Initialise la fenêtre principale.
 */
-Window::Window() : QMainWindow()
-{
+Window::Window() : QMainWindow() {
     /* On récupère la taille et la position de la fenêtre
        telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
     QSettings settings;
@@ -147,16 +147,14 @@ Window::Window() : QMainWindow()
     QObject::connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
 }
 
-void Window::erreurMath(MathExp::erreur pCodeErreur)
-{
+void Window::erreurMath(MathExp::erreur pCodeErreur) {
     if(pCodeErreur == MathExp::DivisionParZero)
         QMessageBox::information(this, "Erreur", "Division par zero");
     else
         QMessageBox::information(this, "Erreur", "Erreur inconnue");
 }
 
-void Window::execution()
-{
+void Window::execution() {
     emit executer();
 }
 
@@ -169,8 +167,7 @@ void Window::analyseSemantique() {
     emit lancerAnalyseSemantique();
 }
 
-void Window::afficherApropos()
-{
+void Window::afficherApropos() {
     /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("A propos de Icare");
@@ -181,8 +178,7 @@ void Window::afficherApropos()
   Cette fonction sans paramètre ouvre une boîte de dialogue permettant d'ouvrir un fichier existant
   et d'insérer son contenu dans la zone de texte.
 */
-void Window::ouvrirFichier()
-{
+void Window::ouvrirFichier() {
     QString nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
 
     ouvrirFichier(nomFichier);
@@ -192,8 +188,7 @@ void Window::ouvrirFichier()
   Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
   \param pNomFichier Nom du fichier à ouvrir.
 */
-void Window::ouvrirFichier(QString pNomFichier)
-{
+void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
     bool ouverture = m_fichier->open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -255,8 +250,7 @@ void Window::ouvrirFichier(QString pNomFichier)
     m_fichier->close();
 }
 
-void Window::afficherPreferences()
-{
+void Window::afficherPreferences() {
     m_pref = new Preferences();
     QObject::connect(m_pref, SIGNAL(settingsChanged()), this, SLOT(rechargerPreferences()));
     m_pref->show();
@@ -327,7 +321,9 @@ void Window::enregistrerFichier() {
 }
 
 void Window::enregistrerFichierSous() {
-
+    QString nomFichier = QFileDialog::getSaveFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
+    m_fichier->setFileName(nomFichier);
+    enregistrerFichier();
 }
 
 void Window::quitter() {
