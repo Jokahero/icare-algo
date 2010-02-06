@@ -7,10 +7,9 @@
 TextEdit::TextEdit() {
     loadSettings();
     setTabStopWidth(16);
-    setLineWrapMode(QPlainTextEdit::NoWrap);
     m_color = new Coloration(document());
 
-    lineNumberArea = new LineNumberArea(this);
+    m_lineNumberArea = new LineNumberArea(this);
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(const QRect &, int)), this, SLOT(updateLineNumberArea(const QRect &, int)));
@@ -33,7 +32,7 @@ void TextEdit::wheelEvent(QWheelEvent* pEvent) {
 /*******************************************************/
 
 int TextEdit::lineNumberAreaWidth() {
-    if (isLineNumberArea) {
+    if (m_isLineNumberArea) {
         int digits = 1;
         int max = qMax(1, blockCount());
         while (max >= 10) {
@@ -56,11 +55,11 @@ void TextEdit::updateLineNumberAreaWidth(int /* newBlockCount */) {
 
 
 void TextEdit::updateLineNumberArea(const QRect &rect, int dy) {
-    if (isLineNumberArea) {
+    if (m_isLineNumberArea) {
         if (dy)
-            lineNumberArea->scroll(0, dy);
+            m_lineNumberArea->scroll(0, dy);
         else
-            lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
+            m_lineNumberArea->update(0, rect.y(), m_lineNumberArea->width(), rect.height());
 
         if (rect.contains(viewport()->rect()))
             updateLineNumberAreaWidth(0);
@@ -72,9 +71,9 @@ void TextEdit::updateLineNumberArea(const QRect &rect, int dy) {
 void TextEdit::resizeEvent(QResizeEvent *e) {
     QPlainTextEdit::resizeEvent(e);
 
-    if (isLineNumberArea) {
+    if (m_isLineNumberArea) {
         QRect cr = contentsRect();
-        lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+        m_lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
     }
 }
 
@@ -101,8 +100,8 @@ void TextEdit::highlightCurrentLine() {
 
 
 void TextEdit::lineNumberAreaPaintEvent(QPaintEvent *event) {
-    if (isLineNumberArea) {
-        QPainter painter(lineNumberArea);
+    if (m_isLineNumberArea) {
+        QPainter painter(m_lineNumberArea);
         painter.fillRect(event->rect(), Qt::lightGray);
 
 
@@ -115,7 +114,7 @@ void TextEdit::lineNumberAreaPaintEvent(QPaintEvent *event) {
             if (block.isVisible() && bottom >= event->rect().top()) {
                 QString number = QString::number(blockNumber + 1);
                 painter.setPen(Qt::black);
-                painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
+                painter.drawText(0, top, m_lineNumberArea->width(), fontMetrics().height(),
                                  Qt::AlignRight, number);
             }
 
@@ -135,8 +134,14 @@ void TextEdit::changerCouleur() {
 void TextEdit::loadSettings() {
     changerCouleur();
     QSettings settings;
-    isLineNumberArea = settings.value("Numérotation des lignes").toBool();
+    m_isLineNumberArea = settings.value("Numérotation des lignes").toBool();
+    m_isRetourLigne = settings.value("Retour à la ligne automatique").toBool();
+
     emit blockCountChanged(blockCount());
+    if (m_isRetourLigne)
+    setLineWrapMode(QPlainTextEdit::WidgetWidth);
+    else
+        setLineWrapMode(QPlainTextEdit::NoWrap);
     update();
     repaint();
 }

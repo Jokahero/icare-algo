@@ -46,6 +46,7 @@ private:
 
     /* Le widget m_color contiendra ces éléments */
     QCheckBox *m_numerotation;
+    QCheckBox *m_retourLigne;
 
     /* Pour les boutons Ok et Annuler */
     QDialogButtonBox *m_buttonBox;
