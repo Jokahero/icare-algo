@@ -69,6 +69,8 @@ private:
 
     QStatusBar* m_statusBar;
 
+    bool m_documentModifie;
+
 public slots:
     void erreurMath(MathExp::erreur);
 
@@ -100,6 +102,8 @@ public slots:
     void rechargerPreferences();
 
     void changementLigne(int pNumLigne);
+
+    void documentModifie(bool pMod);
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);

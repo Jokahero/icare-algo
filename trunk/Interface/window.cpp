@@ -145,6 +145,8 @@ Window::Window() : QMainWindow() {
     QObject::connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
     QObject::connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
+
+    documentModifie(true);
 }
 
 void Window::erreurMath(MathExp::erreur pCodeErreur) {
@@ -159,11 +161,15 @@ void Window::execution() {
 }
 
 void Window::analyseSyntaxique() {
+    if (m_documentModifie)
+        enregistrerFichier();
     showMessage(tr("Début de l'analyse syntaxique du fichier %1…").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
     emit lancerAnalyseSyntaxique(m_fichier);
 }
 
 void Window::analyseSemantique() {
+    if (m_documentModifie)
+        analyseSyntaxique();
     emit lancerAnalyseSemantique();
 }
 
@@ -243,10 +249,12 @@ void Window::ouvrirFichier(QString pNomFichier) {
     if (!ouverture)
         return;
 
-    //On créer un flux de texte
+    connect(m_zoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentModifie(bool)));
+    // On créé un flux de texte
     QTextStream flux(m_fichier);
     m_zoneTexte->setPlainText(flux.readAll());
     m_zoneTexte->setDocumentTitle(m_fichier->fileName());
+    m_zoneTexte->document()->setModified(false);
     m_fichier->close();
 }
 
@@ -262,6 +270,11 @@ void Window::afficherMenuPlugins() {
 }
 
 void Window::enregistrerFichier() {
+    if (m_fichier->fileName() == QString::null) {
+        enregistrerFichierSous();
+        return;
+    }
+
     bool ouverture = m_fichier->open(QIODevice::WriteOnly | QIODevice::Text);
 
     switch (m_fichier->error()) {
@@ -318,10 +331,13 @@ void Window::enregistrerFichier() {
     QString texte = m_zoneTexte->toPlainText();
     m_fichier->write(texte.toUtf8());
     m_fichier->close();
+    m_zoneTexte->document()->setModified(false);
 }
 
 void Window::enregistrerFichierSous() {
     QString nomFichier = QFileDialog::getSaveFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
+    if (nomFichier == QString::null)
+        return;
     m_fichier->setFileName(nomFichier);
     enregistrerFichier();
 }
@@ -353,4 +369,9 @@ TextEdit* Window::getZoneTexte() {
 
 void Window::changementLigne(int pNumLigne) {
     emit sigChangementLigne(pNumLigne);
+}
+
+void Window::documentModifie(bool pMod) {
+    m_enregistrer->setEnabled(pMod);
+    m_documentModifie = pMod;
 }
