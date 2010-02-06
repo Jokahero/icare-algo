@@ -39,6 +39,8 @@ Window::Window() : QMainWindow()
     m_ouvrir->setShortcut(tr("Ctrl+O"));
     m_enregistrer = new QAction(tr("Enregistrer"), this);
     m_enregistrer->setShortcut(tr("Ctrl+S"));
+    m_enregistrerSous = new QAction(tr("Enregistrer sous…"), this);
+    m_enregistrerSous->setShortcut(tr("Ctrl+Shift+S"));
     m_imprimer = new QAction(tr("Imprimer"), this);
     m_imprimer->setShortcut(tr("Ctrl+P"));
     m_quitter = new QAction(tr("Quitter"), this);
@@ -46,6 +48,7 @@ Window::Window() : QMainWindow()
     m_mainMenu->setTitle(tr("&Fichier"));
     m_mainMenu->addAction(m_ouvrir);
     m_mainMenu->addAction(m_enregistrer);
+    m_mainMenu->addAction(m_enregistrerSous);
     m_mainMenu->addSeparator();
     m_mainMenu->addAction(m_imprimer);
     m_mainMenu->addSeparator();
@@ -133,6 +136,7 @@ Window::Window() : QMainWindow()
     QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
     QObject::connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
+    QObject::connect(m_enregistrerSous, SIGNAL(triggered()), this, SLOT(enregistrerFichierSous()));
     QObject::connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
     QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     QObject::connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
@@ -322,8 +326,11 @@ void Window::enregistrerFichier() {
     m_fichier->close();
 }
 
-void Window::quitter()
-{
+void Window::enregistrerFichierSous() {
+
+}
+
+void Window::quitter() {
     QSettings settings;
     settings.setValue("Size", saveGeometry());
     settings.setValue("Maximized", isMaximized());

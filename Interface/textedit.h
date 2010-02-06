@@ -19,7 +19,7 @@ public:
 
 private:
     void wheelEvent(QWheelEvent* pEvent);
-    Coloration *m_color;
+    Coloration* m_color;
 
 public:
     void lineNumberAreaPaintEvent(QPaintEvent *event);
@@ -34,8 +34,9 @@ protected:
      void updateLineNumberArea(const QRect &, int);
 
  private:
-     QWidget *lineNumberArea;
-     bool isLineNumberArea;
+     QWidget* m_lineNumberArea;
+     bool m_isLineNumberArea;
+     bool m_isRetourLigne;
      void changerCouleur();
 
  public slots:
@@ -44,8 +45,7 @@ protected:
 
 };
 
- class LineNumberArea : public QWidget
- {
+ class LineNumberArea : public QWidget {
  public:
      LineNumberArea(TextEdit *editor) : QWidget(editor) {
          m_textEdit = editor;

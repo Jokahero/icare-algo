@@ -11,8 +11,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
-Preferences::Preferences() : QDialog()
-{
+Preferences::Preferences() : QDialog() {
     setWindowTitle("Préférences");
     setMinimumSize(300, 150);
     setModal(true); // La fenêtre de préférences doit être fermée pour que l'on puisse revenir à l'application
@@ -54,8 +53,10 @@ Preferences::Preferences() : QDialog()
     QFormLayout *m_layoutOngletZoneEdition = new QFormLayout();
 
     m_numerotation = new QCheckBox("Numérotation des lignes", this);
+    m_retourLigne = new QCheckBox("Retour à la ligne automatique", this);
 
     m_layoutOngletZoneEdition->addRow(m_numerotation);
+    m_layoutOngletZoneEdition->addRow(m_retourLigne);
     m_edit->setLayout(m_layoutOngletZoneEdition);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
@@ -99,6 +100,7 @@ void Preferences::changeSettings(/*QString pCategorie*/) {
     settings.setValue(m_typeLabel->text(), m_typeBouton->getCouleur().name());
     //settings.endGroup();
     settings.setValue(m_numerotation->text(), m_numerotation->isChecked());
+    settings.setValue(m_retourLigne->text(), m_retourLigne->isChecked());
 }
 
 /*! \brief Permet de récupérer une couleur à partir de son nom.
@@ -133,6 +135,7 @@ void Preferences::loadSettings() {
     m_typeBouton->setCouleur(tmp);
 
     m_numerotation->setChecked(settings.value(m_numerotation->text()).toBool());
+    m_retourLigne->setChecked(settings.value(m_retourLigne->text()).toBool());
 }
 
 void Preferences::accept() {
