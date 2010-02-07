@@ -38,11 +38,12 @@ void MathExp_tests::testMathExp_data() {
     QTest::addColumn<double>("result");
 
     QTest::newRow("Division par 0") << "1/0" << (double)-1;
-   // QTest::newRow("Parenthèses incorrectes") << "5*(4))" << (double)-1;
+    QTest::newRow("Parenthèses incorrectes") << "5*(4))" << (double)-1;
     QTest::newRow("Priorités") << "3*5-2*2" << (double)11;
     QTest::newRow("Parenthèses/Priorités") << "5+(3-2)*5" << (double)10;
     QTest::newRow("Parenthèses/Priorités") << "5*(3-2)*5" << (double)25;
     QTest::newRow("Parenthèses inutiles") << "(1)" << (double)1;
+    QTest::newRow("Parenthèses inutiles") << "((5+(3-2)*5))" << (double)10;
     QTest::newRow("Parenthèses/Priorités") << "2+(3+(1+1)*1)" << (double)7;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1)+1)" << (double)9;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1*(3-1))+1)" << (double)12;
