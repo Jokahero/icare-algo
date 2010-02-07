@@ -27,7 +27,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
         emit sigErreur(MathExp::Parentheses);
-        return NULL;
+        return parseExp("-1");
     }
 
     // Test de l'utilité des parenthèses : (1+1) → 1+1
@@ -43,6 +43,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
         if (i < pExpression.length() && cpt == 0) {
             pExpression = pExpression.left(pExpression.length() - 1);
             pExpression = pExpression.right(pExpression.length() - 1);
+            return parseExp(pExpression);
         }
     }
 
