@@ -19,7 +19,7 @@ protected:
     void paintEvent(QPaintEvent *pE);
 
 public slots:
-    void setCouleur(QColor pColor);
+    void setCouleur(QColor pCouleur);
 
 signals:
     void clicked();

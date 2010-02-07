@@ -1,9 +1,9 @@
 Glossaire:
-Entier	nbChevre		Nombre de chèvres du troupeau
-Réel		production		Volume de lait produit par une chèvre en une journée
-Réel		prodJourna		Production journalière du troupeau
+Entier	nbChevre			Nombre de chèvres du troupeau
+Réel	production		Volume de lait produit par une chèvre en une journée
+Réel	prodJourna		Production journalière du troupeau
 // Entier	prodJourna		Production journalière du troupeau
-// Entier	i						Compteur de boucle
+// Entier	i				Compteur de boucle
 
 Debut
 // Initialisations temporaires en attendant la saisie

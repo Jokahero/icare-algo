@@ -1,6 +1,5 @@
 #include "mathexp.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QString>
 
 
@@ -21,14 +20,12 @@ double MathExp::calcul() {
 }
 
 Arbre* MathExp::parseExp(QString pExpression) {
-    qDebug() << "Parsing " << pExpression;
     if (pExpression == QString::null)
         return NULL;
     Arbre* t = new Arbre();
 
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
-        qDebug() << "Erreur de parentheses dans l'expression " << pExpression;
         emit sigErreur(MathExp::Parentheses);
         return NULL;
     }
@@ -46,83 +43,17 @@ Arbre* MathExp::parseExp(QString pExpression) {
         if (i < pExpression.length() && cpt == 0) {
             pExpression = pExpression.left(pExpression.length() - 1);
             pExpression = pExpression.right(pExpression.length() - 1);
-            qDebug() << "Parentheses supprimees. Nouvelle expression : " << pExpression;
         }
     }
 
-    if (pExpression.contains("(")) {
-        qDebug() << "Parenthèses";
-        int firstOP = pExpression.indexOf("(");
-
-        if (firstOP > 0) {
-            int i, cpt = 1;
-            for (i = (firstOP + 1); i < pExpression.length() && cpt > 0; i++) {
-                if (pExpression.at(i) == '(')
-                    cpt++;
-                else if (pExpression.at(i) == ')')
-                    cpt--;
-            }
-            if (i < pExpression.length() && cpt == 0) {
-                if ((pExpression.at(firstOP - 1) == '*' || pExpression.at(firstOP - 1) == '/') && (pExpression.at(i) == '+' || pExpression.at(i) == '-')) {
-                    qDebug() << "contenu : " << pExpression.at(i);
-                    t->setContenu(pExpression.at(i));
-                    qDebug() << "sag : " << pExpression.left(i);
-                    qDebug() << "sad : " << pExpression.right(pExpression.length() - i - 1);
-                    t->setSag(parseExp(pExpression.left(i)));
-                    t->setSad(parseExp(pExpression.right(pExpression.length() - i - 1)));
-                } else {
-                    qDebug() << "contenu : " << pExpression.at(firstOP - 1);
-                    t->setContenu(pExpression.at(firstOP - 1));
-                    qDebug() << "sag : " << pExpression.left(firstOP - 1);
-                    qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP);
-                    t->setSag(parseExp(pExpression.left(firstOP - 1)));
-                    t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP)));
-                }
-            } else {
-                qDebug() << "contenu : " << pExpression.at(firstOP - 1);
-                t->setContenu(pExpression.at(firstOP - 1));
-                qDebug() << "sag : " << pExpression.left(firstOP - 1);
-                qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP);
-                t->setSag(parseExp(pExpression.left(firstOP - 1)));
-                t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP)));
-            }
-
-        } else if (pExpression.lastIndexOf(")") < pExpression.length()) {
-            firstOP = pExpression.indexOf(")");
-            qDebug() << "contenu : " << pExpression.at(firstOP + 1);
-            qDebug() << "sag : " << pExpression.left(firstOP + 1);
-            qDebug() << "sad : " << pExpression.right(pExpression.length() - firstOP - 2);
-
-            t->setContenu(pExpression.at(firstOP + 1));
-            t->setSag(parseExp(pExpression.left(firstOP + 1)));
-            t->setSad(parseExp(pExpression.right(pExpression.length() - firstOP - 2)));
-        }
-    } else {
-        if (pExpression.contains("+")) {
-            t->setContenu("+");
-            t->setSag(parseExp(pExpression.left(pExpression.indexOf("+"))));
-            t->setSad(parseExp(pExpression.right(pExpression.length() - pExpression.indexOf("+") - 1)));
-        }
-        else if (pExpression.contains("-")) {
-            t->setContenu("-");
-            t->setSag(parseExp(pExpression.left(pExpression.indexOf("-"))));
-            t->setSad(parseExp(pExpression.right(pExpression.length() - pExpression.indexOf("-") - 1)));
-        }
-        else if (pExpression.contains("*")) {
-            t->setContenu("*");
-            t->setSag(parseExp(pExpression.left(pExpression.indexOf("*"))));
-            t->setSad(parseExp(pExpression.right(pExpression.length() - pExpression.indexOf("*") - 1)));
-        }
-        else if (pExpression.contains("/")) {
-            t->setContenu("/");
-            t->setSag(parseExp(pExpression.left(pExpression.indexOf("/"))));
-            t->setSad(parseExp(pExpression.right(pExpression.length() - pExpression.indexOf("/") - 1)));
-        }
-        else {
-            t->setContenu(pExpression);
-        }
+    int rang = moinsPrioritaire(pExpression);
+    if (rang == -1)
+        t->setContenu(pExpression);
+    else {
+        t->setContenu(pExpression.at(rang));
+        t->setSag(parseExp(pExpression.left(rang)));
+        t->setSad(parseExp(pExpression.right(pExpression.length() - rang - 1)));
     }
-
 
 
     return t;
@@ -151,7 +82,6 @@ double MathExp::calculRec(Arbre* pArbre) {
         if (d != 0)
             return (g / d);
         else {
-            qDebug() << "Division par 0 !";
             emit sigErreur(MathExp::DivisionParZero);
             return -1;
         }
@@ -162,4 +92,31 @@ double MathExp::calculRec(Arbre* pArbre) {
 
 Arbre* MathExp::getCalcul() {
     return m_calcul;
+}
+
+int MathExp::moinsPrioritaire(QString pExpression) {
+    while (pExpression.contains('(')) {
+        int firstOP = pExpression.indexOf("(");
+        int i, cpt = 1;
+        for (i = (firstOP + 1); i < pExpression.length() && cpt > 0; i++) {
+            if (pExpression.at(i) == '(')
+                cpt++;
+            else if (pExpression.at(i) == ')')
+                cpt--;
+        }
+
+        for (int j = firstOP; j < i; j++)
+            pExpression[j] = ' ';
+    }
+
+    if (pExpression.contains('+'))
+        return pExpression.indexOf('+');
+    else if (pExpression.contains('-'))
+        return pExpression.indexOf('-');
+    else if (pExpression.contains('*'))
+        return pExpression.indexOf('*');
+    else if (pExpression.contains('/'))
+        return pExpression.indexOf('/');
+    else
+        return -1;
 }
