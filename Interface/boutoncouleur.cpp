@@ -12,9 +12,9 @@ BoutonCouleur::BoutonCouleur(QWidget *parent) : QWidget(parent) {
     setFixedSize(25, 25);
 }
 
-void BoutonCouleur::setCouleur(QColor pColor) {
+void BoutonCouleur::setCouleur(QColor pCouleur) {
     QPalette pal = palette();
-    pal.setColor(backgroundRole(), pColor);
+    pal.setColor(backgroundRole(), pCouleur);
     setPalette(pal);
     repaint();
 }

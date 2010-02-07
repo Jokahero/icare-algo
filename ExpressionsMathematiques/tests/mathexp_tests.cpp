@@ -2,7 +2,6 @@
 #include "../arbre.h"
 #include "../mathexp.h"
 
-#include <QtTest/QSignalSpy>
 #include <QtTest/QTest>
 
 void MathExp_tests::testArbre() {
@@ -34,28 +33,30 @@ void MathExp_tests::testArbre() {
     delete t3;
 }
 
+void MathExp_tests::testMathExp_data() {
+    QTest::addColumn<QString>("exp");
+    QTest::addColumn<double>("result");
+
+    QTest::newRow("Division par 0") << "1/0" << (double)-1;
+   // QTest::newRow("Parenthèses incorrectes") << "5*(4))" << (double)-1;
+    QTest::newRow("Priorités") << "3*5-2*2" << (double)11;
+    QTest::newRow("Parenthèses/Priorités") << "5+(3-2)*5" << (double)10;
+    QTest::newRow("Parenthèses/Priorités") << "5*(3-2)*5" << (double)25;
+    QTest::newRow("Parenthèses inutiles") << "(1)" << (double)1;
+    QTest::newRow("Parenthèses/Priorités") << "2+(3+(1+1)*1)" << (double)7;
+    QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1)+1)" << (double)9;
+    QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1*(3-1))+1)" << (double)12;
+}
+
 void MathExp_tests::testMathExp() {
     MathExp* m = new MathExp();
-    QSignalSpy divisionParZeroSpy(m, SIGNAL(erreur(int)));
-    m->setExpression("1/0");
-    QCOMPARE(m->calcul(), (double)-1);
-    m->setExpression("5*(4))");
-    QCOMPARE(m->calcul(), (double)-1);
-    QVERIFY(divisionParZeroSpy.isEmpty() == false);
-    m->setExpression("3*5-2*2");
-    QCOMPARE(m->calcul(), (double)11);
-    m->setExpression("5+(3-2)*5");
-    QCOMPARE(m->calcul(), (double)10);
-    m->setExpression("5*(3-2)*5");
-    QCOMPARE(m->calcul(), (double)25);
-    m->setExpression("(1)");
-    QCOMPARE(m->calcul(), (double)1);
-    m->setExpression("2+(3+(1+1)*1)");
-    QCOMPARE(m->calcul(), (double)7);
-    m->setExpression("2+(3*(1+1)+1)");
-    QCOMPARE(m->calcul(), (double)9);
-    m->setExpression("2+(3*(1+1*(3-1))+1)");
-    QCOMPARE(m->calcul(), (double)12);
+
+    QFETCH(QString, exp);
+    QFETCH(double, result);
+
+    m->setExpression(exp);
+    QCOMPARE(m->calcul(), result);
+
     delete m;
 }
 

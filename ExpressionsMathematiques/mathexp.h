@@ -30,6 +30,8 @@ private:
     Arbre* parseExp(QString pExpression);
     double calculRec(Arbre* pArbre);
 
+    int moinsPrioritaire(QString pExpression);
+
     QString m_expression;                       /*!<\brief Expression mathématique à calculer. */
     Arbre* m_calcul;                            /*!<\brief Racine de l'arbre utilisé pour le calcul. */
 

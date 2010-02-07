@@ -13,6 +13,7 @@ class MathExp_tests : public QObject {
 private slots:
     void testArbre();
     void testMathExp();
+    void testMathExp_data();
 };
 
 #endif // MATHEXP_TESTS_H

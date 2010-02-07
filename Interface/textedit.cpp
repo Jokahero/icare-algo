@@ -6,7 +6,7 @@
 
 TextEdit::TextEdit() {
     loadSettings();
-    setTabStopWidth(16);
+    setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * 8);
     m_color = new Coloration(document());
 
     m_lineNumberArea = new LineNumberArea(this);
