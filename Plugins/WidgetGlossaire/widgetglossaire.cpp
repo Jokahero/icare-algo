@@ -1,5 +1,6 @@
 #include "widgetglossaire.h"
 
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QTableWidget>
@@ -20,6 +21,9 @@ WidgetGlossaire::WidgetGlossaire() {
     tmp->setLayout(layout);
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
+
+    connect(m_dockWidget, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), this, SLOT(sauvegarderPosition(Qt::DockWidgetArea)));
+    connect(m_dockWidget, SIGNAL(topLevelChanged(bool)), this, SLOT(sauvegarderEtat(bool)));
 }
 
 QString WidgetGlossaire::getNom() {
@@ -56,6 +60,16 @@ void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
 void WidgetGlossaire::reinitialisationGlossaire() {
     m_tableau->clearContents();
     m_tableau->setRowCount(0);
+}
+
+void WidgetGlossaire::sauvegarderPosition(Qt::DockWidgetArea pPos) {
+    QSettings settings;
+    settings.setValue(QString(getNom() + "pos"), pPos);
+}
+
+void WidgetGlossaire::sauvegarderEtat(bool pEtat) {
+    QSettings settings;
+    settings.setValue(QString(getNom() + "floating"), pEtat);
 }
 
 Q_EXPORT_PLUGIN2(widgetglossaire, WidgetGlossaire);

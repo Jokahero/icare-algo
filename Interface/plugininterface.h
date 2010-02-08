@@ -10,7 +10,7 @@
 /*!
   \brief Définit l'interface utilisable par les plugins.
 */
-class PluginInterface : public QObject{
+class PluginInterface : public QObject {
 public:
     virtual ~PluginInterface() {}
     virtual QString getNom() = 0;

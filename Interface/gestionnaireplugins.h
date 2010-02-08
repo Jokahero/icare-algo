@@ -12,6 +12,7 @@ class GestionnairePlugins {
 public:
     bool chargerPlugin(QString pNomPlugin);
     PluginInterface* getPlugin(QString pNomPlugin);
+    QList<PluginInterface*> getListePluginsDispo();
     QList<PluginInterface*> getListePlugins();
 
 private:

@@ -30,6 +30,8 @@ public:
 
     TextEdit* getZoneTexte();
 
+    WidgetPlugins* getWPlugins();
+
 private:
     TextEdit *m_zoneTexte;
 

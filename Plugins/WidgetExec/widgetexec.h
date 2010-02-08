@@ -35,6 +35,10 @@ signals:
 private:
     QTabWidget* m_tabWidget;
     QDockWidget* m_dockWidget;
+
+private slots:
+    void sauvegarderPosition(Qt::DockWidgetArea);
+    void sauvegarderEtat(bool pEtat);
 };
 
 #endif // WIDGETEXEC_H

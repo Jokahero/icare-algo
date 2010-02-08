@@ -5,10 +5,11 @@
 #include <QtGui/QPainter>
 
 TextEdit::TextEdit() {
-    loadSettings();
     m_color = new Coloration(document());
 
     m_lineNumberArea = new LineNumberArea(this);
+
+    loadSettings();
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(const QRect &, int)), this, SLOT(updateLineNumberArea(const QRect &, int)));

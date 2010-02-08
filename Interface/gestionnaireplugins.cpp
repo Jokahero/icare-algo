@@ -4,6 +4,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QList>
 #include <QtCore/QPluginLoader>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QApplication>
 
@@ -53,6 +54,32 @@ PluginInterface* GestionnairePlugins::getPlugin(QString pNomPlugin) {
         if (m_listePlugins.at(i)->getNom() == pNomPlugin)
             return m_listePlugins.at(i);
     return NULL;
+}
+
+QList<PluginInterface*> GestionnairePlugins::getListePluginsDispo() {
+    QList<PluginInterface*> liste;
+    QDir pluginsDir(qApp->applicationDirPath());
+#if defined(Q_OS_WIN)
+    if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
+        pluginsDir.cdUp();
+#elif defined(Q_OS_MAC)
+    if (pluginsDir.dirName() == "MacOS") {
+        pluginsDir.cdUp();
+        pluginsDir.cdUp();
+        pluginsDir.cdUp();
+    }
+#endif
+    pluginsDir.cd("Plugins");
+    foreach (QString nomFichier, pluginsDir.entryList(QDir::Files)) {
+        QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(nomFichier));
+        QObject *plugin = pluginLoader.instance();
+        if (plugin) {
+            PluginInterface* pluginInt = qobject_cast<PluginInterface*>(plugin);
+            if (pluginInt)
+                liste.append(pluginInt);
+        }
+    }
+    return liste;
 }
 
 QList<PluginInterface*> GestionnairePlugins::getListePlugins() {

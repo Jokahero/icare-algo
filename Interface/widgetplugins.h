@@ -3,21 +3,22 @@
 
 #include <QtGui/QDialog>
 
+class GestionnairePlugins;
 class QCheckBox;
 class QDialogButtonBox;
+template <typename T> class QList;
 
 class WidgetPlugins : public QDialog {
     Q_OBJECT
 
 public:
     WidgetPlugins();
+    GestionnairePlugins *getGestionnairePlugins();
 
 private:
-
-    QCheckBox *m_glossaire;
-    QCheckBox *m_resultat;
-
+    GestionnairePlugins *m_gestionnairePlugins;
     QDialogButtonBox *m_buttonBox;
+    QList<QCheckBox*> *m_listeCheck;
 
 public slots:
     void saveSettings();

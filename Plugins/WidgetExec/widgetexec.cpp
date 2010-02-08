@@ -1,6 +1,7 @@
 #include "widgetexec.h"
 #include "widgetexecerrorstab.h"
 
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>
@@ -25,6 +26,8 @@ WidgetExec::WidgetExec() {
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
 
+    connect(m_dockWidget, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), this, SLOT(sauvegarderPosition(Qt::DockWidgetArea)));
+    connect(m_dockWidget, SIGNAL(topLevelChanged(bool)), this, SLOT(sauvegarderEtat(bool)));
     connect(errTab, SIGNAL(changementLigne(int)), this, SIGNAL(changementLigne(int)));
 }
 
@@ -53,6 +56,16 @@ void WidgetExec::lancerAnalyse(QFile* /*pFichier*/) {
         else if (i == WidgetExec::Sorties)
             qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
     }
+}
+
+void WidgetExec::sauvegarderPosition(Qt::DockWidgetArea pPos) {
+    QSettings settings;
+    settings.setValue(QString(getNom() + "pos"), pPos);
+}
+
+void WidgetExec::sauvegarderEtat(bool pEtat) {
+    QSettings settings;
+    settings.setValue(QString(getNom() + "floating"), pEtat);
 }
 
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);
