@@ -1,5 +1,5 @@
 #include "../Interface/window.h"
-#include "../ExpressionsMathematiques/mathexp.h"
+#include "../Analyse/mathexp.h"
 #include "../Interface/gestionnaireplugins.h"
 #include "../Analyse/analyse.h"
 #include "../Analyse/glossaire.h"

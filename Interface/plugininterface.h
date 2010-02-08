@@ -4,7 +4,7 @@
 #include <QtCore/QString>
 #include <QtPlugin>
 #include <QtGui/QDockWidget>
-#include "../ExpressionsMathematiques/mathexp.h"
+#include "../Analyse/mathexp.h"
 #include "../Analyse/analyse.h"
 
 /*!

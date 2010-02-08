@@ -9,7 +9,7 @@
 #include "textedit.h"
 #include "preferences.h"
 #include "widgetplugins.h"
-#include "../ExpressionsMathematiques/mathexp.h"
+#include "../Analyse/mathexp.h"
 
 class QMenuBar;
 class QMenu;

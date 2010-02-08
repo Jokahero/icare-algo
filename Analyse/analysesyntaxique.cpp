@@ -74,7 +74,7 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
             if (rxVariable.exactMatch(ligneAct)) {
                 QString type = rxVariable.cap(1);
                 QString nomVar = rxVariable.cap(2);
-                QString desc = rxVariable.cap(3);
+                QString desc = rxVariable.cap(3).trimmed();
                 if (rxEntier.exactMatch(type)) {
                     m_analyse->getGlossaire()->ajoutEntier(nomVar, desc, cptLigne);
                 } else if (rxReel.exactMatch(type)) {
