@@ -1,7 +1,6 @@
 #ifndef MATHEXP_H
 #define MATHEXP_H
 
-#include "MathExp_global.h"
 #include "arbre.h"
 
 #include <QtCore/QObject>

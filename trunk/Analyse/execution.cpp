@@ -1,5 +1,6 @@
 #include "execution.h"
 #include "glossaire.h"
+#include "mathexp.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QStack>
@@ -33,5 +34,9 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
     pChaine.replace("÷", "/");
 
     // Faire appel au module d'expressions mathématiques ici
-    return pChaine;
+    MathExp* me = new MathExp();
+    me->setExpression(pChaine);
+
+    return QString::number(me->calcul());
+
 }
