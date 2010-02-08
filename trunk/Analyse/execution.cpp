@@ -29,7 +29,7 @@ void Execution::lancer() {
 // TODO: Vérifier que la variable soit bien la même (production, i : product0on)
 QString Execution::remplacementValeursVariables(QString pChaine) {
     for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++)
-        pChaine.replace(m_analyse->getGlossaire()->getListeVariables().at(i), m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)), Qt::CaseInsensitive);
+        pChaine.replace(QRegExp("(^|[\\(|\\+|\\*|\\/|\\-|\\)|\\s]+)("+ m_analyse->getGlossaire()->getListeVariables().at(i) +")([\\(|\\+|\\*|\\/|\\-|\\)|\\s]+|$)"),m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
     pChaine.replace("×", "*");
     pChaine.replace("÷", "/");
 
