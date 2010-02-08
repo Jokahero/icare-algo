@@ -37,6 +37,7 @@ protected:
      QWidget* m_lineNumberArea;
      bool m_isLineNumberArea;
      bool m_isRetourLigne;
+     int m_tailleTab;
      void changerCouleur();
 
  public slots:

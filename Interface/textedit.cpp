@@ -6,7 +6,6 @@
 
 TextEdit::TextEdit() {
     loadSettings();
-    setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * 8);
     m_color = new Coloration(document());
 
     m_lineNumberArea = new LineNumberArea(this);
@@ -127,21 +126,23 @@ void TextEdit::lineNumberAreaPaintEvent(QPaintEvent *event) {
 }
 
 void TextEdit::changerCouleur() {
-    QSettings settings;
+    m_color->deleteLater();
     m_color = new Coloration(document());
 }
 
 void TextEdit::loadSettings() {
-    changerCouleur();
     QSettings settings;
-    m_isLineNumberArea = settings.value("Numérotation des lignes").toBool();
-    m_isRetourLigne = settings.value("Retour à la ligne automatique").toBool();
+    m_isLineNumberArea = settings.value("NumerotationLignes").toBool();
+    m_isRetourLigne = settings.value("RetourLigne").toBool();
+    m_tailleTab = settings.value("TailleTab").toInt();
 
     emit blockCountChanged(blockCount());
     if (m_isRetourLigne)
     setLineWrapMode(QPlainTextEdit::WidgetWidth);
     else
         setLineWrapMode(QPlainTextEdit::NoWrap);
+    changerCouleur();
+    setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * m_tailleTab);
     update();
     repaint();
 }

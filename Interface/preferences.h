@@ -4,13 +4,14 @@
 #include <QtGui/QDialog>
 
 class BoutonCouleur;
+class QCheckBox;
+class QColor;
+class QDialogButtonBox;
+class QLabel;
+class QSpinBox;
+class QString;
 class QTabWidget;
 class QWidget;
-class QLabel;
-class QDialogButtonBox;
-class QColor;
-class QString;
-class QCheckBox;
 
 class Preferences : public QDialog {
 
@@ -47,6 +48,7 @@ private:
     /* Le widget m_color contiendra ces éléments */
     QCheckBox *m_numerotation;
     QCheckBox *m_retourLigne;
+    QSpinBox *m_tailleTab;
 
     /* Pour les boutons Ok et Annuler */
     QDialogButtonBox *m_buttonBox;
