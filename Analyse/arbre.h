@@ -1,8 +1,6 @@
 #ifndef ARBRE_H
 #define ARBRE_H
 
-#include "MathExp_global.h"
-
 #include <QtCore/QString>
 
 /*! \brief Implémente les arbres binaires.

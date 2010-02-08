@@ -9,8 +9,8 @@ QT       -= gui
 CONFIG += release
 TEMPLATE = subdirs
 
-SUBDIRS += Analyse ExpressionsMathematiques Interface Plugins
+SUBDIRS += Analyse Interface Plugins
 
 SUBDIRS += AppBase
 
-SUBDIRS += Analyse/TestsAnalyse ExpressionsMathematiques/tests
+SUBDIRS += Analyse/TestsAnalyse

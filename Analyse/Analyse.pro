@@ -11,7 +11,9 @@ SOURCES += analysesyntaxique.cpp \
     dictionnaire.cpp \
     instruction.cpp \
     analyse.cpp \
-    execution.cpp
+    execution.cpp \
+	arbre.cpp \
+	mathexp.cpp
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
@@ -19,5 +21,7 @@ HEADERS += Analyse_global.h \
     dictionnaire.h \
     instruction.h \
     analyse.h \
-    execution.h
+    execution.h \
+	arbre.h \
+	mathexp.h
 DESTDIR = ../
