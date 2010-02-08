@@ -257,6 +257,8 @@ void Window::ouvrirFichier(QString pNomFichier) {
     m_zoneTexte->setPlainText(flux.readAll());
     m_zoneTexte->setDocumentTitle(m_fichier->fileName());
     m_zoneTexte->document()->setModified(false);
+    setWindowModified(false);
+    setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
     m_fichier->close();
 }
 
@@ -373,6 +375,7 @@ void Window::changementLigne(int pNumLigne) {
 }
 
 void Window::documentModifie(bool pMod) {
+    setWindowModified(pMod);
     m_enregistrer->setEnabled(pMod);
     m_documentModifie = pMod;
 }
