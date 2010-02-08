@@ -1,5 +1,6 @@
 #include "coloration.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QRegExp>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
@@ -88,7 +89,7 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
 
 /*La fonction va rechercher le ou les mots suivant le regexp.
  Elle lui applique la couleur désiré ainsi que le format.
- Elle indique ensuite qu'elle Ã  terminé le traitement.*/
+ Elle indique ensuite qu'elle a terminé le traitement.*/
 void Coloration::highlightBlock(const QString &text)
 {
     foreach (const HighlightingRule &rule, highlightingRules) {
@@ -105,15 +106,16 @@ void Coloration::highlightBlock(const QString &text)
 
 void Coloration::loadSettings() {
     QSettings settings;
-    couleur.setNamedColor(settings.value("Couleur des types:").toString());
+    settings.sync();
+    couleur.setNamedColor(settings.value("CouleurTypes").toString());
     typeFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("Couleur des structures de contrôle:").toString());
+    couleur.setNamedColor(settings.value("CouleurStructures").toString());
     structureFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("Couleur des commentaires et des chaînes:").toString());
+    couleur.setNamedColor(settings.value("CouleurCommentaires").toString());
     commentFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("Couleur des bornes:").toString());
+    couleur.setNamedColor(settings.value("CouleurBornes").toString());
     borneFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("Couleur des nombres:").toString());
+    couleur.setNamedColor(settings.value("CouleurNombres").toString());
     numeriqueFormat.setForeground(couleur);
 }
 

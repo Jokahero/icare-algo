@@ -7,6 +7,7 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QFormLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QSpinBox>
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -52,11 +53,13 @@ Preferences::Preferences() : QDialog() {
     m_edit = new QWidget(this);
     QFormLayout *m_layoutOngletZoneEdition = new QFormLayout();
 
-    m_numerotation = new QCheckBox("Numérotation des lignes", this);
-    m_retourLigne = new QCheckBox("Retour à la ligne automatique", this);
+    m_numerotation = new QCheckBox(tr("Numérotation des lignes"), this);
+    m_retourLigne = new QCheckBox(tr("Retour à la ligne automatique"), this);
+    m_tailleTab = new QSpinBox(this);
 
     m_layoutOngletZoneEdition->addRow(m_numerotation);
     m_layoutOngletZoneEdition->addRow(m_retourLigne);
+    m_layoutOngletZoneEdition->addRow(tr("Taille des tabulations (en espaces)"), m_tailleTab);
     m_edit->setLayout(m_layoutOngletZoneEdition);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
@@ -93,14 +96,17 @@ void Preferences::modifierCouleur()
 void Preferences::changeSettings(/*QString pCategorie*/) {
     QSettings settings;
     //settings.beginGroup(pCategorie);
-    settings.setValue(m_commentairesLabel->text(), m_commentairesBouton->getCouleur().name());
-    settings.setValue(m_bornesLabel->text(), m_bornesBouton->getCouleur().name());
-    settings.setValue(m_structuresLabel->text(), m_structuresBouton->getCouleur().name());
-    settings.setValue(m_numeriqueLabel->text(), m_numeriqueBouton->getCouleur().name());
-    settings.setValue(m_typeLabel->text(), m_typeBouton->getCouleur().name());
+    settings.setValue("CouleurCommentaires", m_commentairesBouton->getCouleur().name());
+    settings.setValue("CouleurBornes", m_bornesBouton->getCouleur().name());
+    settings.setValue("CouleurStructures", m_structuresBouton->getCouleur().name());
+    settings.setValue("CouleurNombres", m_numeriqueBouton->getCouleur().name());
+    settings.setValue("CouleurTypes", m_typeBouton->getCouleur().name());
     //settings.endGroup();
-    settings.setValue(m_numerotation->text(), m_numerotation->isChecked());
-    settings.setValue(m_retourLigne->text(), m_retourLigne->isChecked());
+    settings.setValue("NumerotationLignes", m_numerotation->isChecked());
+    settings.setValue("RetourLigne", m_retourLigne->isChecked());
+    settings.setValue("TailleTab", m_tailleTab->value());
+
+    settings.sync();
 }
 
 /*! \brief Permet de récupérer une couleur à partir de son nom.
@@ -119,23 +125,24 @@ void Preferences::loadSettings() {
     QSettings settings;
     QColor tmp;
 
-    tmp = recupCouleur(settings.value(m_commentairesLabel->text()).toString());
+    tmp = recupCouleur(settings.value("CouleurCommentaires").toString());
     m_commentairesBouton->setCouleur(tmp);
 
-    tmp = recupCouleur(settings.value(m_bornesLabel->text()).toString());
+    tmp = recupCouleur(settings.value("CouleurBornes").toString());
     m_bornesBouton->setCouleur(tmp);
 
-    tmp = recupCouleur(settings.value(m_structuresLabel->text()).toString());
+    tmp = recupCouleur(settings.value("CouleurStructures").toString());
     m_structuresBouton->setCouleur(tmp);
 
-    tmp = recupCouleur(settings.value(m_numeriqueLabel->text()).toString());
+    tmp = recupCouleur(settings.value("CouleurNombres").toString());
     m_numeriqueBouton->setCouleur(tmp);
 
-    tmp = recupCouleur(settings.value(m_typeLabel->text()).toString());
+    tmp = recupCouleur(settings.value("CouleurTypes").toString());
     m_typeBouton->setCouleur(tmp);
 
-    m_numerotation->setChecked(settings.value(m_numerotation->text()).toBool());
-    m_retourLigne->setChecked(settings.value(m_retourLigne->text()).toBool());
+    m_numerotation->setChecked(settings.value("NumerotationLignes").toBool());
+    m_retourLigne->setChecked(settings.value("RetourLigne").toBool());
+    m_tailleTab->setValue(settings.value("TailleTab").toInt());
 }
 
 void Preferences::accept() {
