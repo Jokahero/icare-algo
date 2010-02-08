@@ -26,6 +26,8 @@ Window::Window() : QMainWindow() {
         restoreGeometry(settings.value("Size").toByteArray());
     }
 
+    m_wPlugins = new WidgetPlugins();
+
     /* On nomme la fenêtre principale */
     setWindowTitle(tr("Icare"));
 
@@ -265,7 +267,6 @@ void Window::afficherPreferences() {
 }
 
 void Window::afficherMenuPlugins() {
-    m_wPlugins = new WidgetPlugins();
     m_wPlugins->show();
 }
 
@@ -374,4 +375,8 @@ void Window::changementLigne(int pNumLigne) {
 void Window::documentModifie(bool pMod) {
     m_enregistrer->setEnabled(pMod);
     m_documentModifie = pMod;
+}
+
+WidgetPlugins* Window::getWPlugins() {
+    return m_wPlugins;
 }

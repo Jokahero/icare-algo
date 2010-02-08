@@ -29,6 +29,10 @@ public slots:
 private:
     QDockWidget* m_dockWidget;
     QTableWidget* m_tableau;
+
+private slots:
+    void sauvegarderPosition(Qt::DockWidgetArea pPos);
+    void sauvegarderEtat(bool pEtat);
 };
 
 #endif // WIDGETGLOSSAIRE_H

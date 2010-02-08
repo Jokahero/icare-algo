@@ -38,24 +38,16 @@ int main(int argc, char *argv[]) {
     // Création des différents modules
     MathExp *math = new MathExp();
     Window *fenetre = new Window();
-    GestionnairePlugins g;
 
-    // Chargement des plugins, temporaire
-    bool b = g.chargerPlugin("WidgetExec");
-    if (b) {
-        qDebug() << "Plugin WidgetExec chargé avec succès.";
-        fenetre->addDockWidget(Qt::BottomDockWidgetArea, g.getPlugin("WidgetExec")->getDockWidget());
-    }
-    else
-        qDebug() << "Erreur au chargement du plugin WidgetExec.";
+    GestionnairePlugins *g = fenetre->getWPlugins()->getGestionnairePlugins();
+    QList<PluginInterface*> liste = g->getListePluginsDispo();
 
-    b = g.chargerPlugin("WidgetGlossaire");
-    if (b) {
-        qDebug() << "Plugin WidgetGlossaire chargé avec succès.";
-        fenetre->addDockWidget(Qt::RightDockWidgetArea, g.getPlugin("WidgetGlossaire")->getDockWidget());
-    }
-    else
-        qDebug() << "Erreur au chargement du plugin WidgetGlossaire.";
+    for (int i = 0; i < liste.length(); i++)
+        if (settings.value(liste.at(i)->getNom(), false).toBool()) {
+            g->chargerPlugin(liste.at(i)->getNom());
+            fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
+            g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
+        }
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {
@@ -64,14 +56,14 @@ int main(int argc, char *argv[]) {
     }
 
     // Connects des plugins
-    for (int i = 0; i < g.getListePlugins().size(); i++) {
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g.getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g.getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g.getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
-        QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g.getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
-        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g.getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
-        QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g.getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
-        QObject::connect(g.getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
+    for (int i = 0; i < g->getListePlugins().size(); i++) {
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g->getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g->getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
+        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
+        QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
+        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
+        QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
+        QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
     }
 
     // Connects des modules
