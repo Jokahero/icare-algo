@@ -29,7 +29,7 @@ Window::Window() : QMainWindow() {
     m_wPlugins = new WidgetPlugins();
 
     /* On nomme la fenêtre principale */
-    setWindowTitle(tr("Icare"));
+    setWindowTitle(tr("[*]Algorithme non enregistré - Icare"));
 
     /* On instancie la barre de Menu */
     m_barreMenu = new QMenuBar (this);

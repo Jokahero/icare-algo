@@ -12,7 +12,9 @@ DESTDIR = ../
 # Input
 HEADERS += widgetexec.h \
     widgetexecerrorstab.h \
-    widgetexectab.h
+    widgetexectab.h \
+    widgetexecaffichagetab.h
 SOURCES += widgetexec.cpp \
     widgetexecerrorstab.cpp \
-    widgetexectab.cpp
+    widgetexectab.cpp \
+    widgetexecaffichagetab.cpp

@@ -9,7 +9,6 @@ template <typename T> class QStack;
 class QString;
 
 class Execution : public QObject {
-
     Q_OBJECT
 
 public:
@@ -27,6 +26,7 @@ public slots:
 
 signals:
     void terminee();
+    void afficher(QString);
 };
 
 #endif // EXECUTION_H

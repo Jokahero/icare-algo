@@ -51,6 +51,7 @@ signals:
     void sigLancerAnalyseSemantique();
     void sigLancerExecution();
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
+    void sigAfficher(QString pChaine);
 
 private:
     static Analyse *_instance;                      /*!< \brief Seule instance de la classe (Singleton). */
