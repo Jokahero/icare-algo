@@ -23,6 +23,7 @@ public slots:
     void lancerAnalyse(QFile* /*pFichier*/);
     void erreurMathematique(MathExp::erreur /*pErreur*/);
     void erreurAnalyse(Analyse::erreur /*pErreur*/, int /*pNumLigne*/);
+    void afficher(QString /*pChaine*/);
 };
 
 Q_DECLARE_INTERFACE(PluginInterface,

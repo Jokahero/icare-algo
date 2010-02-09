@@ -4,6 +4,7 @@
 #include "execution.h"
 #include "glossaire.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QFile>
 
 Analyse *Analyse::_instance = 0;
@@ -26,12 +27,13 @@ Analyse::Analyse() {
     m_debutAlgo = -1;
     m_finAlgo = -1;
 
-    QObject::connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
-    QObject::connect(this, SIGNAL(sigLancerAnalyseSemantique()), m_analyseSemantique, SLOT(lancer()));
-    QObject::connect(this, SIGNAL(sigLancerExecution()), m_exec, SLOT(lancer()));
-    QObject::connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
-    QObject::connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
-    QObject::connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    connect(this, SIGNAL(sigLancerAnalyseSyntaxique(QFile*)), m_analyseSyntaxique, SLOT(lancer(QFile*)));
+    connect(this, SIGNAL(sigLancerAnalyseSemantique()), m_analyseSemantique, SLOT(lancer()));
+    connect(this, SIGNAL(sigLancerExecution()), m_exec, SLOT(lancer()));
+    connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
+    connect(m_exec, SIGNAL(afficher(QString)), this, SIGNAL(sigAfficher(QString)));
 }
 
 Glossaire* Analyse::getGlossaire() {

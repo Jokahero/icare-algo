@@ -1,10 +1,13 @@
 #include "widgetexec.h"
+#include "widgetexecaffichagetab.h"
 #include "widgetexecerrorstab.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>
+#include <QtGui/QTabBar>
 #include <QtGui/QTabWidget>
 
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
@@ -19,7 +22,7 @@ WidgetExec::WidgetExec() {
     m_tabWidget->setTabPosition(QTabWidget::West);
     WidgetExecErrorsTab* errTab = new WidgetExecErrorsTab(WidgetExec::Erreurs, m_tabWidget);
     m_tabWidget->addTab(errTab, "Erreurs");
-    m_tabWidget->addTab(new WidgetExecTab(WidgetExec::Sorties, m_tabWidget), "Sorties");
+    m_tabWidget->addTab(new WidgetExecAffichageTab(WidgetExec::Sorties, m_tabWidget), "Sorties");
 
     layout->addWidget(m_tabWidget);
     tmp->setLayout(layout);
@@ -54,7 +57,7 @@ void WidgetExec::lancerAnalyse(QFile* /*pFichier*/) {
         if (i == WidgetExec::Erreurs)
             qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(i))->clear();
         else if (i == WidgetExec::Sorties)
-            qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
+            qobject_cast<WidgetExecAffichageTab*>(m_tabWidget->widget(i))->clear();
     }
 }
 
@@ -66,6 +69,11 @@ void WidgetExec::sauvegarderPosition(Qt::DockWidgetArea pPos) {
 void WidgetExec::sauvegarderEtat(bool pEtat) {
     QSettings settings;
     settings.setValue(QString(getNom() + "floating"), pEtat);
+}
+
+void WidgetExec::afficher(QString pChaine) {
+    m_tabWidget->setCurrentIndex(WidgetExec::Sorties);
+    qobject_cast<WidgetExecAffichageTab*>(m_tabWidget->widget(WidgetExec::Sorties))->afficher(pChaine);
 }
 
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);
