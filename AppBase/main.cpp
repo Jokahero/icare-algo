@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     QList<PluginInterface*> liste = g->getListePluginsDispo();
 
     for (int i = 0; i < liste.length(); i++)
-        if (settings.value(liste.at(i)->getNom(), false).toBool()) {
+        if (settings.value("Plugins/" + liste.at(i)->getNom() + "/Actif", true).toBool()) {
             g->chargerPlugin(liste.at(i)->getNom());
             fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
             g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
 
     // Affichage de la fenêtre
-    if (settings.value("Maximized", false).toBool()) {
+    if (settings.value("Fenetre/Max", true).toBool()) {
         fenetre->showMaximized();
     } else {
         fenetre->show();

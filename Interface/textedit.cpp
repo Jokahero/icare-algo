@@ -1,7 +1,7 @@
 #include "textedit.h"
 
-#include <QtCore/QDebug>
-#include <QtCore/QSettings>
+#include "gestionnaireparametres.h"
+
 #include <QtGui/QPainter>
 
 TextEdit::TextEdit() {
@@ -80,16 +80,12 @@ void TextEdit::resizeEvent(QResizeEvent *e) {
 
 
 void TextEdit::highlightCurrentLine() {
-    QSettings settings;
     QList<QTextEdit::ExtraSelection> extraSelections;
 
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor;
-        lineColor.setNamedColor(settings.value("Coloration ligne actuelle").toString());
-
-        selection.format.setBackground(lineColor);
+        selection.format.setBackground(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
         selection.cursor = textCursor();
         selection.cursor.clearSelection();
@@ -134,10 +130,9 @@ void TextEdit::changerCouleur() {
 }
 
 void TextEdit::loadSettings() {
-    QSettings settings;
-    m_isLineNumberArea = settings.value("NumerotationLignes").toBool();
-    m_isRetourLigne = settings.value("RetourLigne").toBool();
-    m_tailleTab = settings.value("TailleTab").toInt();
+    m_isLineNumberArea = GestionnaireParametres::getInstance()->getNumerotationLignes();
+    m_isRetourLigne = GestionnaireParametres::getInstance()->getRetourLigne();
+    m_tailleTab = GestionnaireParametres::getInstance()->getTailleTab();
 
     emit blockCountChanged(blockCount());
     if (m_isRetourLigne)
