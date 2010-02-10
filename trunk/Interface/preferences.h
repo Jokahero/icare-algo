@@ -49,6 +49,7 @@ private:
     QCheckBox *m_numerotation;
     QCheckBox *m_retourLigne;
     QSpinBox *m_tailleTab;
+    BoutonCouleur *m_surligneBouton;
 
     /* Pour les boutons Ok et Annuler */
     QDialogButtonBox *m_buttonBox;

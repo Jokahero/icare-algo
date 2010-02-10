@@ -56,10 +56,12 @@ Preferences::Preferences() : QDialog() {
     m_numerotation = new QCheckBox(tr("Numérotation des lignes"), this);
     m_retourLigne = new QCheckBox(tr("Retour à la ligne automatique"), this);
     m_tailleTab = new QSpinBox(this);
+    m_surligneBouton = new BoutonCouleur(this);
 
     m_layoutOngletZoneEdition->addRow(m_numerotation);
     m_layoutOngletZoneEdition->addRow(m_retourLigne);
     m_layoutOngletZoneEdition->addRow(tr("Taille des tabulations (en espaces)"), m_tailleTab);
+    m_layoutOngletZoneEdition->addRow(tr("Coloration de la ligne actuelle:"), m_surligneBouton);
     m_edit->setLayout(m_layoutOngletZoneEdition);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
@@ -74,6 +76,7 @@ Preferences::Preferences() : QDialog() {
     QObject::connect(m_structuresBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_numeriqueBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_typeBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    QObject::connect(m_surligneBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     // connect ac le slot load settings de la coloration
@@ -105,6 +108,7 @@ void Preferences::changeSettings(/*QString pCategorie*/) {
     settings.setValue("NumerotationLignes", m_numerotation->isChecked());
     settings.setValue("RetourLigne", m_retourLigne->isChecked());
     settings.setValue("TailleTab", m_tailleTab->value());
+    settings.setValue("Coloration ligne actuelle", m_surligneBouton->getCouleur().name());
 
     settings.sync();
 }
@@ -143,6 +147,8 @@ void Preferences::loadSettings() {
     m_numerotation->setChecked(settings.value("NumerotationLignes").toBool());
     m_retourLigne->setChecked(settings.value("RetourLigne").toBool());
     m_tailleTab->setValue(settings.value("TailleTab").toInt());
+
+    m_surligneBouton->setCouleur(settings.value("Coloration ligne actuelle").toString());
 }
 
 void Preferences::accept() {

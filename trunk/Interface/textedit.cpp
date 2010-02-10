@@ -80,12 +80,14 @@ void TextEdit::resizeEvent(QResizeEvent *e) {
 
 
 void TextEdit::highlightCurrentLine() {
+    QSettings settings;
     QList<QTextEdit::ExtraSelection> extraSelections;
 
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor(Qt::yellow).lighter(160);
+        QColor lineColor;
+        lineColor.setNamedColor(settings.value("Coloration ligne actuelle").toString());
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
@@ -144,6 +146,7 @@ void TextEdit::loadSettings() {
         setLineWrapMode(QPlainTextEdit::NoWrap);
     changerCouleur();
     setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * m_tailleTab);
+    highlightCurrentLine();
     update();
     repaint();
 }
