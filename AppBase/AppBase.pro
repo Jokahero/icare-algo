@@ -15,4 +15,4 @@ SOURCES += main.cpp
 
 DESTDIR = ../
 
-LIBS += -L.. -lAnalyse -lGUI -lMathExp
+LIBS += -L.. -lAnalyse -lGUI
