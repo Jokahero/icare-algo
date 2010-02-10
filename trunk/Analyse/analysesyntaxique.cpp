@@ -110,6 +110,8 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
 
     //Ouverture du fichier pour commencer la lecture
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
+    qDebug() << pFichier->pos();
+    pFichier->seek(0);
 
 
     // Recherche du numéro de la ligne de début et de la ligne de fin
@@ -125,7 +127,10 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     }
 
     // Retour au début de l'algo.
-    pFichier->seek(debutAlgo);
+    if (debutAlgo > 0)
+        pFichier->seek(debutAlgo);
+    else
+        pFichier->seek(0);
 
     m_analyse->getListeInstruction()->clear();
     // Lecture de l'algo.
