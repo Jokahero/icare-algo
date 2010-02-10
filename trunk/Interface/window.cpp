@@ -56,6 +56,40 @@ Window::Window() : QMainWindow() {
     m_mainMenu->addSeparator();
     m_mainMenu->addAction(m_quitter);
 
+    /* Mise en place du menu d'édition */
+    m_menuEdition = new QMenu(m_barreMenu);
+    m_annuler = new QAction(tr("Annuler"), this);
+    m_annuler->setShortcut(tr("Ctrl+Z"));
+    m_refaire = new QAction(tr("Refaire"), this);
+    QList<QKeySequence> shortcuts;
+    shortcuts.append(tr("Ctrl+Y"));
+    shortcuts.append(tr("Ctrl+Shift+Z"));
+    m_refaire->setShortcuts(shortcuts);
+    m_couper = new QAction(tr("&Couper"), this);
+    m_couper->setShortcut(tr("Ctrl+X"));
+    m_copier = new QAction(tr("Co&pier"), this);
+    m_copier->setShortcut(tr("Ctrl+C"));
+    m_coller = new QAction(tr("C&oller"), this);
+    m_coller->setShortcut(tr("Ctrl+V"));
+    m_rechercher = new QAction(tr("Rechercher"), this);
+    m_rechercher->setShortcut(tr("Ctrl+F"));
+    m_remplacer = new QAction(tr("Remplacer"), this);
+    m_remplacer->setShortcut(tr("Ctrl+H"));
+    m_selectionnerTout = new QAction(tr("Sélectionner tout"), this);
+    m_selectionnerTout->setShortcut(tr("Ctrl+A"));
+    m_menuEdition->setTitle(tr("Editio&n"));
+    m_menuEdition->addAction(m_annuler);
+    m_menuEdition->addAction(m_refaire);
+    m_menuEdition->addSeparator();
+    m_menuEdition->addAction(m_couper);
+    m_menuEdition->addAction(m_copier);
+    m_menuEdition->addAction(m_coller);
+    m_menuEdition->addSeparator();
+    m_menuEdition->addAction(m_rechercher);
+    m_menuEdition->addAction(m_remplacer);
+    m_menuEdition->addSeparator();
+    m_menuEdition->addAction(m_selectionnerTout);
+
     /* Mise en place du menu d'analyse */
     m_menuAnalyse = new QMenu(m_barreMenu);
     m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
@@ -66,6 +100,7 @@ Window::Window() : QMainWindow() {
     m_menuAnalyse->addAction(m_testSyntaxe);
     m_menuAnalyse->addAction(m_testSemantique);
     m_menuAnalyse->addAction(m_testComplet);
+    m_menuAnalyse->addSeparator();
     m_menuAnalyse->addAction(m_executer);
 
     /* Mise en place du menu d'options */
@@ -85,6 +120,7 @@ Window::Window() : QMainWindow() {
     /* Insertion des menus dans la barre de Menu */
     /* On ajoute tous les menus précédemment créés dans la barre de menu*/
     m_barreMenu->addMenu(m_mainMenu);
+    m_barreMenu->addMenu(m_menuEdition);
     m_barreMenu->addMenu(m_menuAnalyse);
     m_barreMenu->addMenu(m_menuOptions);
     m_barreMenu->addMenu(m_help);
