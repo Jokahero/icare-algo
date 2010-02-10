@@ -44,6 +44,16 @@ private:
     QAction *m_imprimer;
     QAction *m_quitter;
 
+    QMenu *m_menuEdition;
+    QAction *m_annuler;
+    QAction *m_refaire;
+    QAction *m_couper;
+    QAction *m_copier;
+    QAction *m_coller;
+    QAction *m_rechercher;
+    QAction *m_remplacer;
+    QAction *m_selectionnerTout;
+
     QMenu *m_menuAnalyse;
     QAction *m_testSyntaxe;
     QAction *m_testSemantique;

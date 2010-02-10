@@ -9,7 +9,7 @@
 
 BoutonCouleur::BoutonCouleur(QWidget *parent) : QWidget(parent) {
     setAutoFillBackground(true);
-    setFixedSize(25, 25);
+    setMinimumSize(25, 25);
 }
 
 void BoutonCouleur::setCouleur(QColor pCouleur) {
