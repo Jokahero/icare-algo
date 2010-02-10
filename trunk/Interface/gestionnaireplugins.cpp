@@ -4,7 +4,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QList>
 #include <QtCore/QPluginLoader>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QApplication>
 

@@ -1,7 +1,8 @@
 #include "preferences.h"
-#include "boutoncouleur.h"
 
-#include <QtCore/QSettings>
+#include "boutoncouleur.h"
+#include "gestionnaireparametres.h"
+
 #include <QtGui/QCheckBox>
 #include <QtGui/QColorDialog>
 #include <QtGui/QDialogButtonBox>
@@ -79,7 +80,7 @@ Preferences::Preferences() : QDialog() {
     QObject::connect(m_surligneBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    // connect ac le slot load settings de la coloration
+    // connect avec le slot load settings de la coloration
 }
 
 /*! \brief Modifie la couleur du bouton modifié.
@@ -96,59 +97,32 @@ void Preferences::modifierCouleur()
 
 /*! \brief Sauvegarde les changements de paramètres dans le fichier de configuration.
 */
-void Preferences::changeSettings(/*QString pCategorie*/) {
-    QSettings settings;
-    //settings.beginGroup(pCategorie);
-    settings.setValue("CouleurCommentaires", m_commentairesBouton->getCouleur().name());
-    settings.setValue("CouleurBornes", m_bornesBouton->getCouleur().name());
-    settings.setValue("CouleurStructures", m_structuresBouton->getCouleur().name());
-    settings.setValue("CouleurNombres", m_numeriqueBouton->getCouleur().name());
-    settings.setValue("CouleurTypes", m_typeBouton->getCouleur().name());
-    //settings.endGroup();
-    settings.setValue("NumerotationLignes", m_numerotation->isChecked());
-    settings.setValue("RetourLigne", m_retourLigne->isChecked());
-    settings.setValue("TailleTab", m_tailleTab->value());
-    settings.setValue("Coloration ligne actuelle", m_surligneBouton->getCouleur().name());
-
-    settings.sync();
-}
-
-/*! \brief Permet de récupérer une couleur à partir de son nom.
-  \param pNomCouleur Nom de la couleur
-  \return couleur Couleur souhaitée
-*/
-QColor Preferences::recupCouleur(QString pNomCouleur) {
-    QColor couleur;
-    couleur.setNamedColor(pNomCouleur);
-    return couleur;
+void Preferences::changeSettings() {
+    GestionnaireParametres::getInstance()->setCouleurCommentaires(m_commentairesBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setCouleurBornes(m_bornesBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setCouleurStructures(m_structuresBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setCouleurNombres(m_numeriqueBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setCouleurTypes(m_typeBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setNumerotationLignes(m_numerotation->isChecked());
+    GestionnaireParametres::getInstance()->setRetourLigne(m_retourLigne->isChecked());
+    GestionnaireParametres::getInstance()->setTailleTab(m_tailleTab->value());
+    GestionnaireParametres::getInstance()->setCouleurLigneActuelle(m_surligneBouton->getCouleur());
 }
 
 /*! \brief Charge les paramètres sauvegardés dans le fichier de configuration.
 */
 void Preferences::loadSettings() {
-    QSettings settings;
-    QColor tmp;
+    m_commentairesBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurCommentaires());
+    m_bornesBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurBornes());
+    m_structuresBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurStructures());
+    m_numeriqueBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurNombres());
+    m_typeBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurTypes());
 
-    tmp = recupCouleur(settings.value("CouleurCommentaires").toString());
-    m_commentairesBouton->setCouleur(tmp);
+    m_numerotation->setChecked(GestionnaireParametres::getInstance()->getNumerotationLignes());
+    m_retourLigne->setChecked(GestionnaireParametres::getInstance()->getRetourLigne());
+    m_tailleTab->setValue(GestionnaireParametres::getInstance()->getTailleTab());
 
-    tmp = recupCouleur(settings.value("CouleurBornes").toString());
-    m_bornesBouton->setCouleur(tmp);
-
-    tmp = recupCouleur(settings.value("CouleurStructures").toString());
-    m_structuresBouton->setCouleur(tmp);
-
-    tmp = recupCouleur(settings.value("CouleurNombres").toString());
-    m_numeriqueBouton->setCouleur(tmp);
-
-    tmp = recupCouleur(settings.value("CouleurTypes").toString());
-    m_typeBouton->setCouleur(tmp);
-
-    m_numerotation->setChecked(settings.value("NumerotationLignes").toBool());
-    m_retourLigne->setChecked(settings.value("RetourLigne").toBool());
-    m_tailleTab->setValue(settings.value("TailleTab").toInt());
-
-    m_surligneBouton->setCouleur(settings.value("Coloration ligne actuelle").toString());
+    m_surligneBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
 }
 
 void Preferences::accept() {

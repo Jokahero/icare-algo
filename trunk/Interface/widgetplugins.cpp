@@ -1,9 +1,9 @@
 #include "widgetplugins.h"
 
+#include "gestionnaireparametres.h"
 #include "gestionnaireplugins.h"
 
 #include <QtCore/QList>
-#include <QtCore/QSettings>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QScrollArea>
@@ -42,10 +42,8 @@ WidgetPlugins::WidgetPlugins() {
 }
 
 void WidgetPlugins::saveSettings() {
-    QSettings settings;
-
     for (int i = 0; i < m_listeCheck->length(); i++)
-        settings.setValue(m_listeCheck->at(i)->text(), m_listeCheck->at(i)->isChecked());
+        GestionnaireParametres::getInstance()->setPluginActif(m_listeCheck->at(i)->text(), m_listeCheck->at(i)->isChecked());
 }
 
 void WidgetPlugins::accept() {
@@ -55,10 +53,8 @@ void WidgetPlugins::accept() {
 }
 
 void WidgetPlugins::loadSettings() {
-    QSettings settings;
-
     for (int i = 0; i < m_listeCheck->length(); i++)
-        m_listeCheck->at(i)->setChecked(settings.value(m_listeCheck->at(i)->text()).toBool());
+        m_listeCheck->at(i)->setChecked(GestionnaireParametres::getInstance()->getPluginActif(m_listeCheck->at(i)->text()));
 }
 
 GestionnairePlugins* WidgetPlugins::getGestionnairePlugins() {

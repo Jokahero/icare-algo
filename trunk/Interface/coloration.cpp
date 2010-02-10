@@ -1,8 +1,9 @@
 #include "coloration.h"
 
+#include "gestionnaireparametres.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QRegExp>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QVector>
@@ -105,17 +106,10 @@ void Coloration::highlightBlock(const QString &text)
 }
 
 void Coloration::loadSettings() {
-    QSettings settings;
-    settings.sync();
-    couleur.setNamedColor(settings.value("CouleurTypes").toString());
-    typeFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("CouleurStructures").toString());
-    structureFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("CouleurCommentaires").toString());
-    commentFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("CouleurBornes").toString());
-    borneFormat.setForeground(couleur);
-    couleur.setNamedColor(settings.value("CouleurNombres").toString());
-    numeriqueFormat.setForeground(couleur);
+    typeFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurTypes());;
+    structureFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurStructures());
+    commentFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurCommentaires());
+    borneFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurBornes());
+    numeriqueFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurNombres());
 }
 

@@ -17,7 +17,8 @@ SOURCES += window.cpp \
     coloration.cpp \
     preferences.cpp \
     widgetplugins.cpp \
-    boutoncouleur.cpp
+    boutoncouleur.cpp \
+    gestionnaireparametres.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
@@ -27,6 +28,7 @@ HEADERS += window.h \
     coloration.h \
     preferences.h \
     widgetplugins.h \
-    boutoncouleur.h
+    boutoncouleur.h \
+    gestionnaireparametres.h
 DESTDIR = ../
 RESOURCES += Images.qrc

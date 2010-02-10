@@ -56,8 +56,7 @@ private:
 
 public slots:
     void modifierCouleur();
-    void changeSettings(/*QString pCategorie*/);
-    QColor recupCouleur(QString pNomCouleur);
+    void changeSettings();
     void loadSettings();
     void accept();
 

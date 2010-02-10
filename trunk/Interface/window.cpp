@@ -1,8 +1,9 @@
 #include "window.h"
 
+#include "gestionnaireparametres.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtGui/QAction>
@@ -21,10 +22,8 @@
 Window::Window() : QMainWindow() {
     /* On récupère la taille et la position de la fenêtre
        telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
-    QSettings settings;
-    if(!settings.value("Maximized", false).toBool()) {
-        restoreGeometry(settings.value("Size").toByteArray());
-    }
+    if (!GestionnaireParametres::getInstance()->getFenetreMax())
+        restoreGeometry(GestionnaireParametres::getInstance()->getFenetreGeo());
 
     m_wPlugins = new WidgetPlugins();
 
@@ -382,9 +381,9 @@ void Window::enregistrerFichierSous() {
 }
 
 void Window::quitter() {
-    QSettings settings;
-    settings.setValue("Size", saveGeometry());
-    settings.setValue("Maximized", isMaximized());
+    GestionnaireParametres::getInstance()->setFenetreGeo(saveGeometry());
+    GestionnaireParametres::getInstance()->setFenetreMax(isMaximized());
+    GestionnaireParametres::getInstance()->destroy();
 }
 
 void Window::imprimerFichier() {
