@@ -224,6 +224,7 @@ Window::Window() : QMainWindow() {
     connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
     connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
     connect(m_enregistrerSous, SIGNAL(triggered()), this, SLOT(enregistrerFichierSous()));
+    connect(m_nouveau, SIGNAL(triggered()), this, SLOT(nouveauFichier()));
     connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
     connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
@@ -448,6 +449,22 @@ void Window::enregistrerFichierSous() {
         return;
     m_fichier->setFileName(nomFichier);
     enregistrerFichier();
+    m_zoneTexte->setDocumentTitle(m_fichier->fileName());
+    m_zoneTexte->document()->setModified(false);
+    setWindowModified(false);
+    setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
+}
+
+void Window::nouveauFichier() {
+    setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
+    m_fichier->setFileName(QString::null);
+    m_zoneTexte->document()->clear();
+    m_zoneTexte->setDocument(new QTextDocument);
+    m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
+    m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
+    m_couper->setEnabled(false);
+    m_copier->setEnabled(false);
+    documentModifie(true);
 }
 
 void Window::quitter() {
