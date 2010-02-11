@@ -109,6 +109,8 @@ public slots:
     void enregistrerFichier();
     void enregistrerFichierSous();
 
+    void nouveauFichier();
+
     void imprimerFichier();
 
     void quitter();
