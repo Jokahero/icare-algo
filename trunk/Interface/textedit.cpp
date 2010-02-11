@@ -85,7 +85,7 @@ void TextEdit::resizeEvent(QResizeEvent *e) {
 void TextEdit::dropEvent(QDropEvent *event) {
     const QMimeData *mimeData = event->mimeData();
     if (mimeData->hasFormat("text/plain")) {
-        m_parent->ouvrirFichier(mimeData->text().trimmed().replace("file:///", "/"));
+        m_parent->ouvrirFichier(mimeData->text().trimmed().replace("file://", ""));
         event->accept();
     }
 }

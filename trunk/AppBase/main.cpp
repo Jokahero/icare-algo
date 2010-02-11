@@ -6,13 +6,28 @@
 #include <QtCore/QDebug>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTranslator>
 #include <QtGui/QApplication>
+#include <QtGui/QPixmap>
+#include <QtGui/QSplashScreen>
 
+/*! \brief Point d'entrée. Charge tous les modules et plugins et le connecte.
+
+  \todo Faire une image pour le splashcreen
+  \param argc Nombre d'arguments
+  \param argv Arguments
+  \return Code de retour système
+*/
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    QPixmap p(200, 100);
+    p.fill();
+    QSplashScreen* sp = new QSplashScreen(p, Qt::SplashScreen);
+    sp->show();
+    a.processEvents();
 
     QCoreApplication::setOrganizationName("IUT Blagnac");
     QCoreApplication::setOrganizationDomain("code.google.com/p/icare-algo");
@@ -34,6 +49,9 @@ int main(int argc, char *argv[]) {
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&translator);
 
+    sp->showMessage(QObject::tr("Chargement des plugins…"));
+    a.processEvents();
+
     // Création des différents modules
     Window *fenetre = new Window();
 
@@ -42,16 +60,13 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < liste.length(); i++)
         if (settings.value("Plugins/" + liste.at(i)->getNom() + "/Actif", true).toBool()) {
-            g->chargerPlugin(liste.at(i)->getNom());
-            fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
-            g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
-        }
-
-    // Chargement d'un fichier passé en paramètre
-    if (argc > 1) {
-        fenetre->ouvrirFichier(argv[1]);
-        qDebug() << argv[1];
+        g->chargerPlugin(liste.at(i)->getNom());
+        fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
+        g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
     }
+
+    sp->showMessage(QObject::tr("Établissement des liens entre les modules…"));
+    a.processEvents();
 
     // Connects des plugins
     for (int i = 0; i < g->getListePlugins().size(); i++) {
@@ -71,6 +86,16 @@ int main(int argc, char *argv[]) {
     //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), Analyse::getInstance(), SLOT(destroy()));
+
+    // Chargement d'un fichier passé en paramètre
+    if (argc > 1) {
+        sp->showMessage(QObject::tr("Chargement du fichier…"));
+        a.processEvents();
+        fenetre->ouvrirFichier(argv[1]);
+    }
+
+    sp->showMessage(QObject::tr("Chargement de l'interface…"));
+    a.processEvents();
 
     // Affichage de la fenêtre
     if (settings.value("Fenetre/Max", true).toBool()) {
