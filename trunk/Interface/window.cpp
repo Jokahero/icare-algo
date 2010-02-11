@@ -21,6 +21,9 @@
 /*! \brief Constructeur. Initialise la fenêtre principale.
 */
 Window::Window() : QMainWindow() {
+    /* L'objet est détruit lorsque la fenêtre est fermée */
+    setAttribute(Qt::WA_DeleteOnClose);
+
     /* On récupère la taille et la position de la fenêtre
        telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
     if (!GestionnaireParametres::getInstance()->getFenetreMax())
@@ -131,7 +134,7 @@ Window::Window() : QMainWindow() {
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
-    m_zoneTexte = new TextEdit;
+    m_zoneTexte = new TextEdit(this);
     setCentralWidget(m_zoneTexte);
     m_fichier = new QFile(this);
 
@@ -306,6 +309,7 @@ void Window::ouvrirFichier(QString pNomFichier) {
 
     connect(m_zoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentModifie(bool)));
     // On créé un flux de texte
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     QTextStream flux(m_fichier);
     m_zoneTexte->setPlainText(flux.readAll());
     m_zoneTexte->setDocumentTitle(m_fichier->fileName());
@@ -313,6 +317,7 @@ void Window::ouvrirFichier(QString pNomFichier) {
     setWindowModified(false);
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
     m_fichier->close();
+    QApplication::restoreOverrideCursor();
 }
 
 void Window::afficherPreferences() {
@@ -331,6 +336,7 @@ void Window::enregistrerFichier() {
         return;
     }
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     bool ouverture = m_fichier->open(QIODevice::WriteOnly | QIODevice::Text);
 
     switch (m_fichier->error()) {
@@ -388,6 +394,7 @@ void Window::enregistrerFichier() {
     m_fichier->write(texte.toUtf8());
     m_fichier->close();
     m_zoneTexte->document()->setModified(false);
+    QApplication::restoreOverrideCursor();
 }
 
 void Window::enregistrerFichierSous() {
