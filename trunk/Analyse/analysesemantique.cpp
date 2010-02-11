@@ -8,6 +8,10 @@ AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
     m_pileStructureControle = new QStack<Dictionnaire::typeLigne>();
 }
 
+AnalyseSemantique::~AnalyseSemantique() {
+    delete m_pileStructureControle;
+}
+
 void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique lancée.";
     verifStruct();

@@ -9,6 +9,7 @@ class Arbre {
 public:
     Arbre();
     Arbre(QString pContenu, Arbre* pSag, Arbre* pSad);
+    ~Arbre();
 
     // Observateurs
     Arbre* getSag();

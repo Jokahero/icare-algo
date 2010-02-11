@@ -15,6 +15,11 @@ Analyse *Analyse::getInstance() {
         return _instance;
 }
 
+void Analyse::destroy() {
+    delete _instance;
+    _instance = 0;
+}
+
 Analyse::Analyse() {
     m_listeInstruction = new QList<Instruction*>;
     m_glossaire = new Glossaire;
@@ -34,6 +39,14 @@ Analyse::Analyse() {
     connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_exec, SIGNAL(afficher(QString)), this, SIGNAL(sigAfficher(QString)));
+}
+
+Analyse::~Analyse() {
+    delete m_listeInstruction;
+    delete m_glossaire;
+    delete m_analyseSyntaxique;
+    delete m_analyseSemantique;
+    delete m_exec;
 }
 
 Glossaire* Analyse::getGlossaire() {

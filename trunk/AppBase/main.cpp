@@ -1,5 +1,4 @@
 #include "../Interface/window.h"
-#include "../Analyse/mathexp.h"
 #include "../Interface/gestionnaireplugins.h"
 #include "../Analyse/analyse.h"
 #include "../Analyse/glossaire.h"
@@ -36,7 +35,6 @@ int main(int argc, char *argv[]) {
     a.installTranslator(&translator);
 
     // Création des différents modules
-    MathExp *math = new MathExp();
     Window *fenetre = new Window();
 
     GestionnairePlugins *g = fenetre->getWPlugins()->getGestionnairePlugins();
@@ -60,7 +58,6 @@ int main(int argc, char *argv[]) {
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g->getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g->getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
-        QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
         QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
         QObject::connect(Analyse::getInstance(), SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
@@ -68,12 +65,12 @@ int main(int argc, char *argv[]) {
     }
 
     // Connects des modules
-    QObject::connect(math, SIGNAL(sigErreur(MathExp::erreur)), fenetre, SLOT(erreurMath(MathExp::erreur)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), Analyse::getInstance(), SLOT(lancerAnalyseSyntaxique(QFile*)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), Analyse::getInstance(), SLOT(lancerAnalyseSemantique()));
     QObject::connect(fenetre, SIGNAL(executer()), Analyse::getInstance(), SLOT(lancerExecution()));
     //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
+    QObject::connect(qApp, SIGNAL(aboutToQuit()), Analyse::getInstance(), SLOT(destroy()));
 
     // Affichage de la fenêtre
     if (settings.value("Fenetre/Max", true).toBool()) {

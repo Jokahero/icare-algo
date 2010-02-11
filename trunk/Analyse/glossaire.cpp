@@ -1,6 +1,5 @@
 #include "glossaire.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QHash>
 #include <QtCore/QStringList>
 
@@ -11,6 +10,13 @@ Glossaire::Glossaire() {
     m_listeChaine = new QHash<QString, QString>;
     m_listeReel = new QHash<QString, double>;
     m_description = new QHash<QString, QString>;
+}
+
+Glossaire::~Glossaire() {
+    delete m_listeEntier;
+    delete m_listeChaine;
+    delete m_listeReel;
+    delete m_description;
 }
 
 
@@ -37,7 +43,6 @@ bool Glossaire::existe(QString pNomVar) {
 bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
-        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeEntier->insert(pNomVar, 0);
@@ -56,7 +61,6 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne
 bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
-        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeChaine->insert(pNomVar, QString::null);
@@ -75,7 +79,6 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne
 bool Glossaire::ajoutReel(QString pNomVar, QString pDescription, int pNumLigne) {
     if (existe(pNomVar)) {
         emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
-        qDebug() << "Variable déjà déclarée";
         return false;
     }
     m_listeReel->insert(pNomVar, 0);

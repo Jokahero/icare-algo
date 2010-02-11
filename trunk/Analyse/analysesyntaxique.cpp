@@ -110,7 +110,6 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
 
     //Ouverture du fichier pour commencer la lecture
     pFichier->open(QIODevice::ReadOnly | QIODevice::Text);
-    qDebug() << pFichier->pos();
     pFichier->seek(0);
 
 

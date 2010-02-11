@@ -13,6 +13,7 @@ class AnalyseSemantique : public QObject {
 
 public:
     AnalyseSemantique(Analyse* pAnalyse);
+    ~AnalyseSemantique();
 
 private:
     Analyse* m_analyse;
