@@ -41,6 +41,8 @@ Window::Window() : QMainWindow() {
     /* Mise en place du menu principal */
     /* On instancie et on ajoute des paramètres (nom, raccourci clavier ...) aux objets du menu */
     m_mainMenu = new QMenu (m_barreMenu);
+    m_nouveau = new QAction(tr("Nouveau"), this);
+    m_nouveau->setShortcut(tr("Ctrl+N"));
     m_ouvrir = new QAction(tr("Ouvrir"), this);
     m_ouvrir->setShortcut(tr("Ctrl+O"));
     m_enregistrer = new QAction(tr("Enregistrer"), this);
@@ -52,6 +54,7 @@ Window::Window() : QMainWindow() {
     m_quitter = new QAction(tr("Quitter"), this);
     m_quitter->setShortcut(tr("Ctrl+Q"));
     m_mainMenu->setTitle(tr("&Fichier"));
+    m_mainMenu->addAction(m_nouveau);
     m_mainMenu->addAction(m_ouvrir);
     m_mainMenu->addAction(m_enregistrer);
     m_mainMenu->addAction(m_enregistrerSous);
@@ -139,9 +142,34 @@ Window::Window() : QMainWindow() {
     m_fichier = new QFile(this);
 
     /* Mise en place d'icône et de tooltips sur les boutons des barres d'outils */
-    m_icone = QIcon(":/Icônes/go.png");
-    m_executer->setIcon(m_icone);
+    m_nouveau->setIcon(QIcon(":/Icônes/window-new.png"));
+    m_nouveau->setToolTip(tr("Nouvel algorithme"));
+    m_ouvrir->setIcon(QIcon(":/Icônes/document-open.png"));
+    m_ouvrir->setToolTip(tr("Ouvrir un algorithme"));
+    m_enregistrer->setIcon(QIcon(":/Icônes/gnome-dev-floppy.png"));
+    m_enregistrer->setToolTip(tr("Enregistrer l'algorithme"));
+    m_enregistrerSous->setIcon(QIcon(":/Icônes/document-save-as.png"));
+    m_enregistrerSous->setToolTip(tr("Enregistrer sous"));
+    m_imprimer->setIcon(QIcon(":/Icônes/document-print.png"));
+    m_imprimer->setToolTip(tr("Imprimer l'algorithme"));
+    m_quitter->setIcon(QIcon(":/Icônes/dialog-cancel.png"));
+    m_annuler->setIcon(QIcon(":/Icônes/edit-undo.png"));
+    m_annuler->setToolTip(tr("Annuler"));
+    m_refaire->setIcon(QIcon(":/Icônes/edit-redo.png"));
+    m_refaire->setToolTip(tr("Refaire"));
+    m_couper->setIcon(QIcon(":/Icônes/edit-cut.png"));
+    m_couper->setToolTip(tr("Couper"));
+    m_copier->setIcon(QIcon(":/Icônes/edit-copy.png"));
+    m_copier->setToolTip(tr("Copier"));
+    m_coller->setIcon(QIcon(":/Icônes/edit-paste.png"));
+    m_coller->setToolTip(tr("Coller"));
+    m_rechercher->setIcon(QIcon(":/Icônes/document-preview.png"));
+    m_testSyntaxe->setIcon(QIcon(":/Icônes/tools-check-spelling.png"));
+    m_testSyntaxe->setToolTip(tr("Tester la syntaxe"));
+    m_executer->setIcon(QIcon(":/Icônes/exec.png"));
     m_executer->setToolTip(tr("Exécuter"));
+    m_preferences->setIcon(QIcon(":/Icônes/preferences-system.png"));
+    m_plugins->setIcon(QIcon(":/Icônes/synaptic.png"));
 
     /* Mise en place de la barre d'outils des fichiers */
     m_barreOutilsFichier = new QToolBar;
@@ -149,11 +177,28 @@ Window::Window() : QMainWindow() {
     m_barreOutilsFichier->setWindowTitle("Fichiers");
 
     // Ajout des actions dans la barre d'outils
+    m_barreOutilsFichier->addAction(m_nouveau);
     m_barreOutilsFichier->addAction(m_ouvrir);
     m_barreOutilsFichier->addAction(m_enregistrer);
+    m_barreOutilsFichier->addAction(m_enregistrerSous);
     m_barreOutilsFichier->addAction(m_imprimer);
 
     addToolBar(m_barreOutilsFichier);
+
+    /* Mise en place de la barre d'outils d'édition */
+    m_barreOutilsEdition = new QToolBar;
+    m_barreOutilsEdition->setMovable(1);
+    m_barreOutilsEdition->setWindowTitle("Edition");
+
+    // Ajout des actions dans la barre d'outils
+    m_barreOutilsEdition->addAction(m_annuler);
+    m_barreOutilsEdition->addAction(m_refaire);
+    m_barreOutilsEdition->addAction(m_couper);
+    m_barreOutilsEdition->addAction(m_copier);
+    m_barreOutilsEdition->addAction(m_coller);
+    m_barreOutilsEdition->addAction(m_selectionnerTout);
+
+    addToolBar(m_barreOutilsEdition);
 
     /* Mise en place de la barre d'outils des tests */
     m_barreOutilsTests = new QToolBar;
