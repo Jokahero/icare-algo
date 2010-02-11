@@ -15,6 +15,7 @@ class MathExp : public QObject {
 
 public:
     MathExp();
+    ~MathExp();
     void setExpression(QString pExpression);
     double calcul();
     Arbre* getCalcul();

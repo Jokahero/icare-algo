@@ -46,6 +46,8 @@ public slots:
     void lancerAnalyseSemantique();
     void lancerExecution();
 
+    void destroy();
+
 signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
     void sigLancerAnalyseSemantique();
@@ -56,6 +58,7 @@ signals:
 private:
     static Analyse *_instance;                      /*!< \brief Seule instance de la classe (Singleton). */
     Analyse();
+    ~Analyse();
 
     QList<Instruction*>* m_listeInstruction;        /*!<\brief Liste des instructions extraites du code. */
     Glossaire* m_glossaire;                         /*!<\brief Glossaire où sont stockées les variables. */

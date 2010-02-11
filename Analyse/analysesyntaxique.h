@@ -12,7 +12,6 @@ class QFile;
  */
 
 class AnalyseSyntaxique : public QObject {
-
     Q_OBJECT
 
 public:

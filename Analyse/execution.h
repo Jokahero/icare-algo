@@ -13,6 +13,7 @@ class Execution : public QObject {
 
 public:
     Execution(Analyse* pAnalyse);
+    ~Execution();
 
 private:
     Analyse* m_analyse;

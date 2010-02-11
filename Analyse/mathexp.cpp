@@ -8,6 +8,10 @@ MathExp::MathExp() {
     m_expression = QString::null;
 }
 
+MathExp::~MathExp() {
+    delete m_calcul;
+}
+
 void MathExp::setExpression(QString pExpression) {
     m_expression = pExpression;
 }

@@ -1,5 +1,7 @@
 #include "instruction.h"
 
+#include <QtCore/QStringList>
+
 Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin) {
     m_numLigne = pNumLigne;
     m_ligne = pLigne;
@@ -7,6 +9,10 @@ Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne 
     m_ligneDebut = pLigneDebut;
     m_ligneFin = pLigneFin;
     m_args = pListeArgs;
+}
+
+Instruction::~Instruction() {
+    delete m_args;
 }
 
 int Instruction::getNumLigne() {

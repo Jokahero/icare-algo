@@ -10,11 +10,12 @@ template <typename T, typename U> class QHash;
 /*! \brief Permet de stocker les variables du code algorithmique.
 */
 class Glossaire : public QObject {
-	
     Q_OBJECT
 
 public:
     Glossaire();
+    ~Glossaire();
+
     bool existe(QString pNomVar);
     bool ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne = 0);
     bool ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne = 0);

@@ -2,7 +2,6 @@
 #define ANALYSE_TESTS_H
 
 #include <QtCore/QObject>
-//#include "../glossaire.h"
 
 /*! \brief Tests du module d'analyses.
 
@@ -12,12 +11,11 @@ class Analyse_tests : public QObject {
     Q_OBJECT
 
 private slots:
-    void initTestCase();
-    //void testGlossaire();
+    void testGlossaire();
+    void testArbre();
+    void testMathExp();
+    void testMathExp_data();
     void cleanupTestCase();
-
-private:
-    //Glossaire* g;
 };
 
 #endif // ANALYSE_TESTS_H

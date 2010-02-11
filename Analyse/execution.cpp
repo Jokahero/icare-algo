@@ -12,6 +12,10 @@ Execution::Execution(Analyse* pAnalyse) {
     m_pileStructureControle = new QStack<Dictionnaire::typeLigne>();
 }
 
+Execution::~Execution() {
+    delete m_pileStructureControle;
+}
+
 void Execution::lancer() {
     qDebug() << "Exécution commencée";
 

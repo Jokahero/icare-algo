@@ -8,6 +8,7 @@
 class Instruction {
 public:
     Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs = 0, int pLigneDebut = -1, int pLigneFin = -1);
+    ~Instruction();
 
     void setLigne(QString pLigne);
     void setNumLigne(int pNumLigne);

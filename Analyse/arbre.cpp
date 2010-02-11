@@ -24,6 +24,11 @@ Arbre::Arbre(QString pContenu, Arbre* pSag, Arbre* pSad) {
     m_contenu = pContenu;
 }
 
+Arbre::~Arbre() {
+    delete m_sag;
+    delete m_sad;
+}
+
 /*! \brief Retourne le sous-arbre gauche.
 
   Si l'arbre est vide, retourne NULL.
