@@ -1,11 +1,15 @@
 #include "textedit.h"
 
+#include "coloration.h"
 #include "gestionnaireparametres.h"
+#include "window.h"
 
+#include <QtCore/QDebug>
 #include <QtGui/QPainter>
 
-TextEdit::TextEdit() {
+TextEdit::TextEdit(Window* parent) : m_parent(parent) {
     m_color = new Coloration(document());
+    setAcceptDrops(true);
 
     m_lineNumberArea = new LineNumberArea(this);
 
@@ -74,6 +78,15 @@ void TextEdit::resizeEvent(QResizeEvent *e) {
     if (m_isLineNumberArea) {
         QRect cr = contentsRect();
         m_lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+    }
+}
+
+
+void TextEdit::dropEvent(QDropEvent *event) {
+    const QMimeData *mimeData = event->mimeData();
+    if (mimeData->hasFormat("text/plain")) {
+        m_parent->ouvrirFichier(mimeData->text().trimmed().replace("file:///", "/"));
+        event->accept();
     }
 }
 
