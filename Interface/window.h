@@ -19,6 +19,7 @@ class QToolBar;
 class QFile;
 class QStatusBar;
 class QString;
+class Recherche;
 
 /*! \brief Fenêtre principale
   */
@@ -70,6 +71,7 @@ private:
     Apropos *m_fenApropos;
     Preferences *m_pref;
     WidgetPlugins *m_wPlugins;
+    Recherche *m_fenRecherche;
 
     QIcon m_icone;
 
