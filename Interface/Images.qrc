@@ -1,8 +1,30 @@
 <RCC>
-    <qresource prefix="/Icônes">
+    <qresource prefix="/Icônes" >
         <file>go.png</file>
+        <file>dialog-error.png</file>
+        <file>dialog-warning.png</file>
+        <file>document-open.png</file>
+        <file>document-print.png</file>
+        <file>document-save-as.png</file>
+        <file>edit-redo.png</file>
+        <file>edit-undo.png</file>
+        <file>gnome-dev-floppy.png</file>
+        <file>preferences-desktop-wallpaper.png</file>
+        <file>printer-error.png</file>
+        <file>software-properties.png</file>
+        <file>synaptic.png</file>
+        <file>window-new.png</file>
+        <file>edit-copy.png</file>
+        <file>edit-cut.png</file>
+        <file>exec.png</file>
+        <file>edit-paste.png</file>
+        <file>tools-check-spelling.png</file>
+        <file>dialog-cancel.png</file>
+        <file>dialog-ok-apply.png</file>
+        <file>preferences-system.png</file>
+        <file>document-preview.png</file>
     </qresource>
-    <qresource prefix="/Images">
+    <qresource prefix="/Images" >
         <file>menAtWork.gif</file>
     </qresource>
 </RCC>

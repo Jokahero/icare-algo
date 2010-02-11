@@ -39,6 +39,7 @@ private:
     QMenuBar *m_barreMenu;
 
     QMenu *m_mainMenu;
+    QAction *m_nouveau;
     QAction *m_ouvrir;
     QAction *m_enregistrer;
     QAction *m_enregistrerSous;
@@ -76,6 +77,7 @@ private:
     QIcon m_icone;
 
     QToolBar *m_barreOutilsTests;
+    QToolBar *m_barreOutilsEdition;
     QToolBar *m_barreOutilsFichier;
 
 
