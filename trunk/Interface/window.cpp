@@ -169,20 +169,26 @@ Window::Window() : QMainWindow() {
     /* Connection des signaux des objets aux slots de l'application
        connect([Objet émetteur], SIGNAL([Signal émis]), [Objet récepteur], SLOT[Slot "activé"]);
     */
-    QObject::connect(m_aPropos, SIGNAL(triggered()), this, SLOT(afficherApropos()));
-    QObject::connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
-    QObject::connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
-    QObject::connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
-    QObject::connect(m_enregistrerSous, SIGNAL(triggered()), this, SLOT(enregistrerFichierSous()));
-    QObject::connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
-    QObject::connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
-    QObject::connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
-    QObject::connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
-    QObject::connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
-    QObject::connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
-    QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
-    QObject::connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
+    connect(m_aPropos, SIGNAL(triggered()), this, SLOT(afficherApropos()));
+    connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
+    connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
+    connect(m_enregistrerSous, SIGNAL(triggered()), this, SLOT(enregistrerFichierSous()));
+    connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
+    connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
+    connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
+    connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
+    connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
+    connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
+    connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
+    connect(m_zoneTexte, SIGNAL(undoAvailable(bool)), m_annuler, SLOT(setEnabled(bool)));
+    connect(m_annuler, SIGNAL(triggered()), m_zoneTexte, SLOT(undo()));
+    connect(m_zoneTexte, SIGNAL(redoAvailable(bool)), m_refaire, SLOT(setEnabled(bool)));
+    connect(m_refaire, SIGNAL(triggered()), m_zoneTexte, SLOT(redo()));
 
+    m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
+    m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
     documentModifie(true);
 }
 
