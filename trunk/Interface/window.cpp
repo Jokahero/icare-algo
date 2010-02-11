@@ -1,6 +1,7 @@
 #include "window.h"
 
 #include "gestionnaireparametres.h"
+#include "recherche.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
@@ -26,6 +27,7 @@ Window::Window() : QMainWindow() {
         restoreGeometry(GestionnaireParametres::getInstance()->getFenetreGeo());
 
     m_wPlugins = new WidgetPlugins();
+    m_fenRecherche = new Recherche();
 
     /* On nomme la fenêtre principale */
     setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
@@ -191,6 +193,8 @@ Window::Window() : QMainWindow() {
     connect(m_zoneTexte, SIGNAL(copyAvailable(bool)), m_copier, SLOT(setEnabled(bool)));
     connect(m_copier, SIGNAL(triggered()), m_zoneTexte, SLOT(copy()));
     connect(m_coller, SIGNAL(triggered()), m_zoneTexte, SLOT(paste()));
+    connect(m_rechercher, SIGNAL(triggered()), m_fenRecherche, SLOT(rec()));
+    connect(m_remplacer, SIGNAL(triggered()), m_fenRecherche, SLOT(rem()));
     connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte, SLOT(selectAll()));
 
     m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
