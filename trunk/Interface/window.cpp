@@ -186,9 +186,16 @@ Window::Window() : QMainWindow() {
     connect(m_annuler, SIGNAL(triggered()), m_zoneTexte, SLOT(undo()));
     connect(m_zoneTexte, SIGNAL(redoAvailable(bool)), m_refaire, SLOT(setEnabled(bool)));
     connect(m_refaire, SIGNAL(triggered()), m_zoneTexte, SLOT(redo()));
+    connect(m_zoneTexte, SIGNAL(copyAvailable(bool)), m_couper, SLOT(setEnabled(bool)));
+    connect(m_couper, SIGNAL(triggered()), m_zoneTexte, SLOT(cut()));
+    connect(m_zoneTexte, SIGNAL(copyAvailable(bool)), m_copier, SLOT(setEnabled(bool)));
+    connect(m_copier, SIGNAL(triggered()), m_zoneTexte, SLOT(copy()));
+    connect(m_coller, SIGNAL(triggered()), m_zoneTexte, SLOT(paste()));
 
     m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
     m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
+    m_couper->setEnabled(false);
+    m_copier->setEnabled(false);
     documentModifie(true);
 }
 
