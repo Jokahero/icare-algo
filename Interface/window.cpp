@@ -3,7 +3,6 @@
 #include "gestionnaireparametres.h"
 #include "recherche.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
@@ -247,12 +246,64 @@ Window::Window() : QMainWindow() {
     connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte, SLOT(selectAll()));
     connect(m_fenRecherche, SIGNAL(recherche(QString)), m_zoneTexte, SLOT(recherche(QString)));
     connect(m_fenRecherche, SIGNAL(remplacement(QString, QString)), m_zoneTexte, SLOT(remplacement(QString, QString)));
+    connect(m_fenRecherche, SIGNAL(remplacerTout(QString, QString)), m_zoneTexte, SLOT(remplacerTout(QString, QString)));
 
     m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
     m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
     m_couper->setEnabled(false);
     m_copier->setEnabled(false);
     documentModifie(true);
+}
+
+Window::~Window() {
+    delete m_zoneTexte;
+
+    delete m_mainMenu;
+    delete m_nouveau;
+    delete m_ouvrir;
+    delete m_enregistrer;
+    delete m_enregistrerSous;
+    delete m_imprimer;
+    delete m_quitter;
+
+    delete m_menuEdition;
+    delete m_annuler;
+    delete m_refaire;
+    delete m_couper;
+    delete m_copier;
+    delete m_coller;
+    delete m_rechercher;
+    delete m_remplacer;
+    delete m_selectionnerTout;
+
+    delete m_menuAnalyse;
+    delete m_testSyntaxe;
+    delete m_testSemantique;
+    delete m_testComplet;
+    delete m_executer;
+
+    delete m_menuOptions;
+    delete m_plugins;
+    delete m_preferences;
+
+    delete m_help;
+    delete m_aPropos;
+
+    //delete m_fenApropos;
+    //delete m_pref;
+    delete m_wPlugins;
+    delete m_fenRecherche;
+
+    delete m_barreOutilsTests;
+    delete m_barreOutilsEdition;
+    delete m_barreOutilsFichier;
+
+
+    delete m_fichier;
+
+    delete m_statusBar;
+
+    delete m_barreMenu;
 }
 
 void Window::erreurMath(MathExp::erreur pCodeErreur) {
@@ -473,6 +524,7 @@ void Window::quitter() {
     GestionnaireParametres::getInstance()->setFenetreGeo(saveGeometry());
     GestionnaireParametres::getInstance()->setFenetreMax(isMaximized());
     GestionnaireParametres::getInstance()->destroy();
+    close();
 }
 
 void Window::imprimerFichier() {

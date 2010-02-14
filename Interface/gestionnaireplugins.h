@@ -10,6 +10,8 @@ class QString;
   */
 class GestionnairePlugins {
 public:
+    ~GestionnairePlugins();
+
     bool chargerPlugin(QString pNomPlugin);
     PluginInterface* getPlugin(QString pNomPlugin);
     QList<PluginInterface*> getListePluginsDispo();

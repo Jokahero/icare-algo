@@ -41,6 +41,14 @@ WidgetPlugins::WidgetPlugins() {
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
+WidgetPlugins::~WidgetPlugins() {
+    delete m_gestionnairePlugins;
+    delete m_buttonBox;
+    for (int i = 0; i < m_listeCheck->length(); i++)
+        delete m_listeCheck->at(i);
+    delete m_listeCheck;
+}
+
 void WidgetPlugins::saveSettings() {
     for (int i = 0; i < m_listeCheck->length(); i++)
         GestionnaireParametres::getInstance()->setPluginActif(m_listeCheck->at(i)->text(), m_listeCheck->at(i)->isChecked());

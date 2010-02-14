@@ -23,6 +23,11 @@ TextEdit::TextEdit(Window* parent) : m_parent(parent) {
     highlightCurrentLine();
 }
 
+TextEdit::~TextEdit() {
+    delete m_lineNumberArea;
+    delete m_color;
+}
+
 
 void TextEdit::wheelEvent(QWheelEvent* pEvent) {
     //if (!qApp->keyboardModifiers() && Qt::ControlModifier)
@@ -149,7 +154,7 @@ void TextEdit::loadSettings() {
 
     emit blockCountChanged(blockCount());
     if (m_isRetourLigne)
-    setLineWrapMode(QPlainTextEdit::WidgetWidth);
+        setLineWrapMode(QPlainTextEdit::WidgetWidth);
     else
         setLineWrapMode(QPlainTextEdit::NoWrap);
     changerCouleur();
@@ -187,4 +192,9 @@ void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
         tmp.setPosition(newPos, QTextCursor::KeepAnchor);
         setTextCursor(tmp);
     }
+}
+
+void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
+    while (find(pRecherche, QTextDocument::FindBackward) || find(pRecherche))
+        remplacement(pRecherche, pRemplacement);
 }
