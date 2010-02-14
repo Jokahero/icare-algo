@@ -219,7 +219,7 @@ Window::Window() : QMainWindow() {
        connect([Objet émetteur], SIGNAL([Signal émis]), [Objet récepteur], SLOT[Slot "activé"]);
     */
     connect(m_aPropos, SIGNAL(triggered()), this, SLOT(afficherApropos()));
-    connect(m_quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(m_quitter, SIGNAL(triggered()), this, SLOT(close()));
     connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
     connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
     connect(m_enregistrerSous, SIGNAL(triggered()), this, SLOT(enregistrerFichierSous()));
@@ -230,7 +230,6 @@ Window::Window() : QMainWindow() {
     connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
     connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
-    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitter()));
     connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
     connect(m_zoneTexte, SIGNAL(undoAvailable(bool)), m_annuler, SLOT(setEnabled(bool)));
     connect(m_annuler, SIGNAL(triggered()), m_zoneTexte, SLOT(undo()));
@@ -520,11 +519,34 @@ void Window::nouveauFichier() {
     documentModifie(true);
 }
 
-void Window::quitter() {
+void Window::closeEvent(QCloseEvent *pE) {
+    if (m_documentModifie) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("L'algorithme a été modifié."));
+        msgBox.setInformativeText(tr("Voulez-vous enregistrer les modifications ?"));
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        int ret = msgBox.exec();
+        switch (ret) {
+        case QMessageBox::Save:
+            enregistrerFichier();
+            break;
+        case QMessageBox::Discard:
+            break;
+        case QMessageBox::Cancel:
+            pE->ignore();
+            return;
+            break;
+        default:
+            // ne devrait jamais être atteint
+            break;
+        }
+    }
+
     GestionnaireParametres::getInstance()->setFenetreGeo(saveGeometry());
     GestionnaireParametres::getInstance()->setFenetreMax(isMaximized());
     GestionnaireParametres::getInstance()->destroy();
-    close();
+    pE->accept();
 }
 
 void Window::imprimerFichier() {
