@@ -12,6 +12,7 @@ class Recherche : public QWidget {
 
 public:
     Recherche(QWidget *parent = 0);
+    ~Recherche();
 
 public slots:
     void plus(bool pVisible);
@@ -27,6 +28,13 @@ private:
     QPushButton* m_fermer;
     QPushButton* m_plus;
     QPushButton* m_remplacerTout;
+
+private slots:
+    void recherche();
+
+signals:
+    void recherche(QString);
+    void remplacement(QString, QString);
 };
 
 #endif // RECHERCHE_H

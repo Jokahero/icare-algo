@@ -245,6 +245,8 @@ Window::Window() : QMainWindow() {
     connect(m_rechercher, SIGNAL(triggered()), m_fenRecherche, SLOT(rec()));
     connect(m_remplacer, SIGNAL(triggered()), m_fenRecherche, SLOT(rem()));
     connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte, SLOT(selectAll()));
+    connect(m_fenRecherche, SIGNAL(recherche(QString)), m_zoneTexte, SLOT(recherche(QString)));
+    connect(m_fenRecherche, SIGNAL(remplacement(QString, QString)), m_zoneTexte, SLOT(remplacement(QString, QString)));
 
     m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
     m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());

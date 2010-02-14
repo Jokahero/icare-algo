@@ -47,6 +47,20 @@ Recherche::Recherche(QWidget *parent) : QWidget(parent) {
 
     connect(m_plus, SIGNAL(toggled(bool)), this, SLOT(plus(bool)));
     connect(m_fermer, SIGNAL(clicked()), this, SLOT(close()));
+    connect(m_rechercher, SIGNAL(clicked()), this, SLOT(recherche()));
+    connect(m_rechercherLe, SIGNAL(returnPressed()), m_rechercher, SLOT(click()));
+    connect(m_remplacerLe, SIGNAL(returnPressed()), m_rechercher, SLOT(click()));
+}
+
+Recherche::~Recherche() {
+    delete m_rechercherLa;
+    delete m_rechercherLe;
+    delete m_remplacerLa;
+    delete m_remplacerLe;
+    delete m_rechercher;
+    delete m_fermer;
+    delete m_plus;
+    delete m_remplacerTout;
 }
 
 void Recherche::plus(bool pVisible) {
@@ -67,4 +81,11 @@ void Recherche::rec() {
 void Recherche::rem() {
     m_plus->setChecked(true);
     show();
+}
+
+void Recherche::recherche() {
+    if (m_rechercher->text() == tr("Rechercher"))
+        emit recherche(m_rechercherLe->text());
+    else
+        emit remplacement(m_rechercherLe->text(), m_remplacerLe->text());
 }
