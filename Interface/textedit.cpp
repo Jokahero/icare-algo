@@ -171,3 +171,11 @@ void TextEdit::changementLigne(int pNumLigne) {
     cursor.setBlockFormat(blockFormat);
     setTextCursor(cursor);
 }
+
+void TextEdit::recherche(QString pRecherche) {
+    find(pRecherche);
+}
+
+void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
+
+}

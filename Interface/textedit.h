@@ -46,6 +46,8 @@ private:
 public slots:
     void loadSettings();
     void changementLigne(int pNumLigne);
+    void recherche(QString pRecherche);
+    void remplacement(QString pRecherche, QString pRemplacement);
 
 };
 
