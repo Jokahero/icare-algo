@@ -177,5 +177,14 @@ void TextEdit::recherche(QString pRecherche) {
 }
 
 void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
-
+    if (find(pRecherche)) {
+        textCursor().removeSelectedText();
+        int pos = textCursor().position();
+        insertPlainText(pRemplacement);
+        int newPos = textCursor().position();
+        QTextCursor tmp = textCursor();
+        tmp.setPosition(pos, QTextCursor::MoveAnchor);
+        tmp.setPosition(newPos, QTextCursor::KeepAnchor);
+        setTextCursor(tmp);
+    }
 }
