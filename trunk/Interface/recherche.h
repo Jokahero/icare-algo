@@ -31,10 +31,12 @@ private:
 
 private slots:
     void recherche();
+    void remplacerTout();
 
 signals:
     void recherche(QString);
     void remplacement(QString, QString);
+    void remplacerTout(QString, QString);
 };
 
 #endif // RECHERCHE_H

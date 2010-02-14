@@ -28,6 +28,7 @@ class Window : public QMainWindow {
 
 public:
     Window();
+    ~Window();
 
     TextEdit* getZoneTexte();
 
@@ -73,8 +74,6 @@ private:
     Preferences *m_pref;
     WidgetPlugins *m_wPlugins;
     Recherche *m_fenRecherche;
-
-    QIcon m_icone;
 
     QToolBar *m_barreOutilsTests;
     QToolBar *m_barreOutilsEdition;

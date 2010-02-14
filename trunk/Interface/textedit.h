@@ -17,6 +17,7 @@ class TextEdit : public QPlainTextEdit {
     Q_OBJECT
 public:
     TextEdit(Window* parent);
+    ~TextEdit();
 
 private:
     void wheelEvent(QWheelEvent* pEvent);
@@ -48,6 +49,7 @@ public slots:
     void changementLigne(int pNumLigne);
     void recherche(QString pRecherche);
     void remplacement(QString pRecherche, QString pRemplacement);
+    void remplacerTout(QString pRecherche, QString pRemplacement);
 
 };
 

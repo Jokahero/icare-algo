@@ -7,6 +7,11 @@
 #include <QtCore/QString>
 #include <QtGui/QApplication>
 
+GestionnairePlugins::~GestionnairePlugins() {
+    for (int i = 0; i < m_listePlugins.length(); i++)
+        delete m_listePlugins.at(i);
+}
+
 /*! \brief Charge le plugin de nom pNomPlugin.
 
   \param pNomPlugin Nom du plugin à charger.

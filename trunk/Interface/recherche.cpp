@@ -50,6 +50,7 @@ Recherche::Recherche(QWidget *parent) : QWidget(parent) {
     connect(m_rechercher, SIGNAL(clicked()), this, SLOT(recherche()));
     connect(m_rechercherLe, SIGNAL(returnPressed()), m_rechercher, SLOT(click()));
     connect(m_remplacerLe, SIGNAL(returnPressed()), m_rechercher, SLOT(click()));
+    connect(m_remplacerTout, SIGNAL(clicked()), this, SLOT(remplacerTout()));
 }
 
 Recherche::~Recherche() {
@@ -88,4 +89,8 @@ void Recherche::recherche() {
         emit recherche(m_rechercherLe->text());
     else
         emit remplacement(m_rechercherLe->text(), m_remplacerLe->text());
+}
+
+void Recherche::remplacerTout() {
+    emit remplacerTout(m_rechercherLe->text(), m_remplacerLe->text());
 }

@@ -13,6 +13,7 @@ class WidgetPlugins : public QDialog {
 
 public:
     WidgetPlugins();
+    ~WidgetPlugins();
     GestionnairePlugins *getGestionnairePlugins();
 
 private:
