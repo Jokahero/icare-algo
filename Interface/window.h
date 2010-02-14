@@ -34,6 +34,9 @@ public:
 
     WidgetPlugins* getWPlugins();
 
+protected:
+    void closeEvent(QCloseEvent *pE);
+
 private:
     TextEdit *m_zoneTexte;
 
@@ -111,8 +114,6 @@ public slots:
     void nouveauFichier();
 
     void imprimerFichier();
-
-    void quitter();
 
     void showMessage(const QString& pMessage, int pTimeout = 0);
 
