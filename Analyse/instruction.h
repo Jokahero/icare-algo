@@ -17,6 +17,10 @@ public:
     Dictionnaire::typeLigne getTypeLigne();
     void setTypeLigne(Dictionnaire::typeLigne pTypeLigne);
     QStringList* getArgs();
+    int getLigneDebut();
+    int getLigneFin();
+    void setLigneDebut(int pLigne);
+    void setLigneFin(int pLigne);
 
 private:
     QString m_ligne;

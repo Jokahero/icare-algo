@@ -103,6 +103,7 @@ int main(int argc, char *argv[]) {
     } else {
         fenetre->show();
     }
+    sp->finish(fenetre);
 
     return a.exec();
 }

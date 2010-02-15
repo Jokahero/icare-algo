@@ -19,8 +19,10 @@ private:
     Analyse* m_analyse;
 
     QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
+    QStack<int>* m_pilePosition;
 
     void verifStruct();
+    void pop(int i);
 
 public slots:
     void lancer();
