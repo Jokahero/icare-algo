@@ -21,22 +21,7 @@ Execution::~Execution() {
 void Execution::lancer() {
     qDebug() << "Exécution commencée";
 
-    for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
-        Instruction* inst = m_analyse->getListeInstruction()->at(i);
-        if (inst->getTypeLigne() == Dictionnaire::Affectation) {
-            m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2)));
-        } else if (inst->getTypeLigne() == Dictionnaire::Afficher) {
-            if (inst->getArgs()->at(1).trimmed().startsWith("\"")) {
-                QString tmp = inst->getArgs()->at(1);
-                tmp = tmp.remove(tmp.indexOf('"'), 1);
-                tmp = tmp.remove(tmp.lastIndexOf('"'), 1);
-                emit afficher(tmp);
-            } else
-                emit afficher(remplacementValeursVariables(inst->getArgs()->at(1)));
-        } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
-            m_analyse->emettreSaisie();
-        }
-    }
+    execution();
 
     qDebug() << "Exécution terminée";
     emit terminee();
@@ -52,4 +37,31 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
     me->setExpression(pChaine);
 
     return QString::number(me->calcul());
+}
+
+void Execution::execution(int pDebut, int pFin) {
+    if (pFin == -1)
+        pFin = m_analyse->getListeInstruction()->length();
+    for (int i = pDebut; i < pFin; i++) {
+        Instruction* inst = m_analyse->getListeInstruction()->at(i);
+        if (inst->getTypeLigne() == Dictionnaire::Affectation) {
+            m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2)));
+        } else if (inst->getTypeLigne() == Dictionnaire::Afficher) {
+            if (inst->getArgs()->at(1).trimmed().startsWith("\"")) {
+                QString tmp = inst->getArgs()->at(1);
+                tmp = tmp.remove(tmp.indexOf('"'), 1);
+                tmp = tmp.remove(tmp.lastIndexOf('"'), 1);
+                emit afficher(tmp);
+            } else
+                emit afficher(remplacementValeursVariables(inst->getArgs()->at(1)));
+        } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
+            m_analyse->emettreSaisie();
+        } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
+            for (int j = remplacementValeursVariables(inst->getArgs()->at(2)).toInt(); j < remplacementValeursVariables(inst->getArgs()->at(3)).toInt(); j++) {
+                m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
+                execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+            }
+            i = inst->getLigneFin();
+        }
+    }
 }

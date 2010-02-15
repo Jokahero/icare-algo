@@ -22,6 +22,8 @@ private:
 
     QString remplacementValeursVariables(QString pChaine);
 
+    void execution(int pDebut = 0, int pFin = -1);
+
 public slots:
     void lancer();
 
