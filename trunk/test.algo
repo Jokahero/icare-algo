@@ -29,4 +29,11 @@ Pour i de 1 à nbChevre Faire
 	Afficher i
 FinPour
 
+i ← 2
+
+TantQue i <  4
+	Afficher i
+	i ← i + 1
+FinTantQue
+
 Fin
