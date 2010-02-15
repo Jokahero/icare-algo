@@ -42,3 +42,19 @@ void Instruction::setTypeLigne(Dictionnaire::typeLigne pTypeLigne) {
 QStringList* Instruction::getArgs() {
     return m_args;
 }
+
+int Instruction::getLigneDebut() {
+    return m_ligneDebut;
+}
+
+int Instruction::getLigneFin() {
+    return m_ligneFin;
+}
+
+void Instruction::setLigneDebut(int pLigne) {
+    m_ligneDebut = pLigne;
+}
+
+void Instruction::setLigneFin(int pLigne) {
+    m_ligneFin = pLigne;
+}
