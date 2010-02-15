@@ -69,6 +69,10 @@ void Analyse::lancerExecution() {
     emit sigLancerExecution();
 }
 
+void Analyse::emettreSaisie() {
+    emit sigSaisir();
+}
+
 void Analyse::setDebutGlossaire(int pNumLigne) {
     m_debutGlossaire = pNumLigne;
 }

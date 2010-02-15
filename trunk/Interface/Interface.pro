@@ -19,7 +19,8 @@ SOURCES += window.cpp \
     widgetplugins.cpp \
     boutoncouleur.cpp \
     gestionnaireparametres.cpp \
-    recherche.cpp
+    recherche.cpp \
+    fenetresaisie.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
@@ -31,6 +32,7 @@ HEADERS += window.h \
     widgetplugins.h \
     boutoncouleur.h \
     gestionnaireparametres.h \
-    recherche.h
+    recherche.h \
+    fenetresaisie.h
 DESTDIR = ../
 RESOURCES += Images.qrc

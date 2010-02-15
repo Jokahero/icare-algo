@@ -123,6 +123,8 @@ public slots:
 
     void documentModifie(bool pMod);
 
+    void afficherFenSaisie();
+
 signals:
     void lancerAnalyseSyntaxique(QFile*);
     void lancerAnalyseSemantique();

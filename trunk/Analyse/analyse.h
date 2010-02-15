@@ -23,6 +23,8 @@ public:
     Glossaire* getGlossaire();
     QList<Instruction*>* getListeInstruction();
 
+    void emettreSaisie();
+
     void setDebutGlossaire(int pNumLigne);
     void setFinGlossaire(int pNumLigne);
     void setDebutAlgo(int pNumLigne);
@@ -35,7 +37,7 @@ public:
 
     enum erreur {
         VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
-        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
+        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déj�  été déclarée. */
         TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
         Syntaxe,                    /*!< Une erreur de syntaxe a été trouvée. */
         Struct,                     /*!< Une structure de contrôle n'a pas été formée correctement. */
@@ -52,6 +54,7 @@ signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
     void sigLancerAnalyseSemantique();
     void sigLancerExecution();
+    void sigSaisir();
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
     void sigAfficher(QString pChaine);
 
