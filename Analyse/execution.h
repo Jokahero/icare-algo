@@ -21,6 +21,7 @@ private:
     QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
 
     QString remplacementValeursVariables(QString pChaine);
+    bool evaluationCondition(QString pVal1, QString pOp, QString pVal2);
 
     void execution(int pDebut = 0, int pFin = -1);
 

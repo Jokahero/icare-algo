@@ -28,15 +28,38 @@ void Execution::lancer() {
 }
 
 QString Execution::remplacementValeursVariables(QString pChaine) {
-    for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++)
-        pChaine.replace(QRegExp("(^|[\\(|\\+|\\*|\\/|\\-|\\)|\\s]+)("+ m_analyse->getGlossaire()->getListeVariables().at(i) +")([\\(|\\+|\\*|\\/|\\-|\\)|\\s]+|$)"),m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
     pChaine.replace("×", "*");
     pChaine.replace("÷", "/");
+    pChaine.replace("+", " + ");
+    pChaine.replace("-", " - ");
+    pChaine.replace("*", " * ");
+    pChaine.replace("/", " / ");
+    for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++)
+        pChaine.replace(QRegExp("(^|[\\(|\\+|\\*|\\/|\\-|\\)|\\s])("+ m_analyse->getGlossaire()->getListeVariables().at(i) +")([\\(|\\+|\\*|\\/|\\-|\\)|\\s]|$)"),m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
 
     MathExp* me = new MathExp();
     me->setExpression(pChaine);
-
     return QString::number(me->calcul());
+}
+
+bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2) {
+    pVal1 = pVal1.trimmed();
+    pOp = pOp.trimmed();
+    pVal2 = pVal2.trimmed();
+    if (pOp == "=")
+        return pVal1.toDouble() == pVal2.toDouble();
+    else if (pOp == "≤" || pOp == "<=")
+        return pVal1.toDouble() <= pVal2.toDouble();
+    else if (pOp == "≥" || pOp == ">=")
+        return pVal1.toDouble() >= pVal2.toDouble();
+    else if (pOp == "≠" || pOp == "!=")
+        return pVal1.toDouble() != pVal2.toDouble();
+    else if (pOp == "<")
+        return pVal1.toDouble() < pVal2.toDouble();
+    else if (pOp == ">")
+        return pVal1.toDouble() > pVal2.toDouble();
+    else
+        return false;
 }
 
 void Execution::execution(int pDebut, int pFin) {
@@ -62,6 +85,14 @@ void Execution::execution(int pDebut, int pFin) {
                 execution(inst->getLigneDebut() + 1, inst->getLigneFin());
             }
             i = inst->getLigneFin();
+        } else if (inst->getTypeLigne() == Dictionnaire::TantQue) {
+            while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3))))
+                execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+            i = inst->getLigneFin();
+        } else if (inst->getTypeLigne() == Dictionnaire::Si) {
+            qDebug() << "-- Si --";
+            for (int j = 0; j < inst->getArgs()->length(); j++)
+                qDebug() << j << " : " << inst->getArgs()->at(j);
         }
     }
 }
