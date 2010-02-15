@@ -34,6 +34,8 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
     pChaine.replace("-", " - ");
     pChaine.replace("*", " * ");
     pChaine.replace("/", " / ");
+    pChaine.replace("(", "( ");
+    pChaine.replace(")", " )");
     for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++)
         pChaine.replace(QRegExp("(^|[\\(|\\+|\\*|\\/|\\-|\\)|\\s])("+ m_analyse->getGlossaire()->getListeVariables().at(i) +")([\\(|\\+|\\*|\\/|\\-|\\)|\\s]|$)"),m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
 
