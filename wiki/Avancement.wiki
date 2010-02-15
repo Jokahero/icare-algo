@@ -16,15 +16,15 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 *Traitement:*
 
   # _Ouvrir un fichier *|OK|*
-  # Analyse syntaxique_
-    * implémenter le dictionnaire *|Vincent|*
+  # Analyse syntaxique *|Ok|*_
+    * implémenter le dictionnaire *|Ok|*
     * récupérer les variables *|Ok|*
     * stocker les variables (Glossaire) *|Ok|*
-    * récupérer les instructions *|Clémence|*
-    * stocker les instructions
-    * Vérifier la syntaxe de chaque instruction 
-  # _Analyse mathématique *|Marc|*
-  # Analyse sémantique
+    * récupérer les instructions *|Ok|*
+    * stocker les instructions *|Ok|*
+    * Vérifier la syntaxe de chaque instruction *|Ok|*
+  # _Analyse mathématique *|Ok|*
+  # Analyse sémantique *|Ok|*
   # Execution_
     * implémenter les instructions
     * executer
@@ -33,10 +33,10 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
  
   # _Coloration syntaxique *|Ok|*
   # Affichage du glossaire *|Ok|*
-  # Menus_ *|Nicolas|*
-    * Principal
+  # Menus_ *|Ok|*
+    * Principal *|Ok|*
     * Analyse *|Ok|*
-    * Options 
-    * Aide
-  # Affichage des erreurs d'analyse *|Marc|*
+    * Options *|Ok|*
+    * Aide *|Ok|*
+  # Affichage des erreurs d'analyse *|Ok|*
  
