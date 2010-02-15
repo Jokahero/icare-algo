@@ -2,6 +2,7 @@
 
 #include "gestionnaireparametres.h"
 #include "recherche.h"
+#include "fenetresaisie.h"
 
 #include <QtCore/QFile>
 #include <QtCore/QString>
@@ -132,7 +133,7 @@ Window::Window() : QMainWindow() {
     m_barreMenu->addMenu(m_help);
 
     /* Definition de la barre de Menu de la fenêtre */
-    /* On ajoute la barre de menu à la fenêtre */
+    /* On ajoute la barre de menu �  la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -330,7 +331,7 @@ void Window::analyseSemantique() {
 }
 
 void Window::afficherApropos() {
-    /* Mise en place de la fenêtre d'à propos */
+    /* Mise en place de la fenêtre d'�  propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("A propos de Icare");
     m_fenApropos->show();
@@ -348,7 +349,7 @@ void Window::ouvrirFichier() {
 
 /*! \brief Ouverture d'un fichier.
   Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
-  \param pNomFichier Nom du fichier à ouvrir.
+  \param pNomFichier Nom du fichier �  ouvrir.
 */
 void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
@@ -576,6 +577,11 @@ void Window::documentModifie(bool pMod) {
     setWindowModified(pMod);
     m_enregistrer->setEnabled(pMod);
     m_documentModifie = pMod;
+}
+
+void Window::afficherFenSaisie() {
+    FenetreSaisie *fenSaisie = new FenetreSaisie();
+    fenSaisie->show();
 }
 
 WidgetPlugins* Window::getWPlugins() {

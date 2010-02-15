@@ -1,11 +1,13 @@
 #include "execution.h"
 #include "glossaire.h"
 #include "mathexp.h"
+#include "../Interface/fenetresaisie.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QStack>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtGui/QDialog>
 
 Execution::Execution(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -31,6 +33,8 @@ void Execution::lancer() {
                 emit afficher(tmp);
             } else
                 emit afficher(remplacementValeursVariables(inst->getArgs()->at(1)));
+        } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
+            m_analyse->emettreSaisie();
         }
     }
 
@@ -48,5 +52,4 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
     me->setExpression(pChaine);
 
     return QString::number(me->calcul());
-
 }
