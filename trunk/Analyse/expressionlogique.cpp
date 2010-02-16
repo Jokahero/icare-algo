@@ -1,5 +1,7 @@
 #include "expressionlogique.h"
 
+#include "mathexp.h"
+
 #include <QtCore/QString>
 
 
@@ -77,18 +79,24 @@ bool ExpressionLogique::calculRec(Arbre* pArbre) {
         return false;
 
     if (pArbre->getSag()->estFeuille()) {
+        MathExp* me = new MathExp();
+        me->setExpression(pArbre->getSag()->getContenu());
+        double g = me->calcul();
+        me->setExpression(pArbre->getSad()->getContenu());
+        double d = me->calcul();
+        delete me;
         if (pArbre->getContenu() == "<")
-            return (pArbre->getSag()->getContenu().toDouble() < pArbre->getSad()->getContenu().toDouble());
+            return (g < d);
         else if (pArbre->getContenu() == ">")
-            return (pArbre->getSag()->getContenu().toDouble() > pArbre->getSad()->getContenu().toDouble());
+            return (g > d);
         else if (pArbre->getContenu() == "=")
-            return (pArbre->getSag()->getContenu().toDouble() == pArbre->getSad()->getContenu().toDouble());
+            return (g == d);
         else if (pArbre->getContenu() == "≤" || pArbre->getContenu() == "<=")
-            return (pArbre->getSag()->getContenu().toDouble() <= pArbre->getSad()->getContenu().toDouble());
+            return (g <= d);
         else if (pArbre->getContenu() == "≥" || pArbre->getContenu() == ">=")
-            return (pArbre->getSag()->getContenu().toDouble() >= pArbre->getSad()->getContenu().toDouble());
+            return (g >= d);
         else if (pArbre->getContenu() == "≠" || pArbre->getContenu() == "!=")
-            return (pArbre->getSag()->getContenu().toDouble() != pArbre->getSad()->getContenu().toDouble());
+            return (g != d);
         else
             return false;
     } else {
