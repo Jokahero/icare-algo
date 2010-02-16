@@ -10,7 +10,6 @@
   Les priorités des opérations (+-×÷) sont respectées, ainsi que les parenthèses.
 */
 class MathExp : public QObject {
-
     Q_OBJECT
 
 public:
@@ -32,8 +31,8 @@ private:
 
     int moinsPrioritaire(QString pExpression);
 
-    QString m_expression;                       /*!<\brief Expression mathématique à calculer. */
-    Arbre* m_calcul;                            /*!<\brief Racine de l'arbre utilisé pour le calcul. */
+    QString m_expression;                       /*!< \brief Expression mathématique à calculer. */
+    Arbre* m_calcul;                            /*!< \brief Racine de l'arbre utilisé pour le calcul. */
 
 signals:
     void sigErreur(MathExp::erreur);

@@ -1,4 +1,6 @@
 #include "execution.h"
+
+#include "expressionlogique.h"
 #include "glossaire.h"
 #include "mathexp.h"
 #include "../Interface/fenetresaisie.h"
@@ -46,20 +48,12 @@ bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2) {
     pVal1 = pVal1.trimmed();
     pOp = pOp.trimmed();
     pVal2 = pVal2.trimmed();
-    if (pOp == "=")
-        return pVal1.toDouble() == pVal2.toDouble();
-    else if (pOp == "≤" || pOp == "<=")
-        return pVal1.toDouble() <= pVal2.toDouble();
-    else if (pOp == "≥" || pOp == ">=")
-        return pVal1.toDouble() >= pVal2.toDouble();
-    else if (pOp == "≠" || pOp == "!=")
-        return pVal1.toDouble() != pVal2.toDouble();
-    else if (pOp == "<")
-        return pVal1.toDouble() < pVal2.toDouble();
-    else if (pOp == ">")
-        return pVal1.toDouble() > pVal2.toDouble();
-    else
-        return false;
+
+    ExpressionLogique* tmp = new ExpressionLogique();
+    tmp->setExpression(pVal1 + pOp + pVal2);
+    bool res = tmp->resultat();
+    delete tmp;
+    return res;
 }
 
 void Execution::execution(int pDebut, int pFin) {
