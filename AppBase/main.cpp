@@ -46,8 +46,12 @@ int main(int argc, char *argv[]) {
     translator.load(QString("icare_") + locale);
     a.installTranslator(&translator);
     // Et de Qt
-    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a.installTranslator(&translator);
+    if (translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        a.installTranslator(&translator);
+    else {
+        translator.load(QString("qt_") + locale);
+        a.installTranslator(&translator);
+    }
 
     sp->showMessage(QObject::tr("Chargement des plugins…"));
     a.processEvents();

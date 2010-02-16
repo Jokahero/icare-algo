@@ -497,7 +497,7 @@ void Window::enregistrerFichier() {
 }
 
 void Window::enregistrerFichierSous() {
-    QString nomFichier = QFileDialog::getSaveFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
+    QString nomFichier = QFileDialog::getSaveFileName(this, tr("Enregistrer un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
     if (nomFichier == QString::null)
         return;
     m_fichier->setFileName(nomFichier);
