@@ -3,23 +3,27 @@
 
 #include <QtGui/QDialog>
 
-class QLabel;
-class QTextEdit;
 class QDialogButtonBox;
+class QLabel;
+class QLineEdit;
 
-class FenetreSaisie : public QDialog
-{
+class FenetreSaisie : public QDialog {
+    Q_OBJECT
+
 public:
     FenetreSaisie();
 
 private:
     QLabel *m_message;
-    QTextEdit *m_saisie;
+    QLineEdit *m_saisie;
     QDialogButtonBox *m_boutons;
 
 public slots:
     void accept();
+    void reject();
 
+signals:
+    void saisie(QString);
 };
 
 #endif // FENETRESAISIE_H
