@@ -26,6 +26,12 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
   # _Analyse mathématique *|Ok|*
   # Analyse sémantique *|Ok|*
   # Execution_
+    * structures de contrôles
+      * Si/Sinon/FinSi
+      * Pour/FinPour *|Ok|*
+      * TantQue/FinTantQue *|Ok|*
+      * Répéter/Jusqu'à
+      * Selon/Cas/FinSelon (Ajouter aux instructions une liste de lignes intermédiaires ?)
     * implémenter les instructions
     * executer
 
