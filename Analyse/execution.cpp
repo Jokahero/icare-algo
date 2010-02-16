@@ -28,16 +28,14 @@ void Execution::lancer() {
 }
 
 QString Execution::remplacementValeursVariables(QString pChaine) {
+    pChaine = pChaine.trimmed();
     pChaine.replace("×", "*");
     pChaine.replace("÷", "/");
-    pChaine.replace("+", " + ");
-    pChaine.replace("-", " - ");
-    pChaine.replace("*", " * ");
-    pChaine.replace("/", " / ");
-    pChaine.replace("(", "( ");
-    pChaine.replace(")", " )");
-    for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++)
-        pChaine.replace(QRegExp("(^|[\\(|\\+|\\*|\\/|\\-|\\)|\\s])("+ m_analyse->getGlossaire()->getListeVariables().at(i) +")([\\(|\\+|\\*|\\/|\\-|\\)|\\s]|$)"),m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
+    for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++) {
+        QRegExp rx(".*(?:^|\\W)(" + m_analyse->getGlossaire()->getListeVariables().at(i) + ")(?:\\W|$).*");
+        while (rx.exactMatch(pChaine))
+            pChaine.replace(rx.pos(1), rx.cap(1).length(), m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
+    }
 
     MathExp* me = new MathExp();
     me->setExpression(pChaine);
@@ -82,7 +80,7 @@ void Execution::execution(int pDebut, int pFin) {
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
             m_analyse->emettreSaisie();
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
-            for (int j = remplacementValeursVariables(inst->getArgs()->at(2)).toInt(); j < remplacementValeursVariables(inst->getArgs()->at(3)).toInt(); j++) {
+            for (int j = remplacementValeursVariables(inst->getArgs()->at(2)).toInt(); j <= remplacementValeursVariables(inst->getArgs()->at(3)).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
                 execution(inst->getLigneDebut() + 1, inst->getLigneFin());
             }
