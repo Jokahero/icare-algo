@@ -91,6 +91,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), Analyse::getInstance(), SLOT(destroy()));
     QObject::connect(Analyse::getInstance(), SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
+    QObject::connect(fenetre, SIGNAL(sigSaisie(QString)), Analyse::getInstance(), SLOT(transmettreSaisie(QString)));
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {

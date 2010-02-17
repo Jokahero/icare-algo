@@ -20,6 +20,7 @@ class QFile;
 class QStatusBar;
 class QString;
 class Recherche;
+class FenetreSaisie;
 
 /*! \brief Fenêtre principale
   */
@@ -77,6 +78,7 @@ private:
     Preferences *m_pref;
     WidgetPlugins *m_wPlugins;
     Recherche *m_fenRecherche;
+    FenetreSaisie *m_fenSaisie;
 
     QToolBar *m_barreOutilsTests;
     QToolBar *m_barreOutilsEdition;
@@ -91,39 +93,24 @@ private:
 
 public slots:
     void erreurMath(MathExp::erreur);
-
     void analyseSyntaxique();
-
     void analyseSemantique();
-
     void execution();
-
     void afficherApropos();
-
     void ouvrirFichier();
-
     void ouvrirFichier(QString pNomFichier);
-
     void afficherPreferences();
-
     void afficherMenuPlugins();
-
     void enregistrerFichier();
     void enregistrerFichierSous();
-
     void nouveauFichier();
-
     void imprimerFichier();
-
     void showMessage(const QString& pMessage, int pTimeout = 0);
-
     void rechargerPreferences();
-
     void changementLigne(int pNumLigne);
-
     void documentModifie(bool pMod);
-
     void afficherFenSaisie();
+    void transmettreSaisie(QString pSaisie);
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);
@@ -131,5 +118,6 @@ signals:
     void executer();
     void reloadSettings();
     void sigChangementLigne(int pNumLigne);
+    void sigSaisie(QString pSaisie);
 };
 #endif // WINDOW_H
