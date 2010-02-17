@@ -48,11 +48,13 @@ bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2) {
     pVal1 = pVal1.trimmed();
     pOp = pOp.trimmed();
     pVal2 = pVal2.trimmed();
+    qDebug() << "pVal1 : " << pVal1 << " - pOp : " << pOp << " - pVal2 : " << pVal2;
 
     ExpressionLogique* tmp = new ExpressionLogique();
     tmp->setExpression(pVal1 + pOp + pVal2);
     bool res = tmp->resultat();
     delete tmp;
+    qDebug() << res;
     return res;
 }
 
@@ -85,8 +87,16 @@ void Execution::execution(int pDebut, int pFin) {
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::Si) {
             qDebug() << "-- Si --";
-            for (int j = 0; j < inst->getArgs()->length(); j++)
-                qDebug() << j << " : " << inst->getArgs()->at(j);
+            if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3)))) {
+                if (inst->getLigneMilieu() >= 0)
+                    execution(inst->getLigneDebut() + 1, inst->getLigneMilieu());
+                else
+                    execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+            } else {
+                if (inst->getLigneMilieu() >= 0)
+                    execution(inst->getLigneMilieu() + 1, inst->getLigneFin());
+            }
+            i = inst->getLigneFin();
         }
     }
 }

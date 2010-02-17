@@ -21,7 +21,6 @@ void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique terminée.";
 }
 
-// TODO : numéro de ligne à la fin
 void AnalyseSemantique::verifStruct() {
     for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
         Dictionnaire::typeLigne type = m_analyse->getListeInstruction()->at(i)->getTypeLigne();
@@ -37,15 +36,26 @@ void AnalyseSemantique::verifStruct() {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
 
         } else if (type == Dictionnaire::FinSi) {
-            if (m_pileStructureControle->top() == Dictionnaire::Si)
+            if (m_pileStructureControle->top() == Dictionnaire::Si) {
                 pop(i);
-            else
+                if (m_analyse->getListeInstruction()->at(m_analyse->getListeInstruction()->at(i)->getLigneDebut())->getLigneMilieu() >= 0) {
+                    int ligneSi = m_analyse->getListeInstruction()->at(i)->getLigneDebut();
+                    int ligneSinon = m_analyse->getListeInstruction()->at(ligneSi)->getLigneMilieu();
+                    int ligneFinSi = i;
+                    m_analyse->getListeInstruction()->at(ligneFinSi)->setLigneMilieu(ligneSinon);
+                    m_analyse->getListeInstruction()->at(ligneSinon)->setLigneFin(ligneFinSi);
+                }
+            } else
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
 
         } else if (type == Dictionnaire::Sinon) {
             if (m_pileStructureControle->top() != Dictionnaire::Si)
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-
+            else {
+                m_analyse->getListeInstruction()->at(m_pilePosition->top())->setLigneMilieu(i);
+                m_analyse->getListeInstruction()->at(i)->setLigneDebut(m_pilePosition->top());
+                m_analyse->getListeInstruction()->at(i)->setLigneMilieu(i);
+            }
         } else if (type == Dictionnaire::FinTantQue){
             if (m_pileStructureControle->top() == Dictionnaire::TantQue)
                 pop(i);
