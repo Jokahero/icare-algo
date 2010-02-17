@@ -15,6 +15,8 @@ private slots:
     void testArbre();
     void testMathExp();
     void testMathExp_data();
+    void testExpressionLogique();
+    void testExpressionLogique_data();
     void cleanupTestCase();
 };
 

@@ -2,6 +2,7 @@
 
 #include "../analyse.h"
 #include "../arbre.h"
+#include "../expressionlogique.h"
 #include "../glossaire.h"
 #include "../mathexp.h"
 
@@ -77,6 +78,28 @@ void Analyse_tests::testMathExp_data() {
     QTest::newRow("Parenthèses/Priorités") << "2+(3+(1+1)*1)" << (double)7;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1)+1)" << (double)9;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1*(3-1))+1)" << (double)12;
+}
+
+void Analyse_tests::testExpressionLogique() {
+    ExpressionLogique* e = new ExpressionLogique();
+
+    QFETCH(QString, exp);
+    QFETCH(bool, result);
+
+    e->setExpression(exp);
+    QCOMPARE(e->resultat(), result);
+
+    delete e;
+}
+
+void Analyse_tests::testExpressionLogique_data() {
+    QTest::addColumn<QString>("exp");
+    QTest::addColumn<bool>("result");
+
+    QTest::newRow("=") << "1=1" << true;
+    QTest::newRow("!=") << "1!=1" << false;
+    QTest::newRow("≠") << "1≠1" << false;
+    QTest::newRow("Expressions mathématiques") << "3+1=4" << true;
 }
 
 QTEST_MAIN(Analyse_tests)
