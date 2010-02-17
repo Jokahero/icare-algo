@@ -40,6 +40,9 @@ void WidgetExecErrorsTab::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) 
     case Analyse::Syntaxe:
         m_liste->addItem(tr("Ligne %1 : Erreur de syntaxe").arg(QString::number(pNumLigne)));
         break;
+    case Analyse::Struct:
+        m_liste->addItem(tr("Ligne %1 : Structures de contrôles mal imbriquées/non fermées").arg(QString::number(pNumLigne)));
+        break;
     default:
         m_liste->addItem(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)));
         break;

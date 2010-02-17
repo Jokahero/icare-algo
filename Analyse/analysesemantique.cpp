@@ -76,10 +76,8 @@ void AnalyseSemantique::verifStruct() {
         }
     }
 
-    if (!m_pileStructureControle->empty()) {
-        emit erreur(Analyse::Struct, 42);
+    if (!m_pileStructureControle->empty())
         m_pileStructureControle->resize(0);
-    }
 }
 
 void AnalyseSemantique::pop(int i) {
