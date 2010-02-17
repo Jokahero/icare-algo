@@ -2,11 +2,12 @@
 
 #include <QtCore/QStringList>
 
-Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin) {
+Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin, int pLigneMilieu) {
     m_numLigne = pNumLigne;
     m_ligne = pLigne;
     m_typeLigne = pTypeLigne;
     m_ligneDebut = pLigneDebut;
+    m_ligneMilieu = pLigneMilieu;
     m_ligneFin = pLigneFin;
     m_args = pListeArgs;
 }
@@ -57,4 +58,12 @@ void Instruction::setLigneDebut(int pLigne) {
 
 void Instruction::setLigneFin(int pLigne) {
     m_ligneFin = pLigne;
+}
+
+void Instruction::setLigneMilieu(int pLigne) {
+    m_ligneMilieu = pLigne;
+}
+
+int Instruction::getLigneMilieu() {
+    return m_ligneMilieu;
 }

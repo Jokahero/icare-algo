@@ -7,7 +7,7 @@
 
 class Instruction {
 public:
-    Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs = 0, int pLigneDebut = -1, int pLigneFin = -1);
+    Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs = 0, int pLigneDebut = -1, int pLigneFin = -1, int pLigneMilieu = -1);
     ~Instruction();
 
     void setLigne(QString pLigne);
@@ -18,8 +18,10 @@ public:
     void setTypeLigne(Dictionnaire::typeLigne pTypeLigne);
     QStringList* getArgs();
     int getLigneDebut();
+    int getLigneMilieu();
     int getLigneFin();
     void setLigneDebut(int pLigne);
+    void setLigneMilieu(int pLigne);
     void setLigneFin(int pLigne);
 
 private:
@@ -27,6 +29,7 @@ private:
     int m_numLigne;
     Dictionnaire::typeLigne m_typeLigne;
     int m_ligneDebut;
+    int m_ligneMilieu;
     int m_ligneFin;
     QStringList* m_args;
 };
