@@ -37,7 +37,7 @@ public:
 
     enum erreur {
         VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
-        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
+        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déj�  été déclarée. */
         TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
         Syntaxe,                    /*!< Une erreur de syntaxe a été trouvée. */
         Struct,                     /*!< Une structure de contrôle n'a pas été formée correctement. */
@@ -47,6 +47,7 @@ public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
     void lancerAnalyseSemantique();
     void lancerExecution();
+    void transmettreSaisie(QString pSaisie);
 
     void destroy();
 
@@ -55,6 +56,7 @@ signals:
     void sigLancerAnalyseSemantique();
     void sigLancerExecution();
     void sigSaisir();
+    void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
     void sigAfficher(QString pChaine);
 

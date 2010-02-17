@@ -19,6 +19,8 @@ private:
     Analyse* m_analyse;
 
     QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
+    QString m_saisie;
+    bool m_modifie;
 
     QString remplacementValeursVariables(QString pChaine);
     bool evaluationCondition(QString pVal1, QString pOp, QString pVal2);
@@ -27,6 +29,7 @@ private:
 
 public slots:
     void lancer();
+    void enregistrerSaisie(QString pSaisie);
 
 signals:
     void terminee();

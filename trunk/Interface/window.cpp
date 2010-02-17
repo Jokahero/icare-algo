@@ -18,6 +18,8 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 
+#include <QtCore/QDebug>
+
 /*! \brief Constructeur. Initialise la fenêtre principale.
 */
 Window::Window() : QMainWindow() {
@@ -133,7 +135,7 @@ Window::Window() : QMainWindow() {
     m_barreMenu->addMenu(m_help);
 
     /* Definition de la barre de Menu de la fenêtre */
-    /* On ajoute la barre de menu à la fenêtre */
+    /* On ajoute la barre de menu �  la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -331,7 +333,7 @@ void Window::analyseSemantique() {
 }
 
 void Window::afficherApropos() {
-    /* Mise en place de la fenêtre d'à propos */
+    /* Mise en place de la fenêtre d'�  propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("À propos de Icare");
     m_fenApropos->show();
@@ -349,7 +351,7 @@ void Window::ouvrirFichier() {
 
 /*! \brief Ouverture d'un fichier.
   Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
-  \param pNomFichier Nom du fichier à ouvrir.
+  \param pNomFichier Nom du fichier �  ouvrir.
 */
 void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
@@ -580,8 +582,15 @@ void Window::documentModifie(bool pMod) {
 }
 
 void Window::afficherFenSaisie() {
-    FenetreSaisie *fenSaisie = new FenetreSaisie();
-    fenSaisie->show();
+    m_fenSaisie = new FenetreSaisie();
+    connect(m_fenSaisie, SIGNAL(saisie(QString)), this, SLOT(transmettreSaisie(QString)));
+    m_fenSaisie->show();
+}
+
+void Window::transmettreSaisie(QString pSaisie) {
+    qDebug() << "Window::transmettreSaisie Avant emit";
+    emit sigSaisie(pSaisie);
+    qDebug() << "Window::transmettreSaisie Apres emit";
 }
 
 WidgetPlugins* Window::getWPlugins() {

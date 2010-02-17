@@ -14,6 +14,7 @@
 Execution::Execution(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
     m_pileStructureControle = new QStack<Dictionnaire::typeLigne>();
+    m_modifie = false;
 }
 
 Execution::~Execution() {
@@ -75,6 +76,9 @@ void Execution::execution(int pDebut, int pFin) {
                 emit afficher(remplacementValeursVariables(inst->getArgs()->at(1)));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
             m_analyse->emettreSaisie();
+            if(m_modifie = true) {
+                m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
+            }
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
             for (int j = remplacementValeursVariables(inst->getArgs()->at(2)).toInt(); j <= remplacementValeursVariables(inst->getArgs()->at(3)).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
@@ -99,4 +103,9 @@ void Execution::execution(int pDebut, int pFin) {
             i = inst->getLigneFin();
         }
     }
+}
+
+void Execution::enregistrerSaisie(QString pSaisie) {
+    m_saisie = pSaisie;
+    m_modifie = true;
 }

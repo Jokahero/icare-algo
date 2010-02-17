@@ -39,6 +39,7 @@ Analyse::Analyse() {
     connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_exec, SIGNAL(afficher(QString)), this, SIGNAL(sigAfficher(QString)));
+    connect(this, SIGNAL(sigSaisie(QString)), m_exec, SLOT(enregistrerSaisie(QString)));
 }
 
 Analyse::~Analyse() {
@@ -73,6 +74,10 @@ void Analyse::emettreSaisie() {
     emit sigSaisir();
 }
 
+void Analyse::transmettreSaisie(QString pSaisie) {
+    emit sigSaisie(pSaisie);
+}
+
 void Analyse::setDebutGlossaire(int pNumLigne) {
     m_debutGlossaire = pNumLigne;
 }
@@ -104,3 +109,4 @@ int Analyse::getDebutAlgo() {
 int Analyse::getFinAlgo() {
     return m_finAlgo;
 }
+
