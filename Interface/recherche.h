@@ -1,13 +1,13 @@
 #ifndef RECHERCHE_H
 #define RECHERCHE_H
 
-#include <QtGui/QWidget>
+#include <QtGui/QDialog>
 
 class QLabel;
 class QLineEdit;
 class QPushButton;
 
-class Recherche : public QWidget {
+class Recherche : public QDialog {
     Q_OBJECT
 
 public:
