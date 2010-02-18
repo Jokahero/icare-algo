@@ -37,7 +37,8 @@ public:
 
     enum erreur {
         VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
-        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déj�  été déclarée. */
+        VariableDejaDeclaree,       /*!< Lors de l'ajout d'une variable, une variable portant le même nom a déjà été déclarée. */
+        VariableNonInitialisee,     /*!< La variable demandée n'a pas été initialisée. */
         TypeIncorrect,              /*!< La variable a été déclarée avec un type différent. */
         Syntaxe,                    /*!< Une erreur de syntaxe a été trouvée. */
         Struct,                     /*!< Une structure de contrôle n'a pas été formée correctement. */
@@ -66,7 +67,7 @@ private:
     ~Analyse();
 
     QList<Instruction*>* m_listeInstruction;        /*!<\brief Liste des instructions extraites du code. */
-    Glossaire* m_glossaire;                         /*!<\brief Glossaire oÃ¹ sont stockées les variables. */
+    Glossaire* m_glossaire;                         /*!<\brief Glossaire où sont stockées les variables. */
     AnalyseSyntaxique* m_analyseSyntaxique;         /*!<\brief Analyseur syntaxique. */
     AnalyseSemantique* m_analyseSemantique;         /*!<\brief Analyseur sémantique. */
     Execution* m_exec;                              /*!<\brief Exécution. */
