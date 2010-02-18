@@ -7,8 +7,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
 
-Recherche::Recherche(QWidget *parent) : QWidget(parent) {
-    setWindowFlags(Qt::Dialog);
+Recherche::Recherche(QWidget *parent) : QDialog(parent) {
     m_rechercherLa = new QLabel(tr("Rechercher : "));
     m_rechercherLe = new QLineEdit;
     m_remplacerLa = new QLabel(tr("Remplacer : "));
