@@ -24,6 +24,7 @@ double MathExp::calcul() {
 }
 
 Arbre* MathExp::parseExp(QString pExpression) {
+    pExpression = pExpression.simplified();
     if (pExpression == QString::null)
         return NULL;
     Arbre* t = new Arbre();
@@ -36,7 +37,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
 
     // Test de l'utilité des parenthèses : (1+1) → 1+1
     if (pExpression.left(1) == "(" && pExpression.right(1) == ")") {
-        int i, cpt = 0;
+        int i, cpt = 1;
         for (i = 1; i < pExpression.length() && cpt > 0; i++) {
             if (pExpression.at(i) == '(')
                 cpt++;
@@ -44,7 +45,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
                 cpt--;
         }
 
-        if (i < pExpression.length() && cpt == 0) {
+        if (i == pExpression.length() && cpt == 0) {
             pExpression = pExpression.left(pExpression.length() - 1);
             pExpression = pExpression.right(pExpression.length() - 1);
             return parseExp(pExpression);
@@ -59,7 +60,6 @@ Arbre* MathExp::parseExp(QString pExpression) {
         t->setSag(parseExp(pExpression.left(rang)));
         t->setSad(parseExp(pExpression.right(pExpression.length() - rang - 1)));
     }
-
 
     return t;
 }

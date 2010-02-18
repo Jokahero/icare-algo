@@ -79,7 +79,7 @@ void Analyse_tests::testMathExp_data() {
     QTest::newRow("Parenthèses/Priorités") << "2+(3+(1+1)*1)" << (double)7;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1)+1)" << (double)9;
     QTest::newRow("Parenthèses/Priorités") << "2+(3*(1+1*(3-1))+1)" << (double)12;
-    QTest::newRow("Nombres négatifs") << "(0 - 5) + 1" << (double)-4;
+    QTest::newRow("Nombres négatifs") << "-5 + 1" << (double)-4;
     for (int i = -5; i < 50; i++)
         QTest::newRow("") << QString::number(i*i) + " - (" + QString::number(i) + ") * (" + QString::number(i) + ")" << (double)0;
 }
@@ -126,6 +126,7 @@ void Analyse_tests::testExpressionLogique_data() {
     QTest::newRow("≤") << "1 ≤ 2" << true;
     QTest::newRow("≤") << "2 ≤ 1" << false;
     QTest::newRow("≤") << "2 ≤ 2" << true;
+    QTest::newRow("Parenthèses") << "(2 = 2) || (3 ≠ 3)" << true;
     QTest::newRow("Expressions mathématiques") << "3 + 1 != 4" << false;
     QTest::newRow("Expressions mathématiques") << "3 + 1 = 4" << true;
 }
