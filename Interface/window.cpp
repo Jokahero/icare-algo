@@ -135,7 +135,7 @@ Window::Window() : QMainWindow() {
     m_barreMenu->addMenu(m_help);
 
     /* Definition de la barre de Menu de la fenêtre */
-    /* On ajoute la barre de menu �  la fenêtre */
+    /* On ajoute la barre de menu Ã  la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -333,14 +333,14 @@ void Window::analyseSemantique() {
 }
 
 void Window::afficherApropos() {
-    /* Mise en place de la fenêtre d'�  propos */
+    /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("À propos de Icare");
     m_fenApropos->show();
 }
 
 /*! \brief Ouverture d'un fichier.
-  Cette fonction sans paramètre ouvre une boÃ®te de dialogue permettant d'ouvrir un fichier existant
+  Cette fonction sans paramètre ouvre une boÃÂ®te de dialogue permettant d'ouvrir un fichier existant
   et d'insérer son contenu dans la zone de texte.
 */
 void Window::ouvrirFichier() {
@@ -351,7 +351,7 @@ void Window::ouvrirFichier() {
 
 /*! \brief Ouverture d'un fichier.
   Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
-  \param pNomFichier Nom du fichier �  ouvrir.
+  \param pNomFichier Nom du fichier Ã  ouvrir.
 */
 void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
@@ -588,9 +588,7 @@ void Window::afficherFenSaisie() {
 }
 
 void Window::transmettreSaisie(QString pSaisie) {
-    qDebug() << "Window::transmettreSaisie Avant emit";
     emit sigSaisie(pSaisie);
-    qDebug() << "Window::transmettreSaisie Apres emit";
 }
 
 WidgetPlugins* Window::getWPlugins() {
