@@ -27,6 +27,8 @@ private:
 
     void execution(int pDebut = 0, int pFin = -1);
 
+    void waitForSignal();
+
 public slots:
     void lancer();
     void enregistrerSaisie(QString pSaisie);

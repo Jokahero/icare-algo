@@ -1,4 +1,5 @@
 #include "fenetresaisie.h"
+
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QDialogButtonBox>
@@ -28,6 +29,7 @@ void FenetreSaisie::accept() {
     emit saisie(m_saisie->text());
     QDialog::accept();
 }
-
+/*! \brief On redéfini la méthode reject pour qu'elle ne fasse rien afin que l'on ne puisse pas annuler une saisie
+  */
 void FenetreSaisie::reject() {
 }
