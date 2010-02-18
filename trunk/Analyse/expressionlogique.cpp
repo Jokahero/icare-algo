@@ -30,10 +30,10 @@ bool ExpressionLogique::resultat() {
 }
 
 Arbre* ExpressionLogique::parseExp(QString pExpression) {
+    pExpression = pExpression.simplified();
     if (pExpression == QString::null)
         return NULL;
     Arbre* t = new Arbre();
-    pExpression = pExpression.trimmed();
 
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
@@ -90,11 +90,11 @@ bool ExpressionLogique::calculRec(Arbre* pArbre) {
             return (g > d);
         else if (pArbre->getContenu() == "=")
             return (g == d);
-        else if (pArbre->getContenu() == "≤" || pArbre->getContenu() == "<=")
+        else if (pArbre->getContenu() == QString(QChar(0x2264)) || pArbre->getContenu() == "<=")
             return (g <= d);
-        else if (pArbre->getContenu() == "≥" || pArbre->getContenu() == ">=")
+        else if (pArbre->getContenu() == QString(QChar(0x2265)) || pArbre->getContenu() == ">=")
             return (g >= d);
-        else if (pArbre->getContenu() == "≠" || pArbre->getContenu() == "!=")
+        else if (pArbre->getContenu() == QString(QChar(0x2260)) || pArbre->getContenu() == "!=")
             return (g != d);
         else
             return false;
@@ -105,7 +105,7 @@ bool ExpressionLogique::calculRec(Arbre* pArbre) {
             return calculRec(pArbre->getSag()) && calculRec(pArbre->getSad());
         else if (pArbre->getContenu() == "=")
             return calculRec(pArbre->getSag()) == calculRec(pArbre->getSad());
-        else if (pArbre->getContenu() == "≠" || pArbre->getContenu() == "!=")
+        else if (pArbre->getContenu() == QString(QChar(0x2260)) || pArbre->getContenu() == "!=")
             return calculRec(pArbre->getSag()) != calculRec(pArbre->getSad());
         else
             return false;
@@ -153,15 +153,15 @@ int ExpressionLogique::moinsPrioritaire(QString pExpression, int* pTaille) {
         return pExpression.indexOf('>');
     else if (pExpression.contains('='))
         return pExpression.indexOf('=');
-    else if (pExpression.contains("≤")) {
-        *pTaille = QString("≤").length();
-        return pExpression.indexOf("≤");
-    } else if (pExpression.contains("≥")) {
-        *pTaille = QString("≥").length();
-        return pExpression.indexOf("≥");
-    } else if (pExpression.contains("≠")) {
-        *pTaille = QString("≠").length();
-        return pExpression.indexOf("≠");
+    else if (pExpression.contains(QString(QChar(0x2264)))) {    // ≤
+        *pTaille = QString(QChar(0x2264)).length();
+        return pExpression.indexOf(QString(QChar(0x2264)));
+    } else if (pExpression.contains(QString(QChar(0x2265)))) {  // ≥
+        *pTaille = QString(QString(QChar(0x2265))).length();
+        return pExpression.indexOf(QString(QChar(0x2265)));
+    } else if (pExpression.contains(QString(QChar(0x2260)))) {  // ≠
+        *pTaille = QString(QChar(0x2260)).length();
+        return pExpression.indexOf(QString(QChar(0x2260)));
     } else
         return -1;
 }
