@@ -135,7 +135,7 @@ Window::Window() : QMainWindow() {
     m_barreMenu->addMenu(m_help);
 
     /* Definition de la barre de Menu de la fenêtre */
-    /* On ajoute la barre de menu Ã  la fenêtre */
+    /* On ajoute la barre de menu à la fenêtre */
     setMenuBar(m_barreMenu);
 
     /* Mise en place du Widget principal */
@@ -340,7 +340,7 @@ void Window::afficherApropos() {
 }
 
 /*! \brief Ouverture d'un fichier.
-  Cette fonction sans paramètre ouvre une boÃÂ®te de dialogue permettant d'ouvrir un fichier existant
+  Cette fonction sans paramètre ouvre une boîte de dialogue permettant d'ouvrir un fichier existant
   et d'insérer son contenu dans la zone de texte.
 */
 void Window::ouvrirFichier() {
@@ -351,7 +351,7 @@ void Window::ouvrirFichier() {
 
 /*! \brief Ouverture d'un fichier.
   Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
-  \param pNomFichier Nom du fichier Ã  ouvrir.
+  \param pNomFichier Nom du fichier à ouvrir.
 */
 void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
