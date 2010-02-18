@@ -39,10 +39,11 @@ public:
 
 
 private:
-    QHash<QString, int>* m_listeEntier;                      /*!<\brief Stocke les variables entieres. */
-    QHash<QString, QString>* m_listeChaine;                  /*!<\brief Stocke les chaines de caracteres. */
-    QHash<QString, double>* m_listeReel;                     /*!<\brief Stocke les variables a virgules. */
-    QHash<QString, QString>* m_description;                  /*!<\brief Stocke les descriptions de toutes les variables. */
+    QHash<QString, int>* m_listeEntier;                      /*! < \brief Stocke les variables entieres. */
+    QHash<QString, QString>* m_listeChaine;                  /*! < \brief Stocke les chaines de caracteres. */
+    QHash<QString, double>* m_listeReel;                     /*! < \brief Stocke les variables a virgules. */
+    QHash<QString, QString>* m_description;                  /*! < \brief Stocke les descriptions de toutes les variables. */
+    QHash<QString, bool>* m_initialisations;                 /*! < \brief Stocke l'état d'initialisation des variables. */
 
 signals:
     void erreur(Analyse::erreur pErreur, int pNumLigne = 0);

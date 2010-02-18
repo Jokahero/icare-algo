@@ -10,6 +10,7 @@ Glossaire::Glossaire() {
     m_listeChaine = new QHash<QString, QString>;
     m_listeReel = new QHash<QString, double>;
     m_description = new QHash<QString, QString>;
+    m_initialisations = new QHash<QString, bool>;
 }
 
 Glossaire::~Glossaire() {
@@ -17,6 +18,7 @@ Glossaire::~Glossaire() {
     delete m_listeChaine;
     delete m_listeReel;
     delete m_description;
+    delete m_initialisations;
 }
 
 
@@ -47,6 +49,7 @@ bool Glossaire::ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne
     }
     m_listeEntier->insert(pNomVar, 0);
     m_description->insert(pNomVar, pDescription);
+    m_initialisations->insert(pNomVar, false);
     emit variableAjoutee(pNomVar, "Entier", pDescription);
     return true;
 }
@@ -65,6 +68,7 @@ bool Glossaire::ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne
     }
     m_listeChaine->insert(pNomVar, QString::null);
     m_description->insert(pNomVar, pDescription);
+    m_initialisations->insert(pNomVar, false);
     emit variableAjoutee(pNomVar, "Chaîne", pDescription);
     return true;
 }
@@ -83,6 +87,7 @@ bool Glossaire::ajoutReel(QString pNomVar, QString pDescription, int pNumLigne) 
     }
     m_listeReel->insert(pNomVar, 0);
     m_description->insert(pNomVar, pDescription);
+    m_initialisations->insert(pNomVar, false);
     emit variableAjoutee(pNomVar, "Réel", pDescription);
     return true;
 }
@@ -99,6 +104,9 @@ int Glossaire::getValeurEntier(QString pNomVar) {
         return 0;
     } else if (!m_listeEntier->contains(pNomVar)) {
         emit(erreur(Analyse::TypeIncorrect));
+        return 0;
+    } else if (!m_initialisations->value(pNomVar)) {
+        emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
         return m_listeEntier->value(pNomVar);
@@ -117,6 +125,9 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
     } else if (!m_listeChaine->contains(pNomVar)) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
+    } else if (!m_initialisations->value(pNomVar)) {
+        emit(erreur(Analyse::VariableNonInitialisee));
+        return 0;
     } else
         return m_listeChaine->value(pNomVar);
 }
@@ -134,6 +145,9 @@ double Glossaire::getValeurReel(QString pNomVar) {
     } else if (!m_listeReel->contains(pNomVar)) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
+    } else if (!m_initialisations->value(pNomVar)) {
+        emit(erreur(Analyse::VariableNonInitialisee));
+        return 0;
     } else
         return m_listeReel->value(pNomVar);
 }
@@ -148,6 +162,9 @@ QString Glossaire::getValeur(QString pNomVar) {
     if (!existe(pNomVar)) {
         emit(erreur(Analyse::VariableNonDeclaree));
         return QString::null;
+    } else if (!m_initialisations->value(pNomVar)) {
+        emit(erreur(Analyse::VariableNonInitialisee));
+        return 0;
     } else if (m_listeEntier->contains(pNomVar))
         return QString::number((*m_listeEntier)[pNomVar]);
     else if (m_listeChaine->contains(pNomVar))
@@ -166,8 +183,9 @@ QString Glossaire::getValeur(QString pNomVar) {
 */
 void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
     if (m_listeEntier->contains(pNomVar)) {
-        emit variableModifiee(pNomVar, QString::number(pValeur));
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeEntier)[pNomVar] = pValeur;
+        emit variableModifiee(pNomVar, QString::number(pValeur));
     } else if (existe(pNomVar))
         emit(erreur(Analyse::TypeIncorrect));
     else
@@ -182,8 +200,9 @@ void Glossaire::setValeurEntier(QString pNomVar, int pValeur) {
 */
 void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
     if (m_listeChaine->contains(pNomVar)) {
-        emit variableModifiee(pNomVar, pValeur);
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeChaine)[pNomVar] = pValeur;
+        emit variableModifiee(pNomVar, pValeur);
     } else if (existe(pNomVar))
         emit(erreur(Analyse::TypeIncorrect));
     else
@@ -198,8 +217,9 @@ void Glossaire::setValeurChaine(QString pNomVar, QString pValeur) {
 */
 void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
     if (m_listeReel->contains(pNomVar)) {
-        emit variableModifiee(pNomVar, QString::number(pValeur));
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeReel)[pNomVar] = pValeur;
+        emit variableModifiee(pNomVar, QString::number(pValeur));
     } else if (existe(pNomVar))
         emit(erreur(Analyse::TypeIncorrect));
     else
@@ -214,8 +234,9 @@ void Glossaire::setValeurReel(QString pNomVar, double pValeur) {
 */
 void Glossaire::setValeur(QString pNomVar, QString pValeur) {
     if (m_listeEntier->contains(pNomVar)) {
-        emit variableModifiee(pNomVar, pValeur);
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeEntier)[pNomVar] = pValeur.toInt();
+        emit variableModifiee(pNomVar, pValeur);
     } else if (m_listeChaine->contains(pNomVar)) {
         emit variableModifiee(pNomVar, pValeur);
         (*m_listeChaine)[pNomVar] = pValeur;
@@ -243,5 +264,6 @@ void Glossaire::reinit() {
     m_listeReel->clear();
     m_listeChaine->clear();
     m_description->clear();
+    m_initialisations->clear();
     emit sigReinit();
 }
