@@ -111,7 +111,7 @@ bool AnalyseSemantique::verifInitialisations() {
 
     for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
         Instruction* inst = m_analyse->getListeInstruction()->at(i);
-        if (inst->getTypeLigne() == Dictionnaire::Affectation || inst->getTypeLigne() == Dictionnaire::Saisir)
+        if (inst->getTypeLigne() == Dictionnaire::Affectation || inst->getTypeLigne() == Dictionnaire::Saisir || inst->getTypeLigne() == Dictionnaire::Pour)
             m_listeVariables->append(inst->getArgs()->at(1));
 
         // Suppression des chaînes
