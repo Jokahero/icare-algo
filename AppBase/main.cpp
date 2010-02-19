@@ -53,11 +53,12 @@ int main(int argc, char *argv[]) {
         a.installTranslator(&translator);
     }
 
+    sp->showMessage(QObject::tr("Chargement des modules…"));
+    Analyse *analyse = Analyse::getInstance();
+    Window *fenetre = new Window();
+
     sp->showMessage(QObject::tr("Chargement des plugins…"));
     a.processEvents();
-
-    // Création des différents modules
-    Window *fenetre = new Window();
 
     GestionnairePlugins *g = fenetre->getWPlugins()->getGestionnairePlugins();
     QList<PluginInterface*> liste = g->getListePluginsDispo();
@@ -74,26 +75,26 @@ int main(int argc, char *argv[]) {
 
     // Connects des plugins
     for (int i = 0; i < g->getListePlugins().size(); i++) {
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g->getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g->getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
-        QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
-        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
-        QObject::connect(Analyse::getInstance(), SIGNAL(sigErreurMathematique(MathExp::erreur)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
+        QObject::connect(analyse->getGlossaire(), SIGNAL(variableAjoutee(QString, QString, QString)), g->getListePlugins().at(i), SLOT(variableAjoutee(QString, QString, QString)));
+        QObject::connect(analyse->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g->getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
+        QObject::connect(analyse->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
+        QObject::connect(analyse, SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
+        QObject::connect(analyse, SIGNAL(sigErreurMathematique(MathExp::erreur)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
         QObject::connect(fenetre, SIGNAL(executer()), g->getListePlugins().at(i), SLOT(lancerExecution()));
-        QObject::connect(Analyse::getInstance(), SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
+        QObject::connect(analyse, SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
         QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
     }
 
     // Connects des modules
-    QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), Analyse::getInstance(), SLOT(lancerAnalyseSyntaxique(QFile*)));
-    QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), Analyse::getInstance(), SLOT(lancerAnalyseSemantique()));
-    QObject::connect(fenetre, SIGNAL(executer()), Analyse::getInstance(), SLOT(lancerExecution()));
-    //QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
+    QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), analyse, SLOT(lancerAnalyseSyntaxique(QFile*)));
+    QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), analyse, SLOT(lancerAnalyseSemantique()));
+    QObject::connect(fenetre, SIGNAL(executer()), analyse, SLOT(lancerExecution()));
+    //QObject::connect(analyse->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
-    QObject::connect(qApp, SIGNAL(aboutToQuit()), Analyse::getInstance(), SLOT(destroy()));
-    QObject::connect(Analyse::getInstance(), SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
-    QObject::connect(fenetre, SIGNAL(sigSaisie(QString)), Analyse::getInstance(), SLOT(transmettreSaisie(QString)));
+    QObject::connect(qApp, SIGNAL(aboutToQuit()), analyse, SLOT(destroy()));
+    QObject::connect(analyse, SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
+    QObject::connect(fenetre, SIGNAL(sigSaisie(QString)), analyse, SLOT(transmettreSaisie(QString)));
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {

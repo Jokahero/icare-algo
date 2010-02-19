@@ -3,7 +3,6 @@
 #include <QtCore/QHash>
 #include <QtCore/QStringList>
 
-#include <QtCore/QDebug>
 
 /*! \brief Constructeur par défaut.
 */
@@ -108,7 +107,6 @@ int Glossaire::getValeurEntier(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
-        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -129,7 +127,6 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
-        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -150,7 +147,6 @@ double Glossaire::getValeurReel(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
-        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -168,7 +164,6 @@ QString Glossaire::getValeur(QString pNomVar) {
         emit(erreur(Analyse::VariableNonDeclaree));
         return QString::null;
     } else if (!m_initialisations->value(pNomVar)) {
-        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else if (m_listeEntier->contains(pNomVar))
@@ -244,11 +239,13 @@ void Glossaire::setValeur(QString pNomVar, QString pValeur) {
         (*m_listeEntier)[pNomVar] = pValeur.toInt();
         emit variableModifiee(pNomVar, pValeur);
     } else if (m_listeChaine->contains(pNomVar)) {
-        emit variableModifiee(pNomVar, pValeur);
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeChaine)[pNomVar] = pValeur;
-    } else if (m_listeReel->contains(pNomVar)) {
         emit variableModifiee(pNomVar, pValeur);
+    } else if (m_listeReel->contains(pNomVar)) {
+        (*m_initialisations)[pNomVar] = true;
         (*m_listeReel)[pNomVar] = pValeur.toFloat();
+        emit variableModifiee(pNomVar, pValeur);
     } else
         emit(erreur(Analyse::VariableNonDeclaree));
 }
