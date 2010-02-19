@@ -496,3 +496,11 @@ QString Dictionnaire::listeQuantites() {
     expression += ")\\s*\\)*\\s*)*\\)*\\s*)";
     return expression;
 }
+
+QString Dictionnaire::listeCondition() {
+    QString liste = listeQuantites();
+    QString expression = liste;
+    expression += "(?:&&|\\|\\||≤|≥|≠|=|>|>=|<|<=|!=)";
+    expression += liste;
+    return expression;
+}
