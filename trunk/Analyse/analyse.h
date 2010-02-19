@@ -4,6 +4,8 @@
 #include "Analyse_global.h"
 #include "instruction.h"
 #include "dictionnaire.h"
+#include "expressionlogique.h"
+#include "mathexp.h"
 
 #include <QtCore/QObject>
 
@@ -59,6 +61,8 @@ signals:
     void sigSaisir();
     void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
+    void sigErreurMathematique(MathExp::erreur);
+    void sigErreurLogique(ExpressionLogique::erreur);
     void sigAfficher(QString pChaine);
 
 private:

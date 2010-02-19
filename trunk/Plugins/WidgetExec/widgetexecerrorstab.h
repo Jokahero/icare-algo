@@ -13,6 +13,7 @@ public:
     WidgetExecErrorsTab(WidgetExec::onglet pType, QWidget *pParent = 0);
 
 public slots:
+    void erreurLogique(ExpressionLogique::erreur pErreur);
     void erreurMathematique(MathExp::erreur pErreur);
     void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
     void clear();

@@ -3,6 +3,8 @@
 #include <QtCore/QHash>
 #include <QtCore/QStringList>
 
+#include <QtCore/QDebug>
+
 /*! \brief Constructeur par défaut.
 */
 Glossaire::Glossaire() {
@@ -106,6 +108,7 @@ int Glossaire::getValeurEntier(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
+        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -126,6 +129,7 @@ QString Glossaire::getValeurChaine(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
+        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -146,6 +150,7 @@ double Glossaire::getValeurReel(QString pNomVar) {
         emit(erreur(Analyse::TypeIncorrect));
         return 0;
     } else if (!m_initialisations->value(pNomVar)) {
+        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else
@@ -163,6 +168,7 @@ QString Glossaire::getValeur(QString pNomVar) {
         emit(erreur(Analyse::VariableNonDeclaree));
         return QString::null;
     } else if (!m_initialisations->value(pNomVar)) {
+        qDebug() << pNomVar;
         emit(erreur(Analyse::VariableNonInitialisee));
         return 0;
     } else if (m_listeEntier->contains(pNomVar))

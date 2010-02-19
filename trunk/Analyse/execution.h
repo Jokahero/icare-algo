@@ -4,6 +4,8 @@
 #include <QtCore/QObject>
 #include "analyse.h"
 #include "dictionnaire.h"
+#include "expressionlogique.h"
+#include "mathexp.h"
 
 template <typename T> class QStack;
 class QString;
@@ -36,6 +38,8 @@ public slots:
 signals:
     void terminee();
     void afficher(QString);
+    void erreurMathematique(MathExp::erreur);
+    void erreurLogique(ExpressionLogique::erreur);
 };
 
 #endif // EXECUTION_H

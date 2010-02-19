@@ -4,8 +4,9 @@
 #include <QtCore/QString>
 #include <QtPlugin>
 #include <QtGui/QDockWidget>
-#include "../Analyse/mathexp.h"
 #include "../Analyse/analyse.h"
+#include "../Analyse/expressionlogique.h"
+#include "../Analyse/mathexp.h"
 
 /*!
   \brief Définit l'interface utilisable par les plugins.
@@ -22,6 +23,7 @@ public slots:
     void reinitialisationGlossaire();
     void lancerAnalyse(QFile* /*pFichier*/);
     void lancerExecution();
+    void erreurLogique(ExpressionLogique::erreur /*pErreur*/);
     void erreurMathematique(MathExp::erreur /*pErreur*/);
     void erreurAnalyse(Analyse::erreur /*pErreur*/, int /*pNumLigne*/);
     void afficher(QString /*pChaine*/);
