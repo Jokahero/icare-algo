@@ -63,8 +63,8 @@ signals:
     void sigSaisir();
     void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
-    void sigErreurMathematique(MathExp::erreur);
-    void sigErreurLogique(ExpressionLogique::erreur);
+    void sigErreurMathematique(MathExp::erreur pErreur, int pNumLigne);
+    void sigErreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne);
     void sigAfficher(QString pChaine);
 
 private:

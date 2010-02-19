@@ -24,8 +24,8 @@ private:
     QString m_saisie;
     bool m_modifie;
 
-    QString remplacementValeursVariables(QString pChaine);
-    bool evaluationCondition(QString pVal1, QString pOp, QString pVal2);
+    QString remplacementValeursVariables(QString pChaine, int pNumLigne);
+    bool evaluationCondition(QString pVal1, QString pOp, QString pVal2, int pNumLigne);
 
     void execution(int pDebut = 0, int pFin = -1);
 
@@ -38,8 +38,8 @@ public slots:
 signals:
     void terminee();
     void afficher(QString);
-    void erreurMathematique(MathExp::erreur);
-    void erreurLogique(ExpressionLogique::erreur);
+    void erreurMathematique(MathExp::erreur, int);
+    void erreurLogique(ExpressionLogique::erreur, int);
 };
 
 #endif // EXECUTION_H

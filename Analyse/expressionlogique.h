@@ -2,6 +2,7 @@
 #define EXPRESSIONLOGIQUE_H
 
 #include "arbre.h"
+#include "mathexp.h"
 
 #include <QtCore/QObject>
 
@@ -13,7 +14,7 @@ class ExpressionLogique : public QObject {
     Q_OBJECT
 
 public:
-    ExpressionLogique();
+    ExpressionLogique(int pNumLigne = -1);
     ~ExpressionLogique();
     void setExpression(QString pExpression);
     QString getExpression() const;
@@ -28,6 +29,7 @@ public:
 private:
     Arbre* parseExp(QString pExpression);
     bool calculRec(Arbre* pArbre);
+    int m_numLigne;
 
     int moinsPrioritaire(QString pExpression, int* pTaille);
 
@@ -35,7 +37,8 @@ private:
     Arbre* m_calcul;                            /*!< \brief Racine de l'arbre utilisé pour la vérification. */
 
 signals:
-    void sigErreur(ExpressionLogique::erreur);
+    void sigErreur(ExpressionLogique::erreur pErreur, int pNumLigne);
+    void sigErreurMath(MathExp::erreur pErreur, int pNumLigne);
 };
 
 #endif // EXPRESSIONLOGIQUE_H

@@ -30,7 +30,7 @@ void Execution::lancer() {
     emit terminee();
 }
 
-QString Execution::remplacementValeursVariables(QString pChaine) {
+QString Execution::remplacementValeursVariables(QString pChaine, int pNumLigne) {
     pChaine = pChaine.trimmed();
     pChaine.replace("×", "*");
     pChaine.replace("÷", "/");
@@ -40,21 +40,22 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
             pChaine.replace(rx.pos(1), rx.cap(1).length(), m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
     }
 
-    MathExp* me = new MathExp();
-    connect(me, SIGNAL(sigErreur(MathExp::erreur)), this, SIGNAL(erreurMathematique(MathExp::erreur)));
+    MathExp* me = new MathExp(pNumLigne);
+    connect(me, SIGNAL(sigErreur(MathExp::erreur, int)), this, SIGNAL(erreurMathematique(MathExp::erreur, int)));
     me->setExpression(pChaine);
     QString res = QString::number(me->calcul());
     delete me;
     return res;
 }
 
-bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2) {
+bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2, int pNumLigne) {
     pVal1 = pVal1.trimmed();
     pOp = pOp.trimmed();
     pVal2 = pVal2.trimmed();
 
-    ExpressionLogique* tmp = new ExpressionLogique();
-    connect(tmp, SIGNAL(sigErreur(ExpressionLogique::erreur)), this, SIGNAL(erreurLogique(ExpressionLogique::erreur)));
+    ExpressionLogique* tmp = new ExpressionLogique(pNumLigne);
+    connect(tmp, SIGNAL(sigErreur(ExpressionLogique::erreur, int)), this, SIGNAL(erreurLogique(ExpressionLogique::erreur, int)));
+    connect(tmp, SIGNAL(sigErreurMath(MathExp::erreur, int)), this, SIGNAL(erreurMathematique(MathExp::erreur, int)));
     tmp->setExpression(pVal1 + pOp + pVal2);
     bool res = tmp->resultat();
     delete tmp;
@@ -67,7 +68,7 @@ void Execution::execution(int pDebut, int pFin) {
     for (int i = pDebut; i < pFin; i++) {
         Instruction* inst = m_analyse->getListeInstruction()->at(i);
         if (inst->getTypeLigne() == Dictionnaire::Affectation) {
-            m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2)));
+            m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Afficher) {
             if (inst->getArgs()->at(1).trimmed().startsWith("\"")) {
                 QString tmp = inst->getArgs()->at(1);
@@ -75,7 +76,7 @@ void Execution::execution(int pDebut, int pFin) {
                 tmp = tmp.remove(tmp.lastIndexOf('"'), 1);
                 emit afficher(tmp);
             } else
-                emit afficher(remplacementValeursVariables(inst->getArgs()->at(1)));
+                emit afficher(remplacementValeursVariables(inst->getArgs()->at(1), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
             m_modifie = false;
             m_analyse->emettreSaisie();
@@ -83,17 +84,17 @@ void Execution::execution(int pDebut, int pFin) {
             while(!m_modifie);
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
-            for (int j = remplacementValeursVariables(inst->getArgs()->at(2)).toInt(); j <= remplacementValeursVariables(inst->getArgs()->at(3)).toInt(); j++) {
+            for (int j = remplacementValeursVariables(inst->getArgs()->at(2), inst->getNumLigne()).toInt(); j <= remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
                 execution(inst->getLigneDebut() + 1, inst->getLigneFin());
             }
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::TantQue) {
-            while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3))))
+            while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1), inst->getNumLigne()), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()), inst->getNumLigne()))
                 execution(inst->getLigneDebut() + 1, inst->getLigneFin());
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::Si) {
-            if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3)))) {
+            if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1), inst->getNumLigne()), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()), inst->getNumLigne())) {
                 if (inst->getLigneMilieu() >= 0)
                     execution(inst->getLigneDebut() + 1, inst->getLigneMilieu());
                 else

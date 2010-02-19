@@ -9,35 +9,37 @@ WidgetExecErrorsTab::WidgetExecErrorsTab(WidgetExec::onglet pType, QWidget *pPar
     connect(m_liste, SIGNAL(currentRowChanged(int)), this, SLOT(ligneChangee(int)));
 }
 
-void WidgetExecErrorsTab::erreurLogique(ExpressionLogique::erreur pErreur) {
+void WidgetExecErrorsTab::erreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne) {
     switch (pErreur) {
     case ExpressionLogique::PositionOperateurs:
-        m_liste->addItem(tr("Expression logique malformée"));
+        m_liste->addItem(tr("Ligne %1 : Expression logique malformée").arg(QString::number(pNumLigne)));
         break;
     case ExpressionLogique::Parentheses:
-        m_liste->addItem(tr("Nombre de parenthèses incorrect"));
+        m_liste->addItem(tr("Ligne %1 : Nombre de parenthèses incorrect").arg(QString::number(pNumLigne)));
         break;
     default:
-        m_liste->addItem(tr("Erreur inconnue"));
+        m_liste->addItem(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)));
         break;
     }
+    m_listeNumLignes->append(pNumLigne);
 }
 
-void WidgetExecErrorsTab::erreurMathematique(MathExp::erreur pErreur) {
+void WidgetExecErrorsTab::erreurMathematique(MathExp::erreur pErreur, int pNumLigne) {
     switch (pErreur) {
     case MathExp::DivisionParZero:
-        m_liste->addItem(tr("Division par zéro"));
+        m_liste->addItem(tr("Ligne %1 : Division par zéro").arg(QString::number(pNumLigne)));
         break;
     case MathExp::PositionOperateurs:
-        m_liste->addItem(tr("Expression mathématique malformée"));
+        m_liste->addItem(tr("Ligne %1 : Expression mathématique malformée").arg(QString::number(pNumLigne)));
         break;
     case MathExp::Parentheses:
-        m_liste->addItem(tr("Nombre de parenthèses incorrect"));
+        m_liste->addItem(tr("Ligne %1 : Nombre de parenthèses incorrect").arg(QString::number(pNumLigne)));
         break;
     default:
-        m_liste->addItem(tr("Erreur inconnue"));
+        m_liste->addItem(tr("Ligne %1 : Erreur inconnue").arg(QString::number(pNumLigne)));
         break;
     }
+    m_listeNumLignes->append(pNumLigne);
 }
 
 void WidgetExecErrorsTab::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
