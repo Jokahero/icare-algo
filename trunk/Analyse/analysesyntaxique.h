@@ -21,12 +21,12 @@ public slots:
     void lancer(QFile* pFichier);
 
 private:
-    void lectureGlossaire(QFile* pFichier);
-    void lectureInstructions(QFile* pFichier);
+    bool lectureGlossaire(QFile* pFichier);
+    bool lectureInstructions(QFile* pFichier);
     Analyse* m_analyse;
 
 signals:
-    void terminee();
+    void terminee(bool);
     void erreur(Analyse::erreur pErreur, int pNumLigne);
 };
 

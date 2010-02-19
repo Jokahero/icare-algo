@@ -84,6 +84,8 @@ int main(int argc, char *argv[]) {
         QObject::connect(fenetre, SIGNAL(executer()), g->getListePlugins().at(i), SLOT(lancerExecution()));
         QObject::connect(analyse, SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
         QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
+        QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSyntaxiqueTerminee(bool)));
+        QObject::connect(analyse, SIGNAL(analyseSemantiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSemantiqueTerminee(bool)));
     }
 
     // Connects des modules

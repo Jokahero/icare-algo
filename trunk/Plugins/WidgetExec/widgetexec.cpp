@@ -84,4 +84,18 @@ void WidgetExec::afficher(QString pChaine) {
     qobject_cast<WidgetExecAffichageTab*>(m_tabWidget->widget(WidgetExec::Sorties))->afficher(pChaine);
 }
 
+void WidgetExec::analyseSyntaxiqueTerminee(bool pOk) {
+    if (pOk) {
+        qobject_cast<WidgetExecTab*>(m_tabWidget->widget(WidgetExec::Sorties))->clear();
+        afficher(tr("Analyse syntaxique terminée avec succès."));
+    }
+}
+
+void WidgetExec::analyseSemantiqueTerminee(bool pOk) {
+    if (pOk) {
+        qobject_cast<WidgetExecTab*>(m_tabWidget->widget(WidgetExec::Sorties))->clear();
+        afficher(tr("Analyse semantique terminée avec succès."));
+    }
+}
+
 Q_EXPORT_PLUGIN2(widgetexec, WidgetExec);
