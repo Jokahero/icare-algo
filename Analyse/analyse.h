@@ -59,10 +59,11 @@ signals:
     void analyseSyntaxiqueTerminee(bool pOk);
     void sigLancerAnalyseSemantique();
     void analyseSemantiqueTerminee(bool pOk);
-    void sigLancerExecution(bool pPasAPas = false);
+    void sigLancerExecution(bool pPasAPas);
     void execPas();
     void execStop();
     void executionTerminee();
+    void changementLigne(int pNumLigne);
     void sigSaisir();
     void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
