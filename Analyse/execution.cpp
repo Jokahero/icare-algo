@@ -21,13 +21,22 @@ Execution::~Execution() {
     delete m_pileStructureControle;
 }
 
-void Execution::lancer() {
+void Execution::lancer(bool pPasAPas) {
     qDebug() << "Exécution commencée";
 
-    execution();
+    m_stop = false;
+    execution(pPasAPas);
 
     qDebug() << "Exécution terminée";
     emit terminee();
+}
+
+void Execution::pas() {
+    // TODO : Changement de ligne active sur l'interface
+}
+
+void Execution::stop() {
+    m_stop = true;
 }
 
 QString Execution::remplacementValeursVariables(QString pChaine, int pNumLigne) {
@@ -62,10 +71,10 @@ bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2, i
     return res;
 }
 
-void Execution::execution(int pDebut, int pFin) {
+void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
     if (pFin == -1)
         pFin = m_analyse->getListeInstruction()->length();
-    for (int i = pDebut; i < pFin; i++) {
+    for (int i = pDebut; i < pFin && !m_stop; i++) {
         Instruction* inst = m_analyse->getListeInstruction()->at(i);
         if (inst->getTypeLigne() == Dictionnaire::Affectation) {
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2), inst->getNumLigne()));
@@ -80,31 +89,33 @@ void Execution::execution(int pDebut, int pFin) {
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
             m_modifie = false;
             m_analyse->emettreSaisie();
-            waitForSignal();
-            while(!m_modifie);
+            waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
+            while (!m_modifie);
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
             for (int j = remplacementValeursVariables(inst->getArgs()->at(2), inst->getNumLigne()).toInt(); j <= remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
-                execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+                execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
             }
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::TantQue) {
             while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1), inst->getNumLigne()), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()), inst->getNumLigne()))
-                execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+                execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::Si) {
             if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1), inst->getNumLigne()), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3), inst->getNumLigne()), inst->getNumLigne())) {
                 if (inst->getLigneMilieu() >= 0)
-                    execution(inst->getLigneDebut() + 1, inst->getLigneMilieu());
+                    execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneMilieu());
                 else
-                    execution(inst->getLigneDebut() + 1, inst->getLigneFin());
+                    execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
             } else {
                 if (inst->getLigneMilieu() >= 0)
                     execution(inst->getLigneMilieu() + 1, inst->getLigneFin());
             }
             i = inst->getLigneFin();
         }
+        if (pPasAPas)
+            waitForSignal(m_analyse, SIGNAL(execPas()));
     }
 }
 
@@ -113,10 +124,8 @@ void Execution::enregistrerSaisie(QString pSaisie) {
     m_modifie = true;
 }
 
-void Execution::waitForSignal() {
+void Execution::waitForSignal(QObject* pObj, const char* pSig) {
     QEventLoop loop;
-
-    QObject::connect(m_analyse, SIGNAL(sigSaisie(QString)), &loop, SLOT(quit()));
-
+    connect(pObj, pSig, &loop, SLOT(quit()));
     loop.exec();
 }

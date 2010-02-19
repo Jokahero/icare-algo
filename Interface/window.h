@@ -66,6 +66,9 @@ private:
     QAction *m_testSemantique;
     QAction *m_testComplet;
     QAction *m_executer;
+    QAction *m_executerPasAPas;
+    QAction *m_pas;
+    QAction *m_stop;
 
     QMenu *m_menuOptions;
     QAction *m_plugins;
@@ -96,6 +99,7 @@ public slots:
     void analyseSyntaxique();
     void analyseSemantique();
     void execution();
+    void executionPasAPas();
     void afficherApropos();
     void ouvrirFichier();
     void ouvrirFichier(QString pNomFichier);
@@ -117,7 +121,9 @@ public slots:
 signals:
     void lancerAnalyseSyntaxique(QFile*);
     void lancerAnalyseSemantique();
-    void executer();
+    void executer(bool pPasAPas);
+    void execPas();
+    void execStop();
     void reloadSettings();
     void sigChangementLigne(int pNumLigne);
     void sigSaisie(QString pSaisie);

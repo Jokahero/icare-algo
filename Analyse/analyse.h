@@ -49,7 +49,7 @@ public:
 public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
     void lancerAnalyseSemantique();
-    void lancerExecution();
+    void lancerExecution(bool pPasAPas = false);
     void transmettreSaisie(QString pSaisie);
 
     void destroy();
@@ -59,7 +59,9 @@ signals:
     void analyseSyntaxiqueTerminee(bool pOk);
     void sigLancerAnalyseSemantique();
     void analyseSemantiqueTerminee(bool pOk);
-    void sigLancerExecution();
+    void sigLancerExecution(bool pPasAPas = false);
+    void execPas();
+    void execStop();
     void sigSaisir();
     void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
