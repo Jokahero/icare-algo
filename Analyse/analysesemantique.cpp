@@ -1,22 +1,29 @@
 #include "analysesemantique.h"
 #include "analyse.h"
-#include <QtCore/QStack>
+#include "glossaire.h"
+
+
 #include <QtCore/QDebug>
+#include <QtCore/QStack>
+#include <QtCore/QStringList>
 
 AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
-    m_pileStructureControle = new QStack<Dictionnaire::typeLigne>();
-    m_pilePosition = new QStack<int>();
+    m_pileStructureControle = new QStack<Dictionnaire::typeLigne>;
+    m_pilePosition = new QStack<int>;
+    m_listeVariables = new QList<QString>;
 }
 
 AnalyseSemantique::~AnalyseSemantique() {
     delete m_pileStructureControle;
     delete m_pilePosition;
+    delete m_listeVariables;
 }
 
 void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique lancée.";
     verifStruct();
+    verifInitialisations();
     emit terminee();
     qDebug() << "Analyse sémantique terminée.";
 }
@@ -56,19 +63,19 @@ void AnalyseSemantique::verifStruct() {
                 m_analyse->getListeInstruction()->at(i)->setLigneDebut(m_pilePosition->top());
                 m_analyse->getListeInstruction()->at(i)->setLigneMilieu(i);
             }
-        } else if (type == Dictionnaire::FinTantQue){
+        } else if (type == Dictionnaire::FinTantQue) {
             if (m_pileStructureControle->top() == Dictionnaire::TantQue)
                 pop(i);
             else
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
 
-        } else if (type == Dictionnaire::FinPour){
+        } else if (type == Dictionnaire::FinPour) {
             if (m_pileStructureControle->top() == Dictionnaire::Pour)
                 pop(i);
             else
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
 
-        } else if (type == Dictionnaire::Jusqua){
+        } else if (type == Dictionnaire::Jusqua) {
             if (m_pileStructureControle->top() == Dictionnaire::Repeter)
                 pop(i);
             else
@@ -76,8 +83,35 @@ void AnalyseSemantique::verifStruct() {
         }
     }
 
+    // Vidage de la pile pour la prochaine analyse
     if (!m_pileStructureControle->empty())
         m_pileStructureControle->resize(0);
+}
+
+void AnalyseSemantique::verifInitialisations() {
+    for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
+        Instruction* inst = m_analyse->getListeInstruction()->at(i);
+        if (inst->getTypeLigne() == Dictionnaire::Affectation || inst->getTypeLigne() == Dictionnaire::Saisir)
+            m_listeVariables->append(inst->getArgs()->at(1));
+
+        // Suppression des chaînes
+        QString ligne = inst->getLigne();
+        while (ligne.contains("\"")) {
+            int pos = ligne.indexOf("\"");
+            ligne.replace(pos, 1, " ");
+            int pos2 = ligne.indexOf("\"");
+            ligne.replace(pos, (pos2 - pos), "");
+        }
+
+        for (int j = 0; j < m_analyse->getGlossaire()->getListeVariables().length(); j++)
+            if (ligne.contains(QRegExp(".*(?:^|\\W)" + m_analyse->getGlossaire()->getListeVariables().at(j) + "(?:\\W|$).*")))
+                if (!m_listeVariables->contains(m_analyse->getGlossaire()->getListeVariables().at(j)))
+                    emit erreur(Analyse::VariableNonInitialisee, inst->getNumLigne());
+    }
+
+    // Vidage de la liste pour la prochaine analyse
+    if (!m_listeVariables->empty())
+        m_listeVariables->clear();
 }
 
 void AnalyseSemantique::pop(int i) {

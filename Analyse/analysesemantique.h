@@ -19,9 +19,12 @@ private:
 
     QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
     QStack<int>* m_pilePosition;
+    QList<QString>* m_listeVariables;
 
     void verifStruct();
     void pop(int i);
+
+    void verifInitialisations();
 
 public slots:
     void lancer();
