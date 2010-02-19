@@ -622,6 +622,8 @@ void Window::documentModifie(bool pMod) {
     setWindowModified(pMod);
     m_enregistrer->setEnabled(pMod);
     m_documentModifie = pMod;
+    m_testSemantique->setEnabled(false);
+    m_executer->setEnabled(false);
 }
 
 void Window::afficherFenSaisie() {
@@ -636,4 +638,12 @@ void Window::transmettreSaisie(QString pSaisie) {
 
 WidgetPlugins* Window::getWPlugins() {
     return m_wPlugins;
+}
+
+void Window::analyseSyntaxiqueTerminee(bool pOk) {
+    m_testSemantique->setEnabled(pOk);
+}
+
+void Window::analyseSemantiqueTerminee(bool pOk) {
+    m_executer->setEnabled(pOk);
 }
