@@ -5,25 +5,36 @@
 #include "gestionnaireparametres.h"
 #include "window.h"
 
-#include <QtCore/QDebug>
 #include <QtGui/QApplication>
+#include <QtGui/QDropEvent>
 #include <QtGui/QHBoxLayout>
+#include <QtGui/QMimeSource>
 #include <QtGui/QPainter>
 #include <QtGui/QScrollBar>
 #include <QtGui/QToolTip>
+
+DropableTextEdit::DropableTextEdit(TextEdit *pParent) : QTextEdit(pParent), m_parent(pParent) {
+    setAcceptDrops(true);
+}
+
+void DropableTextEdit::dropEvent(QDropEvent *pEvent) {
+    const QMimeData *mimeData = pEvent->mimeData();
+    if (mimeData->hasFormat("text/plain")) {
+        m_parent->getParent()->ouvrirFichier(mimeData->text().trimmed().replace("file://", ""));
+        pEvent->accept();
+    }
+}
 
 
 TextEdit::TextEdit(Window *pParent) : QFrame(pParent), m_parent(pParent) {
     setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     setLineWidth(2);
 
-    m_textEdit = new QTextEdit(this);
+    m_textEdit = new DropableTextEdit(this);
     m_textEdit->setFrameStyle(QFrame::NoFrame);
     m_color = new Coloration(m_textEdit->document());
 
     m_barreNombres = 0;
-
-    setAcceptDrops(true);
 
     connect(m_textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 
@@ -81,14 +92,6 @@ void TextEdit::wheelEvent(QWheelEvent* pEvent) {
             getTextEdit()->zoomIn();
         else if (pEvent->delta() < 0)
             getTextEdit()->zoomOut();
-        pEvent->accept();
-    }
-}
-
-void TextEdit::dropEvent(QDropEvent *pEvent) {
-    const QMimeData *mimeData = pEvent->mimeData();
-    if (mimeData->hasFormat("text/plain")) {
-        m_parent->ouvrirFichier(mimeData->text().trimmed().replace("file://", ""));
         pEvent->accept();
     }
 }

@@ -9,6 +9,7 @@
 #include <QtCore/QTextStream>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
+#include <QtGui/QCloseEvent>
 #include <QtGui/QFileDialog>
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
