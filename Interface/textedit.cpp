@@ -1,150 +1,119 @@
 #include "textedit.h"
 
+#include "barrenombres.h"
 #include "coloration.h"
 #include "gestionnaireparametres.h"
 #include "window.h"
 
 #include <QtCore/QDebug>
+#include <QtGui/QApplication>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QPainter>
+#include <QtGui/QScrollBar>
+#include <QtGui/QToolTip>
 
-TextEdit::TextEdit(Window* parent) : m_parent(parent) {
-    m_color = new Coloration(document());
+
+TextEdit::TextEdit(Window *pParent) : QFrame(pParent), m_parent(pParent) {
+    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    setLineWidth(2);
+
+    m_textEdit = new QTextEdit(this);
+    m_textEdit->setFrameStyle(QFrame::NoFrame);
+    m_color = new Coloration(m_textEdit->document());
+
+    m_barreNombres = 0;
+
     setAcceptDrops(true);
 
-    m_lineNumberArea = new LineNumberArea(this);
+    connect(m_textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+
+    highlightCurrentLine();
 
     loadSettings();
-
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
-    connect(this, SIGNAL(updateRequest(const QRect &, int)), this, SLOT(updateLineNumberArea(const QRect &, int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
-
-    updateLineNumberAreaWidth(0);
-    highlightCurrentLine();
 }
 
 TextEdit::~TextEdit() {
-    delete m_lineNumberArea;
+    if (m_barreNombres != 0)
+        delete m_barreNombres;
     delete m_color;
+    delete m_textEdit;
 }
 
+
+void TextEdit::changementLigne(int pNumLigne) {
+    QTextBlock block;
+    QTextCursor cursor;
+    QTextBlockFormat blockFormat;
+
+    block = getTextEdit()->document()->findBlockByLineNumber(pNumLigne - 1);
+    cursor = QTextCursor(block);
+    blockFormat = cursor.blockFormat();
+    blockFormat.clearBackground();
+    cursor.setBlockFormat(blockFormat);
+    getTextEdit()->setTextCursor(cursor);
+}
+
+void TextEdit::recherche(QString pRecherche) {
+    getTextEdit()->find(pRecherche);
+}
+
+void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
+    if (getTextEdit()->find(pRecherche)) {
+        getTextEdit()->textCursor().removeSelectedText();
+        int pos = getTextEdit()->textCursor().position();
+        getTextEdit()->insertPlainText(pRemplacement);
+        int newPos = getTextEdit()->textCursor().position();
+        QTextCursor tmp = getTextEdit()->textCursor();
+        tmp.setPosition(pos, QTextCursor::MoveAnchor);
+        tmp.setPosition(newPos, QTextCursor::KeepAnchor);
+        getTextEdit()->setTextCursor(tmp);
+    }
+}
+
+void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
+    while (getTextEdit()->find(pRecherche, QTextDocument::FindBackward) || getTextEdit()->find(pRecherche))
+        remplacement(pRecherche, pRemplacement);
+}
 
 void TextEdit::wheelEvent(QWheelEvent* pEvent) {
-    //if (!qApp->keyboardModifiers() && Qt::ControlModifier)
-    QPlainTextEdit::wheelEvent(pEvent);
-    /*else if (pEvent->delta() > 0)
-        zoomIn();
-    else if (pEvent->delta() < 0)
-        zoomOut();*/
-}
-
-/*******************************************************/
-
-int TextEdit::lineNumberAreaWidth() {
-    if (m_isLineNumberArea) {
-        int digits = 1;
-        int max = qMax(1, blockCount());
-        while (max >= 10) {
-            max /= 10;
-            ++digits;
-        }
-
-        int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
-        return space;
-    } else
-        return 0;
-}
-
-
-
-void TextEdit::updateLineNumberAreaWidth(int /* newBlockCount */) {
-    setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
-}
-
-
-
-void TextEdit::updateLineNumberArea(const QRect &rect, int dy) {
-    if (m_isLineNumberArea) {
-        if (dy)
-            m_lineNumberArea->scroll(0, dy);
-        else
-            m_lineNumberArea->update(0, rect.y(), m_lineNumberArea->width(), rect.height());
-
-        if (rect.contains(viewport()->rect()))
-            updateLineNumberAreaWidth(0);
+    if (qApp->keyboardModifiers() & Qt::ControlModifier) {
+        if (pEvent->delta() > 0)
+            getTextEdit()->zoomIn();
+        else if (pEvent->delta() < 0)
+            getTextEdit()->zoomOut();
+        pEvent->accept();
     }
 }
 
-
-
-void TextEdit::resizeEvent(QResizeEvent *e) {
-    QPlainTextEdit::resizeEvent(e);
-
-    if (m_isLineNumberArea) {
-        QRect cr = contentsRect();
-        m_lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
-    }
-}
-
-
-void TextEdit::dropEvent(QDropEvent *event) {
-    const QMimeData *mimeData = event->mimeData();
+void TextEdit::dropEvent(QDropEvent *pEvent) {
+    const QMimeData *mimeData = pEvent->mimeData();
     if (mimeData->hasFormat("text/plain")) {
         m_parent->ouvrirFichier(mimeData->text().trimmed().replace("file://", ""));
-        event->accept();
+        pEvent->accept();
     }
 }
-
 
 
 void TextEdit::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    if (!isReadOnly()) {
+    if (!getTextEdit()->isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
         selection.format.setBackground(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.cursor = textCursor();
+        selection.cursor = getTextEdit()->textCursor();
         selection.cursor.clearSelection();
         extraSelections.append(selection);
     }
 
-    setExtraSelections(extraSelections);
+    getTextEdit()->setExtraSelections(extraSelections);
 }
 
-
-
-void TextEdit::lineNumberAreaPaintEvent(QPaintEvent *event) {
-    if (m_isLineNumberArea) {
-        QPainter painter(m_lineNumberArea);
-        painter.fillRect(event->rect(), Qt::lightGray);
-
-
-        QTextBlock block = firstVisibleBlock();
-        int blockNumber = block.blockNumber();
-        int top = (int) blockBoundingGeometry(block).translated(contentOffset()).top();
-        int bottom = top + (int) blockBoundingRect(block).height();
-
-        while (block.isValid() && top <= event->rect().bottom()) {
-            if (block.isVisible() && bottom >= event->rect().top()) {
-                QString number = QString::number(blockNumber + 1);
-                painter.setPen(Qt::black);
-                painter.drawText(0, top, m_lineNumberArea->width(), fontMetrics().height(),
-                                 Qt::AlignRight, number);
-            }
-
-            block = block.next();
-            top = bottom;
-            bottom = top + (int) blockBoundingRect(block).height();
-            ++blockNumber;
-        }
-    }
-}
 
 void TextEdit::changerCouleur() {
     m_color->deleteLater();
-    m_color = new Coloration(document());
+    m_color = new Coloration(getTextEdit()->document());
 }
 
 void TextEdit::loadSettings() {
@@ -152,49 +121,27 @@ void TextEdit::loadSettings() {
     m_isRetourLigne = GestionnaireParametres::getInstance()->getRetourLigne();
     m_tailleTab = GestionnaireParametres::getInstance()->getTailleTab();
 
-    emit blockCountChanged(blockCount());
+    delete layout();
+    QHBoxLayout *box = new QHBoxLayout(this);
+    box->setSpacing(0);
+    box->setMargin(0);
+    if (m_isLineNumberArea) {
+        m_barreNombres = new BarreNombres(this);
+        m_barreNombres->setTextEdit(m_textEdit);
+        box->addWidget(m_barreNombres);
+    } else if (m_barreNombres != 0) {
+        delete m_barreNombres;
+        m_barreNombres = 0;
+    }
+    box->addWidget(m_textEdit);
+
     if (m_isRetourLigne)
-        setLineWrapMode(QPlainTextEdit::WidgetWidth);
+        getTextEdit()->setLineWrapMode(QTextEdit::WidgetWidth);
     else
-        setLineWrapMode(QPlainTextEdit::NoWrap);
+        getTextEdit()->setLineWrapMode(QTextEdit::NoWrap);
     changerCouleur();
-    setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * m_tailleTab);
+    getTextEdit()->setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * m_tailleTab);
     highlightCurrentLine();
     update();
     repaint();
-}
-
-void TextEdit::changementLigne(int pNumLigne) {
-    QTextBlock block;
-    QTextCursor cursor;
-    QTextBlockFormat blockFormat;
-
-    block = document()->findBlockByLineNumber(pNumLigne - 1);
-    cursor = QTextCursor(block);
-    blockFormat = cursor.blockFormat();
-    blockFormat.clearBackground();
-    cursor.setBlockFormat(blockFormat);
-    setTextCursor(cursor);
-}
-
-void TextEdit::recherche(QString pRecherche) {
-    find(pRecherche);
-}
-
-void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
-    if (find(pRecherche)) {
-        textCursor().removeSelectedText();
-        int pos = textCursor().position();
-        insertPlainText(pRemplacement);
-        int newPos = textCursor().position();
-        QTextCursor tmp = textCursor();
-        tmp.setPosition(pos, QTextCursor::MoveAnchor);
-        tmp.setPosition(newPos, QTextCursor::KeepAnchor);
-        setTextCursor(tmp);
-    }
-}
-
-void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
-    while (find(pRecherche, QTextDocument::FindBackward) || find(pRecherche))
-        remplacement(pRecherche, pRemplacement);
 }

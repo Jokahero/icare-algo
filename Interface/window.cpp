@@ -234,24 +234,24 @@ Window::Window() : QMainWindow() {
     connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
-    connect(m_zoneTexte, SIGNAL(undoAvailable(bool)), m_annuler, SLOT(setEnabled(bool)));
-    connect(m_annuler, SIGNAL(triggered()), m_zoneTexte, SLOT(undo()));
-    connect(m_zoneTexte, SIGNAL(redoAvailable(bool)), m_refaire, SLOT(setEnabled(bool)));
-    connect(m_refaire, SIGNAL(triggered()), m_zoneTexte, SLOT(redo()));
-    connect(m_zoneTexte, SIGNAL(copyAvailable(bool)), m_couper, SLOT(setEnabled(bool)));
-    connect(m_couper, SIGNAL(triggered()), m_zoneTexte, SLOT(cut()));
-    connect(m_zoneTexte, SIGNAL(copyAvailable(bool)), m_copier, SLOT(setEnabled(bool)));
-    connect(m_copier, SIGNAL(triggered()), m_zoneTexte, SLOT(copy()));
-    connect(m_coller, SIGNAL(triggered()), m_zoneTexte, SLOT(paste()));
+    connect(m_zoneTexte->getTextEdit(), SIGNAL(undoAvailable(bool)), m_annuler, SLOT(setEnabled(bool)));
+    connect(m_annuler, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(undo()));
+    connect(m_zoneTexte->getTextEdit(), SIGNAL(redoAvailable(bool)), m_refaire, SLOT(setEnabled(bool)));
+    connect(m_refaire, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(redo()));
+    connect(m_zoneTexte->getTextEdit(), SIGNAL(copyAvailable(bool)), m_couper, SLOT(setEnabled(bool)));
+    connect(m_couper, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(cut()));
+    connect(m_zoneTexte->getTextEdit(), SIGNAL(copyAvailable(bool)), m_copier, SLOT(setEnabled(bool)));
+    connect(m_copier, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(copy()));
+    connect(m_coller, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(paste()));
     connect(m_rechercher, SIGNAL(triggered()), m_fenRecherche, SLOT(rec()));
     connect(m_remplacer, SIGNAL(triggered()), m_fenRecherche, SLOT(rem()));
-    connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte, SLOT(selectAll()));
+    connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(selectAll()));
     connect(m_fenRecherche, SIGNAL(recherche(QString)), m_zoneTexte, SLOT(recherche(QString)));
     connect(m_fenRecherche, SIGNAL(remplacement(QString, QString)), m_zoneTexte, SLOT(remplacement(QString, QString)));
     connect(m_fenRecherche, SIGNAL(remplacerTout(QString, QString)), m_zoneTexte, SLOT(remplacerTout(QString, QString)));
 
-    m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
-    m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
+    m_annuler->setEnabled(m_zoneTexte->getTextEdit()->document()->isUndoAvailable());
+    m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
     m_copier->setEnabled(false);
     documentModifie(true);
@@ -408,13 +408,13 @@ void Window::ouvrirFichier(QString pNomFichier) {
     if (!ouverture)
         return;
 
-    connect(m_zoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentModifie(bool)));
+    connect(m_zoneTexte->getTextEdit()->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentModifie(bool)));
     // On créé un flux de texte
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QTextStream flux(m_fichier);
-    m_zoneTexte->setPlainText(flux.readAll());
-    m_zoneTexte->setDocumentTitle(m_fichier->fileName());
-    m_zoneTexte->document()->setModified(false);
+    m_zoneTexte->getTextEdit()->setPlainText(flux.readAll());
+    m_zoneTexte->getTextEdit()->setDocumentTitle(m_fichier->fileName());
+    m_zoneTexte->getTextEdit()->document()->setModified(false);
     setWindowModified(false);
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
     m_fichier->close();
@@ -491,10 +491,10 @@ void Window::enregistrerFichier() {
     if (!ouverture)
         return;
 
-    QString texte = m_zoneTexte->toPlainText();
+    QString texte = m_zoneTexte->getTextEdit()->toPlainText();
     m_fichier->write(texte.toUtf8());
     m_fichier->close();
-    m_zoneTexte->document()->setModified(false);
+    m_zoneTexte->getTextEdit()->document()->setModified(false);
     QApplication::restoreOverrideCursor();
 }
 
@@ -504,8 +504,8 @@ void Window::enregistrerFichierSous() {
         return;
     m_fichier->setFileName(nomFichier);
     enregistrerFichier();
-    m_zoneTexte->setDocumentTitle(m_fichier->fileName());
-    m_zoneTexte->document()->setModified(false);
+    m_zoneTexte->getTextEdit()->setDocumentTitle(m_fichier->fileName());
+    m_zoneTexte->getTextEdit()->document()->setModified(false);
     setWindowModified(false);
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
 }
@@ -513,10 +513,10 @@ void Window::enregistrerFichierSous() {
 void Window::nouveauFichier() {
     setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
     m_fichier->setFileName(QString::null);
-    m_zoneTexte->document()->clear();
-    m_zoneTexte->setDocument(new QTextDocument);
-    m_annuler->setEnabled(m_zoneTexte->document()->isUndoAvailable());
-    m_refaire->setEnabled(m_zoneTexte->document()->isRedoAvailable());
+    m_zoneTexte->getTextEdit()->document()->clear();
+    m_zoneTexte->getTextEdit()->setDocument(new QTextDocument);
+    m_annuler->setEnabled(m_zoneTexte->getTextEdit()->document()->isUndoAvailable());
+    m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
     m_copier->setEnabled(false);
     documentModifie(true);
@@ -555,7 +555,7 @@ void Window::closeEvent(QCloseEvent *pE) {
 void Window::imprimerFichier() {
     QPrintDialog printDialog(this);
     if (printDialog.exec() == QDialog::Accepted) {
-        m_zoneTexte->print(printDialog.printer());
+        m_zoneTexte->getTextEdit()->print(printDialog.printer());
     }
 }
 

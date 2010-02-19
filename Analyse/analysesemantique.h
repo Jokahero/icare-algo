@@ -8,7 +8,6 @@
 template <typename T> class QStack;
 
 class AnalyseSemantique : public QObject {
-
     Q_OBJECT
 
 public:

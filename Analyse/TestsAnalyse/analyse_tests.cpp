@@ -134,5 +134,3 @@ void Analyse_tests::testExpressionLogique_data() {
     QTest::newRow("Expressions mathématiques") << "3 + 1 != 4" << false;
     QTest::newRow("Expressions mathématiques") << "3 + 1 = 4" << true;
 }
-
-QTEST_MAIN(Analyse_tests)

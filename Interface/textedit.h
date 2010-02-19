@@ -3,46 +3,23 @@
 
 #include <QtGui/QPlainTextEdit>
 
+class BarreNombres;
 class Coloration;
-class lineNumberArea;
 class QPaintEvent;
 class QResizeEvent;
 class QSize;
 class Window;
 
-
 /*! \brief Zone de texte permettant d'afficher et de modifier le contenu du fichier
 */
-class TextEdit : public QPlainTextEdit {
+class TextEdit : public QFrame {
     Q_OBJECT
+
 public:
-    TextEdit(Window* parent);
+    TextEdit(Window *pParent = 0);
     ~TextEdit();
 
-private:
-    void wheelEvent(QWheelEvent* pEvent);
-    Coloration* m_color;
-
-public:
-    void lineNumberAreaPaintEvent(QPaintEvent *event);
-    int lineNumberAreaWidth();
-
-protected:
-    void resizeEvent(QResizeEvent *event);
-    void dropEvent(QDropEvent *event);
-
-private slots:
-    void updateLineNumberAreaWidth(int newBlockCount);
-    void highlightCurrentLine();
-    void updateLineNumberArea(const QRect &, int);
-
-private:
-    QWidget* m_lineNumberArea;
-    bool m_isLineNumberArea;
-    bool m_isRetourLigne;
-    int m_tailleTab;
-    void changerCouleur();
-    Window* m_parent;
+    QTextEdit *getTextEdit() const { return m_textEdit; }
 
 public slots:
     void loadSettings();
@@ -51,25 +28,22 @@ public slots:
     void remplacement(QString pRecherche, QString pRemplacement);
     void remplacerTout(QString pRecherche, QString pRemplacement);
 
-};
-
-class LineNumberArea : public QWidget {
-public:
-    LineNumberArea(TextEdit *editor) : QWidget(editor) {
-        m_textEdit = editor;
-    }
-
-    QSize sizeHint() const {
-        return QSize(m_textEdit->lineNumberAreaWidth(), 0);
-    }
-
-protected:
-    void paintEvent(QPaintEvent *event) {
-        m_textEdit->lineNumberAreaPaintEvent(event);
-    }
+protected slots:
+    void highlightCurrentLine();
 
 private:
-    TextEdit *m_textEdit;
+    QTextEdit *m_textEdit;
+    BarreNombres *m_barreNombres;
+    void wheelEvent(QWheelEvent* pEvent);
+    Coloration* m_color;
+    void dropEvent(QDropEvent *pEvent);
+    Window *m_parent;
+
+    bool m_isLineNumberArea;
+    bool m_isRetourLigne;
+    int m_tailleTab;
+    void changerCouleur();
 };
+
 
 #endif // TEXTEDIT_H

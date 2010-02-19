@@ -20,7 +20,8 @@ SOURCES += window.cpp \
     boutoncouleur.cpp \
     gestionnaireparametres.cpp \
     recherche.cpp \
-    fenetresaisie.cpp
+    fenetresaisie.cpp \
+    barrenombres.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
@@ -33,6 +34,7 @@ HEADERS += window.h \
     boutoncouleur.h \
     gestionnaireparametres.h \
     recherche.h \
-    fenetresaisie.h
+    fenetresaisie.h \
+    barrenombres.h
 DESTDIR = ../
 RESOURCES += Images.qrc
