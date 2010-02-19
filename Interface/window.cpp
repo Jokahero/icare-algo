@@ -557,7 +557,7 @@ void Window::nouveauFichier() {
     setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
     m_fichier->setFileName(QString::null);
     m_zoneTexte->getTextEdit()->document()->clear();
-    m_zoneTexte->getTextEdit()->setDocument(new QTextDocument);
+    m_zoneTexte->getTextEdit()->setDocumentTitle(QString::null);
     m_annuler->setEnabled(m_zoneTexte->getTextEdit()->document()->isUndoAvailable());
     m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
