@@ -57,16 +57,7 @@ void TextEdit::ajouterTexte(QString pTexte) {
 
 
 void TextEdit::changementLigne(int pNumLigne) {
-    QTextBlock block;
-    QTextCursor cursor;
-    QTextBlockFormat blockFormat;
-
-    block = getTextEdit()->document()->findBlockByLineNumber(pNumLigne - 1);
-    cursor = QTextCursor(block);
-    blockFormat = cursor.blockFormat();
-    blockFormat.clearBackground();
-    cursor.setBlockFormat(blockFormat);
-    getTextEdit()->setTextCursor(cursor);
+    getTextEdit()->setTextCursor(QTextCursor(getTextEdit()->document()->findBlockByLineNumber(pNumLigne - 1)));
 }
 
 void TextEdit::recherche(QString pRecherche) {
@@ -105,15 +96,13 @@ void TextEdit::wheelEvent(QWheelEvent* pEvent) {
 void TextEdit::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    if (!getTextEdit()->isReadOnly()) {
-        QTextEdit::ExtraSelection selection;
+    QTextEdit::ExtraSelection selection;
 
-        selection.format.setBackground(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.cursor = getTextEdit()->textCursor();
-        selection.cursor.clearSelection();
-        extraSelections.append(selection);
-    }
+    selection.format.setBackground(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    selection.cursor = getTextEdit()->textCursor();
+    selection.cursor.clearSelection();
+    extraSelections.append(selection);
 
     getTextEdit()->setExtraSelections(extraSelections);
 }

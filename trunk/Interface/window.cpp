@@ -340,6 +340,7 @@ void Window::executionTerminee() {
     m_executerPasAPas->setEnabled(true);
     m_pas->setEnabled(false);
     m_stop->setEnabled(false);
+    m_zoneTexte->getTextEdit()->setReadOnly(false);
 }
 
 void Window::execution() {
@@ -349,6 +350,7 @@ void Window::execution() {
     m_executer->setEnabled(false);
     m_executerPasAPas->setEnabled(false);
     m_stop->setEnabled(true);
+    m_zoneTexte->getTextEdit()->setReadOnly(true);
     emit executer(false);
 }
 
@@ -360,6 +362,7 @@ void Window::executionPasAPas() {
     m_executerPasAPas->setEnabled(false);
     m_pas->setEnabled(true);
     m_stop->setEnabled(true);
+    m_zoneTexte->getTextEdit()->setReadOnly(true);
     emit executer(true);
 }
 
@@ -609,6 +612,7 @@ void Window::nouveauFichier() {
 }
 
 void Window::closeEvent(QCloseEvent *pE) {
+    m_stop->trigger();
     if (m_documentModifie) {
         QMessageBox msgBox;
         msgBox.setText(tr("L'algorithme a été modifié."));

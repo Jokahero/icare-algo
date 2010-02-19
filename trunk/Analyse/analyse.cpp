@@ -46,6 +46,7 @@ Analyse::Analyse() {
     connect(m_exec, SIGNAL(erreurLogique(ExpressionLogique::erreur, int)), this, SIGNAL(sigErreurLogique(ExpressionLogique::erreur, int)));
     connect(m_exec, SIGNAL(erreurMathematique(MathExp::erreur, int)), this, SIGNAL(sigErreurMathematique(MathExp::erreur, int)));
     connect(m_exec, SIGNAL(terminee()), this, SIGNAL(executionTerminee()));
+    connect(m_exec, SIGNAL(changementLigne(int)), this, SIGNAL(changementLigne(int)));
     connect(this, SIGNAL(sigSaisie(QString)), m_exec, SLOT(enregistrerSaisie(QString)));
 }
 

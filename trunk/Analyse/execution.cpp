@@ -74,8 +74,11 @@ bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2, i
 void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
     if (pFin == -1)
         pFin = m_analyse->getListeInstruction()->length();
+
     for (int i = pDebut; i < pFin && !m_stop; i++) {
         Instruction* inst = m_analyse->getListeInstruction()->at(i);
+        if (pPasAPas)
+            emit changementLigne(inst->getNumLigne());
         if (inst->getTypeLigne() == Dictionnaire::Affectation) {
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), remplacementValeursVariables(inst->getArgs()->at(2), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Afficher) {

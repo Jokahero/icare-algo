@@ -43,6 +43,7 @@ signals:
     void afficher(QString);
     void erreurMathematique(MathExp::erreur, int);
     void erreurLogique(ExpressionLogique::erreur, int);
+    void changementLigne(int pNumLigne);
 };
 
 #endif // EXECUTION_H
