@@ -18,18 +18,27 @@ AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
 */
 void AnalyseSyntaxique::lancer(QFile* pFichier) {
     qDebug() << "Analyse syntaxique commencée.";
-    lectureGlossaire(pFichier);
-    lectureInstructions(pFichier);
-    emit terminee();
+
+    bool ret = true;
+
+    if (!lectureGlossaire(pFichier))
+        ret = false;
+
+    if (!lectureInstructions(pFichier))
+        ret = false;
+
+    emit terminee(ret);
     qDebug() << "Analyse syntaxique terminée.";
 }
 
 /*! \brief Lit le glossaire du fichier passé en paramètre.
 
   \param pFichier Pointeur vers le fichier à analyser.
+  \return Vrai si l'analyse s'est bien passée, faux sinon.
 */
-void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
+bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     qDebug() << "Lecture du glossaire commencée.";
+    bool ret = true;
 
     int debutGlossaire = -1;
     int finGlossaire = -1;
@@ -89,6 +98,8 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     pFichier->close();
 
     qDebug() << "Lecture du glossaire terminée.";
+
+    return ret;
 }
 
 
@@ -97,10 +108,12 @@ void AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
   Les lignes vides ne sont pas stockées.
   Si l'instruction est de type inconnu alors le signal erreur(numéro de ligne) est émit. Sinon, elle est stockée.
   \param pFichier Fichier à analyser.
-  \todo Renseigner la catégorie des instructions ajoutées.
+  \return Vrai si l'analyse s'est bien passée, faux sinon.
   */
-void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
+bool AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     qDebug() << "Lecture des instructions commencée.";
+
+    bool ret = true;
 
     int posPrec = -1;
     int debutAlgo = -1;       // Position de la ligne début.
@@ -143,9 +156,10 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
         if (ligneAct != QString::null && ligneAct != "") {
             QStringList* params = new QStringList;
             Dictionnaire::typeLigne typeLigneAct = Dictionnaire::getType(ligneAct, params);
-            if (typeLigneAct == Dictionnaire::TypeInconnu)
+            if (typeLigneAct == Dictionnaire::TypeInconnu) {
                 emit erreur(Analyse::Syntaxe, cptLigne);
-            else if (typeLigneAct != Dictionnaire::Commentaire)
+                ret = false;
+            } else if (typeLigneAct != Dictionnaire::Commentaire)
                 m_analyse->getListeInstruction()->append(new Instruction(cptLigne, ligneAct, typeLigneAct, params));
         }
     }
@@ -153,4 +167,6 @@ void AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     pFichier->close();
 
     qDebug() << "Lecture des instructions terminée.";
+
+    return ret;
 }

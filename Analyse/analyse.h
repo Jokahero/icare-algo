@@ -56,7 +56,9 @@ public slots:
 
 signals:
     void sigLancerAnalyseSyntaxique(QFile* pFichier);
+    void analyseSyntaxiqueTerminee(bool pOk);
     void sigLancerAnalyseSemantique();
+    void analyseSemantiqueTerminee(bool pOk);
     void sigLancerExecution();
     void sigSaisir();
     void sigSaisie(QString pSaisie);

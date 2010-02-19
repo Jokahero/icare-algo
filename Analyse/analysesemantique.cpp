@@ -22,13 +22,22 @@ AnalyseSemantique::~AnalyseSemantique() {
 
 void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique lancée.";
-    verifStruct();
-    verifInitialisations();
-    emit terminee();
+
+    bool ret = true;
+
+    if (!verifStruct())
+        ret = false;
+
+    if (!verifInitialisations())
+        ret = false;
+
+    emit terminee(ret);
     qDebug() << "Analyse sémantique terminée.";
 }
 
-void AnalyseSemantique::verifStruct() {
+bool AnalyseSemantique::verifStruct() {
+    bool ret = true;
+
     for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
         Dictionnaire::typeLigne type = m_analyse->getListeInstruction()->at(i)->getTypeLigne();
         if (type == Dictionnaire::Debut || type == Dictionnaire::Si || type == Dictionnaire::TantQue || type == Dictionnaire::Pour || type == Dictionnaire::Repeter) {
@@ -39,9 +48,10 @@ void AnalyseSemantique::verifStruct() {
         else if (type == Dictionnaire::Fin) {
             if (m_pileStructureControle->top() == Dictionnaire::Debut)
                 pop(i);
-            else
+            else {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-
+                ret = false;
+            }
         } else if (type == Dictionnaire::FinSi) {
             if (m_pileStructureControle->top() == Dictionnaire::Si) {
                 pop(i);
@@ -52,13 +62,15 @@ void AnalyseSemantique::verifStruct() {
                     m_analyse->getListeInstruction()->at(ligneFinSi)->setLigneMilieu(ligneSinon);
                     m_analyse->getListeInstruction()->at(ligneSinon)->setLigneFin(ligneFinSi);
                 }
-            } else
+            } else {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-
+                ret = false;
+            }
         } else if (type == Dictionnaire::Sinon) {
-            if (m_pileStructureControle->top() != Dictionnaire::Si)
+            if (m_pileStructureControle->top() != Dictionnaire::Si) {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-            else {
+                ret = false;
+            } else {
                 m_analyse->getListeInstruction()->at(m_pilePosition->top())->setLigneMilieu(i);
                 m_analyse->getListeInstruction()->at(i)->setLigneDebut(m_pilePosition->top());
                 m_analyse->getListeInstruction()->at(i)->setLigneMilieu(i);
@@ -66,29 +78,37 @@ void AnalyseSemantique::verifStruct() {
         } else if (type == Dictionnaire::FinTantQue) {
             if (m_pileStructureControle->top() == Dictionnaire::TantQue)
                 pop(i);
-            else
+            else {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-
+                ret = false;
+            }
         } else if (type == Dictionnaire::FinPour) {
             if (m_pileStructureControle->top() == Dictionnaire::Pour)
                 pop(i);
-            else
+            else {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
-
+                ret = false;
+            }
         } else if (type == Dictionnaire::Jusqua) {
             if (m_pileStructureControle->top() == Dictionnaire::Repeter)
                 pop(i);
-            else
+            else {
                 emit erreur(Analyse::Struct, m_analyse->getListeInstruction()->at(i)->getNumLigne());
+                ret = false;
+            }
         }
     }
 
     // Vidage de la pile pour la prochaine analyse
     if (!m_pileStructureControle->empty())
         m_pileStructureControle->resize(0);
+
+    return ret;
 }
 
-void AnalyseSemantique::verifInitialisations() {
+bool AnalyseSemantique::verifInitialisations() {
+    bool ret = true;
+
     for (int i = 0; i < m_analyse->getListeInstruction()->length(); i++) {
         Instruction* inst = m_analyse->getListeInstruction()->at(i);
         if (inst->getTypeLigne() == Dictionnaire::Affectation || inst->getTypeLigne() == Dictionnaire::Saisir)
@@ -105,13 +125,17 @@ void AnalyseSemantique::verifInitialisations() {
 
         for (int j = 0; j < m_analyse->getGlossaire()->getListeVariables().length(); j++)
             if (ligne.contains(QRegExp(".*(?:^|\\W)" + m_analyse->getGlossaire()->getListeVariables().at(j) + "(?:\\W|$).*")))
-                if (!m_listeVariables->contains(m_analyse->getGlossaire()->getListeVariables().at(j)))
+                if (!m_listeVariables->contains(m_analyse->getGlossaire()->getListeVariables().at(j))) {
                     emit erreur(Analyse::VariableNonInitialisee, inst->getNumLigne());
+                    ret = false;
+                }
     }
 
     // Vidage de la liste pour la prochaine analyse
     if (!m_listeVariables->empty())
         m_listeVariables->clear();
+
+    return ret;
 }
 
 void AnalyseSemantique::pop(int i) {

@@ -31,6 +31,8 @@ public slots:
     void lancerAnalyse(QFile* pFichier);
     void lancerExecution();
     void afficher(QString pChaine);
+    void analyseSyntaxiqueTerminee(bool pOk);
+    void analyseSemantiqueTerminee(bool pOk);
 
 signals:
     void changementLigne(int pNumLigne);

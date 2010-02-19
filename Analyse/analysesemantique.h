@@ -21,16 +21,16 @@ private:
     QStack<int>* m_pilePosition;
     QList<QString>* m_listeVariables;
 
-    void verifStruct();
+    bool verifStruct();
     void pop(int i);
 
-    void verifInitialisations();
+    bool verifInitialisations();
 
 public slots:
     void lancer();
 
 signals:
-    void terminee();
+    void terminee(bool );
     void erreur(Analyse::erreur pErreur, int pNumLigne);
 };
 

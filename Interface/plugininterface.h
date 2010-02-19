@@ -27,6 +27,8 @@ public slots:
     void erreurMathematique(MathExp::erreur /*pErreur*/);
     void erreurAnalyse(Analyse::erreur /*pErreur*/, int /*pNumLigne*/);
     void afficher(QString /*pChaine*/);
+    void analyseSyntaxiqueTerminee(bool /*pOk*/);
+    void analyseSemantiqueTerminee(bool /*pOk*/);
 };
 
 Q_DECLARE_INTERFACE(PluginInterface,
