@@ -51,6 +51,11 @@ TextEdit::~TextEdit() {
 }
 
 
+void TextEdit::ajouterTexte(QString pTexte) {
+    m_textEdit->insertPlainText(pTexte);
+}
+
+
 void TextEdit::changementLigne(int pNumLigne) {
     QTextBlock block;
     QTextCursor cursor;

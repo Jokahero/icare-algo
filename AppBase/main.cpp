@@ -11,6 +11,7 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QTranslator>
 #include <QtGui/QApplication>
+#include <QtGui/QMenuBar>
 #include <QtGui/QPixmap>
 #include <QtGui/QSplashScreen>
 
@@ -66,8 +67,13 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < liste.length(); i++)
         if (settings.value("Plugins/" + liste.at(i)->getNom() + "/Actif", true).toBool()) {
         g->chargerPlugin(liste.at(i)->getNom());
-        fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
-        g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
+        if (g->getPlugin(liste.at(i)->getNom())->getDockWidget() != 0) {
+            fenetre->addDockWidget((Qt::DockWidgetArea)settings.value(QString(liste.at(i)->getNom() + "pos"), Qt::BottomDockWidgetArea).toInt(), g->getPlugin(liste.at(i)->getNom())->getDockWidget());
+            g->getPlugin(liste.at(i)->getNom())->getDockWidget()->setFloating(settings.value(QString(liste.at(i)->getNom() + "floating"), false).toBool());
+        }
+        if (g->getPlugin(liste.at(i)->getNom())->getMenu() != 0) {
+            fenetre->getMenuBar()->addMenu(g->getPlugin(liste.at(i)->getNom())->getMenu());
+        }
     }
 
     sp->showMessage(QObject::tr("Établissement des liens entre les modules…"));
@@ -86,6 +92,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
         QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSyntaxiqueTerminee(bool)));
         QObject::connect(analyse, SIGNAL(analyseSemantiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSemantiqueTerminee(bool)));
+        QObject::connect(g->getListePlugins().at(i), SIGNAL(ajouterTexte(QString)), fenetre, SIGNAL(ajouterTexte(QString)));
     }
 
     // Connects des modules

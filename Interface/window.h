@@ -1,4 +1,4 @@
-#ifndef WINDOW_H
+    #ifndef WINDOW_H
 #define WINDOW_H
 
 #include <QtGui/QMainWindow>
@@ -32,8 +32,8 @@ public:
     ~Window();
 
     TextEdit* getZoneTexte();
-
     WidgetPlugins* getWPlugins();
+    QMenuBar* getMenuBar();
 
 protected:
     void closeEvent(QCloseEvent *pE);
@@ -121,5 +121,6 @@ signals:
     void reloadSettings();
     void sigChangementLigne(int pNumLigne);
     void sigSaisie(QString pSaisie);
+    void ajouterTexte(QString pTexte);
 };
 #endif // WINDOW_H

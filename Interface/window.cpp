@@ -123,7 +123,7 @@ Window::Window() : QMainWindow() {
 
     /* Mise en place du menu d'aide */
     m_help = new QMenu (m_barreMenu);
-    m_aPropos = new QAction (tr("A propos de Icare ..."), this);
+    m_aPropos = new QAction (tr("A propos de Icare…"), this);
     m_help->setTitle(tr("&Aide"));
     m_help->addAction(m_aPropos);
 
@@ -235,6 +235,7 @@ Window::Window() : QMainWindow() {
     connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
+    connect(this, SIGNAL(ajouterTexte(QString)), m_zoneTexte, SLOT(ajouterTexte(QString)));
     connect(m_zoneTexte->getTextEdit(), SIGNAL(undoAvailable(bool)), m_annuler, SLOT(setEnabled(bool)));
     connect(m_annuler, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(undo()));
     connect(m_zoneTexte->getTextEdit(), SIGNAL(redoAvailable(bool)), m_refaire, SLOT(setEnabled(bool)));
@@ -638,6 +639,10 @@ void Window::transmettreSaisie(QString pSaisie) {
 
 WidgetPlugins* Window::getWPlugins() {
     return m_wPlugins;
+}
+
+QMenuBar* Window::getMenuBar() {
+    return m_barreMenu;
 }
 
 void Window::analyseSyntaxiqueTerminee(bool pOk) {
