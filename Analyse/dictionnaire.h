@@ -84,6 +84,7 @@ private:
 
     static QString listePipeVariable(/*QStringList*/);
     static QString listeQuantites(/*QStringList*/);
+    static QString listeCondition();
 
 };
 
