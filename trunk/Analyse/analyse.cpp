@@ -4,7 +4,6 @@
 #include "execution.h"
 #include "glossaire.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QFile>
 
 Analyse *Analyse::_instance = 0;
@@ -36,7 +35,9 @@ Analyse::Analyse() {
     connect(this, SIGNAL(sigLancerAnalyseSemantique()), m_analyseSemantique, SLOT(lancer()));
     connect(m_analyseSyntaxique, SIGNAL(terminee(bool)), this, SIGNAL(analyseSyntaxiqueTerminee(bool)));
     connect(m_analyseSemantique, SIGNAL(terminee(bool)), this, SIGNAL(analyseSemantiqueTerminee(bool)));
-    connect(this, SIGNAL(sigLancerExecution()), m_exec, SLOT(lancer()));
+    connect(this, SIGNAL(sigLancerExecution(bool)), m_exec, SLOT(lancer(bool)));
+    connect(this, SIGNAL(execPas()), m_exec, SLOT(pas()));
+    connect(this, SIGNAL(execStop()), m_exec, SLOT(stop()));
     connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
@@ -70,8 +71,8 @@ void Analyse::lancerAnalyseSemantique() {
     emit sigLancerAnalyseSemantique();
 }
 
-void Analyse::lancerExecution() {
-    emit sigLancerExecution();
+void Analyse::lancerExecution(bool pPasAPas) {
+    emit sigLancerExecution(pPasAPas);
 }
 
 void Analyse::emettreSaisie() {

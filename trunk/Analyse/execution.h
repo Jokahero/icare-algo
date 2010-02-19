@@ -23,16 +23,19 @@ private:
     QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
     QString m_saisie;
     bool m_modifie;
+    bool m_stop;
 
     QString remplacementValeursVariables(QString pChaine, int pNumLigne);
     bool evaluationCondition(QString pVal1, QString pOp, QString pVal2, int pNumLigne);
 
-    void execution(int pDebut = 0, int pFin = -1);
+    void execution(bool pPasAPas, int pDebut = 0, int pFin = -1);
 
-    void waitForSignal();
+    void waitForSignal(QObject* pObj, const char* pSig);
 
 public slots:
-    void lancer();
+    void lancer(bool pPasAPas = false);
+    void pas();
+    void stop();
     void enregistrerSaisie(QString pSaisie);
 
 signals:

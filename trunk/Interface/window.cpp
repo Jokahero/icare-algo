@@ -106,12 +106,18 @@ Window::Window() : QMainWindow() {
     m_testSemantique = new QAction (tr("Tester la sé&mantique"), this);
     m_testComplet = new QAction (tr("Test complet"), this);
     m_executer = new QAction (tr("Exécuter"), this);
+    m_executerPasAPas = new QAction(tr("Exécuter pas à pas"), this);
+    m_pas = new QAction(tr("Avancer"), this);
+    m_stop = new QAction(tr("Arrêter"), this);
     m_menuAnalyse->setTitle(tr("&Analyse"));
     m_menuAnalyse->addAction(m_testSyntaxe);
     m_menuAnalyse->addAction(m_testSemantique);
     m_menuAnalyse->addAction(m_testComplet);
     m_menuAnalyse->addSeparator();
     m_menuAnalyse->addAction(m_executer);
+    m_menuAnalyse->addAction(m_executerPasAPas);
+    m_menuAnalyse->addAction(m_pas);
+    m_menuAnalyse->addAction(m_stop);
 
     /* Mise en place du menu d'options */
     m_menuOptions= new QMenu (m_barreMenu);
@@ -213,6 +219,9 @@ Window::Window() : QMainWindow() {
     m_barreOutilsTests->addAction(m_testSemantique);
     m_barreOutilsTests->addAction(m_testComplet);
     m_barreOutilsTests->addAction(m_executer);
+    m_barreOutilsTests->addAction(m_executerPasAPas);
+    m_barreOutilsTests->addAction(m_pas);
+    m_barreOutilsTests->addAction(m_stop);
 
     addToolBar(m_barreOutilsTests);
 
@@ -232,6 +241,9 @@ Window::Window() : QMainWindow() {
     connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
     connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
+    connect(m_executerPasAPas, SIGNAL(triggered()), this, SLOT(executionPasAPas()));
+    connect(m_pas, SIGNAL(triggered()), this, SIGNAL(execPas()));
+    connect(m_stop, SIGNAL(triggered()), this, SIGNAL(execStop()));
     connect(m_preferences, SIGNAL(triggered()), this, SLOT(afficherPreferences()));
     connect(m_plugins, SIGNAL(triggered()), this, SLOT(afficherMenuPlugins()));
     connect(this, SIGNAL(sigChangementLigne(int)), m_zoneTexte, SLOT(changementLigne(int)));
@@ -285,6 +297,9 @@ Window::~Window() {
     delete m_testSemantique;
     delete m_testComplet;
     delete m_executer;
+    delete m_executerPasAPas;
+    delete m_pas;
+    delete m_stop;
 
     delete m_menuOptions;
     delete m_plugins;
@@ -318,7 +333,11 @@ void Window::erreurMath(MathExp::erreur pCodeErreur) {
 }
 
 void Window::execution() {
-    emit executer();
+    emit executer(false);
+}
+
+void Window::executionPasAPas() {
+    emit executer(true);
 }
 
 void Window::analyseSyntaxique() {

@@ -99,7 +99,9 @@ int main(int argc, char *argv[]) {
     // Connects des modules
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), analyse, SLOT(lancerAnalyseSyntaxique(QFile*)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), analyse, SLOT(lancerAnalyseSemantique()));
-    QObject::connect(fenetre, SIGNAL(executer()), analyse, SLOT(lancerExecution()));
+    QObject::connect(fenetre, SIGNAL(executer(bool)), analyse, SLOT(lancerExecution(bool)));
+    QObject::connect(fenetre, SIGNAL(execPas()), analyse, SIGNAL(execPas()));
+    QObject::connect(fenetre, SIGNAL(execStop()), analyse, SIGNAL(execStop()));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), analyse, SLOT(destroy()));
     QObject::connect(analyse, SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
