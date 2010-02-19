@@ -111,6 +111,8 @@ public slots:
     void documentModifie(bool pMod);
     void afficherFenSaisie();
     void transmettreSaisie(QString pSaisie);
+    void analyseSyntaxiqueTerminee(bool pOk);
+    void analyseSemantiqueTerminee(bool pOk);
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);
