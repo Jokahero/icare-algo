@@ -27,7 +27,7 @@ WidgetGlossaire::WidgetGlossaire() {
 }
 
 QString WidgetGlossaire::getNom() {
-    return QString(tr("WidgetGlossaire"));
+    return QString(tr("Glossaire"));
 }
 
 QDockWidget* WidgetGlossaire::getDockWidget() {

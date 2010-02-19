@@ -42,6 +42,7 @@ public slots:
     void recherche(QString pRecherche);
     void remplacement(QString pRecherche, QString pRemplacement);
     void remplacerTout(QString pRecherche, QString pRemplacement);
+    void ajouterTexte(QString pTexte);
 
 protected slots:
     void highlightCurrentLine();

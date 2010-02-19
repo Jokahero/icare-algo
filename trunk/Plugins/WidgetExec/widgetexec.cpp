@@ -35,7 +35,7 @@ WidgetExec::WidgetExec() {
 }
 
 QString WidgetExec::getNom() {
-    return QString(tr("WidgetExec"));
+    return QString(tr("Sortie de compilation/exécution"));
 }
 
 QDockWidget* WidgetExec::getDockWidget() {
