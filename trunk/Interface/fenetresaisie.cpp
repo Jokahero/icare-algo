@@ -5,9 +5,15 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QVBoxLayout>
 
+
+/*! \brief Constructeur. Définit la fenêtre comme modale.
+
+  L'objet est supprimé dès que le fenêtre est fermée.
+*/
 FenetreSaisie::FenetreSaisie() : QDialog() {
     setWindowTitle(tr("Saisie"));
     setModal(true);
+    setAttribute(Qt::WA_DeleteOnClose);
 
     m_message = new QLabel(tr("Veuillez saisir une valeur: "));
     m_saisie = new QLineEdit(this);
@@ -25,11 +31,17 @@ FenetreSaisie::FenetreSaisie() : QDialog() {
     connect(m_saisie, SIGNAL(returnPressed()), this, SLOT(accept()));
 }
 
+
+/*! \brief Appelé lors d'un clic sur Ok ou lors de la validation du QLineEdit
+
+  Envoie le signal saisie(texte), où texte est le texte entré par l'utilisateur.
+  Ferme ensuite la fenêtre.
+*/
 void FenetreSaisie::accept() {
     emit saisie(m_saisie->text());
     QDialog::accept();
 }
-/*! \brief On redéfini la méthode reject pour qu'elle ne fasse rien afin que l'on ne puisse pas annuler une saisie
+/*! \brief Redéfinie depuis QDialog pour éviter toute annulation de saisie.
   */
 void FenetreSaisie::reject() {
 }

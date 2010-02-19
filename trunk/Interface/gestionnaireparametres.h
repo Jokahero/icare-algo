@@ -7,6 +7,12 @@ class QByteArray;
 class QColor;
 class QSettings;
 
+
+/*! \brief Classe permettant de sauvegarder les préférences.
+
+  Singleton.
+  Définit la valeur par défaut de toutes les options.
+*/
 class GestionnaireParametres : public QObject {
 public:
     static GestionnaireParametres* getInstance();

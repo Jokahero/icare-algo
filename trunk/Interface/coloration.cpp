@@ -2,7 +2,6 @@
 
 #include "gestionnaireparametres.h"
 
-#include <QtCore/QDebug>
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -11,6 +10,10 @@
 #include <QtGui/QTextCharFormat>
 #include <QtGui/QTextDocument>
 
+
+/*! \brief Constructeur. Associe la coloration à un document.
+  \param pTextDocument Document auquel associer la coloration
+*/
 Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextDocument) {
     HighlightingRule type;
     HighlightingRule controle;
@@ -88,11 +91,14 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     highlightingRules.append(numerique);
 }
 
-/*La fonction va rechercher le ou les mots suivant le regexp.
- Elle lui applique la couleur désiré ainsi que le format.
- Elle indique ensuite qu'elle a terminé le traitement.*/
-void Coloration::highlightBlock(const QString &text)
-{
+
+/*! \brief Applique la coloration adaptée au bloc de texte courant.
+
+  Le définit ensuite comme déjà traîté.
+
+  \param text Texte à colorer
+*/
+void Coloration::highlightBlock(const QString &text) {
     foreach (const HighlightingRule &rule, highlightingRules) {
         QRegExp expression(rule.pattern);
         int index = expression.indexIn(text);
@@ -105,6 +111,9 @@ void Coloration::highlightBlock(const QString &text)
     setCurrentBlockState(0);
 }
 
+
+/*! \brief Charge les paramètres enregistrés dans les préférences.
+*/
 void Coloration::loadSettings() {
     typeFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurTypes());;
     structureFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurStructures());

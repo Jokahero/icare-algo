@@ -7,6 +7,8 @@ class QColor;
 class QMouseEvent;
 class QPaintEvent;
 
+/*! \brief Bouton permettant de choisir une couleur et de l'y associer.
+*/
 class BoutonCouleur : public QWidget {
     Q_OBJECT
 

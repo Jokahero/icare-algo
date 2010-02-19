@@ -1,17 +1,26 @@
 #include "boutoncouleur.h"
 
-#include <QtCore/QDebug>
 #include <QtGui/QColor>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPainter>
 #include <QtGui/QPalette>
 #include <QtGui/QPen>
 
+
+/*! \brief Constructeur. Initialise un bouton de taille 25×25.
+
+  \param parent Widget parent
+*/
 BoutonCouleur::BoutonCouleur(QWidget *parent) : QWidget(parent) {
     setAutoFillBackground(true);
     setMinimumSize(25, 25);
 }
 
+
+/*! \brief Définit la couleur du bouton.
+
+  \param pCouleur Couleur à appliquer
+*/
 void BoutonCouleur::setCouleur(QColor pCouleur) {
     QPalette pal = palette();
     pal.setColor(backgroundRole(), pCouleur);
@@ -19,6 +28,12 @@ void BoutonCouleur::setCouleur(QColor pCouleur) {
     repaint();
 }
 
+
+/*! \brief Redéfinit l'évènement du clic souris.
+
+  Si le clic est fait avec le bouton gauche de la souris, le signal clicked() est émit. Sinon, l'évènement normal d'un QWidget est exécuté.
+  \param pE Évènement à traîter
+*/
 void BoutonCouleur::mousePressEvent(QMouseEvent *pE) {
     if (pE->button() == Qt::LeftButton)
         emit clicked();
@@ -26,6 +41,12 @@ void BoutonCouleur::mousePressEvent(QMouseEvent *pE) {
         QWidget::mousePressEvent(pE);
 }
 
+
+/*! \brief Redéfinit l'évènement de dessin.
+
+  Dessine un carré de la couleur du bouton, et un cadre noir de 1px de large autour.
+  \param pE Évènement à traîter
+*/
 void BoutonCouleur::paintEvent(QPaintEvent *pE) {
     QWidget::paintEvent(pE);
     QPainter painter;
@@ -37,6 +58,11 @@ void BoutonCouleur::paintEvent(QPaintEvent *pE) {
     painter.end();
 }
 
+
+/*! \brief Retourne la couleur du bouton.
+
+  \return couleur actuelle du bouton.
+*/
 QColor BoutonCouleur::getCouleur() {
     return palette().color(backgroundRole());
 }

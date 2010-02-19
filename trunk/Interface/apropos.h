@@ -7,17 +7,15 @@ class QLabel;
 class QPushButton;
 class QPixmap;
 
-/*! \brief Fenêtre «A propos»
+/*! \brief Fenêtre «À propos»
 */
-class Apropos : public QWidget
-{
+class Apropos : public QWidget {
     Q_OBJECT
 
 public:
     Apropos();
 
 private:
-
     QLabel *m_texte;
     QPushButton *m_close;
     QLabel *m_icone;
