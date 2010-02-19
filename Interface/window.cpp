@@ -255,7 +255,7 @@ Window::Window() : QMainWindow() {
     m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
     m_copier->setEnabled(false);
-    documentModifie(true);
+    documentModifie(false);
 }
 
 Window::~Window() {
@@ -345,8 +345,29 @@ void Window::afficherApropos() {
   et d'insérer son contenu dans la zone de texte.
 */
 void Window::ouvrirFichier() {
-    QString nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
+    if (m_documentModifie) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("L'algorithme a été modifié."));
+        msgBox.setInformativeText(tr("Voulez-vous enregistrer les modifications ?"));
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        int ret = msgBox.exec();
+        switch (ret) {
+        case QMessageBox::Save:
+            enregistrerFichier();
+            break;
+        case QMessageBox::Discard:
+            break;
+        case QMessageBox::Cancel:
+            return;
+            break;
+        default:
+            // ne devrait jamais être atteint
+            break;
+        }
+    }
 
+    QString nomFichier = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
     ouvrirFichier(nomFichier);
 }
 
@@ -512,6 +533,27 @@ void Window::enregistrerFichierSous() {
 }
 
 void Window::nouveauFichier() {
+    if (m_documentModifie) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("L'algorithme a été modifié."));
+        msgBox.setInformativeText(tr("Voulez-vous enregistrer les modifications ?"));
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        int ret = msgBox.exec();
+        switch (ret) {
+        case QMessageBox::Save:
+            enregistrerFichier();
+            break;
+        case QMessageBox::Discard:
+            break;
+        case QMessageBox::Cancel:
+            return;
+            break;
+        default:
+            // ne devrait jamais être atteint
+            break;
+        }
+    }
     setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
     m_fichier->setFileName(QString::null);
     m_zoneTexte->getTextEdit()->document()->clear();
