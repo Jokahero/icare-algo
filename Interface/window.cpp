@@ -332,11 +332,34 @@ void Window::erreurMath(MathExp::erreur pCodeErreur) {
         QMessageBox::information(this, "Erreur", "Erreur inconnue");
 }
 
+void Window::executionTerminee() {
+    m_testSyntaxe->setEnabled(true);
+    m_testSemantique->setEnabled(true);
+    m_testComplet->setEnabled(true);
+    m_executer->setEnabled(true);
+    m_executerPasAPas->setEnabled(true);
+    m_pas->setEnabled(false);
+    m_stop->setEnabled(false);
+}
+
 void Window::execution() {
+    m_testSyntaxe->setEnabled(false);
+    m_testSemantique->setEnabled(false);
+    m_testComplet->setEnabled(false);
+    m_executer->setEnabled(false);
+    m_executerPasAPas->setEnabled(false);
+    m_stop->setEnabled(true);
     emit executer(false);
 }
 
 void Window::executionPasAPas() {
+    m_testSyntaxe->setEnabled(false);
+    m_testSemantique->setEnabled(false);
+    m_testComplet->setEnabled(false);
+    m_executer->setEnabled(false);
+    m_executerPasAPas->setEnabled(false);
+    m_pas->setEnabled(true);
+    m_stop->setEnabled(true);
     emit executer(true);
 }
 
@@ -644,6 +667,9 @@ void Window::documentModifie(bool pMod) {
     m_documentModifie = pMod;
     m_testSemantique->setEnabled(false);
     m_executer->setEnabled(false);
+    m_executerPasAPas->setEnabled(false);
+    m_pas->setEnabled(false);
+    m_stop->setEnabled(false);
 }
 
 void Window::afficherFenSaisie() {
@@ -670,4 +696,5 @@ void Window::analyseSyntaxiqueTerminee(bool pOk) {
 
 void Window::analyseSemantiqueTerminee(bool pOk) {
     m_executer->setEnabled(pOk);
+    m_executerPasAPas->setEnabled(pOk);
 }
