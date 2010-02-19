@@ -12,7 +12,7 @@ public:
     WidgetExec::onglet getType();
 
 public slots:
-    void clear();
+    virtual void clear() = 0;
 
 private:
     WidgetExec::onglet m_type;

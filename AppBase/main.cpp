@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(Analyse::getInstance()->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
         QObject::connect(Analyse::getInstance(), SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
+        QObject::connect(fenetre, SIGNAL(executer()), g->getListePlugins().at(i), SLOT(lancerExecution()));
         QObject::connect(Analyse::getInstance(), SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
         QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
     }
