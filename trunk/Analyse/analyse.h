@@ -66,15 +66,15 @@ private:
     Analyse();
     ~Analyse();
 
-    QList<Instruction*>* m_listeInstruction;        /*!<\brief Liste des instructions extraites du code. */
-    Glossaire* m_glossaire;                         /*!<\brief Glossaire où sont stockées les variables. */
-    AnalyseSyntaxique* m_analyseSyntaxique;         /*!<\brief Analyseur syntaxique. */
-    AnalyseSemantique* m_analyseSemantique;         /*!<\brief Analyseur sémantique. */
-    Execution* m_exec;                              /*!<\brief Exécution. */
-    int m_debutGlossaire;                           /*!<\brief Contient la position du début du glossaire. */
-    int m_finGlossaire;                             /*!<\brief Contient la position du fin du glossaire. */
-    int m_debutAlgo;                                /*!<\brief Contient la position du début de l'algorithme. */
-    int m_finAlgo;                                  /*!<\brief Contient la position du fin de l'algorithme. */
+    QList<Instruction*>* m_listeInstruction;        /*!< \brief Liste des instructions extraites du code. */
+    Glossaire* m_glossaire;                         /*!< \brief Glossaire où sont stockées les variables. */
+    AnalyseSyntaxique* m_analyseSyntaxique;         /*!< \brief Analyseur syntaxique. */
+    AnalyseSemantique* m_analyseSemantique;         /*!< \brief Analyseur sémantique. */
+    Execution* m_exec;                              /*!< \brief Exécution. */
+    int m_debutGlossaire;                           /*!< \brief Contient la position du début du glossaire. */
+    int m_finGlossaire;                             /*!< \brief Contient la position du fin du glossaire. */
+    int m_debutAlgo;                                /*!< \brief Contient la position du début de l'algorithme. */
+    int m_finAlgo;                                  /*!< \brief Contient la position du fin de l'algorithme. */
 };
 
 #endif // ANALYSE_H
