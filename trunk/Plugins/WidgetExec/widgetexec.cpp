@@ -52,12 +52,15 @@ void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
     qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurAnalyse(pErreur, pNumLigne);
 }
 
+void WidgetExec::lancerExecution() {
+    for (int i = 0; i < m_tabWidget->count(); i++) {
+        qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
+    }
+}
+
 void WidgetExec::lancerAnalyse(QFile* /*pFichier*/) {
     for (int i = 0; i < m_tabWidget->count(); i++) {
-        if (i == WidgetExec::Erreurs)
-            qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(i))->clear();
-        else if (i == WidgetExec::Sorties)
-            qobject_cast<WidgetExecAffichageTab*>(m_tabWidget->widget(i))->clear();
+        qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
     }
 }
 

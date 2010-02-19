@@ -21,6 +21,7 @@ public slots:
     void variableModifiee(QString /*pNomVar*/, QString /*pValeur*/) {};
     void reinitialisationGlossaire();
     void lancerAnalyse(QFile* /*pFichier*/);
+    void lancerExecution();
     void erreurMathematique(MathExp::erreur /*pErreur*/);
     void erreurAnalyse(Analyse::erreur /*pErreur*/, int /*pNumLigne*/);
     void afficher(QString /*pChaine*/);

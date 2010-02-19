@@ -28,6 +28,7 @@ public slots:
     void erreurMathematique(MathExp::erreur pErreur);
     void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
     void lancerAnalyse(QFile* pFichier);
+    void lancerExecution();
     void afficher(QString pChaine);
 
 signals:

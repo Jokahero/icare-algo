@@ -34,6 +34,9 @@ void WidgetExecErrorsTab::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) 
     case Analyse::VariableDejaDeclaree:
         m_liste->addItem(tr("Ligne %1 : Redéfinition de variable").arg(QString::number(pNumLigne)));
         break;
+    case Analyse::VariableNonInitialisee:
+        m_liste->addItem(tr("Ligne %1 : Variable non initialisée").arg(QString::number(pNumLigne)));
+        break;
     case Analyse::TypeIncorrect:
         m_liste->addItem(tr("Ligne %1 : Type de la variable incorrect").arg(QString::number(pNumLigne)));
         break;
