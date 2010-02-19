@@ -7,6 +7,8 @@ class QDialogButtonBox;
 class QLabel;
 class QLineEdit;
 
+/*! \brief Fenêtre permettant la saisie d'une variable par l'utilisateur.
+*/
 class FenetreSaisie : public QDialog {
     Q_OBJECT
 
