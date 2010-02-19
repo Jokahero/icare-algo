@@ -117,6 +117,7 @@ public slots:
     void transmettreSaisie(QString pSaisie);
     void analyseSyntaxiqueTerminee(bool pOk);
     void analyseSemantiqueTerminee(bool pOk);
+    void executionTerminee();
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);

@@ -62,6 +62,7 @@ signals:
     void sigLancerExecution(bool pPasAPas = false);
     void execPas();
     void execStop();
+    void executionTerminee();
     void sigSaisir();
     void sigSaisie(QString pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);

@@ -107,6 +107,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(analyse, SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
     QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), fenetre, SLOT(analyseSyntaxiqueTerminee(bool)));
     QObject::connect(analyse, SIGNAL(analyseSemantiqueTerminee(bool)), fenetre, SLOT(analyseSemantiqueTerminee(bool)));
+    QObject::connect(analyse, SIGNAL(executionTerminee()), fenetre, SLOT(executionTerminee()));
     QObject::connect(fenetre, SIGNAL(sigSaisie(QString)), analyse, SLOT(transmettreSaisie(QString)));
 
     // Chargement d'un fichier passé en paramètre
