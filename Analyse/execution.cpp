@@ -3,7 +3,6 @@
 #include "expressionlogique.h"
 #include "glossaire.h"
 #include "mathexp.h"
-#include "../Interface/fenetresaisie.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QStack>
@@ -42,21 +41,23 @@ QString Execution::remplacementValeursVariables(QString pChaine) {
     }
 
     MathExp* me = new MathExp();
+    connect(me, SIGNAL(sigErreur(MathExp::erreur)), this, SIGNAL(erreurMathematique(MathExp::erreur)));
     me->setExpression(pChaine);
-    return QString::number(me->calcul());
+    QString res = QString::number(me->calcul());
+    delete me;
+    return res;
 }
 
 bool Execution::evaluationCondition(QString pVal1, QString pOp, QString pVal2) {
     pVal1 = pVal1.trimmed();
     pOp = pOp.trimmed();
     pVal2 = pVal2.trimmed();
-    qDebug() << "pVal1 : " << pVal1 << " - pOp : " << pOp << " - pVal2 : " << pVal2;
 
     ExpressionLogique* tmp = new ExpressionLogique();
+    connect(tmp, SIGNAL(sigErreur(ExpressionLogique::erreur)), this, SIGNAL(erreurLogique(ExpressionLogique::erreur)));
     tmp->setExpression(pVal1 + pOp + pVal2);
     bool res = tmp->resultat();
     delete tmp;
-    qDebug() << res;
     return res;
 }
 
@@ -92,7 +93,6 @@ void Execution::execution(int pDebut, int pFin) {
                 execution(inst->getLigneDebut() + 1, inst->getLigneFin());
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::Si) {
-            qDebug() << "-- Si --";
             if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getArgs()->at(2), remplacementValeursVariables(inst->getArgs()->at(3)))) {
                 if (inst->getLigneMilieu() >= 0)
                     execution(inst->getLigneDebut() + 1, inst->getLigneMilieu());

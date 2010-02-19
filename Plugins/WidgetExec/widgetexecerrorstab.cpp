@@ -9,6 +9,20 @@ WidgetExecErrorsTab::WidgetExecErrorsTab(WidgetExec::onglet pType, QWidget *pPar
     connect(m_liste, SIGNAL(currentRowChanged(int)), this, SLOT(ligneChangee(int)));
 }
 
+void WidgetExecErrorsTab::erreurLogique(ExpressionLogique::erreur pErreur) {
+    switch (pErreur) {
+    case ExpressionLogique::PositionOperateurs:
+        m_liste->addItem(tr("Expression logique malformée"));
+        break;
+    case ExpressionLogique::Parentheses:
+        m_liste->addItem(tr("Nombre de parenthèses incorrect"));
+        break;
+    default:
+        m_liste->addItem(tr("Erreur inconnue"));
+        break;
+    }
+}
+
 void WidgetExecErrorsTab::erreurMathematique(MathExp::erreur pErreur) {
     switch (pErreur) {
     case MathExp::DivisionParZero:

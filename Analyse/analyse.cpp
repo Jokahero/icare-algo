@@ -39,6 +39,8 @@ Analyse::Analyse() {
     connect(m_analyseSyntaxique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_analyseSemantique, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));
     connect(m_exec, SIGNAL(afficher(QString)), this, SIGNAL(sigAfficher(QString)));
+    connect(m_exec, SIGNAL(erreurLogique(ExpressionLogique::erreur)), this, SIGNAL(sigErreurLogique(ExpressionLogique::erreur)));
+    connect(m_exec, SIGNAL(erreurMathematique(MathExp::erreur)), this, SIGNAL(sigErreurMathematique(MathExp::erreur)));
     connect(this, SIGNAL(sigSaisie(QString)), m_exec, SLOT(enregistrerSaisie(QString)));
 }
 
