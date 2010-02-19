@@ -1,11 +1,9 @@
 #include "expressionlogique.h"
 
-#include "mathexp.h"
-
 #include <QtCore/QString>
 
 
-ExpressionLogique::ExpressionLogique() {
+ExpressionLogique::ExpressionLogique(int pNumLigne) : m_numLigne(pNumLigne) {
     m_calcul = new Arbre();
     m_expression = QString::null;
 }
@@ -37,7 +35,7 @@ Arbre* ExpressionLogique::parseExp(QString pExpression) {
 
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
-        emit sigErreur(ExpressionLogique::Parentheses);
+        emit sigErreur(ExpressionLogique::Parentheses, m_numLigne);
         return parseExp("-1");
     }
 
@@ -78,7 +76,8 @@ bool ExpressionLogique::calculRec(Arbre* pArbre) {
         return false;
 
     if (pArbre->getSag()->estFeuille()) {
-        MathExp* me = new MathExp();
+        MathExp* me = new MathExp(m_numLigne);
+        connect(me, SIGNAL(sigErreur(MathExp::erreur, int)), this, SIGNAL(sigErreurMath(MathExp::erreur, int)));
         me->setExpression(pArbre->getSag()->getContenu());
         double g = me->calcul();
         me->setExpression(pArbre->getSad()->getContenu());

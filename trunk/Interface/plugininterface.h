@@ -26,8 +26,8 @@ public slots:
     virtual void reinitialisationGlossaire() {};
     virtual void lancerAnalyse(QFile* /*pFichier*/) {};
     virtual void lancerExecution() {};
-    virtual void erreurLogique(ExpressionLogique::erreur /*pErreur*/) {};
-    virtual void erreurMathematique(MathExp::erreur /*pErreur*/) {};
+    virtual void erreurLogique(ExpressionLogique::erreur /*pErreur*/, int /*pNumLigne*/) {};
+    virtual void erreurMathematique(MathExp::erreur /*pErreur*/, int /*pNumLigne*/) {};
     virtual void erreurAnalyse(Analyse::erreur /*pErreur*/, int /*pNumLigne*/) {};
     virtual void afficher(QString /*pChaine*/) {};
     virtual void analyseSyntaxiqueTerminee(bool /*pOk*/) {};

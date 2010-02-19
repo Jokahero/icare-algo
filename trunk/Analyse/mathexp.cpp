@@ -3,7 +3,7 @@
 #include <QtCore/QString>
 
 
-MathExp::MathExp() {
+MathExp::MathExp(int pNumLigne) : m_numLigne(pNumLigne) {
     m_calcul = new Arbre();
     m_expression = QString::null;
 }
@@ -31,7 +31,7 @@ Arbre* MathExp::parseExp(QString pExpression) {
 
     // Erreur de parenthèses
     if (pExpression.count("(") != pExpression.count(")")) {
-        emit sigErreur(MathExp::Parentheses);
+        emit sigErreur(MathExp::Parentheses, m_numLigne);
         return parseExp("-1");
     }
 
@@ -87,7 +87,7 @@ double MathExp::calculRec(Arbre* pArbre) {
         if (d != 0)
             return (g / d);
         else {
-            emit sigErreur(MathExp::DivisionParZero);
+            emit sigErreur(MathExp::DivisionParZero, m_numLigne);
             return -1;
         }
     }

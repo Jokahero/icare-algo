@@ -13,7 +13,7 @@ class MathExp : public QObject {
     Q_OBJECT
 
 public:
-    MathExp();
+    MathExp(int pNumLigne = -1);
     ~MathExp();
     void setExpression(QString pExpression);
     double calcul();
@@ -28,6 +28,7 @@ public:
 private:
     Arbre* parseExp(QString pExpression);
     double calculRec(Arbre* pArbre);
+    int m_numLigne;
 
     int moinsPrioritaire(QString pExpression);
 
@@ -35,7 +36,7 @@ private:
     Arbre* m_calcul;                            /*!< \brief Racine de l'arbre utilisé pour le calcul. */
 
 signals:
-    void sigErreur(MathExp::erreur);
+    void sigErreur(MathExp::erreur pErreur, int pNumLigne);
 };
 
 #endif // MATHEXP_H

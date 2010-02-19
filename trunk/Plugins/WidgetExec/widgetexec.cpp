@@ -42,14 +42,14 @@ QDockWidget* WidgetExec::getDockWidget() {
     return m_dockWidget;
 }
 
-void WidgetExec::erreurLogique(ExpressionLogique::erreur pErreur) {
+void WidgetExec::erreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne) {
     m_tabWidget->setCurrentIndex(WidgetExec::Erreurs);
-    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurLogique(pErreur);
+    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurLogique(pErreur, pNumLigne);
 }
 
-void WidgetExec::erreurMathematique(MathExp::erreur pErreur) {
+void WidgetExec::erreurMathematique(MathExp::erreur pErreur, int pNumLigne) {
     m_tabWidget->setCurrentIndex(WidgetExec::Erreurs);
-    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurMathematique(pErreur);
+    qobject_cast<WidgetExecErrorsTab*>(m_tabWidget->widget(WidgetExec::Erreurs))->erreurMathematique(pErreur, pNumLigne);
 }
 
 void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {

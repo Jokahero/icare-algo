@@ -85,7 +85,8 @@ int main(int argc, char *argv[]) {
         QObject::connect(analyse->getGlossaire(), SIGNAL(variableModifiee(QString, QString)), g->getListePlugins().at(i), SLOT(variableModifiee(QString, QString)));
         QObject::connect(analyse->getGlossaire(), SIGNAL(sigReinit()), g->getListePlugins().at(i), SLOT(reinitialisationGlossaire()));
         QObject::connect(analyse, SIGNAL(sigErreur(Analyse::erreur, int)), g->getListePlugins().at(i), SLOT(erreurAnalyse(Analyse::erreur, int)));
-        QObject::connect(analyse, SIGNAL(sigErreurMathematique(MathExp::erreur)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur)));
+        QObject::connect(analyse, SIGNAL(sigErreurMathematique(MathExp::erreur, int)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur, int)));
+        QObject::connect(analyse, SIGNAL(sigErreurLogique(ExpressionLogique::erreur, int)), g->getListePlugins().at(i), SLOT(erreurLogique(ExpressionLogique::erreur, int)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
         QObject::connect(fenetre, SIGNAL(executer()), g->getListePlugins().at(i), SLOT(lancerExecution()));
         QObject::connect(analyse, SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
@@ -99,7 +100,6 @@ int main(int argc, char *argv[]) {
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), analyse, SLOT(lancerAnalyseSyntaxique(QFile*)));
     QObject::connect(fenetre, SIGNAL(lancerAnalyseSemantique()), analyse, SLOT(lancerAnalyseSemantique()));
     QObject::connect(fenetre, SIGNAL(executer()), analyse, SLOT(lancerExecution()));
-    //QObject::connect(analyse->getGlossaire(), SIGNAL(erreur(int)), fenetre, SLOT(erreurAnalyse(int)));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), analyse, SLOT(destroy()));
     QObject::connect(analyse, SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
