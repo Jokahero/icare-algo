@@ -13,6 +13,9 @@ class Window;
 
 class TextEdit;
 
+
+/*! \brief QTextEdit permetant le drag'n'drop de fichier
+*/
 class DropableTextEdit : public QTextEdit {
     Q_OBJECT
 

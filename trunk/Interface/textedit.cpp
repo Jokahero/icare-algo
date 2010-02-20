@@ -13,10 +13,21 @@
 #include <QtGui/QScrollBar>
 #include <QtGui/QToolTip>
 
+
+/*! \brief Constructeur. Accepte le drag'n'drop.
+
+  \param pParent Widget parent
+*/
 DropableTextEdit::DropableTextEdit(TextEdit *pParent) : QTextEdit(pParent), m_parent(pParent) {
     setAcceptDrops(true);
 }
 
+
+/*! \brief Méthode appelée automatiquement lors du drag'n'drop d'un fichier sur l'éditeur.
+
+  Ouvre le fichier si il est possible de le faire.
+  \param pEvent Évènement de drag'n'drop
+*/
 void DropableTextEdit::dropEvent(QDropEvent *pEvent) {
     const QMimeData *mimeData = pEvent->mimeData();
     if (mimeData->hasFormat("text/plain")) {
@@ -26,6 +37,10 @@ void DropableTextEdit::dropEvent(QDropEvent *pEvent) {
 }
 
 
+/*! \brief Constructeur. Initialise un éditeur de texte et charge les préférences.
+
+  \param pParent Widget parent
+*/
 TextEdit::TextEdit(Window *pParent) : QFrame(pParent), m_parent(pParent) {
     setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     setLineWidth(2);
@@ -43,6 +58,9 @@ TextEdit::TextEdit(Window *pParent) : QFrame(pParent), m_parent(pParent) {
     loadSettings();
 }
 
+
+/*! \brief Destruteur. Détruit la barre de numérotation de lignes si elle existe.
+*/
 TextEdit::~TextEdit() {
     if (m_barreNombres != 0)
         delete m_barreNombres;
@@ -51,19 +69,38 @@ TextEdit::~TextEdit() {
 }
 
 
+/*! \brief Ajoute du texte à l'éditeur.
+
+  \param pTexte Texte à ajouter
+*/
 void TextEdit::ajouterTexte(QString pTexte) {
     m_textEdit->insertPlainText(pTexte);
 }
 
 
+/*! \brief Change la ligne actuelle de l'éditeur de texte.
+
+  \param pNumLigne Numéro de la ligne où aller
+*/
 void TextEdit::changementLigne(int pNumLigne) {
     getTextEdit()->setTextCursor(QTextCursor(getTextEdit()->document()->findBlockByLineNumber(pNumLigne - 1)));
 }
 
+
+/*! \brief Recherche un texte dans l'éditeur.
+
+  \param pRecherche Texte à rechercher
+*/
 void TextEdit::recherche(QString pRecherche) {
     getTextEdit()->find(pRecherche);
 }
 
+
+/*! \brief Remplace du texte dans l'éditeur.
+
+  \param pRecherche Texte à rechercher
+  \param pRemplacement Texte par lequel remplacer pRecherche
+*/
 void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
     if (getTextEdit()->find(pRecherche)) {
         getTextEdit()->textCursor().removeSelectedText();
@@ -77,11 +114,24 @@ void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
     }
 }
 
+
+/*! \brief Remplace toutes les occurences d'un texte dans l'éditeur.
+
+  \param pRecherche Texte à rechercher
+  \param pRemplacement Texte par lequel remplacer toutes les occurences de pRecherche
+*/
 void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
     while (getTextEdit()->find(pRecherche, QTextDocument::FindBackward) || getTextEdit()->find(pRecherche))
         remplacement(pRecherche, pRemplacement);
 }
 
+
+/*! \brief Méthode appelée automatiquement lors de l'utilisation de la molette au dessus de l'éditeur.
+
+  Zomme/dézomme si la touche ctrl est enfoncée, sinon monte/descend dans l'éditeur.
+  \param pEvent Évènement de scroll
+  \bug Lorsque ctrl est enfoncé, le zoom/dézoom est bien appliqué, mais le scroll aussi
+*/
 void TextEdit::wheelEvent(QWheelEvent* pEvent) {
     if (qApp->keyboardModifiers() & Qt::ControlModifier) {
         if (pEvent->delta() > 0)
@@ -93,6 +143,10 @@ void TextEdit::wheelEvent(QWheelEvent* pEvent) {
 }
 
 
+/*! \brief Surligne la ligne où le curseur est actuellement dans l'éditeur.
+
+  \todo Permettre une couleur différente en mode pas à pas
+*/
 void TextEdit::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
@@ -108,16 +162,22 @@ void TextEdit::highlightCurrentLine() {
 }
 
 
+/*! \brief Réinitialise la coloration syntaxique.
+*/
 void TextEdit::changerCouleur() {
     m_color->deleteLater();
     m_color = new Coloration(getTextEdit()->document());
 }
 
+
+/*! \brief Charge les préférences de l'utilisateur et réinitialise l'éditeur avec ces paramètres.
+*/
 void TextEdit::loadSettings() {
     m_isLineNumberArea = GestionnaireParametres::getInstance()->getNumerotationLignes();
     m_isRetourLigne = GestionnaireParametres::getInstance()->getRetourLigne();
     m_tailleTab = GestionnaireParametres::getInstance()->getTailleTab();
 
+    // Le layout actuel est supprimé afin de pouvoir afficher/masquer la barre de numérotation des lignes
     delete layout();
     QHBoxLayout *box = new QHBoxLayout(this);
     box->setSpacing(0);
@@ -136,6 +196,8 @@ void TextEdit::loadSettings() {
         getTextEdit()->setLineWrapMode(QTextEdit::WidgetWidth);
     else
         getTextEdit()->setLineWrapMode(QTextEdit::NoWrap);
+
+    // Réinitialisation de la coloration syntaxique
     changerCouleur();
     getTextEdit()->setTabStopWidth(fontMetrics().width(QLatin1Char(' ')) * m_tailleTab);
     highlightCurrentLine();

@@ -7,11 +7,16 @@ class QLabel;
 class QLineEdit;
 class QPushButton;
 
+
+/*! \brief Fenêtre de recherche/remplacement.
+
+  \todo Refaire la mise en page, probablement avec des onglets.
+*/
 class Recherche : public QDialog {
     Q_OBJECT
 
 public:
-    Recherche(QWidget *parent = 0);
+    Recherche(QWidget *pParent = 0);
     ~Recherche();
 
 public slots:

@@ -9,8 +9,12 @@
 #include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 
+
+/*! \brief Constructeur. La fenêtre est modale.
+*/
 WidgetPlugins::WidgetPlugins() {
-    setWindowTitle("Plugins");
+    setWindowTitle(tr("Plugins"));
+    setModal(true);
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     m_gestionnairePlugins = new GestionnairePlugins();
@@ -41,6 +45,9 @@ WidgetPlugins::WidgetPlugins() {
     QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
+
+/*! \brief Destructeur.
+*/
 WidgetPlugins::~WidgetPlugins() {
     delete m_gestionnairePlugins;
     delete m_buttonBox;
@@ -49,22 +56,36 @@ WidgetPlugins::~WidgetPlugins() {
     delete m_listeCheck;
 }
 
+
+/*! \brief Sauvegarde pour chaque plugin si il est actif ou non.
+*/
 void WidgetPlugins::saveSettings() {
     for (int i = 0; i < m_listeCheck->length(); i++)
         GestionnaireParametres::getInstance()->setPluginActif(m_listeCheck->at(i)->text(), m_listeCheck->at(i)->isChecked());
 }
 
+
+/*! \brief Sauvegarde les paramètres, envoie le signal settingsChanged et ferme la fenêtre.
+*/
 void WidgetPlugins::accept() {
     saveSettings();
     emit settingsChanged();
     QDialog::accept();
 }
 
+
+/*! \brief Charge l'état d'activation de chaque plugin depuis les préférences.
+*/
 void WidgetPlugins::loadSettings() {
     for (int i = 0; i < m_listeCheck->length(); i++)
         m_listeCheck->at(i)->setChecked(GestionnaireParametres::getInstance()->getPluginActif(m_listeCheck->at(i)->text()));
 }
 
+
+/*! \brief Accesseur du gestionnaire de plugins.
+
+  \return Gestionnaire de plugins
+*/
 GestionnairePlugins* WidgetPlugins::getGestionnairePlugins() {
     return m_gestionnairePlugins;
 }
