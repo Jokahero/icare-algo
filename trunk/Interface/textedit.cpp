@@ -13,6 +13,8 @@
 #include <QtGui/QScrollBar>
 #include <QtGui/QToolTip>
 
+#include <QtCore/QDebug>
+
 
 /*! \brief Constructeur. Accepte le drag'n'drop.
 
@@ -34,6 +36,23 @@ void DropableTextEdit::dropEvent(QDropEvent *pEvent) {
         m_parent->getParent()->ouvrirFichier(mimeData->text().trimmed().replace("file://", ""));
         pEvent->accept();
     }
+}
+
+
+/*! \brief Méthode appelée automatiquement lors de l'utilisation de la molette au dessus de l'éditeur.
+
+  Zomme/dézomme si la touche ctrl est enfoncée, sinon monte/descend dans l'éditeur.
+  \param pEvent Évènement de scroll
+*/
+void DropableTextEdit::wheelEvent(QWheelEvent* pEvent) {
+    if (qApp->keyboardModifiers() & Qt::ControlModifier) {
+        if (pEvent->delta() > 0)
+            zoomIn();
+        else if (pEvent->delta() < 0)
+           zoomOut();
+        pEvent->accept();
+    } else
+        QTextEdit::wheelEvent(pEvent);
 }
 
 
@@ -123,23 +142,6 @@ void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
 void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
     while (getTextEdit()->find(pRecherche, QTextDocument::FindBackward) || getTextEdit()->find(pRecherche))
         remplacement(pRecherche, pRemplacement);
-}
-
-
-/*! \brief Méthode appelée automatiquement lors de l'utilisation de la molette au dessus de l'éditeur.
-
-  Zomme/dézomme si la touche ctrl est enfoncée, sinon monte/descend dans l'éditeur.
-  \param pEvent Évènement de scroll
-  \bug Lorsque ctrl est enfoncé, le zoom/dézoom est bien appliqué, mais le scroll aussi
-*/
-void TextEdit::wheelEvent(QWheelEvent* pEvent) {
-    if (qApp->keyboardModifiers() & Qt::ControlModifier) {
-        if (pEvent->delta() > 0)
-            getTextEdit()->zoomIn();
-        else if (pEvent->delta() < 0)
-            getTextEdit()->zoomOut();
-        pEvent->accept();
-    }
 }
 
 
