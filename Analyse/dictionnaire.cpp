@@ -352,8 +352,8 @@ bool Dictionnaire::isRepeter(QString pLigne, QStringList* pListeArgs) {
   \return Vrai si la ligne est un "Jusqua", faux sinon.
 */
 bool Dictionnaire::isJusqua(QString pLigne, QStringList* pListeArgs) {
-    QString expression = listeQuantites();
-    QRegExp rx("^jusqu[\\s']?[àa]\\s(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\s?$");
+    QString expression = listeCondition();
+    QRegExp rx("^jusqu[\\s']?[àa]\\s?(" + expression + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     if (pListeArgs)
         pListeArgs->clear();
@@ -374,8 +374,8 @@ bool Dictionnaire::isJusqua(QString pLigne, QStringList* pListeArgs) {
   \return Vrai si la ligne est un "TantQue", faux sinon.
 */
 bool Dictionnaire::isTantQue(QString pLigne, QStringList* pListeArgs) {
-    QString expression = listeQuantites();
-    QRegExp rx("^tantque\\s+(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\s?$");
+    QString expression = listeCondition();
+    QRegExp rx("^tantque\\s+(" + expression + ")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     if (pListeArgs)
         pListeArgs->clear();

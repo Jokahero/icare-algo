@@ -84,8 +84,10 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
         if (pPasAPas)
             emit changementLigne(inst->getNumLigne());
         if (inst->getTypeLigne() == Dictionnaire::Affectation) {
+            // Affectation
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), calcul(remplacementValeursVariables(inst->getArgs()->at(2)), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Afficher) {
+            // Afficher
             if (inst->getArgs()->at(1).trimmed().startsWith("\"")) {
                 QString tmp = inst->getArgs()->at(1);
                 tmp = tmp.remove(tmp.indexOf('"'), 1);
@@ -94,22 +96,33 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
             } else
                 emit afficher(calcul(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
+            // Saisir
             m_modifie = false;
             m_analyse->emettreSaisie();
             waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
             while (!m_modifie);
             m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
+            // Pour
             for (int j = calcul(remplacementValeursVariables(inst->getArgs()->at(2)), inst->getNumLigne()).toInt(); j <= calcul(remplacementValeursVariables(inst->getArgs()->at(3)), inst->getNumLigne()).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
                 execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
             }
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::TantQue) {
-            while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)) + inst->getArgs()->at(2) + remplacementValeursVariables(inst->getArgs()->at(3)), inst->getNumLigne()))
+            // Tant que
+            while (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()))
                 execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
             i = inst->getLigneFin();
+        } else if (inst->getTypeLigne() == Dictionnaire::Repeter) {
+            // Répéter
+            Instruction* fin = m_analyse->getListeInstruction()->at(inst->getLigneFin());
+            do {
+                execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
+            } while (!evaluationCondition(remplacementValeursVariables(fin->getArgs()->at(1)), fin->getNumLigne()));
+            i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::Si) {
+            // Si
             if (evaluationCondition(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne())) {
                 if (inst->getLigneMilieu() >= 0)
                     execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneMilieu());

@@ -35,6 +35,11 @@ Sinon
 	Afficher "Non"
 FinSi
 
+Répéter
+	Afficher nbChevre
+	nbChevre ← nbChevre - 1
+Jusqu'à nbChevre < 5
+
 Si nbChevre < 4 && i > 5 Alors
 	Afficher "Oui"
 Sinon
