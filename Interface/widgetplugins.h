@@ -8,6 +8,9 @@ class QCheckBox;
 class QDialogButtonBox;
 template <typename T> class QList;
 
+
+/*! \brief Fenêtre affichant la liste des plugins disponnibles et permettant à l'utilisateur de choisir lesquels il veut activer.
+*/
 class WidgetPlugins : public QDialog {
     Q_OBJECT
 

@@ -7,7 +7,12 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
 
-Recherche::Recherche(QWidget *parent) : QDialog(parent) {
+
+/*! \brief Constructeur. La fenêtre n'est pas modale.
+
+  \param pParent Widget parent
+*/
+Recherche::Recherche(QWidget *pParent) : QDialog(pParent) {
     m_rechercherLa = new QLabel(tr("Rechercher : "));
     m_rechercherLe = new QLineEdit;
     m_remplacerLa = new QLabel(tr("Remplacer : "));
@@ -63,6 +68,12 @@ Recherche::~Recherche() {
     delete m_remplacerTout;
 }
 
+
+/*! \brief Affiche/masque une partie de la fenêtre.
+
+  Lorsque pVisible est défini à vrai, le champ et les boutons de remplacement sont affichés. Lorsqu'il est à faux, ils sont masqués.
+  \param pVisible Visibilité des widgets de recherche
+*/
 void Recherche::plus(bool pVisible) {
     m_remplacerLa->setVisible(pVisible);
     m_remplacerLe->setVisible(pVisible);
@@ -73,23 +84,39 @@ void Recherche::plus(bool pVisible) {
         m_rechercher->setText(tr("Rechercher"));
 }
 
+
+/*! \brief Affiche la fenêtre en mode recherche.
+*/
 void Recherche::rec() {
     m_plus->setChecked(false);
     show();
 }
 
+
+/*! \brief Affiche la fenêtre en mode remplacement.
+*/
 void Recherche::rem() {
     m_plus->setChecked(true);
     show();
 }
 
+
+/*! \brief Lance une recherche ou un remplacement.
+
+  Si la fenêtre est en mode recherche, le signal recherche(texte) est émit. Sinon, c'est le signal remplacement(texte, texte) qui est émit.
+*/
 void Recherche::recherche() {
-    if (m_rechercher->text() == tr("Rechercher"))
+    if (!m_plus->isChecked())
         emit recherche(m_rechercherLe->text());
     else
         emit remplacement(m_rechercherLe->text(), m_remplacerLe->text());
 }
 
+
+/*! \brief Lance un remplacement sur tout l'algorithme.
+
+  Le signal remplacerTout(texte, texte) est émit.
+*/
 void Recherche::remplacerTout() {
     emit remplacerTout(m_rechercherLe->text(), m_remplacerLe->text());
 }

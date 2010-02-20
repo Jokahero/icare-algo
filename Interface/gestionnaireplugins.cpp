@@ -7,10 +7,14 @@
 #include <QtCore/QString>
 #include <QtGui/QApplication>
 
+
+/*! \brief Détruit tous les plugins chargés.
+*/
 GestionnairePlugins::~GestionnairePlugins() {
     for (int i = 0; i < m_listePlugins.length(); i++)
         delete m_listePlugins.at(i);
 }
+
 
 /*! \brief Charge le plugin de nom pNomPlugin.
 
@@ -48,6 +52,7 @@ bool GestionnairePlugins::chargerPlugin(QString pNomPlugin) {
     return false;
 }
 
+
 /*! \brief Renvoie un pointeur vers l'instance du plugin de nom pNomPlugin.
 
   \param pNomPlugin Nom du plugin recherché.
@@ -60,6 +65,11 @@ PluginInterface* GestionnairePlugins::getPlugin(QString pNomPlugin) {
     return NULL;
 }
 
+
+/*! \brief Renvoie la liste de tous les plugins disponibles, chargés ou non.
+
+  \return Liste des plugins disponibles
+*/
 QList<PluginInterface*> GestionnairePlugins::getListePluginsDispo() {
     QList<PluginInterface*> liste;
     QDir pluginsDir(qApp->applicationDirPath());
@@ -86,6 +96,11 @@ QList<PluginInterface*> GestionnairePlugins::getListePluginsDispo() {
     return liste;
 }
 
+
+/*! \brief Renvoie la liste des plugins chargés.
+
+  \return Liste des plugins chargés
+*/
 QList<PluginInterface*> GestionnairePlugins::getListePlugins() {
     return m_listePlugins;
 }

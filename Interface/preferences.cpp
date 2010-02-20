@@ -13,10 +13,14 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
+
+/*! \brief Constructeur. L'objet est détruit immédiatement à sa fermeture.
+*/
 Preferences::Preferences() : QDialog() {
     setWindowTitle("Préférences");
     setMinimumSize(300, 150);
     setModal(true); // La fenêtre de préférences doit être fermée pour que l'on puisse revenir à l'application
+    setAttribute(Qt::WA_DeleteOnClose);
 
     QVBoxLayout *m_layout = new QVBoxLayout(this);
     m_onglets = new QTabWidget();
@@ -72,28 +76,27 @@ Preferences::Preferences() : QDialog() {
 
     loadSettings();
 
-    QObject::connect(m_commentairesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_bornesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_structuresBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_numeriqueBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_typeBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_surligneBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
-    QObject::connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    QObject::connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    // connect avec le slot load settings de la coloration
+    connect(m_commentairesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_bornesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_structuresBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_numeriqueBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_typeBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_surligneBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
+
 
 /*! \brief Modifie la couleur du bouton modifié.
 */
-void Preferences::modifierCouleur()
-{
+void Preferences::modifierCouleur() {
     BoutonCouleur* tmp = (BoutonCouleur*)sender();
     QColorDialog *choix = new QColorDialog(tmp->getCouleur(), this);
     if (choix->exec() == QDialog::Accepted) {
         tmp->setCouleur(choix->selectedColor());
-//        changeSettings(/*"Coloration"*/);
     }
 }
+
 
 /*! \brief Sauvegarde les changements de paramètres dans le fichier de configuration.
 */
@@ -108,6 +111,7 @@ void Preferences::changeSettings() {
     GestionnaireParametres::getInstance()->setTailleTab(m_tailleTab->value());
     GestionnaireParametres::getInstance()->setCouleurLigneActuelle(m_surligneBouton->getCouleur());
 }
+
 
 /*! \brief Charge les paramètres sauvegardés dans le fichier de configuration.
 */
@@ -125,6 +129,9 @@ void Preferences::loadSettings() {
     m_surligneBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurLigneActuelle());
 }
 
+
+/*! \brief Sauvegarde les modifications, envoie le signal settingsChanged et ferme la fenêtre.
+*/
 void Preferences::accept() {
     changeSettings();
     emit settingsChanged();

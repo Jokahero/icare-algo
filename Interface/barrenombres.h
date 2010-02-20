@@ -5,6 +5,9 @@
 
 class QTextEdit;
 
+
+/*! \brief Affiche les numéros des lignes d'un QTextEdit.
+*/
 class BarreNombres : public QWidget {
     Q_OBJECT
 

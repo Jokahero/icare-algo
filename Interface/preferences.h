@@ -13,8 +13,10 @@ class QString;
 class QTabWidget;
 class QWidget;
 
-class Preferences : public QDialog {
 
+/*! \brief Fenêtre de préférences.
+*/
+class Preferences : public QDialog {
     Q_OBJECT
 
 public:
