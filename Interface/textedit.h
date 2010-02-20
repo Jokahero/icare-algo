@@ -24,6 +24,7 @@ public:
 
 private:
     void dropEvent(QDropEvent *pEvent);
+    void wheelEvent(QWheelEvent* pEvent);
     TextEdit *m_parent;
 };
 
@@ -53,7 +54,6 @@ protected slots:
 private:
     DropableTextEdit *m_textEdit;
     BarreNombres *m_barreNombres;
-    void wheelEvent(QWheelEvent* pEvent);
     Coloration* m_color;
     Window *m_parent;
 
