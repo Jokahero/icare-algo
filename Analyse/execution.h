@@ -25,8 +25,9 @@ private:
     bool m_modifie;
     bool m_stop;
 
-    QString remplacementValeursVariables(QString pChaine, int pNumLigne);
-    bool evaluationCondition(QString pVal1, QString pOp, QString pVal2, int pNumLigne);
+    QString remplacementValeursVariables(QString pChaine);
+    QString calcul(QString pChaine, int pNumLigne);
+    bool evaluationCondition(QString pCond, int pNumLigne);
 
     void execution(bool pPasAPas, int pDebut = 0, int pFin = -1);
 

@@ -176,8 +176,8 @@ bool Dictionnaire::isAffectation(QString pLigne, QStringList* pListeArgs) {
 */
 bool Dictionnaire::isSi(QString pLigne, QStringList* pListeArgs) {
     //récupération de toute les variable utilisateur
-    QString  expression = listeQuantites();
-    QRegExp rx("^si\\s(" + expression + ")(≤|≥|≠|=|>|>=|<|<=|!=)(" + expression + ")\\salors$");
+    QString  expression = listeCondition();
+    QRegExp rx("^si\\s(" + expression + ")\\salors$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     if (pListeArgs)
         pListeArgs->clear();
@@ -499,8 +499,10 @@ QString Dictionnaire::listeQuantites() {
 
 QString Dictionnaire::listeCondition() {
     QString liste = listeQuantites();
-    QString expression = liste;
-    expression += "(?:&&|\\|\\||≤|≥|≠|=|>|>=|<|<=|!=)";
+    QString expression = "(?:\\(*\\s*(?:";
     expression += liste;
+    expression += "\\s*\\)*)(?:(?:&&|\\|\\||<|>|≤|≥|=|≠)\\s*\\(*\\s*";
+    expression += liste;
+    expression += "\\s*\\)*\\s*)*\\)*\\s*)";
     return expression;
 }

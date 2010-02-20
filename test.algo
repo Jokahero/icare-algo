@@ -35,6 +35,12 @@ Sinon
 	Afficher "Non"
 FinSi
 
+Si nbChevre < 4 && i > 5 Alors
+	Afficher "Oui"
+Sinon
+	Afficher "Non"
+FinSi
+
 i ← 2
 
 TantQue i <  4
