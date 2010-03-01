@@ -44,7 +44,7 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     int finGlossaire = -1;
     int cptLigne;
     QString ligneAct;
-    QRegExp rxVariable("^(entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([a-zA-Z]+)\\s+((?:\\w*\\s*)*)$");
+    QRegExp rxVariable("^(entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([a-zA-Z]+)((?:\\s+.*)*)$");
     QRegExp rxEntier("^entier$");
     QRegExp rxReel("^r[ée]el$");
     QRegExp rxChaine("^cha[îi]ne$");
