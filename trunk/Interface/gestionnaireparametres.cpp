@@ -2,6 +2,7 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QSettings>
+#include <QtCore/QStringList>
 #include <QtGui/QColor>
 
 GestionnaireParametres *GestionnaireParametres::_instance = 0;
@@ -46,7 +47,7 @@ void GestionnaireParametres::destroy() {
   Elle est activée par défaut.
   \return Vrai si elle est activée, faux sinon
 */
-bool GestionnaireParametres::getNumerotationLignes() {
+bool GestionnaireParametres::getNumerotationLignes() const {
     return m_set->value("Editeur/NumerotationLignes", true).toBool();
 }
 
@@ -67,7 +68,7 @@ void GestionnaireParametres::setNumerotationLignes(bool pNum) {
   Par défaut, aucun retour à la ligne n'est effectué.
   \return Vrai si un retour à la ligne est effectué, faux sinon
 */
-bool GestionnaireParametres::getRetourLigne() {
+bool GestionnaireParametres::getRetourLigne() const {
     return m_set->value("Editeur/RetourLigne", false).toBool();
 }
 
@@ -88,7 +89,7 @@ void GestionnaireParametres::setRetourLigne(bool pRet) {
   Par défaut, une tabulation est de la même taille que 8 espaces.
   \return Taille d'une tabulation
 */
-int GestionnaireParametres::getTailleTab() {
+int GestionnaireParametres::getTailleTab() const {
     return m_set->value("Editeur/TailleTab", 8).toInt();
 }
 
@@ -109,7 +110,7 @@ void GestionnaireParametres::setTailleTab(int pTaille) {
   Par défaut, il s'agit d'un gris clair (#f0f0f0).
   \return Couleur de surlignage
 */
-QColor GestionnaireParametres::getCouleurLigneActuelle() {
+QColor GestionnaireParametres::getCouleurLigneActuelle() const {
     return QColor(m_set->value("Couleurs/LigneActuelle", "#f0f0f0").toString());
 }
 
@@ -118,7 +119,7 @@ QColor GestionnaireParametres::getCouleurLigneActuelle() {
 
   \param pCol Couleur de surlignage
 */
-void GestionnaireParametres::setCouleurLigneActuelle(QColor pCol) {
+void GestionnaireParametres::setCouleurLigneActuelle(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("LigneActuelle", pCol.name());
     m_set->endGroup();
@@ -130,7 +131,7 @@ void GestionnaireParametres::setCouleurLigneActuelle(QColor pCol) {
   Par défaut, ils sont en rouge (#d00000).
   \return Couleur des commentaires
 */
-QColor GestionnaireParametres::getCouleurCommentaires() {
+QColor GestionnaireParametres::getCouleurCommentaires() const {
     return QColor(m_set->value("Couleurs/Commentaires", "#d00000").toString());
 }
 
@@ -139,7 +140,7 @@ QColor GestionnaireParametres::getCouleurCommentaires() {
 
   \param pCol Couleur des commentaires
 */
-void GestionnaireParametres::setCouleurCommentaires(QColor pCol) {
+void GestionnaireParametres::setCouleurCommentaires(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("Commentaires", pCol.name());
     m_set->endGroup();
@@ -151,7 +152,7 @@ void GestionnaireParametres::setCouleurCommentaires(QColor pCol) {
   Par défaut, ils sont en bleu (#00007f).
   \return Couleur des types
 */
-QColor GestionnaireParametres::getCouleurTypes() {
+QColor GestionnaireParametres::getCouleurTypes() const {
     return QColor(m_set->value("Couleurs/Types", "#00007f").toString());
 }
 
@@ -160,7 +161,7 @@ QColor GestionnaireParametres::getCouleurTypes() {
 
   \param pCol Couleur des types
 */
-void GestionnaireParametres::setCouleurTypes(QColor pCol) {
+void GestionnaireParametres::setCouleurTypes(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("Types", pCol.name());
     m_set->endGroup();
@@ -172,7 +173,7 @@ void GestionnaireParametres::setCouleurTypes(QColor pCol) {
   Par défaut, ils sont en vert (#007f00).
   \return Couleur des nombres
 */
-QColor GestionnaireParametres::getCouleurNombres() {
+QColor GestionnaireParametres::getCouleurNombres() const {
     return QColor(m_set->value("Couleurs/Nombres", "#007f00").toString());
 }
 
@@ -181,7 +182,7 @@ QColor GestionnaireParametres::getCouleurNombres() {
 
   \param pCol Couleur des nombres
 */
-void GestionnaireParametres::setCouleurNombres(QColor pCol) {
+void GestionnaireParametres::setCouleurNombres(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("Nombres", pCol.name());
     m_set->endGroup();
@@ -193,7 +194,7 @@ void GestionnaireParametres::setCouleurNombres(QColor pCol) {
   Par défaut, ils sont en bleu (#00007f).
   \return Couleur des structures de contrôle
 */
-QColor GestionnaireParametres::getCouleurStructures() {
+QColor GestionnaireParametres::getCouleurStructures() const {
     return QColor(m_set->value("Couleurs/Structures", "#00007f").toString());
 }
 
@@ -202,7 +203,7 @@ QColor GestionnaireParametres::getCouleurStructures() {
 
   \param pCol Couleur des structures de contrôle
 */
-void GestionnaireParametres::setCouleurStructures(QColor pCol) {
+void GestionnaireParametres::setCouleurStructures(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("Structures", pCol.name());
     m_set->endGroup();
@@ -214,7 +215,7 @@ void GestionnaireParametres::setCouleurStructures(QColor pCol) {
   Par défaut, elles sont en rouge (#7f0000).
   \return Couleur des bornes de l'algorithme
 */
-QColor GestionnaireParametres::getCouleurBornes() {
+QColor GestionnaireParametres::getCouleurBornes() const {
     return QColor(m_set->value("Couleurs/Bornes", "#7f0000").toString());
 }
 
@@ -223,7 +224,7 @@ QColor GestionnaireParametres::getCouleurBornes() {
 
   \param pCol Couleur des bornes de l'algorithme
 */
-void GestionnaireParametres::setCouleurBornes(QColor pCol) {
+void GestionnaireParametres::setCouleurBornes(const QColor& pCol) {
     m_set->beginGroup("Couleurs");
     m_set->setValue("Bornes", pCol.name());
     m_set->endGroup();
@@ -235,7 +236,7 @@ void GestionnaireParametres::setCouleurBornes(QColor pCol) {
   \param pNom Nom du plugin à vérifier
   \return Vrai si le plugin est activé, faux sinon
 */
-bool GestionnaireParametres::getPluginActif(QString pNom) {
+bool GestionnaireParametres::getPluginActif(const QString& pNom) const {
     return m_set->value("Plugins/" + pNom + "/Actif", true).toBool();
 }
 
@@ -245,7 +246,7 @@ bool GestionnaireParametres::getPluginActif(QString pNom) {
   \param pNom Nom du plugin à (dés)activer
   \param pActif État d'activation du plugin
 */
-void GestionnaireParametres::setPluginActif(QString pNom, bool pActif) {
+void GestionnaireParametres::setPluginActif(const QString& pNom, bool pActif) {
     m_set->beginGroup("Plugins");
     m_set->beginGroup(pNom);
     m_set->setValue("Actif", pActif);
@@ -258,7 +259,7 @@ void GestionnaireParametres::setPluginActif(QString pNom, bool pActif) {
 
   \return Vrai si elle est maximisée, faux sinon
 */
-bool GestionnaireParametres::getFenetreMax() {
+bool GestionnaireParametres::getFenetreMax() const {
     return m_set->value("Fenetre/Max", true).toBool();
 }
 
@@ -278,17 +279,36 @@ void GestionnaireParametres::setFenetreMax(bool pMax) {
 
   \return Géométrie de la fenêtre principale
 */
-QByteArray GestionnaireParametres::getFenetreGeo() {
+QByteArray GestionnaireParametres::getFenetreGeo() const {
     return m_set->value("Fenetre/Geo").toByteArray();
 }
 
 
-/*! \brief Définit la géométrie de la fenêtre principale
+/*! \brief Définit la géométrie de la fenêtre principale.
 
   \param pGeo Géométrie de la fenêtre principale
 */
-void GestionnaireParametres::setFenetreGeo(QByteArray pGeo) {
+void GestionnaireParametres::setFenetreGeo(const QByteArray& pGeo) {
     m_set->beginGroup("Fenetre");
     m_set->setValue("Geo", pGeo);
+    m_set->endGroup();
+}
+
+
+/*! \brief Retourne la liste des fichiers récemment ouverts.
+
+  \return Liste des fichiers récemment ouverts
+*/
+QStringList GestionnaireParametres::getListeFichiersRecents() const {
+    return m_set->value("Fichiers/FichiersRecents").toStringList();
+}
+
+/*! \brief Définit la liste des fichiers récemment ouverts.
+
+  \param pListe Liste des fichiers
+*/
+void GestionnaireParametres::setListeFichiersRecents(const QStringList& pListe) {
+    m_set->beginGroup("Fichiers");
+    m_set->setValue("FichiersRecents", pListe);
     m_set->endGroup();
 }
