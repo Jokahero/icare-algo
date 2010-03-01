@@ -280,7 +280,7 @@ Window::Window() : QMainWindow() {
     m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
     m_copier->setEnabled(false);
-    documentModifie(false);
+    documentModifie(true);
 }
 
 Window::~Window() {
@@ -381,6 +381,8 @@ void Window::executionPasAPas() {
 void Window::analyseSyntaxique() {
     if (m_documentModifie)
         enregistrerFichier();
+    if (m_documentModifie)
+        return;
     showMessage(tr("Début de l'analyse syntaxique du fichier %1…").arg(QFileInfo(m_fichier->fileName()).fileName()), 2000);
     emit lancerAnalyseSyntaxique(m_fichier);
 }
