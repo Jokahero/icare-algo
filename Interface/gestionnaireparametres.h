@@ -6,6 +6,7 @@
 class QByteArray;
 class QColor;
 class QSettings;
+class QStringList;
 
 
 /*! \brief Classe permettant de sauvegarder les préférences.
@@ -18,41 +19,44 @@ public:
     static GestionnaireParametres* getInstance();
     void destroy();
 
-    bool getNumerotationLignes();
+    bool getNumerotationLignes() const;
     void setNumerotationLignes(bool pNum);
 
-    bool getRetourLigne();
+    bool getRetourLigne() const;
     void setRetourLigne(bool pRet);
 
-    int getTailleTab();
+    int getTailleTab() const;
     void setTailleTab(int pTaille);
     
-    QColor getCouleurLigneActuelle();
-    void setCouleurLigneActuelle(QColor pCol);
+    QColor getCouleurLigneActuelle() const;
+    void setCouleurLigneActuelle(const QColor& pCol);
 
-    QColor getCouleurCommentaires();
-    void setCouleurCommentaires(QColor pCol);
+    QColor getCouleurCommentaires() const;
+    void setCouleurCommentaires(const QColor& pCol);
 
-    QColor getCouleurTypes();
-    void setCouleurTypes(QColor pCol);
+    QColor getCouleurTypes() const;
+    void setCouleurTypes(const QColor& pCol);
 
-    QColor getCouleurNombres();
-    void setCouleurNombres(QColor pCol);
+    QColor getCouleurNombres() const;
+    void setCouleurNombres(const QColor& pCol);
 
-    QColor getCouleurStructures();
-    void setCouleurStructures(QColor pCol);
+    QColor getCouleurStructures() const;
+    void setCouleurStructures(const QColor& pCol);
 
-    QColor getCouleurBornes();
-    void setCouleurBornes(QColor pCol);
+    QColor getCouleurBornes() const;
+    void setCouleurBornes(const QColor& pCol);
 
-    bool getPluginActif(QString pNom);
-    void setPluginActif(QString pNom, bool pActif = true);
+    bool getPluginActif(const QString& pNom) const;
+    void setPluginActif(const QString& pNom, bool pActif = true);
 
-    bool getFenetreMax();
+    bool getFenetreMax() const;
     void setFenetreMax(bool pMax);
 
-    QByteArray getFenetreGeo();
-    void setFenetreGeo(QByteArray pGeo);
+    QByteArray getFenetreGeo() const;
+    void setFenetreGeo(const QByteArray& pGeo);
+
+    QStringList getListeFichiersRecents() const;
+    void setListeFichiersRecents(const QStringList& pListe);
 
 private:
     static GestionnaireParametres *_instance;                      /*!< \brief Seule instance de la classe (Singleton). */

@@ -31,6 +31,9 @@ public:
     Window();
     ~Window();
 
+    static const int FichiersRecentsMax = 5;
+
+
     TextEdit* getZoneTexte();
     WidgetPlugins* getWPlugins();
     QMenuBar* getMenuBar();
@@ -94,6 +97,11 @@ private:
 
     bool m_documentModifie;
 
+    void majFichiersRecents();
+    QString nomCourt(const QString& pNomComplet);
+    QAction *m_fichiersRecents[FichiersRecentsMax];
+    QAction *m_separateurAct;
+
 public slots:
     void erreurMath(MathExp::erreur);
     void analyseSyntaxique();
@@ -118,6 +126,7 @@ public slots:
     void analyseSyntaxiqueTerminee(bool pOk);
     void analyseSemantiqueTerminee(bool pOk);
     void executionTerminee();
+    void ouvrirFichierRecent();
 
 signals:
     void lancerAnalyseSyntaxique(QFile*);

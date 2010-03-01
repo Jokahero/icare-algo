@@ -38,6 +38,14 @@ Window::Window() : QMainWindow() {
     /* On nomme la fenêtre principale */
     setWindowTitle(tr("[*]Nouvel algorithme - Icare"));
 
+
+    // Initialisation de la liste des fichiers récents
+    for (int i = 0; i < FichiersRecentsMax; i++) {
+        m_fichiersRecents[i] = new QAction(this);
+        m_fichiersRecents[i]->setVisible(false);
+        connect(m_fichiersRecents[i], SIGNAL(triggered()), this, SLOT(ouvrirFichierRecent()));
+    }
+
     /* On instancie la barre de Menu */
     m_barreMenu = new QMenuBar (this);
 
@@ -61,10 +69,15 @@ Window::Window() : QMainWindow() {
     m_mainMenu->addAction(m_ouvrir);
     m_mainMenu->addAction(m_enregistrer);
     m_mainMenu->addAction(m_enregistrerSous);
+    m_separateurAct = m_mainMenu->addSeparator();
+    for (int i = 0; i < FichiersRecentsMax; i++)
+        m_mainMenu->addAction(m_fichiersRecents[i]);
     m_mainMenu->addSeparator();
     m_mainMenu->addAction(m_imprimer);
     m_mainMenu->addSeparator();
     m_mainMenu->addAction(m_quitter);
+
+    majFichiersRecents();
 
     /* Mise en place du menu d'édition */
     m_menuEdition = new QMenu(m_barreMenu);
@@ -496,6 +509,19 @@ void Window::ouvrirFichier(QString pNomFichier) {
     m_zoneTexte->getTextEdit()->document()->setModified(false);
     setWindowModified(false);
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
+
+    setWindowFilePath(m_fichier->fileName());
+
+    QStringList fichiers = GestionnaireParametres::getInstance()->getListeFichiersRecents();
+    fichiers.removeAll(m_fichier->fileName());
+    fichiers.prepend(m_fichier->fileName());
+    while (fichiers.size() > FichiersRecentsMax)
+        fichiers.removeLast();
+
+    GestionnaireParametres::getInstance()->setListeFichiersRecents(fichiers);
+
+    majFichiersRecents();
+
     m_fichier->close();
     QApplication::restoreOverrideCursor();
 }
@@ -722,4 +748,31 @@ void Window::analyseSyntaxiqueTerminee(bool pOk) {
 void Window::analyseSemantiqueTerminee(bool pOk) {
     m_executer->setEnabled(pOk);
     m_executerPasAPas->setEnabled(pOk);
+}
+
+void Window::ouvrirFichierRecent() {
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action)
+        ouvrirFichier(action->data().toString());
+}
+
+void Window::majFichiersRecents() {
+    QStringList fichiers = GestionnaireParametres::getInstance()->getListeFichiersRecents();
+
+    int numRecentFiles = qMin(fichiers.size(), FichiersRecentsMax);
+
+    for (int i = 0; i < numRecentFiles; i++) {
+        QString text = tr("&%1 %2").arg(i + 1).arg(nomCourt(fichiers[i]));
+        m_fichiersRecents[i]->setText(text);
+        m_fichiersRecents[i]->setData(fichiers[i]);
+        m_fichiersRecents[i]->setVisible(true);
+    }
+    for (int i = numRecentFiles; i < FichiersRecentsMax; i++)
+        m_fichiersRecents[i]->setVisible(false);
+
+    m_separateurAct->setVisible(numRecentFiles > 0);
+}
+
+QString Window::nomCourt(const QString& pNomComplet) {
+    return QFileInfo(pNomComplet).fileName();
 }
