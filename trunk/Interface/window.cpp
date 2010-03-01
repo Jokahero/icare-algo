@@ -161,7 +161,7 @@ Window::Window() : QMainWindow() {
     m_enregistrerSous->setToolTip(tr("Enregistrer sous"));
     m_imprimer->setIcon(QIcon(":/Icônes/document-print.png"));
     m_imprimer->setToolTip(tr("Imprimer l'algorithme"));
-    m_quitter->setIcon(QIcon(":/Icônes/dialog-cancel.png"));
+    m_quitter->setIcon(QIcon(":/Icônes/process-stop.png"));
     m_annuler->setIcon(QIcon(":/Icônes/edit-undo.png"));
     m_annuler->setToolTip(tr("Annuler"));
     m_refaire->setIcon(QIcon(":/Icônes/edit-redo.png"));
@@ -172,11 +172,23 @@ Window::Window() : QMainWindow() {
     m_copier->setToolTip(tr("Copier"));
     m_coller->setIcon(QIcon(":/Icônes/edit-paste.png"));
     m_coller->setToolTip(tr("Coller"));
-    m_rechercher->setIcon(QIcon(":/Icônes/document-preview.png"));
+    m_rechercher->setIcon(QIcon(":/Icônes/edit-find.png"));
+    m_remplacer->setIcon(QIcon(":/Icônes/edit-find-replace.png"));
+    m_selectionnerTout->setIcon(QIcon(":/Icônes/edit-select-all"));
     m_testSyntaxe->setIcon(QIcon(":/Icônes/tools-check-spelling.png"));
     m_testSyntaxe->setToolTip(tr("Tester la syntaxe"));
-    m_executer->setIcon(QIcon(":/Icônes/exec.png"));
+    m_testSemantique->setIcon(QIcon(":/Icônes/system-run2.png"));
+    m_testSemantique->setToolTip(tr("Tester la sémantique"));
+    m_testComplet->setIcon(QIcon(":/Icônes/system-run.png"));
+    m_testComplet->setToolTip(tr("Lancer tous les tests"));
+    m_executer->setIcon(QIcon(":/Icônes/media-playback-start.png"));
     m_executer->setToolTip(tr("Exécuter"));
+    m_executerPasAPas->setIcon(QIcon(":/Icônes/media-eject.png"));
+    m_executerPasAPas->setToolTip(tr("Exécuter pas à pas"));
+    m_pas->setIcon(QIcon(":/Icônes/media-skip-forward.png"));
+    m_pas->setToolTip(tr("Exécuter la ligne suivante"));
+    m_stop->setIcon(QIcon(":/Icônes/media-playback-stop.png"));
+    m_stop->setToolTip(tr("Arrêter l'exécution"));
     m_preferences->setIcon(QIcon(":/Icônes/preferences-system.png"));
     m_plugins->setIcon(QIcon(":/Icônes/synaptic.png"));
 
