@@ -31,6 +31,7 @@ private:
     QMenu* m_menu;
     QMenu* m_menuComp;
     QMenu* m_menuAff;
+    QMenu* m_menuOpp;
 };
 
 #endif // WIDGETGLOSSAIRE_H
