@@ -37,4 +37,5 @@ HEADERS += window.h \
     fenetresaisie.h \
     barrenombres.h
 DESTDIR = ../
-RESOURCES += Images.qrc
+RESOURCES += Images.qrc \
+    Ressources.qrc

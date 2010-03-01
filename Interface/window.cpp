@@ -276,11 +276,8 @@ Window::Window() : QMainWindow() {
     connect(m_fenRecherche, SIGNAL(remplacement(QString, QString)), m_zoneTexte, SLOT(remplacement(QString, QString)));
     connect(m_fenRecherche, SIGNAL(remplacerTout(QString, QString)), m_zoneTexte, SLOT(remplacerTout(QString, QString)));
 
-    m_annuler->setEnabled(m_zoneTexte->getTextEdit()->document()->isUndoAvailable());
-    m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
-    m_couper->setEnabled(false);
-    m_copier->setEnabled(false);
-    documentModifie(true);
+    m_documentModifie = false;
+    nouveauFichier();
 }
 
 Window::~Window() {
@@ -618,6 +615,16 @@ void Window::nouveauFichier() {
     m_fichier->setFileName(QString::null);
     m_zoneTexte->getTextEdit()->document()->clear();
     m_zoneTexte->getTextEdit()->setDocumentTitle(QString::null);
+    QFile* tmp = new QFile;
+    tmp->setFileName(":/Algos/defaut.algo");
+    bool ouverture = tmp->open(QIODevice::ReadOnly | QIODevice::Text);
+    if (ouverture) {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
+        QTextStream flux(tmp);
+        m_zoneTexte->getTextEdit()->setPlainText(flux.readAll());
+        tmp->close();
+        QApplication::restoreOverrideCursor();
+    }
     m_annuler->setEnabled(m_zoneTexte->getTextEdit()->document()->isUndoAvailable());
     m_refaire->setEnabled(m_zoneTexte->getTextEdit()->document()->isRedoAvailable());
     m_couper->setEnabled(false);
