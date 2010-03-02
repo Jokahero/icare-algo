@@ -2,11 +2,13 @@
 #include "glossaire.h"
 #include "dictionnaire.h"
 
-#include <QtCore/QDebug>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QRegExp>
+
+#include <QtCore/QDebug>
 
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -73,6 +75,7 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
         } else if (Dictionnaire::isFin(ligneAct)) {
             m_analyse->setFinAlgo(cptLigne);
         }
+        qApp->processEvents();
     }
 
     // Si il y a un glossaire :
@@ -92,6 +95,7 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
                     m_analyse->getGlossaire()->ajoutChaine(nomVar, desc, cptLigne);
                 }
             }
+            qApp->processEvents();
         }
     }
 

@@ -3,9 +3,11 @@
 #include "glossaire.h"
 
 
-#include <QtCore/QDebug>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QStack>
 #include <QtCore/QStringList>
+
+#include <QtCore/QDebug>
 
 AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -97,6 +99,7 @@ bool AnalyseSemantique::verifStruct() {
                 ret = false;
             }
         }
+        qApp->processEvents();
     }
 
     // Vidage de la pile pour la prochaine analyse
@@ -129,6 +132,7 @@ bool AnalyseSemantique::verifInitialisations() {
                     emit erreur(Analyse::VariableNonInitialisee, inst->getNumLigne());
                     ret = false;
                 }
+        qApp->processEvents();
     }
 
     // Vidage de la liste pour la prochaine analyse

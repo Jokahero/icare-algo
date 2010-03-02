@@ -4,12 +4,14 @@
 #include "glossaire.h"
 #include "mathexp.h"
 
-#include <QtCore/QDebug>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QEventLoop>
 #include <QtCore/QStack>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtGui/QDialog>
-#include <QtCore/QEventLoop>
+
+#include <QtCore/QDebug>
 
 Execution::Execution(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
@@ -136,6 +138,7 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
         }
         if (pPasAPas)
             waitForSignal(m_analyse, SIGNAL(execPas()));
+        qApp->processEvents();
     }
 }
 
