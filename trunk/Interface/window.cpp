@@ -610,8 +610,9 @@ void Window::enregistrerFichierSous() {
     m_fichier->setFileName(nomFichier);
     enregistrerFichier();
     m_zoneTexte->getTextEdit()->setDocumentTitle(m_fichier->fileName());
-    m_zoneTexte->getTextEdit()->document()->setModified(false);
+    //m_zoneTexte->getTextEdit()->document()->setModified(false);
     setWindowModified(false);
+    m_documentModifie = false;
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
 }
 
