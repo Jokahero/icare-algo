@@ -35,7 +35,7 @@ private:
 
 public slots:
     void lancer(bool pPasAPas = false);
-    void pas();
+    //void pas();
     void stop();
     void enregistrerSaisie(QString pSaisie);
 
