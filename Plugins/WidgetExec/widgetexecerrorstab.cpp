@@ -6,7 +6,9 @@
 WidgetExecErrorsTab::WidgetExecErrorsTab(WidgetExec::onglet pType, QWidget *pParent) : WidgetExecTab(pType, pParent) {
     m_liste = new QListWidget(this);
     m_listeNumLignes = new QList<int>;
-    connect(m_liste, SIGNAL(currentRowChanged(int)), this, SLOT(ligneChangee(int)));
+    connect(m_liste, SIGNAL(currentRowChanged(int)), this, SLOT(ligneChangee()));
+    connect(m_liste, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(ligneChangee()));
+    connect(m_liste, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(ligneChangee()));
 }
 
 void WidgetExecErrorsTab::erreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne) {
@@ -79,6 +81,6 @@ void WidgetExecErrorsTab::resizeEvent(QResizeEvent *pE) {
     m_liste->resize(size());
 }
 
-void WidgetExecErrorsTab::ligneChangee(int pLigne) {
-    emit changementLigne(m_listeNumLignes->at(pLigne));
+void WidgetExecErrorsTab::ligneChangee() {
+    emit changementLigne(m_listeNumLignes->at(m_liste->currentRow()));
 }
