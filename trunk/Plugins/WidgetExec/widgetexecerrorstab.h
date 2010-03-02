@@ -16,7 +16,7 @@ public slots:
     void erreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne);
     void erreurMathematique(MathExp::erreur pErreur, int pNumLigne);
     void erreurAnalyse(Analyse::erreur pErreur, int pNumLigne);
-    void clear();
+    virtual void clear();
 
 signals:
     void changementLigne(int pNumLigne);

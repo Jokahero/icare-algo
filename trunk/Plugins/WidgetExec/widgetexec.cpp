@@ -58,6 +58,7 @@ void WidgetExec::erreurAnalyse(Analyse::erreur pErreur, int pNumLigne) {
 }
 
 void WidgetExec::lancerExecution() {
+    qDebug() << "WidgetExec::lancerExecution";
     for (int i = 0; i < m_tabWidget->count(); i++) {
         qobject_cast<WidgetExecTab*>(m_tabWidget->widget(i))->clear();
     }

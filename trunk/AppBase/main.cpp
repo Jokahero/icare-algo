@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(analyse, SIGNAL(sigErreurMathematique(MathExp::erreur, int)), g->getListePlugins().at(i), SLOT(erreurMathematique(MathExp::erreur, int)));
         QObject::connect(analyse, SIGNAL(sigErreurLogique(ExpressionLogique::erreur, int)), g->getListePlugins().at(i), SLOT(erreurLogique(ExpressionLogique::erreur, int)));
         QObject::connect(fenetre, SIGNAL(lancerAnalyseSyntaxique(QFile*)), g->getListePlugins().at(i), SLOT(lancerAnalyse(QFile*)));
-        QObject::connect(fenetre, SIGNAL(executer()), g->getListePlugins().at(i), SLOT(lancerExecution()));
+        QObject::connect(fenetre, SIGNAL(executer(bool)), g->getListePlugins().at(i), SLOT(lancerExecution()));
         QObject::connect(analyse, SIGNAL(sigAfficher(QString)), g->getListePlugins().at(i), SLOT(afficher(QString)));
         QObject::connect(g->getListePlugins().at(i), SIGNAL(changementLigne(int)), fenetre, SLOT(changementLigne(int)));
         QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSyntaxiqueTerminee(bool)));

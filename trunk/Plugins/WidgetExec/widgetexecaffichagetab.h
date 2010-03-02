@@ -12,7 +12,7 @@ public:
     WidgetExecAffichageTab(WidgetExec::onglet pType, QWidget *parent = 0);
 
 public slots:
-    void clear();
+    virtual void clear();
     void afficher(QString pChaine);
 
 private:
