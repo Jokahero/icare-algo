@@ -22,7 +22,7 @@ signals:
     void changementLigne(int pNumLigne);
 
 private slots:
-    void ligneChangee(int pLigne);
+    void ligneChangee();
 
 protected:
     void resizeEvent(QResizeEvent *pE);
