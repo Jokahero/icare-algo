@@ -294,6 +294,7 @@ Window::Window() : QMainWindow() {
 }
 
 Window::~Window() {
+    m_fenRecherche->close();
     delete m_zoneTexte;
 
     delete m_mainMenu;
