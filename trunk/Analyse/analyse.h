@@ -26,8 +26,8 @@ class Analyse : public QObject {
 public:
     static Analyse* getInstance();
 
-    Glossaire* getGlossaire();
-    QList<Instruction*>* getListeInstruction();
+    Glossaire* getGlossaire() const;
+    QList<Instruction*>* getListeInstruction() const;
 
     void emettreSaisie();
 
@@ -36,10 +36,10 @@ public:
     void setDebutAlgo(int pNumLigne);
     void setFinAlgo(int pNumLigne);
 
-    int getDebutGlossaire();
-    int getFinGlossaire();
-    int getDebutAlgo();
-    int getFinAlgo();
+    int getDebutGlossaire() const;
+    int getFinGlossaire() const;
+    int getDebutAlgo() const;
+    int getFinAlgo() const;
 
     enum erreur {
         VariableNonDeclaree,        /*!< La variable recherchée n'a pas été déclarée. */
@@ -54,7 +54,7 @@ public slots:
     void lancerAnalyseSyntaxique(QFile* pFichier);
     void lancerAnalyseSemantique();
     void lancerExecution(bool pPasAPas = false);
-    void transmettreSaisie(QString pSaisie);
+    void transmettreSaisie(const QString& pSaisie);
 
     void destroy();
 
@@ -69,11 +69,11 @@ signals:
     void executionTerminee();
     void changementLigne(int pNumLigne);
     void sigSaisir();
-    void sigSaisie(QString pSaisie);
+    void sigSaisie(const QString& pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
     void sigErreurMathematique(MathExp::erreur pErreur, int pNumLigne);
     void sigErreurLogique(ExpressionLogique::erreur pErreur, int pNumLigne);
-    void sigAfficher(QString pChaine);
+    void sigAfficher(const QString& pChaine);
 
 private:
     static Analyse *_instance;                      /*!< \brief Seule instance de la classe (Singleton). */

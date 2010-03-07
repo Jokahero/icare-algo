@@ -2,7 +2,7 @@
 
 #include <QtCore/QStringList>
 
-Instruction::Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin, int pLigneMilieu) {
+Instruction::Instruction(int pNumLigne, const QString& pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs, int pLigneDebut, int pLigneFin, int pLigneMilieu) {
     m_numLigne = pNumLigne;
     m_ligne = pLigne;
     m_typeLigne = pTypeLigne;
@@ -16,15 +16,15 @@ Instruction::~Instruction() {
     delete m_args;
 }
 
-int Instruction::getNumLigne() {
+int Instruction::getNumLigne() const {
     return m_numLigne;
 }
 
-QString Instruction::getLigne() {
+QString Instruction::getLigne() const {
     return m_ligne;
 }
 
-Dictionnaire::typeLigne Instruction::getTypeLigne() {
+Dictionnaire::typeLigne Instruction::getTypeLigne() const {
     return m_typeLigne;
 }
 
@@ -32,7 +32,7 @@ void Instruction::setNumLigne(int pNumLigne) {
     m_numLigne = pNumLigne;
 }
 
-void Instruction::setLigne(QString pLigne) {
+void Instruction::setLigne(const QString& pLigne) {
     m_ligne = pLigne;
 }
 
@@ -40,15 +40,15 @@ void Instruction::setTypeLigne(Dictionnaire::typeLigne pTypeLigne) {
     m_typeLigne = pTypeLigne;
 }
 
-QStringList* Instruction::getArgs() {
+QStringList* Instruction::getArgs() const {
     return m_args;
 }
 
-int Instruction::getLigneDebut() {
+int Instruction::getLigneDebut() const {
     return m_ligneDebut;
 }
 
-int Instruction::getLigneFin() {
+int Instruction::getLigneFin() const {
     return m_ligneFin;
 }
 
@@ -64,6 +64,6 @@ void Instruction::setLigneMilieu(int pLigne) {
     m_ligneMilieu = pLigne;
 }
 
-int Instruction::getLigneMilieu() {
+int Instruction::getLigneMilieu() const {
     return m_ligneMilieu;
 }

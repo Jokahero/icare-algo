@@ -35,7 +35,7 @@ public slots:
     void lancer();
 
 signals:
-    void terminee(bool );
+    void terminee(bool pOk);
     void erreur(Analyse::erreur pErreur, int pNumLigne);
 };
 

@@ -79,7 +79,7 @@ Analyse::~Analyse() {
 
   \return Glossaire
 */
-Glossaire* Analyse::getGlossaire() {
+Glossaire* Analyse::getGlossaire() const {
     return m_glossaire;
 }
 
@@ -88,7 +88,7 @@ Glossaire* Analyse::getGlossaire() {
 
   \return Liste d'instructions
 */
-QList<Instruction*>* Analyse::getListeInstruction() {
+QList<Instruction*>* Analyse::getListeInstruction() const {
     return m_listeInstruction;
 }
 
@@ -129,7 +129,7 @@ void Analyse::emettreSaisie() {
 
   \param pSaisie Valeur saisie par l'utilisateur
 */
-void Analyse::transmettreSaisie(QString pSaisie) {
+void Analyse::transmettreSaisie(const QString& pSaisie) {
     emit sigSaisie(pSaisie);
 }
 
@@ -174,7 +174,7 @@ void Analyse::setFinAlgo(int pNumLigne) {
 
   \return Numéro de ligne du début du glossaire
 */
-int Analyse::getDebutGlossaire() {
+int Analyse::getDebutGlossaire() const {
     return m_debutGlossaire;
 }
 
@@ -183,7 +183,7 @@ int Analyse::getDebutGlossaire() {
 
   \return Numéro de ligne de fin du glossaire
 */
-int Analyse::getFinGlossaire() {
+int Analyse::getFinGlossaire() const {
     return m_finGlossaire;
 }
 
@@ -192,7 +192,7 @@ int Analyse::getFinGlossaire() {
 
   \return Numéro de ligne du début de l'algorithme
 */
-int Analyse::getDebutAlgo() {
+int Analyse::getDebutAlgo() const {
     return m_debutAlgo;
 }
 
@@ -201,7 +201,7 @@ int Analyse::getDebutAlgo() {
 
   \return Numéro de ligne de fin de l'algorithme
 */
-int Analyse::getFinAlgo() {
+int Analyse::getFinAlgo() const {
     return m_finAlgo;
 }
 

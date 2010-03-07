@@ -15,9 +15,9 @@ class MathExp : public QObject {
 public:
     MathExp(int pNumLigne = -1);
     ~MathExp();
-    void setExpression(QString pExpression);
+    void setExpression(const QString& pExpression);
     double calcul();
-    Arbre* getCalcul();
+    Arbre* getCalcul() const;
 
     enum erreur {
         DivisionParZero,        /*!< Une division par zéro a été rencontrée dans l'expression. */
@@ -26,17 +26,17 @@ public:
     };
 
 private:
-    Arbre* parseExp(QString pExpression);
-    double calculRec(Arbre* pArbre);
+    Arbre* parseExp(const QString& pExpression);
+    double calculRec(Arbre* pArbre) const;
     int m_numLigne;
 
-    int moinsPrioritaire(QString pExpression);
+    int moinsPrioritaire(const QString& pExpression) const;
 
     QString m_expression;                       /*!< \brief Expression mathématique à calculer. */
     Arbre* m_calcul;                            /*!< \brief Racine de l'arbre utilisé pour le calcul. */
 
 signals:
-    void sigErreur(MathExp::erreur pErreur, int pNumLigne);
+    void sigErreur(MathExp::erreur pErreur, int pNumLigne) const;
 };
 
 #endif // MATHEXP_H
