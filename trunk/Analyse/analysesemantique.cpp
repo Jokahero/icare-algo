@@ -9,6 +9,9 @@
 
 #include <QtCore/QDebug>
 
+
+/** \brief Initialise les piles/listes.
+*/
 AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
     m_pileStructureControle = new QStack<Dictionnaire::typeLigne>;
@@ -16,12 +19,18 @@ AnalyseSemantique::AnalyseSemantique(Analyse* pAnalyse) {
     m_listeVariables = new QList<QString>;
 }
 
+
+/** \brief Destructeur.
+*/
 AnalyseSemantique::~AnalyseSemantique() {
     delete m_pileStructureControle;
     delete m_pilePosition;
     delete m_listeVariables;
 }
 
+
+/** \brief Lance les deux analyses l'une après l'autre.
+*/
 void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique lancée.";
 
@@ -37,6 +46,11 @@ void AnalyseSemantique::lancer() {
     qDebug() << "Analyse sémantique terminée.";
 }
 
+
+/** \brief Vérifie l'imbrication de boucles/structures de contrôle.
+
+  \return Vrai si l'analyse s'est bien passée, faux si il y a eu des erreurs.
+*/
 bool AnalyseSemantique::verifStruct() {
     bool ret = true;
 
@@ -99,6 +113,8 @@ bool AnalyseSemantique::verifStruct() {
                 ret = false;
             }
         }
+
+        // On traîte la file d'events afin de ne pas freezer l'interface
         qApp->processEvents();
     }
 
@@ -109,6 +125,11 @@ bool AnalyseSemantique::verifStruct() {
     return ret;
 }
 
+
+/** \brief Vérifie que toutes les variables utilisées soient bien initialisées.
+
+  \return Vrai si l'analyse s'est bien passée, faux si il y a eu des erreurs.
+*/
 bool AnalyseSemantique::verifInitialisations() {
     bool ret = true;
 
@@ -132,6 +153,8 @@ bool AnalyseSemantique::verifInitialisations() {
                     emit erreur(Analyse::VariableNonInitialisee, inst->getNumLigne());
                     ret = false;
                 }
+
+        // On traîte la file d'events afin de ne pas freezer l'interface
         qApp->processEvents();
     }
 
@@ -142,6 +165,11 @@ bool AnalyseSemantique::verifInitialisations() {
     return ret;
 }
 
+
+/** \brief Utilisée lors de la première analyse, permet d'enlever des deux piles les dernières valeurs et d'initialiser correctement les numéros de lignes correspondants.
+
+  \param i Numéro de ligne actuel
+*/
 void AnalyseSemantique::pop(int i) {
     m_pileStructureControle->pop();
     int tmp = m_pilePosition->top();
