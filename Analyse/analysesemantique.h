@@ -7,6 +7,11 @@
 
 template <typename T> class QStack;
 
+
+/** \brief Vérifie la cohérence d'un algorithme.
+
+  Deux vérifications sont effectuées : imbrication de boucles/structures de contrôles, et l'initialisation des variables.
+*/
 class AnalyseSemantique : public QObject {
     Q_OBJECT
 
@@ -15,11 +20,11 @@ public:
     ~AnalyseSemantique();
 
 private:
-    Analyse* m_analyse;
+    Analyse* m_analyse;                                         /*!< \brief Pointeur vers l'instance d'analyse. */
 
-    QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
-    QStack<int>* m_pilePosition;
-    QList<QString>* m_listeVariables;
+    QStack<Dictionnaire::typeLigne>* m_pileStructureControle;   /*!< \brief Pile utilisée pour la vérification des imbrications de boucles/structures de contrôles. */
+    QStack<int>* m_pilePosition;                                /*!< \brief Pile utilisée pour stocker les numéros de lignes lors de la vérification des imbrications. */
+    QList<QString>* m_listeVariables;                           /*!< \brief Liste des variables initialisées. */
 
     bool verifStruct();
     void pop(int i);
