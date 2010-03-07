@@ -16,24 +16,24 @@ public:
     Glossaire();
     ~Glossaire();
 
-    bool existe(QString pNomVar);
-    bool ajoutEntier(QString pNomVar, QString pDescription, int pNumLigne = 0);
-    bool ajoutChaine(QString pNomVar, QString pDescription, int pNumLigne = 0);
-    bool ajoutReel(QString pNomVar, QString pDescription, int pNumLigne = 0);
+    bool existe(const QString& pNomVar) const;
+    bool ajoutEntier(const QString& pNomVar, const QString& pDescription, int pNumLigne = 0);
+    bool ajoutChaine(const QString& pNomVar, const QString& pDescription, int pNumLigne = 0);
+    bool ajoutReel(const QString& pNomVar, const QString& pDescription, int pNumLigne = 0);
 
-    int getValeurEntier(QString pNomVar);
-    QString getValeurChaine(QString pNomVar);
-    double getValeurReel(QString pNomVar);
+    int getValeurEntier(const QString& pNomVar) const;
+    QString getValeurChaine(const QString& pNomVar) const;
+    double getValeurReel(const QString& pNomVar) const;
 
-    QString getValeur(QString pNomVar);
+    QString getValeur(const QString& pNomVar) const;
 
-    void setValeurEntier(QString pNomVar, int pValeur);
-    void setValeurChaine(QString pNomVar, QString pValeur);
-    void setValeurReel(QString pNomVar, double pValeur);
+    void setValeurEntier(const QString& pNomVar, int pValeur);
+    void setValeurChaine(const QString& pNomVar, const QString& pValeur);
+    void setValeurReel(const QString& pNomVar, double pValeur);
 
-    void setValeur(QString pNomVar, QString pValeur);
+    void setValeur(const QString& pNomVar, const QString& pValeur);
 
-    QStringList getListeVariables();
+    QStringList getListeVariables() const;
     
     void reinit();
 
@@ -46,10 +46,10 @@ private:
     QHash<QString, bool>* m_initialisations;                 /*! < \brief Stocke l'état d'initialisation des variables. */
 
 signals:
-    void erreur(Analyse::erreur pErreur, int pNumLigne = 0);
-    void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
-    void variableModifiee(QString pNomVar, QString pValeur);
-    void sigReinit();
+    void erreur(Analyse::erreur pErreur, int pNumLigne = 0) const;
+    void variableAjoutee(const QString& pNomVar, const QString& pType, const QString& pDescription) const;
+    void variableModifiee(const QString& pNomVar, const QString& pValeur) const;
+    void sigReinit() const;
 };
 
 #endif // GLOSSAIRE_H

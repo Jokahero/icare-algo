@@ -8,7 +8,7 @@
 class Arbre {
 public:
     Arbre();
-    Arbre(QString pContenu, Arbre* pSag, Arbre* pSad);
+    Arbre(const QString& pContenu, Arbre* pSag, Arbre* pSad);
     ~Arbre();
 
     // Observateurs
@@ -21,7 +21,7 @@ public:
     // Modificateurs
     void setSag(Arbre* pSag);
     void setSad(Arbre* pSad);
-    void setContenu(QString pContenu);
+    void setContenu(const QString& pContenu);
 
 private:
     QString m_contenu;              /*! < \brief Expression contenue dans ce noeud de l'arbre. Elle peut être soit un opérateur si l'arbre n'est pas une feuille, soit une valeur numérique. */

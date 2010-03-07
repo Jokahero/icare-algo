@@ -7,19 +7,19 @@
 
 class Instruction {
 public:
-    Instruction(int pNumLigne, QString pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs = 0, int pLigneDebut = -1, int pLigneFin = -1, int pLigneMilieu = -1);
+    Instruction(int pNumLigne, const QString& pLigne, Dictionnaire::typeLigne pTypeLigne, QStringList* pListeArgs = 0, int pLigneDebut = -1, int pLigneFin = -1, int pLigneMilieu = -1);
     ~Instruction();
 
-    void setLigne(QString pLigne);
+    void setLigne(const QString& pLigne);
     void setNumLigne(int pNumLigne);
-    int getNumLigne();
-    QString getLigne();
-    Dictionnaire::typeLigne getTypeLigne();
+    int getNumLigne() const;
+    QString getLigne() const;
+    Dictionnaire::typeLigne getTypeLigne() const;
     void setTypeLigne(Dictionnaire::typeLigne pTypeLigne);
-    QStringList* getArgs();
-    int getLigneDebut();
-    int getLigneMilieu();
-    int getLigneFin();
+    QStringList* getArgs() const;
+    int getLigneDebut() const;
+    int getLigneMilieu() const;
+    int getLigneFin() const;
     void setLigneDebut(int pLigne);
     void setLigneMilieu(int pLigne);
     void setLigneFin(int pLigne);

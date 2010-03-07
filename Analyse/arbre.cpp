@@ -18,7 +18,7 @@ Arbre::Arbre() {
   \param pSag Pointeur vers le sous-arbre gauche.
   \param pSad Pointeur vers le sous-arbre droit.
 */
-Arbre::Arbre(QString pContenu, Arbre* pSag, Arbre* pSad) {
+Arbre::Arbre(const QString& pContenu, Arbre* pSag, Arbre* pSad) {
     m_sag = pSag;
     m_sad = pSad;
     m_contenu = pContenu;
@@ -97,6 +97,6 @@ void Arbre::setSad(Arbre* pSad) {
 
   \param pContenu Le nouveau contenu.
 */
-void Arbre::setContenu(QString pContenu) {
+void Arbre::setContenu(const QString& pContenu) {
     m_contenu = pContenu;
 }

@@ -12,7 +12,7 @@ ExpressionLogique::~ExpressionLogique() {
     delete m_calcul;
 }
 
-void ExpressionLogique::setExpression(QString pExpression) {
+void ExpressionLogique::setExpression(const QString& pExpression) {
     m_expression = pExpression;
 }
 
@@ -27,45 +27,45 @@ bool ExpressionLogique::resultat() {
     return calculRec(m_calcul);
 }
 
-Arbre* ExpressionLogique::parseExp(QString pExpression) {
-    pExpression = pExpression.simplified();
-    if (pExpression == QString::null)
+Arbre* ExpressionLogique::parseExp(const QString& pExpression) {
+    QString expression = pExpression.simplified();
+    if (expression == QString::null)
         return NULL;
     Arbre* t = new Arbre();
 
     // Erreur de parenthèses
-    if (pExpression.count("(") != pExpression.count(")")) {
+    if (expression.count("(") != expression.count(")")) {
         emit sigErreur(ExpressionLogique::Parentheses, m_numLigne);
         return parseExp("-1");
     }
 
-    if (pExpression.left(1) == "(" && pExpression.right(1) == ")") {
+    if (expression.left(1) == "(" && expression.right(1) == ")") {
         int i, cpt = 1;
-        for (i = 1; i < pExpression.length() && cpt > 0; i++) {
-            if (pExpression.at(i) == '(')
+        for (i = 1; i < expression.length() && cpt > 0; i++) {
+            if (expression.at(i) == '(')
                 cpt++;
-            else if (pExpression.at(i) == ')')
+            else if (expression.at(i) == ')')
                 cpt--;
         }
 
-        if (i == pExpression.length() && cpt == 0) {
-            pExpression = pExpression.left(pExpression.length() - 1);
-            pExpression = pExpression.right(pExpression.length() - 1);
+        if (i == expression.length() && cpt == 0) {
+            expression = expression.left(expression.length() - 1);
+            expression = expression.right(expression.length() - 1);
             return parseExp(pExpression);
         }
     }
 
     int taille;
-    int rang = moinsPrioritaire(pExpression, &taille);
+    int rang = moinsPrioritaire(expression, &taille);
     if (rang == -1)
-        t->setContenu(pExpression);
+        t->setContenu(expression);
     else {
         QString contenu = QString::null;
         for (int i = 0; i < taille; i++)
-            contenu.append(pExpression.at(rang + i));
+            contenu.append(expression.at(rang + i));
         t->setContenu(contenu);
-        t->setSag(parseExp(pExpression.left(rang)));
-        t->setSad(parseExp(pExpression.right(pExpression.length() - rang - taille)));
+        t->setSag(parseExp(expression.left(rang)));
+        t->setSad(parseExp(expression.right(expression.length() - rang - taille)));
     }
 
     return t;
@@ -115,52 +115,53 @@ Arbre* ExpressionLogique::getArbre() {
     return m_calcul;
 }
 
-int ExpressionLogique::moinsPrioritaire(QString pExpression, int* pTaille) {
+int ExpressionLogique::moinsPrioritaire(const QString& pExpression, int* pTaille) {
+    QString expression = pExpression;
     *pTaille = 1;
-    while (pExpression.contains('(')) {
-        int firstOP = pExpression.indexOf("(");
+    while (expression.contains('(')) {
+        int firstOP = expression.indexOf("(");
         int i, cpt = 1;
-        for (i = (firstOP + 1); i < pExpression.length() && cpt > 0; i++) {
-            if (pExpression.at(i) == '(')
+        for (i = (firstOP + 1); i < expression.length() && cpt > 0; i++) {
+            if (expression.at(i) == '(')
                 cpt++;
-            else if (pExpression.at(i) == ')')
+            else if (expression.at(i) == ')')
                 cpt--;
         }
 
         for (int j = firstOP; j < i; j++)
-            pExpression[j] = ' ';
+            expression[j] = ' ';
     }
 
-    if (pExpression.contains("||")) {
+    if (expression.contains("||")) {
         *pTaille = 2;
-        return pExpression.indexOf("||");
-    } else if (pExpression.contains("&&")) {
+        return expression.indexOf("||");
+    } else if (expression.contains("&&")) {
         *pTaille = 2;
-        return pExpression.indexOf("&&");
-    } else if (pExpression.contains("!=")) {
+        return expression.indexOf("&&");
+    } else if (expression.contains("!=")) {
         *pTaille = 2;
-        return pExpression.indexOf("!=");
-    } else if (pExpression.contains("<=")) {
+        return expression.indexOf("!=");
+    } else if (expression.contains("<=")) {
         *pTaille = 2;
-        return pExpression.indexOf("<=");
-    } else if (pExpression.contains(">=")) {
+        return expression.indexOf("<=");
+    } else if (expression.contains(">=")) {
         *pTaille = 2;
-        return pExpression.indexOf(">=");
-    } else if (pExpression.contains('<'))
-        return pExpression.indexOf('<');
-    else if (pExpression.contains('>'))
-        return pExpression.indexOf('>');
-    else if (pExpression.contains('='))
-        return pExpression.indexOf('=');
-    else if (pExpression.contains(QString(QChar(0x2264)))) {    // ≤
+        return expression.indexOf(">=");
+    } else if (expression.contains('<'))
+        return expression.indexOf('<');
+    else if (expression.contains('>'))
+        return expression.indexOf('>');
+    else if (expression.contains('='))
+        return expression.indexOf('=');
+    else if (expression.contains(QString(QChar(0x2264)))) {    // ≤
         *pTaille = QString(QChar(0x2264)).length();
-        return pExpression.indexOf(QString(QChar(0x2264)));
-    } else if (pExpression.contains(QString(QChar(0x2265)))) {  // ≥
+        return expression.indexOf(QString(QChar(0x2264)));
+    } else if (expression.contains(QString(QChar(0x2265)))) {  // ≥
         *pTaille = QString(QString(QChar(0x2265))).length();
-        return pExpression.indexOf(QString(QChar(0x2265)));
-    } else if (pExpression.contains(QString(QChar(0x2260)))) {  // ≠
+        return expression.indexOf(QString(QChar(0x2265)));
+    } else if (expression.contains(QString(QChar(0x2260)))) {  // ≠
         *pTaille = QString(QChar(0x2260)).length();
-        return pExpression.indexOf(QString(QChar(0x2260)));
+        return expression.indexOf(QString(QChar(0x2260)));
     } else
         return -1;
 }

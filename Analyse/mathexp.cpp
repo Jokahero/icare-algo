@@ -12,7 +12,7 @@ MathExp::~MathExp() {
     delete m_calcul;
 }
 
-void MathExp::setExpression(QString pExpression) {
+void MathExp::setExpression(const QString& pExpression) {
     m_expression = pExpression;
 }
 
@@ -23,48 +23,48 @@ double MathExp::calcul() {
     return calculRec(m_calcul);
 }
 
-Arbre* MathExp::parseExp(QString pExpression) {
-    pExpression = pExpression.simplified();
-    if (pExpression == QString::null)
+Arbre* MathExp::parseExp(const QString& pExpression) {
+    QString expression = pExpression.simplified();
+    if (expression == QString::null)
         return NULL;
     Arbre* t = new Arbre();
 
     // Erreur de parenthèses
-    if (pExpression.count("(") != pExpression.count(")")) {
+    if (expression.count("(") != expression.count(")")) {
         emit sigErreur(MathExp::Parentheses, m_numLigne);
         return parseExp("-1");
     }
 
     // Test de l'utilité des parenthèses : (1+1) → 1+1
-    if (pExpression.left(1) == "(" && pExpression.right(1) == ")") {
+    if (expression.left(1) == "(" && expression.right(1) == ")") {
         int i, cpt = 1;
-        for (i = 1; i < pExpression.length() && cpt > 0; i++) {
-            if (pExpression.at(i) == '(')
+        for (i = 1; i < expression.length() && cpt > 0; i++) {
+            if (expression.at(i) == '(')
                 cpt++;
-            else if (pExpression.at(i) == ')')
+            else if (expression.at(i) == ')')
                 cpt--;
         }
 
-        if (i == pExpression.length() && cpt == 0) {
-            pExpression = pExpression.left(pExpression.length() - 1);
-            pExpression = pExpression.right(pExpression.length() - 1);
-            return parseExp(pExpression);
+        if (i == expression.length() && cpt == 0) {
+            expression = expression.left(expression.length() - 1);
+            expression = expression.right(expression.length() - 1);
+            return parseExp(expression);
         }
     }
 
-    int rang = moinsPrioritaire(pExpression);
+    int rang = moinsPrioritaire(expression);
     if (rang == -1)
-        t->setContenu(pExpression);
+        t->setContenu(expression);
     else {
-        t->setContenu(pExpression.at(rang));
-        t->setSag(parseExp(pExpression.left(rang)));
-        t->setSad(parseExp(pExpression.right(pExpression.length() - rang - 1)));
+        t->setContenu(expression.at(rang));
+        t->setSag(parseExp(expression.left(rang)));
+        t->setSad(parseExp(expression.right(expression.length() - rang - 1)));
     }
 
     return t;
 }
 
-double MathExp::calculRec(Arbre* pArbre) {
+double MathExp::calculRec(Arbre* pArbre) const {
     if (pArbre->estFeuille())
         return pArbre->getContenu().toDouble();
     double g, d;
@@ -95,33 +95,34 @@ double MathExp::calculRec(Arbre* pArbre) {
         return -1;
 }
 
-Arbre* MathExp::getCalcul() {
+Arbre* MathExp::getCalcul() const {
     return m_calcul;
 }
 
-int MathExp::moinsPrioritaire(QString pExpression) {
-    while (pExpression.contains('(')) {
-        int firstOP = pExpression.indexOf("(");
+int MathExp::moinsPrioritaire(const QString& pExpression) const {
+    QString expression = pExpression;
+    while (expression.contains('(')) {
+        int firstOP = expression.indexOf("(");
         int i, cpt = 1;
-        for (i = (firstOP + 1); i < pExpression.length() && cpt > 0; i++) {
-            if (pExpression.at(i) == '(')
+        for (i = (firstOP + 1); i < expression.length() && cpt > 0; i++) {
+            if (expression.at(i) == '(')
                 cpt++;
-            else if (pExpression.at(i) == ')')
+            else if (expression.at(i) == ')')
                 cpt--;
         }
 
         for (int j = firstOP; j < i; j++)
-            pExpression[j] = ' ';
+            expression[j] = ' ';
     }
 
-    if (pExpression.contains('+'))
-        return pExpression.indexOf('+');
-    else if (pExpression.contains('-'))
-        return pExpression.indexOf('-');
-    else if (pExpression.contains('*'))
-        return pExpression.indexOf('*');
-    else if (pExpression.contains('/'))
-        return pExpression.indexOf('/');
+    if (expression.contains('+'))
+        return expression.indexOf('+');
+    else if (expression.contains('-'))
+        return expression.indexOf('-');
+    else if (expression.contains('*'))
+        return expression.indexOf('*');
+    else if (expression.contains('/'))
+        return expression.indexOf('/');
     else
         return -1;
 }

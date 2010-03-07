@@ -16,7 +16,7 @@ class ExpressionLogique : public QObject {
 public:
     ExpressionLogique(int pNumLigne = -1);
     ~ExpressionLogique();
-    void setExpression(QString pExpression);
+    void setExpression(const QString& pExpression);
     QString getExpression() const;
     bool resultat();
     Arbre* getArbre();
@@ -27,11 +27,11 @@ public:
     };
 
 private:
-    Arbre* parseExp(QString pExpression);
+    Arbre* parseExp(const QString& pExpression);
     bool calculRec(Arbre* pArbre);
     int m_numLigne;
 
-    int moinsPrioritaire(QString pExpression, int* pTaille);
+    int moinsPrioritaire(const QString& pExpression, int* pTaille);
 
     QString m_expression;                       /*!< \brief Expression logique à vérifier. */
     Arbre* m_calcul;                            /*!< \brief Racine de l'arbre utilisé pour la vérification. */
