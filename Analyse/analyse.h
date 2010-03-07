@@ -16,6 +16,10 @@ class Glossaire;
 class QFile;
 template <typename T> class QList;
 
+/** \brief Interface entre les différentes classes d'analyse et l'interface graphique.
+
+  Singleton
+*/
 class Analyse : public QObject {
     Q_OBJECT
 
