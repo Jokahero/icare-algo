@@ -100,16 +100,3 @@ void Arbre::setSad(Arbre* pSad) {
 void Arbre::setContenu(QString pContenu) {
     m_contenu = pContenu;
 }
-
-/*! \brief Affiche l'arbre.
-
-  Affiche récursivement le contenu et la hauteur de l'arbre, ainsi que de ses sous-arbres.
-  Fonction de développement, à supprimer dès qu'inutilisée.
-*/
-void Arbre::afficher() {
-    qDebug() << "Hauteur : " << hauteur() << " : " << getContenu();
-    if (!estFeuille()) {
-        getSag()->afficher();
-        getSad()->afficher();
-    }
-}

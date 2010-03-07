@@ -15,19 +15,17 @@ class Execution : public QObject {
 
 public:
     Execution(Analyse* pAnalyse);
-    ~Execution();
 
 private:
-    Analyse* m_analyse;
+    Analyse* m_analyse;                                             /*!< \brief Pointeur vers l'instance d'analyse. */
 
-    QStack<Dictionnaire::typeLigne>* m_pileStructureControle;
-    QString m_saisie;
-    bool m_modifie;
-    bool m_stop;
+    QString m_saisie;                                               /*!< \brief Chaîne contenant la dernière saisie de l'utilisateur. */
+    bool m_modifie;                                                 /*!< \brief Booléen permettant de savoir si la saisie a été modifiée ou non. */
+    bool m_stop;                                                    /*!< \brief Booléen indiquant si l'utilisateur a demandé une interruption de l'exécution. */
 
-    QString remplacementValeursVariables(QString pChaine);
-    QString calcul(QString pChaine, int pNumLigne);
-    bool evaluationCondition(QString pCond, int pNumLigne);
+    QString remplacementValeursVariables(const QString& pChaine);
+    QString calcul(const QString& pChaine, int pNumLigne);
+    bool evaluationCondition(const QString& pCond, int pNumLigne);
 
     void execution(bool pPasAPas, int pDebut = 0, int pFin = -1);
 
@@ -37,7 +35,7 @@ public slots:
     void lancer(bool pPasAPas = false);
     //void pas();
     void stop();
-    void enregistrerSaisie(QString pSaisie);
+    void enregistrerSaisie(const QString& pSaisie);
 
 signals:
     void terminee();

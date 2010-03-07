@@ -464,12 +464,11 @@ bool Dictionnaire::isImprimer(QString pLigne, QStringList* pListeArgs) {
 }
 
 
-//Expression réguliere de toute les variable séparé par un pipe
 /*! \brief Permet de récupérer les variables du glossaire pour les transformer en chaîne de caractères, séparées d'un pipe.
 
   Transformation de la liste de variables du glossaire en : var1|var2|var3|...|varx
 
-  \return String expression
+  \return Expression
 */
 QString Dictionnaire::listePipeVariable() {
     QString expression = "(?:";
@@ -487,6 +486,11 @@ QString Dictionnaire::listePipeVariable() {
     return expression;
 }
 
+
+/*! \brief Expression régulière acceptant une opération mathématique contenant ou non des variables.
+
+  \return Expression régulière
+*/
 QString Dictionnaire::listeQuantites() {
     QString liste = listePipeVariable();
     QString expression = "(?:\\(*\\s*(?:(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*)|";
@@ -497,6 +501,11 @@ QString Dictionnaire::listeQuantites() {
     return expression;
 }
 
+
+/*! \brief Expression régulière acceptant une condition (composée ou non) comparant des quantités mathématiques.
+
+  \return Expression régulière
+*/
 QString Dictionnaire::listeCondition() {
     QString liste = listeQuantites();
     QString expression = "(?:\\(*\\s*(?:";

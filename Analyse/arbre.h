@@ -18,8 +18,6 @@ public:
     bool estFeuille();
     unsigned int hauteur();
 
-    void afficher();
-
     // Modificateurs
     void setSag(Arbre* pSag);
     void setSad(Arbre* pSad);

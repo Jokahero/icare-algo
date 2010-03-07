@@ -23,7 +23,7 @@ public slots:
 private:
     bool lectureGlossaire(QFile* pFichier);
     bool lectureInstructions(QFile* pFichier);
-    Analyse* m_analyse;
+    Analyse* m_analyse;                                     /*!< \brief Pointeur vers l'instance d'analyse. */
 
 signals:
     void terminee(bool);

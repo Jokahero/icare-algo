@@ -13,16 +13,21 @@
 
 #include <QtCore/QDebug>
 
+
+/** \brief Constructeur.
+
+  \param pAnalyse Instance d'analyse
+*/
 Execution::Execution(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
-    m_pileStructureControle = new QStack<Dictionnaire::typeLigne>();
     m_modifie = false;
 }
 
-Execution::~Execution() {
-    delete m_pileStructureControle;
-}
 
+/** \brief Lance l'exécution du dernier fichier analysé.
+
+  \param pPasAPas Indique si l'exécution se déroule normalement ou en mode pas à pas
+*/
 void Execution::lancer(bool pPasAPas) {
     qDebug() << "Exécution commencée";
 
@@ -33,48 +38,78 @@ void Execution::lancer(bool pPasAPas) {
     emit terminee();
 }
 
+
+/** \brief Demande une interruption à la fin de l'interprétation de la ligne en cours.
+*/
 void Execution::stop() {
     m_stop = true;
 }
 
-QString Execution::remplacementValeursVariables(QString pChaine) {
-    pChaine = pChaine.trimmed();
+
+/** \brief Remplace chaque occurence d'une variable par sa valeur.
+
+  \param pChaine Chaîne où remplacer les variables
+  \return Chaîne avec les valeurs
+*/
+QString Execution::remplacementValeursVariables(const QString& pChaine) {
+    QString chaine = pChaine.trimmed();
     for (int i = 0; i < m_analyse->getGlossaire()->getListeVariables().length(); i++) {
         QRegExp rx(".*(?:^|\\W)(" + m_analyse->getGlossaire()->getListeVariables().at(i) + ")(?:\\W|$).*");
-        while (rx.exactMatch(pChaine))
-            pChaine.replace(rx.pos(1), rx.cap(1).length(), m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
+        while (rx.exactMatch(chaine))
+            chaine.replace(rx.pos(1), rx.cap(1).length(), m_analyse->getGlossaire()->getValeur(m_analyse->getGlossaire()->getListeVariables().at(i)));
     }
 
-    return pChaine;
+    return chaine;
 }
 
-QString Execution::calcul(QString pChaine, int pNumLigne) {
-    pChaine = pChaine.trimmed();
-    pChaine.replace("×", "*");
-    pChaine.replace("÷", "/");
+
+/** \brief Calcule le résultat de l'opération passée en paramètre.
+
+  \param pChaine Opération à évaluer
+  \param pNumLigne Numéro de la ligne de l'opération
+  \return Résultat de l'opération
+*/
+QString Execution::calcul(const QString& pChaine, int pNumLigne) {
+    QString chaine = pChaine.trimmed();
+    chaine.replace("×", "*");
+    chaine.replace("÷", "/");
 
     MathExp* me = new MathExp(pNumLigne);
     connect(me, SIGNAL(sigErreur(MathExp::erreur, int)), this, SIGNAL(erreurMathematique(MathExp::erreur, int)));
-    me->setExpression(pChaine);
+    me->setExpression(chaine);
     QString res = QString::number(me->calcul());
     delete me;
     return res;
 }
 
-bool Execution::evaluationCondition(QString pCond, int pNumLigne) {
-    pCond = pCond.trimmed();
+
+/** \brief Évalue une condition logique.
+
+  \param pCond Condition à évaluer
+  \param pNumLigne Numéro de la ligne de la condition
+  \return Résultat de la condition
+*/
+bool Execution::evaluationCondition(const QString& pCond, int pNumLigne) {
+    QString cond = pCond.trimmed();
 
     ExpressionLogique* tmp = new ExpressionLogique(pNumLigne);
     connect(tmp, SIGNAL(sigErreur(ExpressionLogique::erreur, int)), this, SIGNAL(erreurLogique(ExpressionLogique::erreur, int)));
     connect(tmp, SIGNAL(sigErreurMath(MathExp::erreur, int)), this, SIGNAL(erreurMathematique(MathExp::erreur, int)));
-    tmp->setExpression(pCond);
+    tmp->setExpression(cond);
     bool res = tmp->resultat();
     delete tmp;
     return res;
 }
 
+
+/** \brief Exécute tout ou une partie d'un algorithme.
+
+  \param pPasAPas Indique si l'exécution doit se dérouler normalement ou en mode pas à pas
+  \param pDebut Numéro d'instruction à laquelle doit commencer l'exécution
+  \param pFin Numéro d'instruction à laquelle doit s'arrêter l'exécution. Si égal à -1, l'exécution s'arrête à la fin
+*/
 void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
-    if (pFin == -1)
+    if (pFin == -1 || pFin > m_analyse->getListeInstruction()->length())
         pFin = m_analyse->getListeInstruction()->length();
 
     for (int i = pDebut; i < pFin && !m_stop; i++) {
@@ -134,15 +169,28 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
         }
         if (pPasAPas)
             waitForSignal(m_analyse, SIGNAL(execPas()));
+
+        // On traîte la file d'events afin de ne pas freezer l'interface
         qApp->processEvents();
     }
 }
 
-void Execution::enregistrerSaisie(QString pSaisie) {
+
+/** \brief Modifie la valeur de la dernière saisie et la marque comme modifiée.
+
+  \param pSaisie Chaîne saisie par l'utilisateur
+*/
+void Execution::enregistrerSaisie(const QString& pSaisie) {
     m_saisie = pSaisie;
     m_modifie = true;
 }
 
+
+/** \brief Boucle (non bloquante) durant tant qu'un signal n'a pas été émit par un objet.
+
+  \param pObj Objet émetteur
+  \param pSig Signal attendu
+*/
 void Execution::waitForSignal(QObject* pObj, const char* pSig) {
     QEventLoop loop;
     connect(pObj, pSig, &loop, SLOT(quit()));
