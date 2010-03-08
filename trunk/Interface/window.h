@@ -96,6 +96,7 @@ private:
     QStatusBar* m_statusBar;
 
     bool m_documentModifie;
+    bool m_isTestComplet;
 
     void majFichiersRecents();
     QString nomCourt(const QString& pNomComplet);
@@ -106,6 +107,7 @@ public slots:
     void erreurMath(MathExp::erreur);
     void analyseSyntaxique();
     void analyseSemantique();
+    void testComplet();
     void execution();
     void executionPasAPas();
     void afficherApropos();
