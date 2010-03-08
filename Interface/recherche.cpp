@@ -103,6 +103,7 @@ void Recherche::plus(bool pVisible) {
 */
 void Recherche::rec() {
     m_plus->setChecked(false);
+    m_rechercherLe->setFocus();
     show();
 }
 
@@ -111,6 +112,7 @@ void Recherche::rec() {
 */
 void Recherche::rem() {
     m_plus->setChecked(true);
+    m_rechercherLe->setFocus();
     show();
 }
 
