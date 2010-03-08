@@ -4,6 +4,8 @@
 #include <QtGui/QFrame>
 #include <QtGui/QTextEdit>
 
+#include "recherche.h"
+
 class BarreNombres;
 class Coloration;
 class QPaintEvent;
@@ -43,9 +45,9 @@ public:
 public slots:
     void loadSettings();
     void changementLigne(int pNumLigne);
-    void recherche(QString pRecherche);
-    void remplacement(QString pRecherche, QString pRemplacement);
-    void remplacerTout(QString pRecherche, QString pRemplacement);
+    void recherche(TRecherche);
+    void remplacement(TRecherche);
+    void remplacerTout(TRecherche);
     void ajouterTexte(QString pTexte);
 
 protected slots:

@@ -8,6 +8,16 @@ class QLineEdit;
 class QPushButton;
 class QCheckBox;
 
+typedef struct {
+        QString recherche;
+        QString remplacement;
+        bool casse;
+        bool regexp;
+        bool motEntier;
+        bool debutMot;
+        bool complet;
+    } TRecherche;
+
 
 /*! \brief Fenêtre de recherche/remplacement.
 
@@ -46,9 +56,9 @@ private slots:
     void remplacerTout();
 
 signals:
-    void recherche(QString);
-    void remplacement(QString, QString);
-    void remplacerTout(QString, QString);
+    void recherche(TRecherche);
+    void remplacement(TRecherche);
+    void remplacerTout(TRecherche);
 };
 
 #endif // RECHERCHE_H
