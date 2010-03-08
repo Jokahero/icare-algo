@@ -18,6 +18,7 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     HighlightingRule type;
     HighlightingRule controle;
     HighlightingRule comment;
+    HighlightingRule chaines;
     HighlightingRule borne;
     HighlightingRule numerique;
 
@@ -26,7 +27,7 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     /* Coloration des types de variables */
     // Récupération de la couleur sauvegardées dans les préférences préférences
     // Nous indiquons une couleur et un format de police aux mots-clés.
-    typeFormat.setFontWeight(QFont::Bold);
+    m_typeFormat.setFontWeight(QFont::Bold);
 
     // Nous créons ensuite une liste contenant les mots-clés sous forme de regexp.
     QStringList typePatterns;
@@ -38,12 +39,12 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     foreach (const QString &pattern, typePatterns) {
         type.pattern = QRegExp(pattern);
         type.pattern.setCaseSensitivity(Qt::CaseInsensitive);
-        type.format = typeFormat;
+        type.format = m_typeFormat;
         highlightingRules.append(type);
     }
 
     /* Coloration des structures de contrôle */
-    structureFormat.setFontWeight(QFont::Normal);
+    m_structureFormat.setFontWeight(QFont::Normal);
 
     QStringList structurePatterns;
     structurePatterns << "\\bsi\\b" << "\\balors\\b"
@@ -56,22 +57,28 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     foreach (const QString &pattern, structurePatterns) {
         controle.pattern = QRegExp(pattern);
         controle.pattern.setCaseSensitivity(Qt::CaseInsensitive);
-        controle.format = structureFormat;
+        controle.format = m_structureFormat;
         highlightingRules.append(controle);
     }
 
-    /* Coloration des commentaires et des chaînes*/
+
+    /* Coloration des commentaires */
 
     QStringList commentPatterns;
-    commentPatterns << "/\\*.*\\*/" << "//[^\n]*" << "\".*\"";
+    commentPatterns << "/\\*.*\\*/" << "//[^\n]*";
     foreach (const QString &pattern, commentPatterns) {
         comment.pattern = QRegExp(pattern);
-        comment.format = commentFormat;
+        comment.format = m_commentFormat;
         highlightingRules.append(comment);
     }
 
+    /* Coloration des chaînes */
+    chaines.pattern = QRegExp("\".*\"");
+    chaines.format = m_chainesFormat;
+    highlightingRules.append(chaines);
+
     /* Coloration des bornes */
-    borneFormat.setFontWeight(QFont::Bold);
+    m_borneFormat.setFontWeight(QFont::Bold);
 
     QStringList bornePatterns;
     bornePatterns << "\\bglossaire\\b" << "\\bd[ée]but\\b" << "\\bfin\\b";
@@ -79,15 +86,15 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     foreach (const QString &pattern, bornePatterns) {
         borne.pattern = QRegExp(pattern);
         borne.pattern.setCaseSensitivity(Qt::CaseInsensitive);
-        borne.format = borneFormat;
+        borne.format = m_borneFormat;
         highlightingRules.append(borne);
     }
 
     /* Coloration des valeurs numériques */
-    numeriqueFormat.setFontWeight(QFont::Normal);
+    m_numeriqueFormat.setFontWeight(QFont::Normal);
 
     numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
-    numerique.format = numeriqueFormat;
+    numerique.format = m_numeriqueFormat;
     highlightingRules.append(numerique);
 }
 
@@ -115,10 +122,11 @@ void Coloration::highlightBlock(const QString &text) {
 /*! \brief Charge les paramètres enregistrés dans les préférences.
 */
 void Coloration::loadSettings() {
-    typeFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurTypes());;
-    structureFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurStructures());
-    commentFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurCommentaires());
-    borneFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurBornes());
-    numeriqueFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurNombres());
+    m_typeFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurTypes());;
+    m_structureFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurStructures());
+    m_commentFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurCommentaires());
+    m_chainesFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurChaines());
+    m_borneFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurBornes());
+    m_numeriqueFormat.setForeground(GestionnaireParametres::getInstance()->getCouleurNombres());
 }
 

@@ -6,6 +6,7 @@
 #include <QtCore/QList>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QLabel>
 #include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 
@@ -31,11 +32,14 @@ WidgetPlugins::WidgetPlugins() {
         m_listeCheck->append(cb);
     }
 
+    m_infoLabel = new QLabel(tr("/!\\ Les changements ne seront effectifs qu'au prochain lancement de l'application."));
+
     QVBoxLayout *layoutFinal = new QVBoxLayout;
     QScrollArea *sa = new QScrollArea;
     sa->setWidget(tmp);
     sa->setAlignment(Qt::AlignLeft);
     layoutFinal->addWidget(sa);
+    layoutFinal->addWidget(m_infoLabel);
     layoutFinal->addWidget(m_buttonBox);
     setLayout(layoutFinal);
 

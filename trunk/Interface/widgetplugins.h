@@ -6,6 +6,7 @@
 class GestionnairePlugins;
 class QCheckBox;
 class QDialogButtonBox;
+class QLabel;
 template <typename T> class QList;
 
 
@@ -23,6 +24,7 @@ private:
     GestionnairePlugins *m_gestionnairePlugins;
     QDialogButtonBox *m_buttonBox;
     QList<QCheckBox*> *m_listeCheck;
+    QLabel *m_infoLabel;
 
 public slots:
     void saveSettings();

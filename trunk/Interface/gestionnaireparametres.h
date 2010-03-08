@@ -34,6 +34,9 @@ public:
     QColor getCouleurCommentaires() const;
     void setCouleurCommentaires(const QColor& pCol);
 
+    QColor getCouleurChaines() const;
+    void setCouleurChaines(const QColor& pCol);
+
     QColor getCouleurTypes() const;
     void setCouleurTypes(const QColor& pCol);
 

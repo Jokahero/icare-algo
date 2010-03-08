@@ -146,6 +146,24 @@ void GestionnaireParametres::setCouleurCommentaires(const QColor& pCol) {
     m_set->endGroup();
 }
 
+/*! \brief Retourne la couleur de coloration des chaînes de caractères.
+
+  Par défaut, elles sont en vert (#00ff00).
+  \return Couleur des chaînes de caractères.
+*/
+QColor GestionnaireParametres::getCouleurChaines() const {
+    return QColor(m_set->value("Couleurs/Chaines", "#00ff00").toString());
+}
+
+/*! \brief Définit la couleur des chaînes de caractères.
+
+  \param pCol Couleur des chaînes de caractères.
+*/
+void GestionnaireParametres::setCouleurChaines(const QColor& pCol) {
+    m_set->beginGroup("Couleurs");
+    m_set->setValue("Chaines", pCol.name());
+    m_set->endGroup();
+}
 
 /*! \brief Retourne la couleur de coloration des différents types.
 
