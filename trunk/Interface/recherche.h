@@ -6,6 +6,7 @@
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QCheckBox;
 
 
 /*! \brief Fenêtre de recherche/remplacement.
@@ -33,6 +34,12 @@ private:
     QPushButton* m_fermer;
     QPushButton* m_plus;
     QPushButton* m_remplacerTout;
+    // Options de recherche
+    QCheckBox *m_caseSensitive;
+    QCheckBox *m_regExp;
+    QCheckBox *m_motEntier;
+    QCheckBox *m_debutMot;
+
 
 private slots:
     void recherche();
