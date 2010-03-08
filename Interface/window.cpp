@@ -405,6 +405,10 @@ void Window::analyseSemantique() {
     emit lancerAnalyseSemantique();
 }
 
+/*! \brief Affichage de la fenêtre d'à propos.
+
+  Cette fonction ouvre la fenêtre contenant les informations à propos de l'application.
+*/
 void Window::afficherApropos() {
     /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
@@ -413,6 +417,7 @@ void Window::afficherApropos() {
 }
 
 /*! \brief Ouverture d'un fichier.
+
   Cette fonction sans paramètre ouvre une boîte de dialogue permettant d'ouvrir un fichier existant
   et d'insérer son contenu dans la zone de texte.
 */
@@ -444,7 +449,8 @@ void Window::ouvrirFichier() {
 }
 
 /*! \brief Ouverture d'un fichier.
-  Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
+
+Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
   \param pNomFichier Nom du fichier à ouvrir.
 */
 void Window::ouvrirFichier(QString pNomFichier) {
@@ -528,12 +534,20 @@ void Window::ouvrirFichier(QString pNomFichier) {
     QApplication::restoreOverrideCursor();
 }
 
+/*! \brief Affichage des préférences.
+
+  Cette fonction affiche une fenêtre permettant de modifier les options de l'application.
+*/
 void Window::afficherPreferences() {
     m_pref = new Preferences();
     QObject::connect(m_pref, SIGNAL(settingsChanged()), this, SLOT(rechargerPreferences()));
     m_pref->show();
 }
 
+/*! \brief Affichage du menu des plugins.
+
+  Cette fonction affiche la fenêtre permettant à l'utilisateur d'activer/désactiver les plugins.
+*/
 void Window::afficherMenuPlugins() {
     m_wPlugins->show();
 }

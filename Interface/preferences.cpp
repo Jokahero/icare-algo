@@ -22,17 +22,20 @@ Preferences::Preferences() : QDialog() {
     setModal(true); // La fenêtre de préférences doit être fermée pour que l'on puisse revenir à l'application
     setAttribute(Qt::WA_DeleteOnClose);
 
-    QVBoxLayout *m_layout = new QVBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
     m_onglets = new QTabWidget();
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
-    m_layout->addWidget(m_onglets);
-    m_layout->addWidget(m_buttonBox);
+    layout->addWidget(m_onglets);
+    layout->addWidget(m_buttonBox);
 
-    QFormLayout *m_layoutOngletColoration = new QFormLayout();
+    QFormLayout *layoutOngletColoration = new QFormLayout();
 
-    m_commentairesLabel = new QLabel(tr("Couleur des commentaires et des chaînes:"));
+    m_commentairesLabel = new QLabel(tr("Couleur des commentaires:"));
     m_commentairesBouton = new BoutonCouleur(this);
+
+    m_chainesLabel = new QLabel(tr("Couleur des chaînes de caractères:"));
+    m_chainesBouton = new BoutonCouleur(this);
 
     m_bornesLabel = new QLabel(tr("Couleur des bornes:"));
     m_bornesBouton = new BoutonCouleur(this);
@@ -46,37 +49,39 @@ Preferences::Preferences() : QDialog() {
     m_typeLabel = new QLabel(tr("Couleur des types:"));
     m_typeBouton = new BoutonCouleur(this);
 
-    m_layoutOngletColoration->addRow(m_commentairesLabel, m_commentairesBouton);
-    m_layoutOngletColoration->addRow(m_bornesLabel, m_bornesBouton);
-    m_layoutOngletColoration->addRow(m_structuresLabel, m_structuresBouton);
-    m_layoutOngletColoration->addRow(m_numeriqueLabel, m_numeriqueBouton);
-    m_layoutOngletColoration->addRow(m_typeLabel, m_typeBouton);
+    layoutOngletColoration->addRow(m_commentairesLabel, m_commentairesBouton);
+    layoutOngletColoration->addRow(m_chainesLabel, m_chainesBouton);
+    layoutOngletColoration->addRow(m_bornesLabel, m_bornesBouton);
+    layoutOngletColoration->addRow(m_structuresLabel, m_structuresBouton);
+    layoutOngletColoration->addRow(m_numeriqueLabel, m_numeriqueBouton);
+    layoutOngletColoration->addRow(m_typeLabel, m_typeBouton);
 
     m_color = new QWidget(this);
-    m_color->setLayout(m_layoutOngletColoration);
+    m_color->setLayout(layoutOngletColoration);
 
     m_edit = new QWidget(this);
-    QFormLayout *m_layoutOngletZoneEdition = new QFormLayout();
+    QFormLayout *layoutOngletZoneEdition = new QFormLayout();
 
     m_numerotation = new QCheckBox(tr("Numérotation des lignes"), this);
     m_retourLigne = new QCheckBox(tr("Retour à la ligne automatique"), this);
     m_tailleTab = new QSpinBox(this);
     m_surligneBouton = new BoutonCouleur(this);
 
-    m_layoutOngletZoneEdition->addRow(m_numerotation);
-    m_layoutOngletZoneEdition->addRow(m_retourLigne);
-    m_layoutOngletZoneEdition->addRow(tr("Taille des tabulations (en espaces)"), m_tailleTab);
-    m_layoutOngletZoneEdition->addRow(tr("Coloration de la ligne actuelle:"), m_surligneBouton);
-    m_edit->setLayout(m_layoutOngletZoneEdition);
+    layoutOngletZoneEdition->addRow(m_numerotation);
+    layoutOngletZoneEdition->addRow(m_retourLigne);
+    layoutOngletZoneEdition->addRow(tr("Taille des tabulations (en espaces)"), m_tailleTab);
+    layoutOngletZoneEdition->addRow(tr("Coloration de la ligne actuelle:"), m_surligneBouton);
+    m_edit->setLayout(layoutOngletZoneEdition);
 
     m_onglets->addTab(m_color, tr("Coloration syntaxique"));
     m_onglets->addTab(m_edit, tr("Zone d'édition"));
 
-    setLayout(m_layout);
+    setLayout(layout);
 
     loadSettings();
 
     connect(m_commentairesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
+    connect(m_chainesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     connect(m_bornesBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     connect(m_structuresBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
     connect(m_numeriqueBouton, SIGNAL(clicked()), this, SLOT(modifierCouleur()));
@@ -102,6 +107,7 @@ void Preferences::modifierCouleur() {
 */
 void Preferences::changeSettings() {
     GestionnaireParametres::getInstance()->setCouleurCommentaires(m_commentairesBouton->getCouleur());
+    GestionnaireParametres::getInstance()->setCouleurChaines(m_chainesBouton->getCouleur());
     GestionnaireParametres::getInstance()->setCouleurBornes(m_bornesBouton->getCouleur());
     GestionnaireParametres::getInstance()->setCouleurStructures(m_structuresBouton->getCouleur());
     GestionnaireParametres::getInstance()->setCouleurNombres(m_numeriqueBouton->getCouleur());
@@ -117,6 +123,7 @@ void Preferences::changeSettings() {
 */
 void Preferences::loadSettings() {
     m_commentairesBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurCommentaires());
+    m_chainesBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurChaines());
     m_bornesBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurBornes());
     m_structuresBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurStructures());
     m_numeriqueBouton->setCouleur(GestionnaireParametres::getInstance()->getCouleurNombres());

@@ -32,6 +32,9 @@ private:
     QLabel *m_commentairesLabel;
     BoutonCouleur *m_commentairesBouton;
 
+    QLabel *m_chainesLabel;
+    BoutonCouleur *m_chainesBouton;
+
     QLabel *m_bornesLabel;
     BoutonCouleur *m_bornesBouton;
 

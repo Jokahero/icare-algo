@@ -24,11 +24,12 @@ private:
     };
     QVector<HighlightingRule> highlightingRules;
 
-    QTextCharFormat typeFormat; /*!< \brief Format des types*/
-    QTextCharFormat structureFormat; /*!< \brief Format des structures de controle*/
-    QTextCharFormat commentFormat; /*!< \brief Format des commentaires simples*/
-    QTextCharFormat borneFormat; /*!< \brief Format des bornes du code*/
-    QTextCharFormat numeriqueFormat; /*!< \brief Format des valeurs numériques*/
+    QTextCharFormat m_typeFormat; /*!< \brief Format des types*/
+    QTextCharFormat m_structureFormat; /*!< \brief Format des structures de controle*/
+    QTextCharFormat m_commentFormat; /*!< \brief Format des commentaires simples*/
+    QTextCharFormat m_chainesFormat; /*! < \brief Format des chînes de caractères*/
+    QTextCharFormat m_borneFormat; /*!< \brief Format des bornes du code*/
+    QTextCharFormat m_numeriqueFormat; /*!< \brief Format des valeurs numériques*/
 
     QColor couleur;
 
