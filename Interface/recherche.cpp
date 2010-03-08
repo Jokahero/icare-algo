@@ -6,7 +6,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
-
+#include <QtGui/QCheckBox>
 
 /*! \brief Constructeur. La fenêtre n'est pas modale.
 
@@ -27,6 +27,11 @@ Recherche::Recherche(QWidget *pParent) : QDialog(pParent) {
     m_remplacerTout = new QPushButton(tr("Remplacer tout"));
     m_remplacerTout->setVisible(false);
 
+    m_caseSensitive = new QCheckBox(tr("Sensible à la casse"), this);
+    m_regExp = new QCheckBox(tr("Utiliser des expressions régulières"), this);
+    m_motEntier = new QCheckBox(tr("Correspondre seulement avec un mot entier"), this);
+    m_debutMot = new QCheckBox(tr("Correspondre avec le début du mot"), this);
+
     QVBoxLayout* layoutPrincipal = new QVBoxLayout;
     QHBoxLayout* layoutHaut = new QHBoxLayout;
     QGridLayout* layoutRec = new QGridLayout;
@@ -44,9 +49,14 @@ Recherche::Recherche(QWidget *pParent) : QDialog(pParent) {
     layoutHaut->addLayout(layoutRec);
     layoutHaut->addLayout(layoutBoutons);
 
-
+    QGridLayout *layoutBas = new QGridLayout;
+    layoutBas->addWidget(m_caseSensitive, 0, 0);
+    layoutBas->addWidget(m_regExp, 1, 0);
+    layoutBas->addWidget(m_motEntier, 0, 1);
+    layoutBas->addWidget(m_debutMot, 1, 1);
 
     layoutPrincipal->addLayout(layoutHaut);
+    layoutPrincipal->addLayout(layoutBas);
     setLayout(layoutPrincipal);
 
     connect(m_plus, SIGNAL(toggled(bool)), this, SLOT(plus(bool)));
@@ -66,6 +76,10 @@ Recherche::~Recherche() {
     delete m_fermer;
     delete m_plus;
     delete m_remplacerTout;
+    delete m_caseSensitive;
+    delete m_regExp;
+    delete m_motEntier;
+    delete m_debutMot;
 }
 
 
