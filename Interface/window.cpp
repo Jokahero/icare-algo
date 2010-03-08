@@ -265,6 +265,7 @@ Window::Window() : QMainWindow() {
     connect(m_imprimer, SIGNAL(triggered()), this, SLOT(imprimerFichier()));
     connect(m_testSyntaxe, SIGNAL(triggered()), this, SLOT(analyseSyntaxique()));
     connect(m_testSemantique, SIGNAL(triggered()), this, SLOT(analyseSemantique()));
+    connect(m_testComplet, SIGNAL(triggered()), this, SLOT(testComplet()));
     connect(m_executer, SIGNAL(triggered()), this, SLOT(execution()));
     connect(m_executerPasAPas, SIGNAL(triggered()), this, SLOT(executionPasAPas()));
     connect(m_pas, SIGNAL(triggered()), this, SIGNAL(execPas()));
@@ -745,11 +746,14 @@ QMenuBar* Window::getMenuBar() {
 
 void Window::analyseSyntaxiqueTerminee(bool pOk) {
     m_testSemantique->setEnabled(pOk);
+    if (pOk && m_isTestComplet)
+        analyseSemantique();
 }
 
 void Window::analyseSemantiqueTerminee(bool pOk) {
     m_executer->setEnabled(pOk);
     m_executerPasAPas->setEnabled(pOk);
+    m_isTestComplet = false;
 }
 
 void Window::ouvrirFichierRecent() {
@@ -777,4 +781,9 @@ void Window::majFichiersRecents() {
 
 QString Window::nomCourt(const QString& pNomComplet) {
     return QFileInfo(pNomComplet).fileName();
+}
+
+void Window::testComplet() {
+    m_isTestComplet = true;
+    analyseSyntaxique();
 }
