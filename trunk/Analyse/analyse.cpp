@@ -49,7 +49,6 @@ Analyse::Analyse() {
     connect(m_analyseSyntaxique, SIGNAL(terminee(bool)), this, SIGNAL(analyseSyntaxiqueTerminee(bool)));
     connect(m_analyseSemantique, SIGNAL(terminee(bool)), this, SIGNAL(analyseSemantiqueTerminee(bool)));
     connect(this, SIGNAL(sigLancerExecution(bool)), m_exec, SLOT(lancer(bool)));
-    connect(this, SIGNAL(execPas()), m_exec, SLOT(pas()));
     connect(this, SIGNAL(execStop()), m_exec, SLOT(stop()));
     connect(this, SIGNAL(execStop()), this, SIGNAL(execPas()));
     connect(m_glossaire, SIGNAL(erreur(Analyse::erreur, int)), this, SIGNAL(sigErreur(Analyse::erreur, int)));

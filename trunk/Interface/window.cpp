@@ -286,9 +286,9 @@ Window::Window() : QMainWindow() {
     connect(m_rechercher, SIGNAL(triggered()), m_fenRecherche, SLOT(rec()));
     connect(m_remplacer, SIGNAL(triggered()), m_fenRecherche, SLOT(rem()));
     connect(m_selectionnerTout, SIGNAL(triggered()), m_zoneTexte->getTextEdit(), SLOT(selectAll()));
-    connect(m_fenRecherche, SIGNAL(recherche(QString)), m_zoneTexte, SLOT(recherche(QString)));
-    connect(m_fenRecherche, SIGNAL(remplacement(QString, QString)), m_zoneTexte, SLOT(remplacement(QString, QString)));
-    connect(m_fenRecherche, SIGNAL(remplacerTout(QString, QString)), m_zoneTexte, SLOT(remplacerTout(QString, QString)));
+    connect(m_fenRecherche, SIGNAL(recherche(TRecherche)), m_zoneTexte, SLOT(recherche(TRecherche)));
+    connect(m_fenRecherche, SIGNAL(remplacement(TRecherche)), m_zoneTexte, SLOT(remplacement(TRecherche)));
+    connect(m_fenRecherche, SIGNAL(remplacerTout(TRecherche)), m_zoneTexte, SLOT(remplacerTout(TRecherche)));
 
     m_documentModifie = false;
     nouveauFichier();

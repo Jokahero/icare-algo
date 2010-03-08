@@ -11,6 +11,7 @@
 #include <QtGui/QMimeSource>
 #include <QtGui/QPainter>
 #include <QtGui/QScrollBar>
+#include <QtGui/QTextDocument>
 #include <QtGui/QToolTip>
 
 #include <QtCore/QDebug>
@@ -110,8 +111,13 @@ void TextEdit::changementLigne(int pNumLigne) {
 
   \param pRecherche Texte à rechercher
 */
-void TextEdit::recherche(QString pRecherche) {
-    getTextEdit()->find(pRecherche);
+void TextEdit::recherche(TRecherche pRecherche) {
+    QTextDocument::FindFlags flags = 0;
+    if (pRecherche.casse)
+        flags |= QTextDocument::FindCaseSensitively;
+    if (pRecherche.motEntier)
+        flags |= QTextDocument::FindWholeWords;
+    getTextEdit()->find(pRecherche.recherche, flags);
 }
 
 
@@ -120,16 +126,33 @@ void TextEdit::recherche(QString pRecherche) {
   \param pRecherche Texte à rechercher
   \param pRemplacement Texte par lequel remplacer pRecherche
 */
-void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
-    if (getTextEdit()->find(pRecherche)) {
+void TextEdit::remplacement(TRecherche pRecherche) {
+    QTextDocument::FindFlags flags = 0;
+    if (pRecherche.casse)
+        flags |= QTextDocument::FindCaseSensitively;
+    if (pRecherche.motEntier)
+        flags |= QTextDocument::FindWholeWords;
+    if (getTextEdit()->find(pRecherche.recherche, flags)) {
         getTextEdit()->textCursor().removeSelectedText();
         int pos = getTextEdit()->textCursor().position();
-        getTextEdit()->insertPlainText(pRemplacement);
+        getTextEdit()->insertPlainText(pRecherche.remplacement);
         int newPos = getTextEdit()->textCursor().position();
         QTextCursor tmp = getTextEdit()->textCursor();
         tmp.setPosition(pos, QTextCursor::MoveAnchor);
         tmp.setPosition(newPos, QTextCursor::KeepAnchor);
         getTextEdit()->setTextCursor(tmp);
+    } else if (pRecherche.complet) {
+        flags |= QTextDocument::FindBackward;
+        if (getTextEdit()->find(pRecherche.recherche, flags)) {
+            getTextEdit()->textCursor().removeSelectedText();
+            int pos = getTextEdit()->textCursor().position();
+            getTextEdit()->insertPlainText(pRecherche.remplacement);
+            int newPos = getTextEdit()->textCursor().position();
+            QTextCursor tmp = getTextEdit()->textCursor();
+            tmp.setPosition(pos, QTextCursor::MoveAnchor);
+            tmp.setPosition(newPos, QTextCursor::KeepAnchor);
+            getTextEdit()->setTextCursor(tmp);
+        }
     }
 }
 
@@ -139,9 +162,15 @@ void TextEdit::remplacement(QString pRecherche, QString pRemplacement) {
   \param pRecherche Texte à rechercher
   \param pRemplacement Texte par lequel remplacer toutes les occurences de pRecherche
 */
-void TextEdit::remplacerTout(QString pRecherche, QString pRemplacement) {
-    while (getTextEdit()->find(pRecherche, QTextDocument::FindBackward) || getTextEdit()->find(pRecherche))
-        remplacement(pRecherche, pRemplacement);
+void TextEdit::remplacerTout(TRecherche pRecherche) {
+    QTextDocument::FindFlags flags = 0;
+    if (pRecherche.casse)
+        flags |= QTextDocument::FindCaseSensitively;
+    if (pRecherche.motEntier)
+        flags |= QTextDocument::FindWholeWords;
+    pRecherche.complet = true;
+    while (getTextEdit()->find(pRecherche.recherche, QTextDocument::FindBackward | flags) || getTextEdit()->find(pRecherche.recherche, flags))
+        remplacement(pRecherche);
 }
 
 

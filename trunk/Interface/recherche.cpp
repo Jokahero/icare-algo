@@ -120,10 +120,24 @@ void Recherche::rem() {
   Si la fenêtre est en mode recherche, le signal recherche(texte) est émit. Sinon, c'est le signal remplacement(texte, texte) qui est émit.
 */
 void Recherche::recherche() {
-    if (!m_plus->isChecked())
-        emit recherche(m_rechercherLe->text());
-    else
-        emit remplacement(m_rechercherLe->text(), m_remplacerLe->text());
+    if (!m_plus->isChecked()) {
+        TRecherche t;
+        t.recherche = m_rechercherLe->text();
+        t.casse = m_caseSensitive->isChecked();
+        t.debutMot = m_debutMot->isChecked();
+        t.motEntier = m_motEntier->isChecked();
+        t.regexp = m_motEntier->isChecked();
+        emit recherche(t);
+    } else {
+        TRecherche t;
+        t.recherche = m_rechercherLe->text();
+        t.remplacement = m_remplacerLe->text();
+        t.casse = m_caseSensitive->isChecked();
+        t.debutMot = m_debutMot->isChecked();
+        t.motEntier = m_motEntier->isChecked();
+        t.regexp = m_motEntier->isChecked();
+        emit remplacement(t);
+    }
 }
 
 
@@ -132,5 +146,12 @@ void Recherche::recherche() {
   Le signal remplacerTout(texte, texte) est émit.
 */
 void Recherche::remplacerTout() {
-    emit remplacerTout(m_rechercherLe->text(), m_remplacerLe->text());
+    TRecherche t;
+    t.recherche = m_rechercherLe->text();
+    t.remplacement = m_remplacerLe->text();
+    t.casse = m_caseSensitive->isChecked();
+    t.debutMot = m_debutMot->isChecked();
+    t.motEntier = m_motEntier->isChecked();
+    t.regexp = m_motEntier->isChecked();
+    emit remplacerTout(t);
 }
