@@ -169,7 +169,7 @@ void TextEdit::remplacerTout(TRecherche pRecherche) {
     if (pRecherche.motEntier)
         flags |= QTextDocument::FindWholeWords;
     pRecherche.complet = true;
-    while (getTextEdit()->find(pRecherche.recherche, QTextDocument::FindBackward | flags) || getTextEdit()->find(pRecherche.recherche, flags))
+    while (getTextEdit()->find(pRecherche.recherche, flags) || getTextEdit()->find(pRecherche.recherche, flags | QTextDocument::FindBackward))
         remplacement(pRecherche);
 }
 
