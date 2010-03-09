@@ -14,6 +14,7 @@ class FenetreSaisie : public QDialog {
 
 public:
     FenetreSaisie();
+    ~FenetreSaisie();
 
 private:
     QLabel *m_message;

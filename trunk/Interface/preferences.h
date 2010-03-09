@@ -21,6 +21,7 @@ class Preferences : public QDialog {
 
 public:
     Preferences();
+    ~Preferences();
 
 private:
     QTabWidget *m_onglets;

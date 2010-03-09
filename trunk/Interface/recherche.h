@@ -3,10 +3,10 @@
 
 #include <QtGui/QDialog>
 
+class QCheckBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
-class QCheckBox;
 
 typedef struct {
         QString recherche;

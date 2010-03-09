@@ -1,8 +1,8 @@
 #include "fenetresaisie.h"
 
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
-#include <QtGui/QDialogButtonBox>
 #include <QtGui/QVBoxLayout>
 
 
@@ -31,6 +31,13 @@ FenetreSaisie::FenetreSaisie() : QDialog() {
     connect(m_saisie, SIGNAL(returnPressed()), this, SLOT(accept()));
 }
 
+/*! \brief Destructeur.
+*/
+FenetreSaisie::~FenetreSaisie() {
+    delete m_message;
+    delete m_saisie;
+    delete m_boutons;
+}
 
 /*! \brief Appelé lors d'un clic sur Ok ou lors de la validation du QLineEdit
 

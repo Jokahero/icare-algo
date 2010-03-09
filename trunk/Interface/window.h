@@ -5,22 +5,22 @@
 
 #include "GUI_global.h"
 
-#include "apropos.h"
-#include "textedit.h"
-#include "preferences.h"
-#include "widgetplugins.h"
 #include "../Analyse/mathexp.h"
+#include "apropos.h"
+#include "preferences.h"
+#include "textedit.h"
+#include "widgetplugins.h"
 
-class QMenuBar;
-class QMenu;
 class QAction;
-class QIcon;
-class QToolBar;
 class QFile;
+class QIcon;
+class QMenu;
+class QMenuBar;
 class QStatusBar;
 class QString;
-class Recherche;
+class QToolBar;
 class FenetreSaisie;
+class Recherche;
 
 /*! \brief Fenêtre principale
   */
@@ -42,11 +42,11 @@ protected:
     void closeEvent(QCloseEvent *pE);
 
 private:
-    TextEdit *m_zoneTexte;
+    TextEdit *m_zoneTexte; /*!< \brief Pointeur vers la zone d'édition. */
 
-    QMenuBar *m_barreMenu;
+    QMenuBar *m_barreMenu; /*!< \brief Barre de menu. */
 
-    QMenu *m_mainMenu;
+    QMenu *m_mainMenu; /*!< \brief Menu principal. */
     QAction *m_nouveau;
     QAction *m_ouvrir;
     QAction *m_enregistrer;
@@ -54,7 +54,7 @@ private:
     QAction *m_imprimer;
     QAction *m_quitter;
 
-    QMenu *m_menuEdition;
+    QMenu *m_menuEdition; /*!< \brief Menu d'édition. */
     QAction *m_annuler;
     QAction *m_refaire;
     QAction *m_couper;
@@ -64,7 +64,7 @@ private:
     QAction *m_remplacer;
     QAction *m_selectionnerTout;
 
-    QMenu *m_menuAnalyse;
+    QMenu *m_menuAnalyse; /*!< \brief Menu d'analyse. */
     QAction *m_testSyntaxe;
     QAction *m_testSemantique;
     QAction *m_testComplet;
@@ -73,11 +73,11 @@ private:
     QAction *m_pas;
     QAction *m_stop;
 
-    QMenu *m_menuOptions;
+    QMenu *m_menuOptions; /*!< \brief Menu des options. */
     QAction *m_plugins;
     QAction *m_preferences;
 
-    QMenu *m_help;
+    QMenu *m_help; /*!< \brief Menu d'aide. */
     QAction *m_aPropos;
 
     Apropos *m_fenApropos;
@@ -86,14 +86,14 @@ private:
     Recherche *m_fenRecherche;
     FenetreSaisie *m_fenSaisie;
 
-    QToolBar *m_barreOutilsTests;
-    QToolBar *m_barreOutilsEdition;
-    QToolBar *m_barreOutilsFichier;
+    QToolBar *m_barreOutilsTests; /*!< \brief Barre d'outils d'analyse. */
+    QToolBar *m_barreOutilsEdition; /*!< \brief Barre d'outils d'édition. */
+    QToolBar *m_barreOutilsFichier; /*!< \brief Barre d'outils de manipulation des fichiers. */
 
 
-    QFile *m_fichier;
+    QFile *m_fichier; /*!< Fichier courant. */
 
-    QStatusBar* m_statusBar;
+    QStatusBar* m_statusBar; /*!< Barre de status. */
 
     bool m_documentModifie;
     bool m_isTestComplet;

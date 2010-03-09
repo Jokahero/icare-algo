@@ -27,3 +27,10 @@ Apropos::Apropos() : QWidget() {
 
     QObject::connect(m_close, SIGNAL(clicked()), this, SLOT(close()));
 }
+
+Apropos::~Apropos() {
+    delete m_texte;
+    delete m_close;
+    delete m_icone;
+
+}

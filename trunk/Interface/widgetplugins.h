@@ -25,6 +25,7 @@ private:
     QDialogButtonBox *m_buttonBox;
     QList<QCheckBox*> *m_listeCheck;
     QLabel *m_infoLabel;
+    QLabel *m_imgLabel;
 
 public slots:
     void saveSettings();

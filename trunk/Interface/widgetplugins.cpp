@@ -32,14 +32,19 @@ WidgetPlugins::WidgetPlugins() {
         m_listeCheck->append(cb);
     }
 
+    QHBoxLayout *layoutInfos = new QHBoxLayout();
     m_infoLabel = new QLabel(tr("/!\\ Les changements ne seront effectifs qu'au prochain lancement de l'application."));
+    m_imgLabel = new QLabel();
+    m_imgLabel->setPixmap(QPixmap(":/Images/dialog-warning.png"));
+    layoutInfos->addWidget(m_infoLabel);
+    layoutInfos->addWidget(m_imgLabel);
 
     QVBoxLayout *layoutFinal = new QVBoxLayout;
     QScrollArea *sa = new QScrollArea;
     sa->setWidget(tmp);
     sa->setAlignment(Qt::AlignLeft);
     layoutFinal->addWidget(sa);
-    layoutFinal->addWidget(m_infoLabel);
+    layoutFinal->addLayout(layoutInfos);
     layoutFinal->addWidget(m_buttonBox);
     setLayout(layoutFinal);
 

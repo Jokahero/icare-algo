@@ -91,6 +91,30 @@ Preferences::Preferences() : QDialog() {
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
+/*! \brief Destructeur.
+*/
+Preferences::~Preferences() {
+    delete m_onglets;
+    delete m_color;
+    delete m_commentairesLabel;
+    delete m_commentairesBouton;
+    delete m_chainesLabel;
+    delete m_chainesBouton;
+    delete m_bornesLabel;
+    delete m_bornesBouton;
+    delete m_structuresLabel;
+    delete m_structuresBouton;
+    delete m_numeriqueLabel;
+    delete m_numeriqueBouton;
+    delete m_typeLabel;
+    delete m_typeBouton;
+    delete m_edit;
+    delete m_numerotation;
+    delete m_retourLigne;
+    delete m_tailleTab;
+    delete m_surligneBouton;
+    delete m_buttonBox;
+}
 
 /*! \brief Modifie la couleur du bouton modifié.
 */

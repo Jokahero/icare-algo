@@ -294,6 +294,8 @@ Window::Window() : QMainWindow() {
     nouveauFichier();
 }
 
+/*! \brief Destructeur.
+*/
 Window::~Window() {
     m_fenRecherche->close();
     delete m_zoneTexte;
@@ -367,6 +369,10 @@ void Window::executionTerminee() {
     m_zoneTexte->getTextEdit()->setReadOnly(false);
 }
 
+/*! \brief Lance l'exécution de l'algorithme en temps réel.
+
+  \sa Window::executionPasAPas()
+*/
 void Window::execution() {
     m_testSyntaxe->setEnabled(false);
     m_testSemantique->setEnabled(false);
@@ -378,6 +384,10 @@ void Window::execution() {
     emit executer(false);
 }
 
+/*! \brief Lance l'exécution de l'algorithme en mode pas à pas.
+
+  \sa Window::execution
+*/
 void Window::executionPasAPas() {
     m_testSyntaxe->setEnabled(false);
     m_testSemantique->setEnabled(false);
@@ -390,6 +400,8 @@ void Window::executionPasAPas() {
     emit executer(true);
 }
 
+/*! \brief Lancement de l'analyse syntaxique.
+*/
 void Window::analyseSyntaxique() {
     if (m_documentModifie)
         enregistrerFichier();
@@ -399,6 +411,8 @@ void Window::analyseSyntaxique() {
     emit lancerAnalyseSyntaxique(m_fichier);
 }
 
+/*! \brief Lancement de l'analyse sémantique.
+*/
 void Window::analyseSemantique() {
     if (m_documentModifie)
         analyseSyntaxique();
@@ -420,6 +434,7 @@ void Window::afficherApropos() {
 
   Cette fonction sans paramètre ouvre une boîte de dialogue permettant d'ouvrir un fichier existant
   et d'insérer son contenu dans la zone de texte.
+  \sa Window::ouvrirFichier(QString pNomFichier)
 */
 void Window::ouvrirFichier() {
     if (m_documentModifie) {
@@ -452,6 +467,7 @@ void Window::ouvrirFichier() {
 
 Cette fonction ouvre le fichier passé en paramètre et insère son contenu dans la zone de texte.
   \param pNomFichier Nom du fichier à ouvrir.
+  \sa Window::ouvrirFichier()
 */
 void Window::ouvrirFichier(QString pNomFichier) {
     m_fichier->setFileName(pNomFichier);
@@ -552,6 +568,13 @@ void Window::afficherMenuPlugins() {
     m_wPlugins->show();
 }
 
+/*! \brief Enregistrement du fichier courant.
+
+  Cette méthode enregistre les modifications d'un fichier ouvert.
+  Si aucun fichier n'a été ouvert, cette méthode fait appel à la méthode enregistrerFichierSous.
+
+  \sa Window::enregistrerFichierSous()
+*/
 void Window::enregistrerFichier() {
     if (m_fichier->fileName() == QString::null) {
         enregistrerFichierSous();
@@ -619,6 +642,10 @@ void Window::enregistrerFichier() {
     QApplication::restoreOverrideCursor();
 }
 
+/*! \brief Enregistrement du fichier courant.
+
+  Cette méthode ouvre une boîte de dialogue permettant d'enregistrer le fichier.
+*/
 void Window::enregistrerFichierSous() {
     QString nomFichier = QFileDialog::getSaveFileName(this, tr("Enregistrer un fichier"), ".", "Algorithmes (*.algo);;Tous les fichiers (*);;Fichiers texte (*.txt)");
     if (nomFichier == QString::null)
@@ -632,6 +659,11 @@ void Window::enregistrerFichierSous() {
     setWindowTitle(tr("[*]%1 - Icare").arg(QFileInfo(m_fichier->fileName()).fileName()));
 }
 
+/*! \brief Création d'un nouveau fichier.
+
+  Cette fonction permet de créer un nouveau fichier.
+  Si les modifications du fichier courant n'ont pas été modifiées, affiche une boîte de dialogue de confirmation.
+*/
 void Window::nouveauFichier() {
     if (m_documentModifie) {
         QMessageBox msgBox;
@@ -706,6 +738,10 @@ void Window::closeEvent(QCloseEvent *pE) {
     pE->accept();
 }
 
+/*! \brief Impression du fichier courant.
+
+  Cette fonction affichae une boîte de dialogue permettant d'imprimer le fichier courant.
+*/
 void Window::imprimerFichier() {
     QPrintDialog printDialog(this);
     if (printDialog.exec() == QDialog::Accepted) {
@@ -717,10 +753,16 @@ void Window::showMessage(const QString& pMessage, int pTimeout) {
     m_statusBar->showMessage(pMessage, pTimeout);
 }
 
+/*! \brief Rechargement des préférences.
+*/
 void Window::rechargerPreferences() {
     emit reloadSettings();
 }
 
+/*! \brief Retourne la zone de texte.
+
+  \return m_zoneTexte
+*/
 TextEdit* Window::getZoneTexte() {
     return m_zoneTexte;
 }
@@ -740,20 +782,36 @@ void Window::documentModifie(bool pMod) {
     m_stop->setEnabled(false);
 }
 
+/*! \brief Affichage de la fenêtre de saisie.
+
+  Cette fonction affiche une boite de dialogue permettant de saisir la valeur d'une variable.
+*/
 void Window::afficherFenSaisie() {
     m_fenSaisie = new FenetreSaisie();
     connect(m_fenSaisie, SIGNAL(saisie(QString)), this, SLOT(transmettreSaisie(QString)));
     m_fenSaisie->show();
 }
 
+/*! \brief Transmission de la saisie.
+
+  Cette méthode permet de transmettre la saisie effectuée à l'analyse.
+*/
 void Window::transmettreSaisie(QString pSaisie) {
     emit sigSaisie(pSaisie);
 }
 
+/*! \brief Retourne le widgetPlugins.
+
+  \return m_wPlugins
+*/
 WidgetPlugins* Window::getWPlugins() {
     return m_wPlugins;
 }
 
+/*! \brief Retourne la barre de menus.
+
+  \return m_barreMenu
+*/
 QMenuBar* Window::getMenuBar() {
     return m_barreMenu;
 }
@@ -797,6 +855,8 @@ QString Window::nomCourt(const QString& pNomComplet) {
     return QFileInfo(pNomComplet).fileName();
 }
 
+/*! \brief Lance un test complet du fichier ouvert.
+*/
 void Window::testComplet() {
     m_isTestComplet = true;
     analyseSyntaxique();

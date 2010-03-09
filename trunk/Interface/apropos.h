@@ -4,8 +4,8 @@
 #include <QtGui/QWidget>
 
 class QLabel;
-class QPushButton;
 class QPixmap;
+class QPushButton;
 
 /*! \brief Fenêtre «À propos»
 */
@@ -14,6 +14,7 @@ class Apropos : public QWidget {
 
 public:
     Apropos();
+    ~Apropos();
 
 private:
     QLabel *m_texte;
