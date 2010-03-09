@@ -1,12 +1,12 @@
 #include "recherche.h"
 
+#include <QtGui/QCheckBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
-#include <QtGui/QCheckBox>
 
 /*! \brief Constructeur. La fenêtre n'est pas modale.
 
@@ -67,6 +67,8 @@ Recherche::Recherche(QWidget *pParent) : QDialog(pParent) {
     connect(m_remplacerTout, SIGNAL(clicked()), this, SLOT(remplacerTout()));
 }
 
+/*! \brief Destructeur.
+*/
 Recherche::~Recherche() {
     delete m_rechercherLa;
     delete m_rechercherLe;
