@@ -510,7 +510,7 @@ QString Dictionnaire::listeCondition() {
     QString liste = listeQuantites();
     QString expression = "(?:\\(*\\s*(?:";
     expression += liste;
-    expression += "\\s*\\)*)(?:(?:&&|\\|\\||<|>|≤|≥|=|≠)\\s*\\(*\\s*";
+    expression += "\\s*\\)*)(?:(?:&&|\\|\\||<|>|≤|≥|=|≠|!=)\\s*\\(*\\s*";
     expression += liste;
     expression += "\\s*\\)*\\s*)*\\)*\\s*)";
     return expression;
