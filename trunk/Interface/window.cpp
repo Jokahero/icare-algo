@@ -208,6 +208,7 @@ Window::Window() : QMainWindow() {
     m_stop->setToolTip(tr("Arrêter l'exécution"));
     m_preferences->setIcon(QIcon(":/Icônes/preferences-system.png"));
     m_plugins->setIcon(QIcon(":/Icônes/synaptic.png"));
+    m_aide->setIcon(QIcon(":/Icônes/gtk-help.png"));
 
     /* Mise en place de la barre d'outils des fichiers */
     m_barreOutilsFichier = new QToolBar;
