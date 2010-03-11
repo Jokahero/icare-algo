@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+    <title>Aide Icare</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" media="screen" type="text/css" title="Index" href="aide.css" />
+</head>
+<body>
+    <div class="lien"><a name="haut"/></div>
+    <h1>Aide Icare</h1>
+    <div class="sommaire">
+    <h2>Sommaire</h2>
+    <h3>G&#233;n&#233;ral</h3>
+    <p>
+        <a href="#glossaire">Glossaire</a><br/>
+        <a href="#declare">D&#233;claration de variable</a><br/>
+        <a href="#debut">D&#233;but de l'algorithme</a><br/>
+        <a href="#fin">Fin de l'algorithme</a><br/>
+        <a href="#commentaire">Commentaire</a><br/>
+    </p>
+    <h3>Structures conditionnelles</h3>
+    <p>
+        <a href="#si">Si ... FinSi</a><br/>
+        <a href="#sinon">Si ... Sinon... FinSi</a><br/>
+        <a href="#selon">Selon</a><br/>
+    </p>
+    <h3>Structures r&#233;p&#233;titives</h3>
+    <p>
+        <a href="#tantque">Tant Que</a><br/>
+        <a href="#repeter">R&#233;p&#233;ter Jusqu'à</a><br/>
+        <a href="#pour">Pour</a><br/>
+    </p>
+    <h3>Fonctions Entr&#233;e-Sortie</h3>
+    <p>
+        <a href="#afficher">Afficher</a><br/>
+        <a href="#saisir">Saisir</a><br/>
+        <a href="#imprimer">Imprimer</a><br/>
+    </p>
+    </div>
+    <p><br/><br/><br/></p>
+    <h3>G&#233;n&#233;ral</h3>
+    <hr/>
+    <div class="lien"><a href="#haut" name="glossaire"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Glossaire :</h4>
+    <p>
+        Le glossaire permet de d&#233;finir toutes les variables qui vont être utiliser lors de l'algorithme.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Glossaire :
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^glossaire\\s?:?$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="declare"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>D&#233;claration de variable :</h4>
+    <p>
+        Le glossaire permet de d&#233;finir toutes les variables qui vont être utiliser lors de l'algorithme.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+    Type NomVariable Commentaire
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Entier somme1 Cette variable permet de calculer la somme.
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^(entier|r[&#233;e]el|cha[îi]ne|caract[e&#232;]re|bool[&#233;e]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="debut"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>D&#233;but de l'algorithme :</h4>
+    <p>
+        Ce mot cl&#233; permet de d&#233;finir le d&#233;but de l'algorithme.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        D&#233;but :
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^d[e&#233;]but\\s?:?$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="fin"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Fin de l'algorithme :</h4>
+    <p>
+        Ce mot cl&#233; d&#233;termine la fin de l'algorithme.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Fin
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^fin$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="commentaire"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Commentaire :</h4>
+    <p>
+        Ceci permet de placer des commentaires dans l'algorithme.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        //
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        //Ceci est une ligne de commentaire
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^//.*$"
+    </p>
+    <hr/>
+    <h4>Structures Conditionnelles</h4>
+    <p>
+        On entend par structure conditionnelle, la possibilit&#233; d'orienter un algorithme en fonction
+        de choix particuliers. Les structures conditionnelles nous ouvrent de nouveaux horizons pour
+        l'&#233;laboration d'algorithmes. Cela repr&#233;sente une notion tr&#232;s importante qu'il faut pouvoir
+        assimiler si l'on cherche à aller plus loin. Il en existe deux.
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="si"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Si ... FinSi :</h4>
+    <p>
+        Elle permet d'exprimer une condition simple (binaire).
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Si condition Alors
+            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+        FinSi
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Si var_age &lt; 18 Alors
+            Afficher "Vous n'êtes pas encore majeur."
+        FinSi
+    </pre>
+    <div class="sstitre">Expression R&#233;guli&#232;re correspondante :</div>
+    <p>
+        "^si\\s(" + expression + ")\\salors$"<br/>
+        "^finsi$"
+    </p>
+    <div class="sstitre">
+        Voir aussi :<br/>
+            <a href="#sinon">Si ... Sinon... FinSi</a>
+    </div>
+    <hr/>
+    <div class="lien"><a href="#haut" name="sinon"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Si ... Sinon... FinSi :</h4>
+    <p>
+        Elle permet d'exprimer une condition simple (binaire).
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Si condition Alors
+            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+        Sinon
+            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_fausse
+        FinSi
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Si var_age &lt; 18 Alors
+            Afficher "Vous n'êtes pas encore majeur."
+        Sinon
+            Afficher "Vous pouvez conduire... OU boire!"
+        FinSi
+    </pre>
+    <div class="sstitre">Expression R&#233;guli&#232;re correspondante :</div>
+    <p>
+        "^si\\s(" + expression + ")\\salors$"<br/>
+        "^sinon$"<br/>
+        "^finsi$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="selon"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Selon :</h4>
+    <p>
+        Cette forme conditionnelle permet de mettre en place des choix multiples.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Selon variable_evalu&#233; :
+            cas(valeur_1):
+                action_1
+            cas(valeur_2):
+                action_2
+            ...
+            cas(valeur_n):
+                action_n
+            d&#233;faut:
+                action_si_aucune_&#233;valuation_n'a_&#233;t&#233;_vrai
+        FinSelon
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Selon note :
+            cas(note&lt;10):
+                Afficher "Recal&#233;"
+            cas(note&lt;12):
+                Afficher "Passable"
+            cas(note&lt;14):
+                Afficher "Assez Bien"
+            cas(note&lt;16):
+                Afficher "Bien"
+            cas(note&lt;18):
+                Afficher "Tr&#232;s bien"
+            cas(note&lt;20):
+                Afficher "Exelent"
+            d&#233;faut:
+                Afficher "Euh... plus de 20 ? Vous êtes un extra-terrestre?"
+        FinSelon
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^selon\\s?(" + expression + ")\\s?:?\\s?$"<br/>
+        "^cas\\s?(" + expression + ")\\s?:?\\s?$"<br/>
+        "^d[&#233;e]faut\\s?:?\\s?$"<br/>
+        "^finselon\\s?$"
+    </p>
+    <hr/>
+    <h3>Structures R&#233;p&#233;titives</h3>
+    <p>
+        Dans certains, on peut se retrouver à avoir besoin de faire plusieurs fois
+        la même op&#233;ration. Si elles ne sont pas nombreuses, on pourrait à la rigueur,
+        dupliquer autant de fois que n&#233;cessaire le morceau de l'algorithme qui nous interresse.
+        Cependant, on se rend compte que cette solution n'est pas id&#233;ale. L'algorithme
+        peut prendre rapidement une taille assez importante et si le traitement dupliqu&#233;
+        est complexe et qu'une correction doit être effectu&#233;e, il faut alors la reporter
+        sur chaque copie (sans compter que dans certains cas, on ne connaît pas à l'avance
+        le nombre d'it&#233;rations que l'on aura à faire). Tout cela am&#232;ne la notion de structure
+        r&#233;p&#233;titive (ou boucle). On en compte trois, mais comme pour les structures
+        conditionnelles, on pourrait aussi bien en utiliser qu'une seule.
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="tantque"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Tant Que :</h4>
+    <p>
+        Cette instruction &#233;value une condition et tant que celle si est v&#233;rifi&#233;e, les actions
+        plac&#233;es à l'interieur sont alors effectu&#233;e. Pour sortir de la boucle, il faut que
+        la condition ne soit plus remplie.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        TantQue (condition)
+            action
+        FinTantQue
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        tour = 5
+        Afficher "Compte a rebours : "
+        TantQue (tour > 0)
+            Afficher tour
+            tour = tour - 1
+        FinTantQue
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^tantque\\s+(" + expression + ")\\s?$"<br/>
+        "^fintantque$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="repeter"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>R&#233;p&#233;ter Jusqu'à :</h4>
+    <p>
+        Cette instruction r&#233;p&#232;te une action jusqu'à ce que la condition soit remplie.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        R&#233;p&#233;ter
+            action
+        Jusqu'à (condition)
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        R&#233;p&#233;ter
+            Afficher "Saisir un nombre positif : "
+            Saisir nombre
+        Jusqu'à (nombre > 0)
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^r[&#233;e]p[&#233;e]ter$"<br/>
+        "^jusqu[\\s']?[àa]\\s?(" + expression + ")\\s?$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="pour"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Pour :</h4>
+    <p>
+        Elle affecte une valeur de d&#233;part à une variable, ex&#233;cute les actions
+        contenues dans la boucle, et l'incr&#233;mente jusqu'à la valeur de fin.
+        L'incr&#233;mentation est par d&#233;faut de 1, mais il est possible de la r&#233;gler
+        avec l'instruction "pas de".
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Pour variable1 de valeur1 à valeur2 pas de valeur3 faire :
+            action
+        FinPour
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Pour i de 1 à 10 pas de 1 faire :
+            Afficher "Compteur"
+            Afficher i
+        FinPour
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^pour\\s+(" + expression + ")\\s+de\\s+(" + expression + ")\\s+[àa]\\s+(" + expression + ")\\s+(\\[pas\\s+de\\s+(" + expression + ")\\]\\s+)?faire\\s?:?\\s?$"<br/>
+        "^finpour$"
+    </p>
+    <hr/>
+    <h3>Fonctions</h3>
+    <p>
+        Voici quelques fonctions d'entr&#233;e sortie.
+    </p>
+    <div class="lien"><a href="#haut" name="afficher"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Afficher :</h4>
+    <p>
+        Elle permet d'afficher une variable ou bien un texte dans la console d'ex&#233;cution (Le texte doit etre entre guillemets).
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Afficher texte_ou_variable_à_afficher
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Afficher "Bonjour"
+        Afficher variable_de_la_mort_qui_tue
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^afficher\\s+(.*)\\s?$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="saisir"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Saisir :</h4>
+    <p>
+        Elle permet de saisir une variable.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Saisir variable
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Saisir variable_age_de_lutilisateur
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^saisir\\s+(" + listePipeVariable() + ")\\s?$"
+    </p>
+    <hr/>
+    <div class="lien"><a href="#haut" name="imprimer"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
+    <h4>Imprimer :</h4>
+    <p>
+        Elle permet de d'imprimer.
+    </p>
+    <div class="sstitre">
+        Syntaxe :
+    </div>
+    <pre>
+        Imprimer
+    </pre>
+    <div class="sstitre">
+        Exemple :
+    </div>
+    <pre>
+        Imprimer
+    </pre>
+    <div class="sstitre">
+        Expression R&#233;guli&#232;re correspondante :
+    </div>
+    <p>
+        "^imprimer\\s+(" + listePipeVariable() + ")\\s?$"
+    </p>
+    <hr/>
+    <p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>
+</body>
+</html>

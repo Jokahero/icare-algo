@@ -1,0 +1,32 @@
+img {
+float : right;
+border : 0;
+}
+h4 {
+text-decoration : underline;
+}
+h1 {
+text-align : center;
+}
+.sommaire {
+    text-align: center;
+    border: 1px solid gray;
+}
+.sommaire h2,h3{
+    line-height: 4px;
+}
+
+pre {
+background:url("images/code.png") no-repeat scroll left top #F4F4F4;
+border:1px solid #E3E3E3;
+color:#000000;
+display:block;
+font-family:"Bitstream Vera Sans Mono","courier new",monospace;
+font-size:85%;
+margin:auto auto 2px;
+overflow:auto;
+padding-bottom:2px;
+padding-top:15px;
+white-space:pre;
+width:99%;
+}
