@@ -19,6 +19,7 @@ class QMenuBar;
 class QStatusBar;
 class QString;
 class QToolBar;
+class FenetreAide;
 class FenetreSaisie;
 class Recherche;
 
@@ -79,8 +80,10 @@ private:
 
     QMenu *m_help; /*!< \brief Menu d'aide. */
     QAction *m_aPropos;
+    QAction *m_aide;
 
     Apropos *m_fenApropos;
+    FenetreAide *m_fenAide;
     Preferences *m_pref;
     WidgetPlugins *m_wPlugins;
     Recherche *m_fenRecherche;
@@ -111,6 +114,7 @@ public slots:
     void execution();
     void executionPasAPas();
     void afficherApropos();
+    void afficherAide();
     void ouvrirFichier();
     void ouvrirFichier(QString pNomFichier);
     void afficherPreferences();

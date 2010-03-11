@@ -9,6 +9,7 @@
 /*! \brief Constructeur. Initialise la fenêtre.
 */
 Apropos::Apropos() : QWidget() {
+    setAttribute(Qt::WA_DeleteOnClose);
     setMinimumSize(300,150);
 
     QVBoxLayout *m_layout = new QVBoxLayout (this);
