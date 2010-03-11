@@ -1,8 +1,9 @@
 #include "window.h"
 
+#include "fenetreaide.h"
+#include "fenetresaisie.h"
 #include "gestionnaireparametres.h"
 #include "recherche.h"
-#include "fenetresaisie.h"
 
 #include <QtCore/QFile>
 #include <QtCore/QString>
@@ -142,9 +143,12 @@ Window::Window() : QMainWindow() {
 
     /* Mise en place du menu d'aide */
     m_help = new QMenu (m_barreMenu);
-    m_aPropos = new QAction (tr("A propos de Icare…"), this);
+    m_aPropos = new QAction (tr("À propos de Icare…"), this);
+    m_aide = new QAction(tr("Aide"), this);
+    m_aide->setShortcut(tr("F1"));
     m_help->setTitle(tr("&Aide"));
     m_help->addAction(m_aPropos);
+    m_help->addAction(m_aide);
 
     /* Insertion des menus dans la barre de Menu */
     /* On ajoute tous les menus précédemment créés dans la barre de menu*/
@@ -257,6 +261,7 @@ Window::Window() : QMainWindow() {
        connect([Objet émetteur], SIGNAL([Signal émis]), [Objet récepteur], SLOT[Slot "activé"]);
     */
     connect(m_aPropos, SIGNAL(triggered()), this, SLOT(afficherApropos()));
+    connect(m_aide, SIGNAL(triggered()), this, SLOT(afficherAide()));
     connect(m_quitter, SIGNAL(triggered()), this, SLOT(close()));
     connect(m_ouvrir, SIGNAL(triggered()), this, SLOT(ouvrirFichier()));
     connect(m_enregistrer, SIGNAL(triggered()), this, SLOT(enregistrerFichier()));
@@ -333,9 +338,7 @@ Window::~Window() {
 
     delete m_help;
     delete m_aPropos;
-
-    //delete m_fenApropos;
-    //delete m_pref;
+    delete m_aide;
     delete m_wPlugins;
     delete m_fenRecherche;
 
@@ -428,6 +431,16 @@ void Window::afficherApropos() {
     m_fenApropos = new Apropos;
     m_fenApropos->setWindowTitle("À propos de Icare");
     m_fenApropos->show();
+}
+
+/*! \brief Affichage de la fenêtre d'aide.
+
+  Cette fonction ouvre la fenêtre contenant l'aide utilisateur.
+*/
+void Window::afficherAide() {
+    /* Mise en place de la fenêtre d'aide */
+    m_fenAide = new FenetreAide;
+    m_fenAide->show();
 }
 
 /*! \brief Ouverture d'un fichier.

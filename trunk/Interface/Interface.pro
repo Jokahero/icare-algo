@@ -7,7 +7,7 @@ TARGET = GUI
 DEPENDPATH += .
 INCLUDEPATH += .
 DEFINES += GUI_LIBRARY
-CONFIG += release
+QT += webkit
 
 # Input
 SOURCES += window.cpp \
@@ -21,7 +21,8 @@ SOURCES += window.cpp \
     gestionnaireparametres.cpp \
     recherche.cpp \
     fenetresaisie.cpp \
-    barrenombres.cpp
+    barrenombres.cpp \
+    fenetreaide.cpp
 HEADERS += window.h \
     apropos.h \
     textedit.h \
@@ -35,7 +36,9 @@ HEADERS += window.h \
     gestionnaireparametres.h \
     recherche.h \
     fenetresaisie.h \
-    barrenombres.h
+    barrenombres.h \
+    fenetreaide.h
 DESTDIR = ../
 RESOURCES += Images.qrc \
-    Ressources.qrc
+    Ressources.qrc \
+    Aide/Aide.qrc

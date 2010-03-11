@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Aide">
+        <file>aide.css</file>
+        <file>aide.html</file>
+        <file>fleche-retour.png</file>
+    </qresource>
+</RCC>
