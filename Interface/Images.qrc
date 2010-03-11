@@ -30,6 +30,7 @@
         <file>process-stop.png</file>
         <file>system-run.png</file>
         <file>system-run2.png</file>
+        <file>gtk-help.png</file>
     </qresource>
     <qresource prefix="/Images">
         <file>menAtWork.gif</file>
