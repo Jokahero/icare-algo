@@ -140,6 +140,7 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
             for (int j = calcul(remplacementValeursVariables(inst->getArgs()->at(2)), inst->getNumLigne()).toInt(); !m_stop && j <= calcul(remplacementValeursVariables(inst->getArgs()->at(3)), inst->getNumLigne()).toInt(); j++) {
                 m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), QString::number(j));
                 execution(pPasAPas, inst->getLigneDebut() + 1, inst->getLigneFin());
+                j = calcul(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()).toInt();
             }
             i = inst->getLigneFin();
         } else if (inst->getTypeLigne() == Dictionnaire::TantQue) {
