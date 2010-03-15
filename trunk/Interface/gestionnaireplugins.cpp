@@ -23,9 +23,10 @@ GestionnairePlugins::~GestionnairePlugins() {
 */
 bool GestionnairePlugins::chargerPlugin(QString pNomPlugin) {
     QStringList paths;
-    paths << qApp->applicationDirPath() + "/Plugins" << "/usr/lib/icare-algo";
-    foreach (QString path, paths) {
-        QDir pluginsDir(path);
+    paths << "/usr/lib/icare-algo" << qApp->applicationDirPath() + "/Plugins";
+    for (int i = 0; i < paths.size(); i++) {
+        qDebug() << paths.at(i);
+        QDir pluginsDir(paths.at(i));
 #if defined(Q_OS_WIN)
         if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
             pluginsDir.cdUp();
