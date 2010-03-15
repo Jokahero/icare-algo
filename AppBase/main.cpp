@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(fenetre, SIGNAL(execStop()), analyse, SIGNAL(execStop()));
     QObject::connect(fenetre, SIGNAL(reloadSettings()), fenetre->getZoneTexte(), SLOT(loadSettings()));
     QObject::connect(qApp, SIGNAL(aboutToQuit()), analyse, SLOT(destroy()));
-    QObject::connect(analyse, SIGNAL(sigSaisir()), fenetre, SLOT(afficherFenSaisie()));
+    QObject::connect(analyse, SIGNAL(sigSaisir(bool)), fenetre, SLOT(afficherFenSaisie(bool)));
     QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), fenetre, SLOT(analyseSyntaxiqueTerminee(bool)));
     QObject::connect(analyse, SIGNAL(analyseSemantiqueTerminee(bool)), fenetre, SLOT(analyseSemantiqueTerminee(bool)));
     QObject::connect(analyse, SIGNAL(executionTerminee()), fenetre, SLOT(executionTerminee()));

@@ -29,7 +29,7 @@ public:
     Glossaire* getGlossaire() const;
     QList<Instruction*>* getListeInstruction() const;
 
-    void emettreSaisie();
+    void emettreSaisie(bool pBonType);
 
     void setDebutGlossaire(int pNumLigne);
     void setFinGlossaire(int pNumLigne);
@@ -68,7 +68,7 @@ signals:
     void execStop();
     void executionTerminee();
     void changementLigne(int pNumLigne);
-    void sigSaisir();
+    void sigSaisir(bool pBonType);
     void sigSaisie(const QString& pSaisie);
     void sigErreur(Analyse::erreur pErreur, int pNumLigne);
     void sigErreurMathematique(MathExp::erreur pErreur, int pNumLigne);
