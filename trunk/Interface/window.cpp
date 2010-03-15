@@ -800,8 +800,8 @@ void Window::documentModifie(bool pMod) {
 
   Cette fonction affiche une boite de dialogue permettant de saisir la valeur d'une variable.
 */
-void Window::afficherFenSaisie() {
-    m_fenSaisie = new FenetreSaisie();
+void Window::afficherFenSaisie(bool pBonType) {
+    m_fenSaisie = new FenetreSaisie(pBonType);
     connect(m_fenSaisie, SIGNAL(saisie(QString)), this, SLOT(transmettreSaisie(QString)));
     m_fenSaisie->show();
 }

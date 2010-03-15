@@ -13,11 +13,12 @@ class FenetreSaisie : public QDialog {
     Q_OBJECT
 
 public:
-    FenetreSaisie();
+    FenetreSaisie(bool pBonType);
     ~FenetreSaisie();
 
 private:
     QLabel *m_message;
+    QLabel *m_warning;
     QLineEdit *m_saisie;
     QDialogButtonBox *m_boutons;
 

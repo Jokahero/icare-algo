@@ -1,5 +1,6 @@
 #include "fenetresaisie.h"
 
+#include <QtCore/QDebug>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
@@ -10,19 +11,24 @@
 
   L'objet est supprimé dès que le fenêtre est fermée.
 */
-FenetreSaisie::FenetreSaisie() : QDialog() {
+FenetreSaisie::FenetreSaisie(bool pBonType) : QDialog() {
     setWindowTitle(tr("Saisie"));
     setModal(true);
     setAttribute(Qt::WA_DeleteOnClose);
 
     m_message = new QLabel(tr("Veuillez saisir une valeur: "));
+    m_warning = new QLabel();
     m_saisie = new QLineEdit(this);
     m_boutons = new QDialogButtonBox(QDialogButtonBox::Ok);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_message);
     layout->addWidget(m_saisie);
+    layout->addWidget(m_warning);
     layout->addWidget(m_boutons);
+
+    if (!pBonType)
+        m_warning->setText(tr("Type incorrect!"));
 
     setLayout(layout);
 
@@ -37,6 +43,7 @@ FenetreSaisie::~FenetreSaisie() {
     delete m_message;
     delete m_saisie;
     delete m_boutons;
+    delete m_warning;
 }
 
 /*! \brief Appelé lors d'un clic sur Ok ou lors de la validation du QLineEdit

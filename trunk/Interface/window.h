@@ -127,7 +127,7 @@ public slots:
     void rechargerPreferences();
     void changementLigne(int pNumLigne);
     void documentModifie(bool pMod);
-    void afficherFenSaisie();
+    void afficherFenSaisie(bool pBonType);
     void transmettreSaisie(QString pSaisie);
     void analyseSyntaxiqueTerminee(bool pOk);
     void analyseSemantiqueTerminee(bool pOk);

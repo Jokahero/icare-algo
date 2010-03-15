@@ -119,8 +119,8 @@ void Analyse::lancerExecution(bool pPasAPas) {
 
 /** \brief Indique qu'une saisie a été demandée lors de l'exécution.
 */
-void Analyse::emettreSaisie() {
-    emit sigSaisir();
+void Analyse::emettreSaisie(bool pBonType) {
+    emit sigSaisir(pBonType);
 }
 
 

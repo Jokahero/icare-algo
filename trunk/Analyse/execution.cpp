@@ -129,11 +129,11 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
             } else
                 emit afficher(calcul(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
-            bool ok;
+            bool ok=true;
             do {
                 // Saisir
                 m_modifie = false;
-                m_analyse->emettreSaisie();
+                m_analyse->emettreSaisie(ok);
                 waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
                 while (!m_modifie);
                 ok = m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
