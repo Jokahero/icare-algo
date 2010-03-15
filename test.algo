@@ -29,7 +29,7 @@ Pour i de 1 à nbChevre Faire
 	Afficher i
 FinPour
 
-Si nbChevre > 4 Alors
+Si  nbChevre > 4 Alors
 	Afficher "Oui"
 Sinon
 	Afficher "Non"

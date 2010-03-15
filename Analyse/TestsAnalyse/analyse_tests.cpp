@@ -89,10 +89,8 @@ void Analyse_tests::testExpressionLogique() {
 
     QFETCH(QString, exp);
     QFETCH(bool, result);
-
     e->setExpression(exp);
     QCOMPARE(e->resultat(), result);
-
     delete e;
 }
 
