@@ -2,6 +2,7 @@
 
 #include <QtCore/QString>
 
+#include <QtCore/QDebug>
 
 ExpressionLogique::ExpressionLogique(int pNumLigne) : m_numLigne(pNumLigne) {
     m_calcul = new Arbre();
@@ -51,10 +52,9 @@ Arbre* ExpressionLogique::parseExp(const QString& pExpression) {
         if (i == expression.length() && cpt == 0) {
             expression = expression.left(expression.length() - 1);
             expression = expression.right(expression.length() - 1);
-            return parseExp(pExpression);
+            return parseExp(expression);
         }
     }
-
     int taille;
     int rang = moinsPrioritaire(expression, &taille);
     if (rang == -1)
