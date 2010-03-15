@@ -31,7 +31,7 @@ public:
     void setValeurChaine(const QString& pNomVar, const QString& pValeur);
     void setValeurReel(const QString& pNomVar, double pValeur);
 
-    void setValeur(const QString& pNomVar, const QString& pValeur);
+    bool setValeur(const QString& pNomVar, const QString& pValeur);
 
     QStringList getListeVariables() const;
     

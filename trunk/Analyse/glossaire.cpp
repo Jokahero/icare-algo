@@ -3,6 +3,8 @@
 #include <QtCore/QHash>
 #include <QtCore/QStringList>
 
+#include <QtCore/QDebug>
+
 
 /*! \brief Constructeur par défaut.
 */
@@ -233,21 +235,26 @@ void Glossaire::setValeurReel(const QString& pNomVar, double pValeur) {
   \param pNomVar Nom de la variable a modifier.
   \param pValeur La valeur à lui affecter.
 */
-void Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
+bool Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
+    bool ok = false;
     if (m_listeEntier->contains(pNomVar)) {
         (*m_initialisations)[pNomVar] = true;
-        (*m_listeEntier)[pNomVar] = pValeur.toInt();
-        emit variableModifiee(pNomVar, pValeur);
+        (*m_listeEntier)[pNomVar] = pValeur.toInt(&ok);
+        if (ok)
+            emit variableModifiee(pNomVar, pValeur);
     } else if (m_listeChaine->contains(pNomVar)) {
         (*m_initialisations)[pNomVar] = true;
         (*m_listeChaine)[pNomVar] = pValeur;
+        ok = true;
         emit variableModifiee(pNomVar, pValeur);
     } else if (m_listeReel->contains(pNomVar)) {
         (*m_initialisations)[pNomVar] = true;
-        (*m_listeReel)[pNomVar] = pValeur.toFloat();
-        emit variableModifiee(pNomVar, pValeur);
+        (*m_listeReel)[pNomVar] = pValeur.toFloat(&ok);
+        if (ok)
+            emit variableModifiee(pNomVar, pValeur);
     } else
         emit erreur(Analyse::VariableNonDeclaree);
+    return ok;
 }
 
 

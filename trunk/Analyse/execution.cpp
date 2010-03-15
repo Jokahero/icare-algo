@@ -129,12 +129,15 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
             } else
                 emit afficher(calcul(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
-            // Saisir
-            m_modifie = false;
-            m_analyse->emettreSaisie();
-            waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
-            while (!m_modifie);
-            m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
+            bool ok;
+            do {
+                // Saisir
+                m_modifie = false;
+                m_analyse->emettreSaisie();
+                waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
+                while (!m_modifie);
+                ok = m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
+            } while (!ok);
         } else if (inst->getTypeLigne() == Dictionnaire::Pour) {
             // Pour
             for (int j = calcul(remplacementValeursVariables(inst->getArgs()->at(2)), inst->getNumLigne()).toInt(); !m_stop && j <= calcul(remplacementValeursVariables(inst->getArgs()->at(3)), inst->getNumLigne()).toInt(); j++) {
