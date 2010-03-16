@@ -76,25 +76,29 @@ PluginInterface* GestionnairePlugins::getPlugin(QString pNomPlugin) {
 */
 QList<PluginInterface*> GestionnairePlugins::getListePluginsDispo() {
     QList<PluginInterface*> liste;
-    QDir pluginsDir(qApp->applicationDirPath());
+    QStringList paths;
+    paths << "/usr/lib/icare-algo" << qApp->applicationDirPath() + "/Plugins";
+    for (int i = 0; i < paths.size(); i++) {
+        qDebug() << paths.at(i);
+        QDir pluginsDir(paths.at(i));
 #if defined(Q_OS_WIN)
-    if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
-        pluginsDir.cdUp();
+        if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
+            pluginsDir.cdUp();
 #elif defined(Q_OS_MAC)
-    if (pluginsDir.dirName() == "MacOS") {
-        pluginsDir.cdUp();
-        pluginsDir.cdUp();
-        pluginsDir.cdUp();
-    }
+        if (pluginsDir.dirName() == "MacOS") {
+            pluginsDir.cdUp();
+            pluginsDir.cdUp();
+            pluginsDir.cdUp();
+        }
 #endif
-    pluginsDir.cd("Plugins");
-    foreach (QString nomFichier, pluginsDir.entryList(QDir::Files)) {
-        QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(nomFichier));
-        QObject *plugin = pluginLoader.instance();
-        if (plugin) {
-            PluginInterface* pluginInt = qobject_cast<PluginInterface*>(plugin);
-            if (pluginInt)
-                liste.append(pluginInt);
+        foreach (QString nomFichier, pluginsDir.entryList(QDir::Files)) {
+            QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(nomFichier));
+            QObject *plugin = pluginLoader.instance();
+            if (plugin) {
+                PluginInterface* pluginInt = qobject_cast<PluginInterface*>(plugin);
+                if (pluginInt)
+                    liste.append(pluginInt);
+            }
         }
     }
     return liste;
