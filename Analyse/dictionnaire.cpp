@@ -452,6 +452,7 @@ bool Dictionnaire::isSaisir(QString pLigne, QStringList* pListeArgs) {
   \return Vrai si la ligne est une impression, faux sinon.
 */
 bool Dictionnaire::isImprimer(QString pLigne, QStringList* pListeArgs) {
+    QString expression = listePipeVariable();
     QRegExp rx("^imprimer\\s+(" + expression + "|\".*([^\"]*)\")\\s?$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     if (pListeArgs)
