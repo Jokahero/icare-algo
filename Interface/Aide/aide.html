@@ -176,7 +176,7 @@
     </pre>
     <div class="sstitre">Expression R&#233;guli&#232;re correspondante :</div>
     <p>
-        "^si\\s(" + expression + ")\\salors$"<br/>
+        "^si\\s(" + <a href="#" class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\\salors$"<br/>
         "^finsi$"
     </p>
     <div class="sstitre">
@@ -405,7 +405,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^afficher\\s+(.*)\\s?$"
+        "^afficher\\s+(" + expression + "|\".*([^\"]*)\")\\s?$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="saisir"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -453,7 +453,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^imprimer\\s+(" + listePipeVariable() + ")\\s?$"
+        "^imprimer\\s+(" + expression + "|\".*([^\"]*)\")\\s?$"
     </p>
     <hr/>
     </div> -->
