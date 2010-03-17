@@ -851,7 +851,7 @@ void Window::ouvrirFichierRecent() {
 void Window::majFichiersRecents() {
     QStringList fichiers = GestionnaireParametres::getInstance()->getListeFichiersRecents();
 
-    int numRecentFiles = qMin(fichiers.size(), FichiersRecentsMax);
+    int numRecentFiles = qMin(fichiers.size(), (int)FichiersRecentsMax);
 
     for (int i = 0; i < numRecentFiles; i++) {
         QString text = tr("&%1 %2").arg(i + 1).arg(nomCourt(fichiers[i]));
