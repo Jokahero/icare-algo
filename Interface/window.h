@@ -32,8 +32,7 @@ public:
     Window();
     ~Window();
 
-    static const int FichiersRecentsMax = 5;
-
+    enum { FichiersRecentsMax = 5 };
 
     TextEdit* getZoneTexte();
     WidgetPlugins* getWPlugins();
