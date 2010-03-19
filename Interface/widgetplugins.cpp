@@ -33,11 +33,12 @@ WidgetPlugins::WidgetPlugins() {
     }
 
     QHBoxLayout *layoutInfos = new QHBoxLayout();
-    m_infoLabel = new QLabel(tr("/!\\ Les changements ne seront effectifs qu'au prochain lancement de l'application."));
+    m_infoLabel = new QLabel(tr("Les changements ne seront effectifs qu'au prochain lancement de l'application."));
     m_imgLabel = new QLabel();
-    m_imgLabel->setPixmap(QPixmap(":/Images/dialog-warning.png"));
-    layoutInfos->addWidget(m_infoLabel);
+    m_imgLabel->setPixmap(QPixmap(":/Icônes/dialog-warning.png"));
     layoutInfos->addWidget(m_imgLabel);
+    layoutInfos->addWidget(m_infoLabel);
+
 
     QVBoxLayout *layoutFinal = new QVBoxLayout;
     QScrollArea *sa = new QScrollArea;
