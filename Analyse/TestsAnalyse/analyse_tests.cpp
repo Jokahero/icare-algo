@@ -6,11 +6,34 @@
 #include "../glossaire.h"
 #include "../mathexp.h"
 
-#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtTest/QSignalSpy>
 #include <QtTest/QTest>
+
+#define NB_ENTIER_GLOSSAIRE 500000
+
+void Analyse_tests::initTestCase() {
+    m_f1 = new QFile;
+    m_f1->setFileName("test1.algo");
+    m_f1->open(QIODevice::WriteOnly | QIODevice::Text);
+    m_f1->resize(0);
+
+    QString f1;
+    f1.append("Glossaire :\n");
+    for (int i = 0; i < NB_ENTIER_GLOSSAIRE; i++)
+        f1.append("Entier var" + QString::number(i) + " Desc " + QString::number(i) + "\n");
+    f1.append("Début\n");
+    f1.append("Fin\n");
+
+    m_f1->write(f1.toUtf8());
+    m_f1->close();
+}
 
 void Analyse_tests::cleanupTestCase() {
     Analyse::getInstance()->destroy();
+    delete m_f1;
+    QDir().remove("test1.algo");
 }
 
 void Analyse_tests::testArbre() {
@@ -131,4 +154,17 @@ void Analyse_tests::testExpressionLogique_data() {
     QTest::newRow("Parenthèses/Priorités") << "(3 < 4 || 5 > 9) && 1 = 1 || 5 > 6" << true;
     QTest::newRow("Expressions mathématiques") << "3 + 1 != 4" << false;
     QTest::newRow("Expressions mathématiques") << "3 + 1 = 4" << true;
+}
+
+void Analyse_tests::testLectureGlossaire() {
+    QSignalSpy spy(Analyse::getInstance()->getGlossaire(), SIGNAL(variableAjoutee(QString,QString,QString)));
+    Analyse::getInstance()->lancerAnalyseSyntaxique(m_f1);
+    m_f1->close();
+    QCOMPARE(spy.count(), NB_ENTIER_GLOSSAIRE);
+    for (int i = 0; i < NB_ENTIER_GLOSSAIRE; i++) {
+        QList<QVariant> arguments = spy.takeFirst();
+        QCOMPARE(arguments.at(0).toString(), QString("var") + QString::number(i));
+        QCOMPARE(arguments.at(1).toString(), QString("Entier"));
+        QCOMPARE(arguments.at(2).toString(), QString("Desc ") + QString::number(i));
+    }
 }
