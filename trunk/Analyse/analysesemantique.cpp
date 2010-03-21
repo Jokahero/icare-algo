@@ -7,8 +7,6 @@
 #include <QtCore/QStack>
 #include <QtCore/QStringList>
 
-#include <QtCore/QDebug>
-
 
 /** \brief Initialise les piles/listes.
 */
@@ -32,8 +30,6 @@ AnalyseSemantique::~AnalyseSemantique() {
 /** \brief Lance les deux analyses l'une après l'autre.
 */
 void AnalyseSemantique::lancer() {
-    qDebug() << "Analyse sémantique lancée.";
-
     bool ret = true;
 
     if (!verifStruct())
@@ -43,7 +39,6 @@ void AnalyseSemantique::lancer() {
         ret = false;
 
     emit terminee(ret);
-    qDebug() << "Analyse sémantique terminée.";
 }
 
 

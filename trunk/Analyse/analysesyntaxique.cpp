@@ -8,8 +8,6 @@
 #include <QtCore/QStringList>
 #include <QtCore/QRegExp>
 
-#include <QtCore/QDebug>
-
 AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
     m_analyse = pAnalyse;
 }
@@ -19,8 +17,6 @@ AnalyseSyntaxique::AnalyseSyntaxique(Analyse* pAnalyse) {
   \param pFichier Pointeur vers le fichier à analyser.
 */
 void AnalyseSyntaxique::lancer(QFile* pFichier) {
-    qDebug() << "Analyse syntaxique commencée.";
-
     bool ret = true;
 
     if (!lectureGlossaire(pFichier))
@@ -30,7 +26,6 @@ void AnalyseSyntaxique::lancer(QFile* pFichier) {
         ret = false;
 
     emit terminee(ret);
-    qDebug() << "Analyse syntaxique terminée.";
 }
 
 /*! \brief Lit le glossaire du fichier passé en paramètre.
@@ -39,7 +34,6 @@ void AnalyseSyntaxique::lancer(QFile* pFichier) {
   \return Vrai si l'analyse s'est bien passée, faux sinon.
 */
 bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
-    qDebug() << "Lecture du glossaire commencée.";
     bool ret = true;
 
     int debutGlossaire = -1;
@@ -101,8 +95,6 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
 
     pFichier->close();
 
-    qDebug() << "Lecture du glossaire terminée.";
-
     return ret;
 }
 
@@ -115,8 +107,6 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
   \return Vrai si l'analyse s'est bien passée, faux sinon.
   */
 bool AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
-    qDebug() << "Lecture des instructions commencée.";
-
     bool ret = true;
 
     int posPrec = -1;
@@ -169,8 +159,6 @@ bool AnalyseSyntaxique::lectureInstructions(QFile* pFichier) {
     }
 
     pFichier->close();
-
-    qDebug() << "Lecture des instructions terminée.";
 
     return ret;
 }
