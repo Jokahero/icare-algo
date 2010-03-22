@@ -430,7 +430,7 @@ void Window::analyseSemantique() {
 void Window::afficherApropos() {
     /* Mise en place de la fenêtre d'à propos */
     m_fenApropos = new Apropos;
-    m_fenApropos->setWindowTitle("À propos de Icare");
+    //m_fenApropos->setWindowTitle("À propos de Icare");
     m_fenApropos->show();
 }
 
