@@ -30,7 +30,7 @@
     <h3>Structures r&#233;p&#233;titives</h3>
     <p>
         <a href="#tantque">Tant Que</a><br/>
-        <a href="#repeter">R&#233;p&#233;ter Jusqu'à</a><br/>
+        <a href="#repeter">R&#233;p&#233;ter Jusqu'&#224;</a><br/>
         <a href="#pour">Pour</a><br/>
     </p>
     <h3>Fonctions Entr&#233;e-Sortie</h3>
@@ -58,7 +58,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^glossaire\\s?:?$"
+        "^glossaire\s?:?$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="declare"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -82,7 +82,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^(entier|r[&#233;e]el|cha[îi]ne|caract[e&#232;]re|bool[&#233;e]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$"
+        "^(entier|r[&#233;e]el|cha[îi]ne|caract[e&#232;]re|bool[&#233;e]en)\s+([a-z]+\w*)\s+((?:\w*\s*)*)$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="debut"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -100,7 +100,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^d[e&#233;]but\\s?:?$"
+        "^d[e&#233;]but\s?:?$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="fin"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -150,7 +150,7 @@
         On entend par structure conditionnelle, la possibilit&#233; d'orienter un algorithme en fonction
         de choix particuliers. Les structures conditionnelles nous ouvrent de nouveaux horizons pour
         l'&#233;laboration d'algorithmes. Cela repr&#233;sente une notion tr&#232;s importante qu'il faut pouvoir
-        assimiler si l'on cherche à aller plus loin. Il en existe deux.
+        assimiler si l'on cherche &#224; aller plus loin. Il en existe deux.
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="si"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -163,7 +163,7 @@
     </div>
     <pre>
         Si condition Alors
-            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
         FinSi
     </pre>
     <div class="sstitre">
@@ -176,7 +176,7 @@
     </pre>
     <div class="sstitre">Expression R&#233;guli&#232;re correspondante :</div>
     <p>
-        "^si\\s(" + <a href="#" class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\\salors$"<br/>
+        "^si\s(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\salors$"<br/>
         "^finsi$"
     </p>
     <div class="sstitre">
@@ -194,9 +194,9 @@
     </div>
     <pre>
         Si condition Alors
-            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
         Sinon
-            Code_à_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_fausse
+            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_fausse
         FinSi
     </pre>
     <div class="sstitre">
@@ -211,7 +211,7 @@
     </pre>
     <div class="sstitre">Expression R&#233;guli&#232;re correspondante :</div>
     <p>
-        "^si\\s(" + expression + ")\\salors$"<br/>
+        "^si\s(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\salors$"<br/>
         "^sinon$"<br/>
         "^finsi$"
     </p>
@@ -262,22 +262,22 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^selon\\s?(" + expression + ")\\s?:?\\s?$"<br/>
-        "^cas\\s?(" + expression + ")\\s?:?\\s?$"<br/>
-        "^d[&#233;e]faut\\s?:?\\s?$"<br/>
-        "^finselon\\s?$"
+        "^selon\s?(" + expression + ")\s?:?\s?$"<br/>
+        "^cas\s?(" + expression + ")\s?:?\s?$"<br/>
+        "^d[&#233;e]faut\s?:?\s?$"<br/>
+        "^finselon\s?$"
     </p>
     <hr/> -->
     <h3>Structures R&#233;p&#233;titives</h3>
     <p>
-        Dans certains, on peut se retrouver à avoir besoin de faire plusieurs fois
-        la même op&#233;ration. Si elles ne sont pas nombreuses, on pourrait à la rigueur,
+        Dans certains, on peut se retrouver &#224; avoir besoin de faire plusieurs fois
+        la même op&#233;ration. Si elles ne sont pas nombreuses, on pourrait &#224; la rigueur,
         dupliquer autant de fois que n&#233;cessaire le morceau de l'algorithme qui nous interresse.
         Cependant, on se rend compte que cette solution n'est pas id&#233;ale. L'algorithme
         peut prendre rapidement une taille assez importante et si le traitement dupliqu&#233;
         est complexe et qu'une correction doit être effectu&#233;e, il faut alors la reporter
-        sur chaque copie (sans compter que dans certains cas, on ne connaît pas à l'avance
-        le nombre d'it&#233;rations que l'on aura à faire). Tout cela am&#232;ne la notion de structure
+        sur chaque copie (sans compter que dans certains cas, on ne connaît pas &#224; l'avance
+        le nombre d'it&#233;rations que l'on aura &#224; faire). Tout cela am&#232;ne la notion de structure
         r&#233;p&#233;titive (ou boucle). On en compte trois, mais comme pour les structures
         conditionnelles, on pourrait aussi bien en utiliser qu'une seule.
     </p>
@@ -286,7 +286,7 @@
     <h4>Tant Que :</h4>
     <p>
         Cette instruction &#233;value une condition et tant que celle si est v&#233;rifi&#233;e, les actions
-        plac&#233;es à l'interieur sont alors effectu&#233;e. Pour sortir de la boucle, il faut que
+        plac&#233;es &#224; l'interieur sont alors effectu&#233;e. Pour sortir de la boucle, il faut que
         la condition ne soit plus remplie.
     </p>
     <div class="sstitre">
@@ -312,14 +312,14 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^tantque\\s+(" + expression + ")\\s?$"<br/>
+        "^tantque\s+(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\s?$"<br/>
         "^fintantque$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="repeter"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
-    <h4>R&#233;p&#233;ter Jusqu'à :</h4>
+    <h4>R&#233;p&#233;ter Jusqu'&#224; :</h4>
     <p>
-        Cette instruction r&#233;p&#232;te une action jusqu'à ce que la condition soit remplie.
+        Cette instruction r&#233;p&#232;te une action jusqu'&#224; ce que la condition soit remplie.
     </p>
     <div class="sstitre">
         Syntaxe :
@@ -327,7 +327,7 @@
     <pre>
         R&#233;p&#233;ter
             action
-        Jusqu'à (condition)
+        Jusqu'&#224; (condition)
     </pre>
     <div class="sstitre">
         Exemple :
@@ -336,21 +336,21 @@
         R&#233;p&#233;ter
             Afficher "Saisir un nombre positif : "
             Saisir nombre
-        Jusqu'à (nombre > 0)
+        Jusqu'&#224; (nombre > 0)
     </pre>
     <div class="sstitre">
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
         "^r[&#233;e]p[&#233;e]ter$"<br/>
-        "^jusqu[\\s']?[àa]\\s?(" + expression + ")\\s?$"
+        "^jusqu[\s']?[&#224;a]\s?(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 < variable2 </span></a> + ")\s?$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="pour"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
     <h4>Pour :</h4>
     <p>
-        Elle affecte une valeur de d&#233;part à une variable, ex&#233;cute les actions
-        contenues dans la boucle, et l'incr&#233;mente jusqu'à la valeur de fin.
+        Elle affecte une valeur de d&#233;part &#224; une variable, ex&#233;cute les actions
+        contenues dans la boucle, et l'incr&#233;mente jusqu'&#224; la valeur de fin.
         L'incr&#233;mentation est par d&#233;faut de 1, mais il est possible de la r&#233;gler
         avec l'instruction "pas de".
     </p>
@@ -358,7 +358,7 @@
         Syntaxe :
     </div>
     <pre>
-        Pour variable1 de valeur1 à valeur2 pas de valeur3 faire :
+        Pour variable1 de valeur1 &#224; valeur2 pas de valeur3 faire :
             action
         FinPour
     </pre>
@@ -366,7 +366,7 @@
         Exemple :
     </div>
     <pre>
-        Pour i de 1 à 10 pas de 1 faire :
+        Pour i de 1 &#224; 10 pas de 1 faire :
             Afficher "Compteur"
             Afficher i
         FinPour
@@ -375,7 +375,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^pour\\s+(" + expression + ")\\s+de\\s+(" + expression + ")\\s+[àa]\\s+(" + expression + ")\\s+(\\[pas\\s+de\\s+(" + expression + ")\\]\\s+)?faire\\s?:?\\s?$"<br/>
+        "^pour\s+(" + <a class="info">expressionVar<span>Variable d&#233;finie dans le glossaire<br/> Ex : compteur </span></a> + ")\s+de\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\s+[&#224;a]\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\s+(\[pas\s+de\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\]\s+)?faire\s?:?\s?$"<br/>
         "^finpour$"
     </p>
     <hr/>
@@ -392,7 +392,7 @@
         Syntaxe :
     </div>
     <pre>
-        Afficher texte_ou_variable_à_afficher
+        Afficher texte_ou_variable_&#224;_afficher
     </pre>
     <div class="sstitre">
         Exemple :
@@ -405,7 +405,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^afficher\\s+(" + expression + "|\".*([^\"]*)\")\\s?$"
+        "^afficher\s+(" + <a class="info">expression<span>Valeur, ou texte, &#224; afficher <br/> Ex : compteur <br/> Ex : "Voici un affichage"</span></a> + "|\".*([^\"]*)\")\s?$"
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="saisir"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -429,7 +429,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^saisir\\s+(" + listePipeVariable() + ")\\s?$"
+        "^saisir\s+(" + <a class="info">expressionVar<span>Variable d&#233;finie dans le glossaire<br/> Ex : compteur </span></a> + ")\s?$"
     </p>
     <hr/>
     <!-- <div class="lien"><a href="#haut" name="imprimer"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
@@ -453,7 +453,7 @@
         Expression R&#233;guli&#232;re correspondante :
     </div>
     <p>
-        "^imprimer\\s+(" + expression + "|\".*([^\"]*)\")\\s?$"
+        "^imprimer\s+(" + expression + "|\".*([^\"]*)\")\s?$"
     </p>
     <hr/>
     </div> -->
