@@ -1,15 +1,16 @@
 #ifndef APROPOS_H
 #define APROPOS_H
 
-#include <QtGui/QWidget>
+#include <QtGui/QDialog>
 
+class QDialogButtonBox;
 class QLabel;
 class QPixmap;
 class QPushButton;
 
 /*! \brief Fenêtre «À propos»
 */
-class Apropos : public QWidget {
+class Apropos : public QDialog {
     Q_OBJECT
 
 public:
@@ -17,10 +18,12 @@ public:
     ~Apropos();
 
 private:
-    QLabel *m_texte;
+    QLabel *m_version;
+    QLabel *m_Qt;
+    QLabel *m_noms;
     QPushButton *m_close;
     QLabel *m_icone;
-    QPixmap m_image;
+    QDialogButtonBox *m_buttonBox;
 
 };
 

@@ -3,6 +3,7 @@
 #include "gestionnaireparametres.h"
 #include "gestionnaireplugins.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
@@ -36,6 +37,7 @@ WidgetPlugins::WidgetPlugins() {
     m_infoLabel = new QLabel(tr("Les changements ne seront effectifs qu'au prochain lancement de l'application."));
     m_imgLabel = new QLabel();
     m_imgLabel->setPixmap(QPixmap(":/Icônes/dialog-warning.png"));
+    layoutInfos->addWidget(m_imgLabel);
     layoutInfos->addWidget(m_imgLabel);
     layoutInfos->addWidget(m_infoLabel);
 
