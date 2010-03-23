@@ -24,8 +24,9 @@
 */
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    QPixmap p(200, 100);
-    p.fill();
+    QPixmap p;
+    p.load(":/Splash/icare.png");
+    //p.fill();
     QSplashScreen* sp = new QSplashScreen(p, Qt::SplashScreen);
     sp->show();
     a.processEvents();
@@ -54,11 +55,11 @@ int main(int argc, char *argv[]) {
         a.installTranslator(&translator);
     }
 
-    sp->showMessage(QObject::tr("Chargement des modules…"));
+    sp->showMessage(QObject::tr("Chargement des modules…"), Qt::AlignRight);
     Analyse *analyse = Analyse::getInstance();
     Window *fenetre = new Window();
 
-    sp->showMessage(QObject::tr("Chargement des plugins…"));
+    sp->showMessage(QObject::tr("Chargement des plugins…"), Qt::AlignRight);
     a.processEvents();
 
     GestionnairePlugins *g = fenetre->getWPlugins()->getGestionnairePlugins();
@@ -76,7 +77,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    sp->showMessage(QObject::tr("Établissement des liens entre les modules…"));
+    sp->showMessage(QObject::tr("Établissement des liens entre les modules…"), Qt::AlignRight);
     a.processEvents();
 
     // Connects des plugins
@@ -113,12 +114,12 @@ int main(int argc, char *argv[]) {
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {
-        sp->showMessage(QObject::tr("Chargement du fichier…"));
+        sp->showMessage(QObject::tr("Chargement du fichier…"), Qt::AlignRight);
         a.processEvents();
         fenetre->ouvrirFichier(argv[1]);
     }
 
-    sp->showMessage(QObject::tr("Chargement de l'interface…"));
+    sp->showMessage(QObject::tr("Chargement de l'interface…"), Qt::AlignRight);
     a.processEvents();
 
     // Affichage de la fenêtre
