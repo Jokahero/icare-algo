@@ -7,10 +7,10 @@ Entier	i				Compteur de boucle
 
 Debut
 // Initialisations temporaires en attendant la saisie
-nbChevre ← 42
+//nbChevre ← 42
 production ← 12
 Afficher "Saisir le nombre de chèvres du troupeau : "
-Saisir nbChevre
+//Saisir nbChevre
 // Ceci est un commentaire (coloré en plus!! \o/)
 Afficher "Saisir la production journalière d'une chèvre : "
 Saisir production
