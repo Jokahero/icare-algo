@@ -21,6 +21,7 @@ private:
     QLabel *m_version;
     QLabel *m_Qt;
     QLabel *m_noms;
+    QLabel *m_site;
     QPushButton *m_close;
     QLabel *m_icone;
     QDialogButtonBox *m_buttonBox;

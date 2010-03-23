@@ -28,7 +28,7 @@ FenetreSaisie::FenetreSaisie(bool pBonType) : QDialog() {
     layout->addWidget(m_boutons);
 
     if (!pBonType)
-        m_warning->setText(tr("Type incorrect!"));
+        m_warning->setText(tr("<font color=\"red\">Type incorrect!</font>"));
 
     setLayout(layout);
 
