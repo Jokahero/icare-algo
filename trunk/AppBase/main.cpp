@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QPixmap p;
     p.load(":/Splash/icare.png");
-    //p.fill();
+    //p.fill(Qt::transparent);
     QSplashScreen* sp = new QSplashScreen(p, Qt::SplashScreen);
     sp->setMask(p.mask());
     sp->show();
@@ -57,11 +57,13 @@ int main(int argc, char *argv[]) {
         a.installTranslator(&translator);
     }
 
-    sp->showMessage(QObject::tr("Chargement des modules…"), Qt::AlignRight);
+    sp->showMessage(QObject::tr("Chargement des modules…"), Qt::AlignRight | Qt::AlignBottom);
+    a.processEvents();
+
     Analyse *analyse = Analyse::getInstance();
     Window *fenetre = new Window();
 
-    sp->showMessage(QObject::tr("Chargement des plugins…"), Qt::AlignRight);
+    sp->showMessage(QObject::tr("Chargement des plugins…"), Qt::AlignRight | Qt::AlignBottom);
     a.processEvents();
 
     GestionnairePlugins *g = fenetre->getWPlugins()->getGestionnairePlugins();
@@ -79,7 +81,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    sp->showMessage(QObject::tr("Établissement des liens entre les modules…"), Qt::AlignRight);
+    sp->showMessage(QObject::tr("Liens entre les modules…"), Qt::AlignRight | Qt::AlignBottom);
     a.processEvents();
 
     // Connects des plugins
@@ -116,12 +118,12 @@ int main(int argc, char *argv[]) {
 
     // Chargement d'un fichier passé en paramètre
     if (argc > 1) {
-        sp->showMessage(QObject::tr("Chargement du fichier…"), Qt::AlignRight);
+        sp->showMessage(QObject::tr("Chargement du fichier…"), Qt::AlignRight | Qt::AlignBottom);
         a.processEvents();
         fenetre->ouvrirFichier(argv[1]);
     }
 
-    sp->showMessage(QObject::tr("Chargement de l'interface…"), Qt::AlignRight);
+    sp->showMessage(QObject::tr("Chargement de l'interface…"), Qt::AlignRight | Qt::AlignBottom);
     a.processEvents();
 
     // Affichage de la fenêtre
@@ -131,6 +133,7 @@ int main(int argc, char *argv[]) {
         fenetre->show();
     }
     sp->finish(fenetre);
+    delete sp;
 
     return a.exec();
 }
