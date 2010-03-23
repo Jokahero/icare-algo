@@ -11,6 +11,7 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QTranslator>
 #include <QtGui/QApplication>
+#include <QtGui/QBitmap>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPixmap>
 #include <QtGui/QSplashScreen>
@@ -28,6 +29,7 @@ int main(int argc, char *argv[]) {
     p.load(":/Splash/icare.png");
     //p.fill();
     QSplashScreen* sp = new QSplashScreen(p, Qt::SplashScreen);
+    sp->setMask(p.mask());
     sp->show();
     a.processEvents();
 
