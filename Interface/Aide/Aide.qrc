@@ -3,5 +3,8 @@
         <file>aide.css</file>
         <file>aide.html</file>
         <file>fleche-retour.png</file>
+        <file>comment.png</file>
+        <file>zoom_in.png</file>
+        <file>zoom_out.png</file>
     </qresource>
 </RCC>
