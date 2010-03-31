@@ -34,7 +34,7 @@
         <a href="#declare">D&#233;claration de variable</a><br/>
         <a href="#debut">D&#233;but de l'algorithme</a><br/>
         <a href="#fin">Fin de l'algorithme</a><br/>
-        <a href="#commentaire">Commentaire</a><br/>
+        <a href="#commentaire">Commentaires</a><br/>
     </p>
     <h3><a href="#condition">Structures conditionnelles</a></h3>
     <p>
@@ -58,13 +58,13 @@
     <p><br/><br/><br/><br/><br/><br/></p>
     <h3><a name="general">G&#233;n&#233;ral</a></h3>
     <p>
-        Tout texte placer avant le mot cl&#233; "Glossaire" ou après le mot cl&#233; "Fin" n'est pas consid&#233;r&#233; comme faisant partie de l'algorithme.
+        Tout texte plac&#233; avant le mot cl&#233; "Glossaire" ou apr&#232;s le mot cl&#233; "Fin" n'est pas consid&#233;r&#233; comme faisant partie de l'algorithme.
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="glossaire"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
     <h4>Glossaire :</h4>
     <p>
-        Le glossaire permet de d&#233;finir toutes les variables qui vont être utiliser lors de l'algorithme.
+        Le glossaire permet de d&#233;finir toutes les variables qui vont &#234;tre utilis&#233;es lors de l'algorithme.
     </p>
     <div class="sstitre">
         Syntaxe :
@@ -73,7 +73,7 @@
         Glossaire :
     </pre>
     <div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr1');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr1');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr1" style="display:none">
         "^glossaire\s?:?$"
@@ -82,7 +82,7 @@
     <div class="lien"><a href="#haut" name="declare"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
     <h4>D&#233;claration de variable :</h4>
     <p>
-        Le glossaire permet de d&#233;finir toutes les variables qui vont être utiliser lors de l'algorithme.
+		Les variables doivent &#234;tre d&#233;clar&#233;es de la mani&#232;re suivante.
     </p>
     <div class="sstitre">
         Syntaxe :
@@ -97,7 +97,7 @@
         Entier somme1 Cette variable permet de calculer la somme.
     </pre>
     <div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr2');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr2');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr2" style="display:none">
         "^(entier|r[&#233;e]el|cha[îi]ne|caract[e&#232;]re|bool[&#233;e]en)\s+([a-z]+\w*)\s+((?:\w*\s*)*)$"
@@ -115,7 +115,7 @@
         D&#233;but :
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr13');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr13');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr13" style="display:none">
         "^d[e&#233;]but\s?:?$"
@@ -133,7 +133,7 @@
         Fin
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr3');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr3');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr3" style="display:none">
         "^fin$"
@@ -157,7 +157,7 @@
         //Ceci est une ligne de commentaire
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr4');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr4');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr4" style="display:none">
         "^//.*$"
@@ -181,7 +181,7 @@
     </div>
     <pre>
         Si condition Alors
-            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vraie
         FinSi
     </pre>
     <div class="sstitre">
@@ -189,11 +189,11 @@
     </div>
     <pre>
         Si var_age &lt; 18 Alors
-            Afficher "Vous n'êtes pas encore majeur."
+            Afficher "Vous n'&#234;tes pas encore majeur."
         FinSi
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr5');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr5');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr5" style="display:none">
         "^si\s(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 &#60; variable2 </span></a> + ")\salors$"<br/>
@@ -214,7 +214,7 @@
     </div>
     <pre>
         Si condition Alors
-            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vrai
+            Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_vraie
         Sinon
             Code_&#224;_&#233;x&#233;cuter_si_l'&#233;valuation_de_la_condition_est_fausse
         FinSi
@@ -224,13 +224,13 @@
     </div>
     <pre>
         Si var_age &lt; 18 Alors
-            Afficher "Vous n'êtes pas encore majeur."
+            Afficher "Vous n'&#234;tes pas encore majeur."
         Sinon
             Afficher "Vous pouvez conduire... OU boire!"
         FinSi
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr6');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr6');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr6" style="display:none">
         "^si\s(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 &#60; variable2 </span></a> + ")\salors$"<br/>
@@ -277,11 +277,11 @@
             cas(note&lt;20):
                 Afficher "Exelent"
             d&#233;faut:
-                Afficher "Euh... plus de 20 ? Vous êtes un extra-terrestre?"
+                Afficher "Euh... plus de 20 ? Vous &#234;tes un extra-terrestre?"
         FinSelon
     </pre>
     <div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante 
+        Expression r&#233;guli&#232;re correspondante 
     </div>
     <p>
         "^selon\s?(" + expression + ")\s?:?\s?$"<br/>
@@ -292,23 +292,22 @@
     <hr/> -->
     <h3><a name="repete">Structures R&#233;p&#233;titives</a></h3>
     <p>
-        Dans certains, on peut se retrouver &#224; avoir besoin de faire plusieurs fois
-        la même op&#233;ration. Si elles ne sont pas nombreuses, on pourrait &#224; la rigueur,
-        dupliquer autant de fois que n&#233;cessaire le morceau de l'algorithme qui nous interresse.
+        Dans certains algorithmes, on peut se retrouver &#224; avoir besoin de faire plusieurs fois
+        la m&#234;me op&#233;ration. Si elles ne sont pas nombreuses, on pourrait &#224; la rigueur,
+        dupliquer autant de fois que n&#233;cessaire le morceau de l'algorithme qui nous int&#233;resse.
         Cependant, on se rend compte que cette solution n'est pas id&#233;ale. L'algorithme
         peut prendre rapidement une taille assez importante et si le traitement dupliqu&#233;
-        est complexe et qu'une correction doit être effectu&#233;e, il faut alors la reporter
+        est complexe et qu'une correction doit &#234;tre effectu&#233;e, il faut alors la reporter
         sur chaque copie (sans compter que dans certains cas, on ne connaît pas &#224; l'avance
         le nombre d'it&#233;rations que l'on aura &#224; faire). Tout cela am&#232;ne la notion de structure
-        r&#233;p&#233;titive (ou boucle). On en compte trois, mais comme pour les structures
-        conditionnelles, on pourrait aussi bien en utiliser qu'une seule.
+        r&#233;p&#233;titive (ou boucle). 
     </p>
     <hr/>
     <div class="lien"><a href="#haut" name="tantque"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
     <h4>Tant Que :</h4>
     <p>
-        Cette instruction &#233;value une condition et tant que celle si est v&#233;rifi&#233;e, les actions
-        plac&#233;es &#224; l'interieur sont alors effectu&#233;e. Pour sortir de la boucle, il faut que
+        Cette instruction &#233;value une condition et tant que celle-ci est v&#233;rifi&#233;e, les actions
+        plac&#233;es &#224; l'interieur sont alors effectu&#233;es. Pour sortir de la boucle, il faut que
         la condition ne soit plus remplie.
     </p>
     <div class="sstitre">
@@ -324,14 +323,14 @@
     </div>
     <pre>
         tour = 5
-        Afficher "Compte a rebours : "
+        Afficher "Compte à rebours : "
         TantQue (tour > 0)
             Afficher tour
             tour = tour - 1
         FinTantQue
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr7');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr7');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr7" style="display:none">
         "^tantque\s+(" + <a class="info">expressionComp<span>Expression de comparaison<br/> Ex : variable1 &#60; variable2 </span></a> + ")\s?$"<br/>
@@ -361,7 +360,7 @@
         Jusqu'&#224; (nombre > 0)
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr8');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr8');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr8" style="display:none">
         "^r[&#233;e]p[&#233;e]ter$"<br/>
@@ -372,15 +371,15 @@
     <h4>Pour :</h4>
     <p>
         Elle affecte une valeur de d&#233;part &#224; une variable, ex&#233;cute les actions
-        contenues dans la boucle, et l'incr&#233;mente jusqu'&#224; la valeur de fin.
-        L'incr&#233;mentation est par d&#233;faut de 1, mais il est possible de la r&#233;gler
+        contenues dans la boucle, et incr&#233;mente la valeur de la variable jusqu'&#224; la valeur de fin.
+        Le pas d'incr&#233;mentation est par d&#233;faut de 1, mais il est possible de la r&#233;gler
         avec l'instruction "pas de".
     </p>
     <div class="sstitre">
         Syntaxe :
     </div>
     <pre>
-        Pour variable1 de valeur1 &#224; valeur2 pas de valeur3 faire :
+        Pour variable1 de valeur1 &#224; valeur2 <a class="info">[pas de valeur3]<span>Optionnel</span></a> faire :
             action
         FinPour
     </pre>
@@ -392,9 +391,15 @@
             Afficher "Compteur"
             Afficher i
         FinPour
-    </pre>
+	</pre>
+    <pre>
+        Pour i de 1 &#224; 10 faire :
+            Afficher "Compteur"
+            Afficher i
+        FinPour
+	</pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr9');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr9');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr9" style="display:none">
         "^pour\s+(" + <a class="info">expressionVar<span>Variable d&#233;finie dans le glossaire<br/> Ex : compteur </span></a> + ")\s+de\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\s+[&#224;a]\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\s+(\[pas\s+de\s+(" + <a class="info">expressionVal<span>Valeur<br/> Ex : compteurMax<br/>Ex : 12 </span></a> + ")\]\s+)?faire\s?:?\s?$"<br/>
@@ -409,7 +414,7 @@
     <div class="lien"><a href="#haut" name="afficher"><img src="fleche-retour.png" alt="Remonter en haut de la page" title="Remonter en haut de la page"/></a></div>
     <h4>Afficher :</h4>
     <p>
-        Elle permet d'afficher une variable ou bien un texte dans la console d'ex&#233;cution (Le texte doit etre entre guillemets).
+        Elle permet d'afficher une variable ou bien un texte dans la console d'ex&#233;cution (Le texte doit &#234;tre entre guillemets).
     </p>
     <div class="sstitre">
         Syntaxe :
@@ -425,7 +430,7 @@
         Afficher variable_de_la_mort_qui_tue
     </pre>
 	<div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr10');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante <img src="zoom_in.png" onclick="affCache(this,'pr10');" alt="zoomin"/>
     </div>
     <p class="exreg" id="pr10" style="display:none">
         "^afficher\s+(" + <a class="info">expression<span>Valeur, ou texte, &#224; afficher <br/> Ex : compteur <br/> Ex : "Voici un affichage"</span></a> + "|\".*([^\"]*)\")\s?$"
@@ -446,10 +451,10 @@
         Exemple :
     </div>
     <pre>
-        Saisir variable_age_de_lutilisateur azd qsd qsd qsd qsd qsd qsd qsd qsd qsdqs d
+        Saisir variable_age_de_lutilisateur
     </pre>
     <div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante<img src="zoom_in.png" onclick="affCache(this,'pr11');" alt="zoomin"/>
+        Expression r&#233;guli&#232;re correspondante<img src="zoom_in.png" onclick="affCache(this,'pr11');" alt="zoomin"/>
     </div>
     <div>
     <p class="exreg" id="pr11" style="display:none">
@@ -475,7 +480,7 @@
         Imprimer
     </pre>
     <div class="sstitre">
-        Expression R&#233;guli&#232;re correspondante 
+        Expression r&#233;guli&#232;re correspondante 
     </div>
     <p>
         "^imprimer\s+(" + expression + "|\".*([^\"]*)\")\s?$"
