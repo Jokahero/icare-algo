@@ -61,22 +61,6 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
         highlightingRules.append(controle);
     }
 
-
-    /* Coloration des commentaires */
-
-    QStringList commentPatterns;
-    commentPatterns << "/\\*.*\\*/" << "//[^\n]*";
-    foreach (const QString &pattern, commentPatterns) {
-        comment.pattern = QRegExp(pattern);
-        comment.format = m_commentFormat;
-        highlightingRules.append(comment);
-    }
-
-    /* Coloration des chaînes */
-    chaines.pattern = QRegExp("\".*\"");
-    chaines.format = m_chainesFormat;
-    highlightingRules.append(chaines);
-
     /* Coloration des bornes */
     m_borneFormat.setFontWeight(QFont::Bold);
 
@@ -96,6 +80,22 @@ Coloration::Coloration(QTextDocument *pTextDocument) : QSyntaxHighlighter(pTextD
     numerique.pattern = QRegExp("[0-9]+\\.?[0-9]*");
     numerique.format = m_numeriqueFormat;
     highlightingRules.append(numerique);
+
+    /* Coloration des chaînes */
+    chaines.pattern = QRegExp("\".*\"");
+    chaines.format = m_chainesFormat;
+    highlightingRules.append(chaines);
+
+
+    /* Coloration des commentaires */
+
+    QStringList commentPatterns;
+    commentPatterns << "/\\*.*\\*/" << "//[^\n]*";
+    foreach (const QString &pattern, commentPatterns) {
+        comment.pattern = QRegExp(pattern);
+        comment.format = m_commentFormat;
+        highlightingRules.append(comment);
+    }
 }
 
 
