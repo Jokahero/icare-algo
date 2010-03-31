@@ -1,103 +1,71 @@
 a img {
-float : right;
-border : 0;
+    float : right;
+    border : 0;
 }
 h4 {
-text-decoration : underline;
+    text-decoration : underline;
 }
 h1 {
-text-align : center;
+    text-align : center;
 }
-.sommaire h2,h3{
-    line-height: 4px;
+.sommaire h2, h3 {
+    line-height : 4px;
 }
-
-pre {
-    background: #F4F4F4;
-    border:1px solid #E3E3E3;
-    color:#000000;
-    display:block;
-    font-family:"Bitstream Vera Sans Mono","courier new",monospace;
-    font-size:85%;
-    margin:auto auto 2px;
-    overflow:auto;
-    padding-bottom:2px;
-    padding-top:15px;
-    white-space:pre;
-    width:99%;
-}
-
-h4 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.sommaire {
-    text-align: center;
-    border: 1px solid gray;
-    margin-left: 30%;
-    margin-right: 30%;
-    min-width: 250px;
-}
-
-.test {
-    margin-left: 20px;
-    margin-right: 40px;
+pre,.exreg {
+    background : #f4f4f4;
+    border : 1px solid #e3e3e3;
+    color : #000000;
+    display : block;
+    font-family : "Bitstream Vera Sans Mono", "courier new", monospace;
+    font-size : 85%;
+    margin : auto auto 2px;
+    /*padding-bottom : 15px;
     text-indent: 30px;
-    text-align: justify;
+    
+    */
+    padding-top : 15px;
+    white-space : pre-wrap;
+    width : 95%;
+    
 }
-
-/* INFOBULLE  */
+.exreg {
+    background : #f4f4f4 url("comment.png") no-repeat scroll left top;
+}
+h4 {
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+.sommaire {
+    text-align : center;
+    border : 1px solid gray;
+    margin-left : 30%;
+    margin-right : 30%;
+    min-width : 250px;
+}
 a.info {
-   position: relative;
-   color: black;
-   text-decoration: none;
-   border-bottom: 1px gray dotted; /* on souligne le texte */
+    position : relative;
+    color : black;
+    text-decoration : none;
+    border-bottom : 1px dotted gray;
 }
 a.info span {
-   display: none; /* on masque l'infobulle */
+    display : none;
 }
 a.info:hover {
-   background: none; /* correction d'un bug IE */
-   z-index: 500; /* on définit une valeur pour l'ordre d'affichage */
-
-   cursor: help; /* on change le curseur par défaut en curseur d'aide */
+    background : none;
+    z-index : 50;
+    cursor : help;
 }
 a.info:hover span {
-   display: inline; /* on affiche l'infobulle */
-   position: absolute;
-
-   white-space: nowrap; /* on change la valeur de la propriété white-space pour qu'il n'y ait pas de retour à la ligne non-désiré */
-
-   top: 30px; /* on positionne notre infobulle */
-   left: 20px;
-
-   background: white;
-
-   color: blue;
-   padding: 3px;
-
-   border: 1px solid blue;
-   border-left: 4px solid blue;
+    display : inline;
+    position : absolute;
+    white-space : nowrap;
+    top : 20px;
+    left : 0px;
+    background : white;
+    color : blue;
+    padding : 3px;
+    border : 1px solid blue;
+    border-left : 4px solid blue;
 }
-
-
-
-
-.exreg {
-    background:url("comment.png") no-repeat scroll left top #F4F4F4;
-    border:1px solid #E3E3E3;
-    color:#000000;
-    display:block;
-    font-family:"Bitstream Vera Sans Mono","courier new",monospace;
-    font-size:85%;
-    margin:auto auto 2px;
-    overflow:auto;
-    padding-bottom:2px;
-    white-space:pre;
-    width:99%;
-}
-
-
-
 
