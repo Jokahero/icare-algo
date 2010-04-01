@@ -11,6 +11,15 @@ h1 {
 .sommaire h2, h3 {
     line-height : 4px;
 }
+.sommaire p{
+	padding-left:0px;
+	padding-right:0px;
+}
+p{
+	padding-left:10px;
+	padding-right:40px;
+
+}
 pre,.exreg {
     background : #f4f4f4;
     border : 1px solid #e3e3e3;
@@ -24,8 +33,9 @@ pre,.exreg {
     
     */
     padding-top : 15px;
+
     white-space : pre-wrap;
-    width : 95%;
+    width : 94%;
     
 }
 .exreg {
@@ -65,7 +75,8 @@ a.info:hover span {
     background : white;
     color : blue;
     padding : 3px;
-    border : 1px solid blue;
-    border-left : 4px solid blue;
+    border : 1px solid red;
+    border-left : 4px solid red;
 }
+
 
