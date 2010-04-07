@@ -116,9 +116,9 @@ Window::Window() : QMainWindow() {
 
     /* Mise en place du menu d'analyse */
     m_menuAnalyse = new QMenu(m_barreMenu);
-    m_testSyntaxe = new QAction (tr("Tester la &syntaxe"), this);
-    m_testSemantique = new QAction (tr("Tester la sé&mantique"), this);
-    m_testComplet = new QAction (tr("Test complet"), this);
+    m_testSyntaxe = new QAction (tr("Analyse de niveau 1"), this);
+    m_testSemantique = new QAction (tr("Analyse de niveau 2"), this);
+    m_testComplet = new QAction (tr("Analyse complète"), this);
     m_executer = new QAction (tr("Exécuter"), this);
     m_executerPasAPas = new QAction(tr("Exécuter pas à pas"), this);
     m_pas = new QAction(tr("Avancer"), this);
@@ -146,7 +146,7 @@ Window::Window() : QMainWindow() {
     m_aPropos = new QAction (tr("À propos de Icare…"), this);
     m_aide = new QAction(tr("Aide"), this);
     m_aide->setShortcut(tr("F1"));
-    m_help->setTitle(tr("&Aide"));
+    m_help->setTitle(tr("A&ide"));
     m_help->addAction(m_aPropos);
     m_help->addAction(m_aide);
 
@@ -193,9 +193,9 @@ Window::Window() : QMainWindow() {
     m_remplacer->setIcon(QIcon(":/Icônes/edit-find-replace.png"));
     m_selectionnerTout->setIcon(QIcon(":/Icônes/edit-select-all"));
     m_testSyntaxe->setIcon(QIcon(":/Icônes/tools-check-spelling.png"));
-    m_testSyntaxe->setToolTip(tr("Tester la syntaxe"));
+    m_testSyntaxe->setToolTip(tr("Tests syntaxiques ligne par ligne"));
     m_testSemantique->setIcon(QIcon(":/Icônes/system-run2.png"));
-    m_testSemantique->setToolTip(tr("Tester la sémantique"));
+    m_testSemantique->setToolTip(tr("Tests syntaxiques multilignes et sémantiques"));
     m_testComplet->setIcon(QIcon(":/Icônes/system-run.png"));
     m_testComplet->setToolTip(tr("Lancer tous les tests"));
     m_executer->setIcon(QIcon(":/Icônes/media-playback-start.png"));

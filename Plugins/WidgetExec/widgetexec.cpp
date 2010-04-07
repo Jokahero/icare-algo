@@ -35,7 +35,7 @@ WidgetExec::WidgetExec() {
 }
 
 QString WidgetExec::getNom() {
-    return QString(tr("Sortie de compilation/exécution"));
+    return QString(tr("Sortie d'analyse/exécution"));
 }
 
 QDockWidget* WidgetExec::getDockWidget() {
@@ -88,14 +88,14 @@ void WidgetExec::afficher(QString pChaine) {
 void WidgetExec::analyseSyntaxiqueTerminee(bool pOk) {
     if (pOk) {
         qobject_cast<WidgetExecTab*>(m_tabWidget->widget(WidgetExec::Sorties))->clear();
-        afficher(tr("Analyse syntaxique terminée avec succès."));
+        afficher(tr("Analyse de niveau 1 terminée avec succès."));
     }
 }
 
 void WidgetExec::analyseSemantiqueTerminee(bool pOk) {
     if (pOk) {
         qobject_cast<WidgetExecTab*>(m_tabWidget->widget(WidgetExec::Sorties))->clear();
-        afficher(tr("Analyse semantique terminée avec succès."));
+        afficher(tr("Analyse de niveau 2 terminée avec succès."));
     }
 }
 
