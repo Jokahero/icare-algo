@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Splash">
+        <file>icare.png</file>
+    </qresource>
+</RCC>
