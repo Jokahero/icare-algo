@@ -11,6 +11,8 @@ L'avancement est noté:
 
 Si l'avancement n'est pas spécifié, la tâche est à faire.
 
+*Edit: ajout de la notion de priorité, notée [priorité]*
+ 
 = Details =
 
 *Traitement:*
@@ -45,4 +47,12 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
     * Options *|Ok|*
     * Aide *|Ok|*
   # Affichage des erreurs d'analyse *|Ok|*
+
+*Autres:*
+
+  # Site [facultatif]
+    * Page about
+    * Réorganiser les ressources et downloads
+    * Changer le skin (logo, couleurs, ...)
+
  
