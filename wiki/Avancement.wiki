@@ -36,7 +36,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
       * Selon/Cas/FinSelon (Ajouter aux instructions une liste de lignes intermédiaires ?)
     * implémenter les instructions
     * executer
-  # Variables `[`IUT`]`
+  # _Variables `[`IUT`]`_
     * Type booléen
     * Tableaux
 
@@ -44,17 +44,17 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
  
   # _Coloration syntaxique *|Ok|*
   # Affichage du glossaire *|Ok|*
-  # Menus_ *|Ok|*
+  # Menus *|Ok|*_
     * Principal *|Ok|*
     * Analyse *|Ok|*
     * Options *|Ok|*
     * Aide *|Ok|*
-  # Affichage des erreurs d'analyse *|Ok|*
-  # Affichage spécial pour les tableaux
+  # _Affichage des erreurs d'analyse *|Ok|*
+  # Affichage spécial pour les tableaux_
 
 *Autres:*
 
-  # Site `[`facultatif`]`
+  # _Site `[`facultatif`]`_
     * Page about
     * Réorganiser les ressources et downloads
     * Changer le skin (logo, couleurs, ...)
