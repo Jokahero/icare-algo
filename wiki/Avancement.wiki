@@ -36,6 +36,9 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
       * Selon/Cas/FinSelon (Ajouter aux instructions une liste de lignes intermédiaires ?)
     * implémenter les instructions
     * executer
+  # Variables `[`IUT`]`
+    * Type booléen
+    * Tableaux
 
 *Interface:*
  
@@ -47,6 +50,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
     * Options *|Ok|*
     * Aide *|Ok|*
   # Affichage des erreurs d'analyse *|Ok|*
+  # Affichage spécial pour les tableaux
 
 *Autres:*
 
