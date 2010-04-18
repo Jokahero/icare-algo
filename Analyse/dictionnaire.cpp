@@ -86,7 +86,7 @@ bool Dictionnaire::isGlossaire(QString pLigne, QStringList* pListeArgs) {
   \return Vrai si la ligne est une ligne de déclaration de variables, faux sinon.
 */
 bool Dictionnaire::isDeclarationVariable(QString pLigne, QStringList* pListeArgs) {
-    QRegExp rx("^(entier|r[ée]el|cha[îi]ne|caract[eè]re|bool[ée]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$");
+    QRegExp rx("^(bool[ée]en|entier|r[ée]el|cha[îi]ne|caract[eè]re|bool[ée]en)\\s+([a-z]+\\w*)\\s+((?:\\w*\\s*)*)$");
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     if (pListeArgs)
         pListeArgs->clear();

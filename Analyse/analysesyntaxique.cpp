@@ -40,16 +40,18 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
     int finGlossaire = -1;
     int cptLigne;
     QString ligneAct;
-    QRegExp rxVariable("^(entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([\\w]+)((?:\\s+.*)*)$");
+    QRegExp rxVariable("^(bool[ée]en|entier|r[ée]el|cha[îi]ne|caract[eè]re)\\s+([\\w]+)((?:\\s+.*)*)$");
     QRegExp rxEntier("^entier$");
     QRegExp rxReel("^r[ée]el$");
     QRegExp rxChaine("^cha[îi]ne$");
+    QRegExp rxBool("^bool[ée]en$");
     QRegExp rxCaractere("^caract[èe]re$");
 
     rxVariable.setCaseSensitivity(Qt::CaseInsensitive);
     rxEntier.setCaseSensitivity(Qt::CaseInsensitive);
     rxReel.setCaseSensitivity(Qt::CaseInsensitive);
     rxChaine.setCaseSensitivity(Qt::CaseInsensitive);
+    rxBool.setCaseSensitivity(Qt::CaseInsensitive);
     rxCaractere.setCaseSensitivity(Qt::CaseInsensitive);
 
     m_analyse->getGlossaire()->reinit();
@@ -87,6 +89,8 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
                     m_analyse->getGlossaire()->ajoutReel(nomVar, desc, cptLigne);
                 } else if (rxChaine.exactMatch(type) || rxCaractere.exactMatch(type)) {
                     m_analyse->getGlossaire()->ajoutChaine(nomVar, desc, cptLigne);
+                } else if (rxBool.exactMatch(type)) {
+                    m_analyse->getGlossaire()->ajoutBool(nomVar, desc, cptLigne);
                 }
             }
             qApp->processEvents();

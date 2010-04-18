@@ -9,6 +9,7 @@
 /*! \brief Constructeur par défaut.
 */
 Glossaire::Glossaire() {
+    m_listeBools = new QHash<QString, bool>;
     m_listeEntier = new QHash<QString, int>;
     m_listeChaine = new QHash<QString, QString>;
     m_listeReel = new QHash<QString, double>;
@@ -17,6 +18,7 @@ Glossaire::Glossaire() {
 }
 
 Glossaire::~Glossaire() {
+    delete m_listeBools;
     delete m_listeEntier;
     delete m_listeChaine;
     delete m_listeReel;
@@ -33,9 +35,28 @@ Glossaire::~Glossaire() {
   \return Vrai si la variable existe, faux sinon.
 */
 bool Glossaire::existe(const QString& pNomVar) const {
-    if (m_listeEntier->contains(pNomVar) || m_listeChaine->contains(pNomVar) || m_listeReel->contains(pNomVar))
+    if (m_listeBools->contains(pNomVar) || m_listeEntier->contains(pNomVar) || m_listeChaine->contains(pNomVar) || m_listeReel->contains(pNomVar))
         return true;
     return false;
+}
+
+
+/*! \brief Ajoute un booléen au glossaire.
+
+  \param pNomVar Nom du booléen à ajouter.
+  \param pDescription Description de la variable.
+  \return Vrai si le booléen a été ajouté, faux si il y a eu une erreur (une variable portant le même nom a déjà été déclarée, …).
+*/
+bool Glossaire::ajoutBool(const QString& pNomVar, const QString& pDescription, int pNumLigne) {
+    if (existe(pNomVar)) {
+        emit erreur(Analyse::VariableDejaDeclaree, pNumLigne);
+        return false;
+    }
+    m_listeBools->insert(pNomVar, 0);
+    m_description->insert(pNomVar, pDescription);
+    m_initialisations->insert(pNomVar, false);
+    emit variableAjoutee(pNomVar, "Booléen", pDescription);
+    return true;
 }
 
 
@@ -96,9 +117,29 @@ bool Glossaire::ajoutReel(const QString& pNomVar, const QString& pDescription, i
 }
 
 
+/*! \brief Récupère la valeur d'un booléen.
+
+  \param pNomVar Nom de la variable à récupérer.
+  \return La valeur de la variable récupérée.
+*/
+bool Glossaire::getValeurBool(const QString& pNomVar) const {
+    if (!existe(pNomVar)) {
+        emit erreur(Analyse::VariableNonDeclaree);
+        return 0;
+    } else if (!m_listeBools->contains(pNomVar)) {
+        emit erreur(Analyse::TypeIncorrect);
+        return 0;
+    } else if (!m_initialisations->value(pNomVar)) {
+        emit erreur(Analyse::VariableNonInitialisee);
+        return 0;
+    } else
+        return m_listeBools->value(pNomVar);
+}
+
+
 /*! \brief Récupère la valeur d'un entier.
 
-  \param pNomVar Nom de la variable a récupérer.
+  \param pNomVar Nom de la variable à récupérer.
   \return La valeur de la variable récupérée.
 */
 int Glossaire::getValeurEntier(const QString& pNomVar) const {
@@ -118,7 +159,7 @@ int Glossaire::getValeurEntier(const QString& pNomVar) const {
 
 /*! \brief Récupère la valeur d'une chaîne.
 
-  \param pNomVar Nom de la variable a récupérer.
+  \param pNomVar Nom de la variable à récupérer.
   \return La valeur de la variable récupérée.
 */
 QString Glossaire::getValeurChaine(const QString& pNomVar) const {
@@ -138,7 +179,7 @@ QString Glossaire::getValeurChaine(const QString& pNomVar) const {
 
 /*! \brief Récupère la valeur d'un réel.
 
-  \param pNomVar Nom de la variable a récupérer.
+  \param pNomVar Nom de la variable à récupérer.
   \return La valeur de la variable récupérée.
 */
 double Glossaire::getValeurReel(const QString& pNomVar) const {
@@ -158,7 +199,7 @@ double Glossaire::getValeurReel(const QString& pNomVar) const {
 
 /*! \brief Récupère la valeur d'une variable.
 
-  \param pNomVar Nom de la variable a récupérer.
+  \param pNomVar Nom de la variable à récupérer.
   \return La valeur de la variable récupérée.
 */
 QString Glossaire::getValeur(const QString& pNomVar) const {
@@ -174,14 +215,33 @@ QString Glossaire::getValeur(const QString& pNomVar) const {
         return (*m_listeChaine)[pNomVar];
     else if (m_listeReel->contains(pNomVar))
         return QString::number((*m_listeReel)[pNomVar]);
+    else if (m_listeBools->contains(pNomVar))
+        return QString::number((*m_listeBools)[pNomVar]);
     else
         return QString::null;
 }
 
 
+/*! \brief Définit la valeur d'un booléen.
+
+  \param pNomVar Nom de la variable à modifier.
+  \param pValeur L'entier à lui affecter.
+*/
+void Glossaire::setValeurBool(const QString& pNomVar, bool pValeur) {
+    if (m_listeBools->contains(pNomVar)) {
+        (*m_initialisations)[pNomVar] = true;
+        (*m_listeBools)[pNomVar] = pValeur;
+        emit variableModifiee(pNomVar, QString::number(pValeur));
+    } else if (existe(pNomVar))
+        emit erreur(Analyse::TypeIncorrect);
+    else
+        emit erreur(Analyse::VariableNonDeclaree);
+}
+
+
 /*! \brief Définit la valeur d'un entier.
 
-  \param pNomVar Nom de la variable a modifier.
+  \param pNomVar Nom de la variable à modifier.
   \param pValeur L'entier à lui affecter.
 */
 void Glossaire::setValeurEntier(const QString& pNomVar, int pValeur) {
@@ -198,7 +258,7 @@ void Glossaire::setValeurEntier(const QString& pNomVar, int pValeur) {
 
 /*! \brief Définit la valeur d'une chaîne.
 
-  \param pNomVar Nom de la variable a modifier.
+  \param pNomVar Nom de la variable à modifier.
   \param pValeur La chaîne à lui affecter.
 */
 void Glossaire::setValeurChaine(const QString& pNomVar, const QString& pValeur) {
@@ -215,7 +275,7 @@ void Glossaire::setValeurChaine(const QString& pNomVar, const QString& pValeur) 
 
 /*! \brief Définit la valeur d'un réel.
 
-  \param pNomVar Nom de la variable a modifier.
+  \param pNomVar Nom de la variable à modifier.
   \param pValeur Le réel à lui affecter.
 */
 void Glossaire::setValeurReel(const QString& pNomVar, double pValeur) {
@@ -232,7 +292,7 @@ void Glossaire::setValeurReel(const QString& pNomVar, double pValeur) {
 
 /*! \brief Définit la valeur d'une variable.
 
-  \param pNomVar Nom de la variable a modifier.
+  \param pNomVar Nom de la variable à modifier.
   \param pValeur La valeur à lui affecter.
 */
 bool Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
@@ -250,6 +310,11 @@ bool Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
     } else if (m_listeReel->contains(pNomVar)) {
         (*m_initialisations)[pNomVar] = true;
         (*m_listeReel)[pNomVar] = pValeur.toFloat(&ok);
+        if (ok)
+            emit variableModifiee(pNomVar, pValeur);
+    } else if (m_listeBools->contains(pNomVar)) {
+        (*m_initialisations)[pNomVar] = true;
+        (*m_listeBools)[pNomVar] = pValeur.toInt(&ok);
         if (ok)
             emit variableModifiee(pNomVar, pValeur);
     } else
@@ -270,6 +335,7 @@ QStringList Glossaire::getListeVariables() const {
 /*! \brief Supprime toutes les entrées du glossaire.
 */
 void Glossaire::reinit() {
+    m_listeBools->clear();
     m_listeEntier->clear();
     m_listeReel->clear();
     m_listeChaine->clear();
