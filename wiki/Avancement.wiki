@@ -29,13 +29,13 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
   # Analyse sémantique *|Ok|*
   # Execution_
     * structures de contrôles
-      * Si/Sinon/FinSi
+      * Si/Sinon/FinSi *|Ok|*
       * Pour/FinPour *|Ok|*
       * TantQue/FinTantQue *|Ok|*
-      * Répéter/Jusqu'à
+      * Répéter/Jusqu'à *|Ok|*
       * Selon/Cas/FinSelon (Ajouter aux instructions une liste de lignes intermédiaires ?)
-    * implémenter les instructions
-    * executer
+    * implémenter les instructions *|Ok|*
+    * executer *|Ok|*
   # _Variables `[`IUT`]`_
     * Type booléen
     * Tableaux
