@@ -317,6 +317,16 @@ bool Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
         (*m_listeBools)[pNomVar] = pValeur.toInt(&ok);
         if (ok)
             emit variableModifiee(pNomVar, pValeur);
+        else if (pValeur.toLower() == "vrai") {
+            (*m_listeBools)[pNomVar] = true;
+            emit variableModifiee(pNomVar, "1");
+            return true;
+        } else if (pValeur.toLower() == "faux") {
+            (*m_listeBools)[pNomVar] = false;
+            emit variableModifiee(pNomVar, "0");
+            return true;
+        }
+
     } else
         emit erreur(Analyse::VariableNonDeclaree);
     return ok;
