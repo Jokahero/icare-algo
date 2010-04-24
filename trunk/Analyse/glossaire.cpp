@@ -314,19 +314,15 @@ bool Glossaire::setValeur(const QString& pNomVar, const QString& pValeur) {
             emit variableModifiee(pNomVar, pValeur);
     } else if (m_listeBools->contains(pNomVar)) {
         (*m_initialisations)[pNomVar] = true;
-        (*m_listeBools)[pNomVar] = pValeur.toInt(&ok);
-        if (ok)
-            emit variableModifiee(pNomVar, pValeur);
-        else if (pValeur.toLower() == "vrai") {
+        if (pValeur == "1" || pValeur.toLower() == "vrai") {
             (*m_listeBools)[pNomVar] = true;
-            emit variableModifiee(pNomVar, "1");
+            emit variableModifiee(pNomVar, tr("vrai"));
             return true;
-        } else if (pValeur.toLower() == "faux") {
+        } else if (pValeur == "0" || pValeur.toLower() == "faux") {
             (*m_listeBools)[pNomVar] = false;
-            emit variableModifiee(pNomVar, "0");
+            emit variableModifiee(pNomVar, tr("faux"));
             return true;
         }
-
     } else
         emit erreur(Analyse::VariableNonDeclaree);
     return ok;
