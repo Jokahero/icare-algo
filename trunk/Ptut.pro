@@ -11,6 +11,6 @@ TEMPLATE = subdirs
 
 SUBDIRS += Analyse Interface Plugins
 
-SUBDIRS += AppBase
+SUBDIRS += AppBase CLI
 
 SUBDIRS += Analyse/TestsAnalyse
