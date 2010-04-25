@@ -4,6 +4,7 @@
 CONFIG += release
 TARGET = Analyse
 TEMPLATE = lib
+QT -= gui
 DEFINES += ANALYSE_LIBRARY
 SOURCES += analysesyntaxique.cpp \
     analysesemantique.cpp \

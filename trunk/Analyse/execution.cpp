@@ -6,12 +6,12 @@
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QEventLoop>
+#include <QtCore/QFuture>
 #include <QtCore/QStack>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QtConcurrentRun>
 #include <QtGui/QDialog>
-
-#include <QtCore/QDebug>
 
 
 /** \brief Constructeur.
@@ -29,12 +29,9 @@ Execution::Execution(Analyse* pAnalyse) {
   \param pPasAPas Indique si l'exécution se déroule normalement ou en mode pas à pas
 */
 void Execution::lancer(bool pPasAPas) {
-    qDebug() << "Exécution commencée";
-
     m_stop = false;
     execution(pPasAPas);
 
-    qDebug() << "Exécution terminée";
     emit terminee();
 }
 
@@ -129,12 +126,13 @@ void Execution::execution(bool pPasAPas, int pDebut, int pFin) {
             } else
                 emit afficher(calcul(remplacementValeursVariables(inst->getArgs()->at(1)), inst->getNumLigne()));
         } else if (inst->getTypeLigne() == Dictionnaire::Saisir) {
-            bool ok=true;
+            bool ok = true;
             do {
                 // Saisir
                 m_modifie = false;
-                m_analyse->emettreSaisie(ok);
+                QFuture<void> future = QtConcurrent::run(m_analyse, &Analyse::emettreSaisie, ok);
                 waitForSignal(m_analyse, SIGNAL(sigSaisie(QString)));
+                future.waitForFinished();
                 while (!m_modifie);
                 ok = m_analyse->getGlossaire()->setValeur(inst->getArgs()->at(1), m_saisie);
             } while (!ok);
