@@ -37,7 +37,7 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
     * implémenter les instructions *|Ok|*
     * executer *|Ok|*
   # _Variables `[`IUT`]`_
-    * Type booléen
+    * Type booléen |Fait en partie|
     * Tableaux
 
 *Interface:*
