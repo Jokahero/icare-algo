@@ -3,7 +3,12 @@
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QHBoxLayout>
+#include <QtCore/QModelIndex>
+#include <QtGui/QStandardItemModel>
+#include <QtGui/QTableView>
 #include <QtGui/QTableWidget>
+
+#include <QtCore/QDebug>
 
 /*! \brief Constructeur. Initialise le widget avec un QTextEdit.
 */
@@ -11,12 +16,22 @@ WidgetGlossaire::WidgetGlossaire() {
     m_dockWidget = new QDockWidget;
     QWidget* tmp = new QWidget();
 
+    m_modeleGlossaire = new QStandardItemModel(this);
+    m_modeleGlossaire->insertColumns(0,4);
+    m_modeleGlossaire->setHeaderData(0, Qt::Horizontal, "Nom");
+    m_modeleGlossaire->setHeaderData(1, Qt::Horizontal, "Type");
+    m_modeleGlossaire->setHeaderData(2, Qt::Horizontal, "Valeur");
+    m_modeleGlossaire->setHeaderData(3, Qt::Horizontal, "Description");
+
+    m_vueGlossaire = new QTableView(tmp);
+    m_vueGlossaire->setModel(m_modeleGlossaire);
+
     QHBoxLayout *layout = new QHBoxLayout(tmp);
-    m_tableau = new QTableWidget(0, 4, tmp);
+   /* m_tableau = new QTableWidget(0, 4, tmp);
     QStringList headers;
     headers << tr("Nom") << tr("Type") << tr("Valeur") << tr("Description");
-    m_tableau->setHorizontalHeaderLabels(headers);
-    layout->addWidget(m_tableau);
+    m_tableau->setHorizontalHeaderLabels(headers);*/
+    layout->addWidget(m_vueGlossaire);
 
     tmp->setLayout(layout);
     m_dockWidget->setWidget(tmp);
@@ -35,7 +50,7 @@ QDockWidget* WidgetGlossaire::getDockWidget() {
 }
 
 void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription) {
-    QTableWidgetItem *nom = new QTableWidgetItem(pNomVar);
+    /*QTableWidgetItem *nom = new QTableWidgetItem(pNomVar);
     QTableWidgetItem *type = new QTableWidgetItem(pType);
     QTableWidgetItem *val = new QTableWidgetItem(QChar(0x2205));        // QChar(0x2205) : Symbole de l'ensemble vide (∅)
     QTableWidgetItem *desc = new QTableWidgetItem(pDescription);
@@ -44,7 +59,17 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
     m_tableau->setItem(nbLignes, 0, nom);
     m_tableau->setItem(nbLignes, 1, type);
     m_tableau->setItem(nbLignes, 2, val);
-    m_tableau->setItem(nbLignes, 3, desc);
+    m_tableau->setItem(nbLignes, 3, desc);*/
+    int rc = m_modeleGlossaire->rowCount();
+    m_modeleGlossaire->insertRow(rc);
+    QModelIndex index = m_modeleGlossaire->index(rc,0);
+    m_modeleGlossaire->setData(index, pNomVar);
+    index = m_modeleGlossaire->index(rc, 1);
+    m_modeleGlossaire->setData(index, pType);
+    index = m_modeleGlossaire->index(rc, 2);
+    m_modeleGlossaire->setData(index, QChar(0x2205));
+    index = m_modeleGlossaire->index(rc, 3);
+    m_modeleGlossaire->setData(index, pDescription);
 }
 
 void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
@@ -58,8 +83,12 @@ void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
 }
 
 void WidgetGlossaire::reinitialisationGlossaire() {
-    m_tableau->clearContents();
-    m_tableau->setRowCount(0);
+    m_modeleGlossaire->clear();
+    m_modeleGlossaire->insertColumns(0,4);
+    m_modeleGlossaire->setHeaderData(0, Qt::Horizontal, "Nom");
+    m_modeleGlossaire->setHeaderData(1, Qt::Horizontal, "Type");
+    m_modeleGlossaire->setHeaderData(2, Qt::Horizontal, "Valeur");
+    m_modeleGlossaire->setHeaderData(3, Qt::Horizontal, "Description");
 }
 
 void WidgetGlossaire::sauvegarderPosition(Qt::DockWidgetArea pPos) {
