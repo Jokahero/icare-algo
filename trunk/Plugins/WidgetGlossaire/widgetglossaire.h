@@ -4,7 +4,9 @@
 #include "../../Interface/plugininterface.h"
 
 class QDockWidget;
+class QStandardItemModel;
 class QString;
+class QTableView;
 class QTableWidget;
 
 /*! \brief Widget affichant la liste des variables.
@@ -29,6 +31,9 @@ public slots:
 private:
     QDockWidget* m_dockWidget;
     QTableWidget* m_tableau;
+
+    QStandardItemModel *m_modeleGlossaire;
+    QTableView *m_vueGlossaire;
 
 private slots:
     void sauvegarderPosition(Qt::DockWidgetArea pPos);
