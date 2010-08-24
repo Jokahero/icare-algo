@@ -74,9 +74,16 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
 
 void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
     bool modifie = false;
-    for (int i = 0; i < m_tableau->rowCount() && !modifie; i++) {
+    /*for (int i = 0; i < m_tableau->rowCount() && !modifie; i++) {
         if (m_tableau->item(i, 0)->text() == pNomVar) {
             m_tableau->item(i, 2)->setText(pValeur);
+            modifie = true;
+        }
+    }*/
+    for (int i=0; i < m_modeleGlossaire->rowCount() && !modifie; i++) {
+        if (m_modeleGlossaire->data((m_modeleGlossaire->index(i, 0))).toString() == pNomVar) {
+            QModelIndex index = m_modeleGlossaire->index(i, 2);
+            m_modeleGlossaire->setData(index, pValeur);
             modifie = true;
         }
     }
