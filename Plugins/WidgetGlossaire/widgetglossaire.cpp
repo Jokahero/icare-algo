@@ -26,6 +26,7 @@ WidgetGlossaire::WidgetGlossaire() {
 
     m_vueGlossaire = new QTableView(tmp);
     m_vueGlossaire->setModel(m_modeleGlossaire);
+    m_vueGlossaire->setContextMenuPolicy(Qt::CustomContextMenu);
 
     QHBoxLayout *layout = new QHBoxLayout(tmp);
    /* m_tableau = new QTableWidget(0, 4, tmp);
