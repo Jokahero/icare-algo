@@ -27,6 +27,8 @@ public slots:
     void variableAjoutee(QString pNomVar, QString pType, QString pDescription);
     void variableModifiee(QString pNomVar, QString pValeur);
     void reinitialisationGlossaire();
+    
+    void afficherMenuContextuel(const QPoint& pos);
 
 private:
     QDockWidget* m_dockWidget;
