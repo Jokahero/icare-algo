@@ -1,9 +1,10 @@
 #include "widgetglossaire.h"
 
+#include <QtCore/QModelIndex>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtGui/QHBoxLayout>
-#include <QtCore/QModelIndex>
+#include <QtGui/QMenu>
 #include <QtGui/QStandardItemModel>
 #include <QtGui/QTableView>
 #include <QtGui/QTableWidget>
@@ -37,6 +38,7 @@ WidgetGlossaire::WidgetGlossaire() {
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
 
+    connect(m_vueGlossaire, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(afficherMenuContextuel(const QPoint&)));
     connect(m_dockWidget, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), this, SLOT(sauvegarderPosition(Qt::DockWidgetArea)));
     connect(m_dockWidget, SIGNAL(topLevelChanged(bool)), this, SLOT(sauvegarderEtat(bool)));
 }
@@ -106,6 +108,17 @@ void WidgetGlossaire::sauvegarderPosition(Qt::DockWidgetArea pPos) {
 void WidgetGlossaire::sauvegarderEtat(bool pEtat) {
     QSettings settings;
     settings.setValue(QString(getNom() + "floating"), pEtat);
+}
+
+void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
+    qDebug() << "test";
+    QMenu menu(m_dockWidget);
+    QAction *ajouter = new QAction("Ajouter", m_dockWidget);
+    QModelIndex clickedItemIndex = m_vueGlossaire->indexAt(pos);
+    if (clickedItemIndex.row() == -1) {
+    }
+    menu.addAction(ajouter);
+    menu.exec(QCursor::pos());
 }
 
 Q_EXPORT_PLUGIN2(widgetglossaire, WidgetGlossaire);
