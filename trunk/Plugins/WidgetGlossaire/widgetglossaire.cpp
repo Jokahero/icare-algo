@@ -5,14 +5,14 @@
 #include <QtCore/QString>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QMenu>
+#include <QtGui/QPushButton>
 #include <QtGui/QStandardItemModel>
 #include <QtGui/QTableView>
 #include <QtGui/QTableWidget>
+#include <QtGui/QVBoxLayout>
 
 #include <QtCore/QDebug>
 
-/*! \brief Constructeur. Initialise le widget avec un QTextEdit.
-*/
 WidgetGlossaire::WidgetGlossaire() {
     m_dockWidget = new QDockWidget;
     QWidget* tmp = new QWidget();
@@ -27,18 +27,27 @@ WidgetGlossaire::WidgetGlossaire() {
     m_vueGlossaire = new QTableView(tmp);
     m_vueGlossaire->setModel(m_modeleGlossaire);
     m_vueGlossaire->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_vueGlossaire->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QHBoxLayout *layout = new QHBoxLayout(tmp);
-   /* m_tableau = new QTableWidget(0, 4, tmp);
-    QStringList headers;
-    headers << tr("Nom") << tr("Type") << tr("Valeur") << tr("Description");
-    m_tableau->setHorizontalHeaderLabels(headers);*/
+    m_addVariable = new QPushButton(tmp);
+    m_addVariable->setIcon(QIcon(":/images/list-add.png"));
+    m_delVariable = new QPushButton(tmp);
+    m_delVariable->setIcon(QIcon(":/images/list-remove.png"));
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    buttonLayout->addWidget(m_addVariable);
+    buttonLayout->addWidget(m_delVariable);
+
+    QVBoxLayout *layout = new QVBoxLayout(tmp);
+    layout->addLayout(buttonLayout);
     layout->addWidget(m_vueGlossaire);
 
     tmp->setLayout(layout);
     m_dockWidget->setWidget(tmp);
     m_dockWidget->setWindowTitle(getNom());
 
+    connect(m_addVariable, SIGNAL(clicked()), this, SLOT(ajouterVariable()));
+    connect(m_delVariable, SIGNAL(clicked()), this, SLOT(supprimerVariable()));
     connect(m_vueGlossaire, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(afficherMenuContextuel(const QPoint&)));
     connect(m_dockWidget, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), this, SLOT(sauvegarderPosition(Qt::DockWidgetArea)));
     connect(m_dockWidget, SIGNAL(topLevelChanged(bool)), this, SLOT(sauvegarderEtat(bool)));
@@ -53,16 +62,6 @@ QDockWidget* WidgetGlossaire::getDockWidget() {
 }
 
 void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription) {
-    /*QTableWidgetItem *nom = new QTableWidgetItem(pNomVar);
-    QTableWidgetItem *type = new QTableWidgetItem(pType);
-    QTableWidgetItem *val = new QTableWidgetItem(QChar(0x2205));        // QChar(0x2205) : Symbole de l'ensemble vide (∅)
-    QTableWidgetItem *desc = new QTableWidgetItem(pDescription);
-    int nbLignes = m_tableau->rowCount();
-    m_tableau->insertRow(nbLignes);
-    m_tableau->setItem(nbLignes, 0, nom);
-    m_tableau->setItem(nbLignes, 1, type);
-    m_tableau->setItem(nbLignes, 2, val);
-    m_tableau->setItem(nbLignes, 3, desc);*/
     int rc = m_modeleGlossaire->rowCount();
     m_modeleGlossaire->insertRow(rc);
     QModelIndex index = m_modeleGlossaire->index(rc,0);
@@ -77,12 +76,6 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
 
 void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
     bool modifie = false;
-    /*for (int i = 0; i < m_tableau->rowCount() && !modifie; i++) {
-        if (m_tableau->item(i, 0)->text() == pNomVar) {
-            m_tableau->item(i, 2)->setText(pValeur);
-            modifie = true;
-        }
-    }*/
     for (int i=0; i < m_modeleGlossaire->rowCount() && !modifie; i++) {
         if (m_modeleGlossaire->data((m_modeleGlossaire->index(i, 0))).toString() == pNomVar) {
             QModelIndex index = m_modeleGlossaire->index(i, 2);
@@ -112,14 +105,36 @@ void WidgetGlossaire::sauvegarderEtat(bool pEtat) {
 }
 
 void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
-    qDebug() << "test";
     QMenu menu(m_dockWidget);
     QAction *ajouter = new QAction("Ajouter", m_dockWidget);
+    // On vérifier si le curseur est sur un objet ou non
     QModelIndex clickedItemIndex = m_vueGlossaire->indexAt(pos);
-    if (clickedItemIndex.row() == -1) {
+    if (clickedItemIndex.row() != -1) {
+        // Création de actions et ajout dans le menu
+        QAction *supprimer = new QAction("Supprimer", m_dockWidget);
+        QAction *modifier = new QAction("Modifier", m_dockWidget);
+        menu.addAction(supprimer);
+        menu.addAction(modifier);
+        // Connection des actions au slots correspondants
+        connect(supprimer, SIGNAL(triggered()), this, SLOT(supprimerVariable()));
+        connect(modifier, SIGNAL(triggered()), this, SLOT(modifierVariable()));
     }
     menu.addAction(ajouter);
+    connect(ajouter, SIGNAL(triggered()), this, SLOT(ajouterVariable()));
+    //  Affichage du menu sous le curseur
     menu.exec(QCursor::pos());
+}
+
+void WidgetGlossaire::ajouterVariable() {
+
+}
+
+void WidgetGlossaire::supprimerVariable() {
+
+}
+
+void WidgetGlossaire::modifierVariable() {
+
 }
 
 Q_EXPORT_PLUGIN2(widgetglossaire, WidgetGlossaire);
