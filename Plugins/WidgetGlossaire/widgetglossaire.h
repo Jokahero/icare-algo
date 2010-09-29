@@ -4,6 +4,8 @@
 #include "../../Interface/plugininterface.h"
 
 class QDockWidget;
+class QModelIndex;
+class QPushButton;
 class QStandardItemModel;
 class QString;
 class QTableView;
@@ -37,9 +39,16 @@ private:
     QStandardItemModel *m_modeleGlossaire;
     QTableView *m_vueGlossaire;
 
+    QPushButton* m_addVariable;
+    QPushButton* m_delVariable;
+
 private slots:
     void sauvegarderPosition(Qt::DockWidgetArea pPos);
     void sauvegarderEtat(bool pEtat);
+
+    void supprimerVariable();
+    void ajouterVariable();
+    void modifierVariable();
 };
 
 #endif // WIDGETGLOSSAIRE_H
