@@ -131,9 +131,11 @@ void WidgetGlossaire::ajouterVariable() {
 }
 
 void WidgetGlossaire::supprimerVariable() {
-    QModelIndex index = m_vueGlossaire->selectionModel()->selectedIndexes().at(0);
-    emit enleverVariable(m_modeleGlossaire->index(index.row(), 0).data().toString());
-    m_modeleGlossaire->removeRow(index.row());
+    if (m_vueGlossaire->selectionModel()->hasSelection()) {
+        QModelIndex index = m_vueGlossaire->selectionModel()->selectedIndexes().at(0);
+        emit enleverVariable(m_modeleGlossaire->index(index.row(), 0).data().toString());
+        m_modeleGlossaire->removeRow(index.row());
+    }
 }
 
 void WidgetGlossaire::modifierVariable() {
