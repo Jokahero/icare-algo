@@ -28,6 +28,7 @@ WidgetGlossaire::WidgetGlossaire() {
     m_vueGlossaire->setModel(m_modeleGlossaire);
     m_vueGlossaire->setContextMenuPolicy(Qt::CustomContextMenu);
     m_vueGlossaire->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_vueGlossaire->setSelectionMode(QAbstractItemView::SingleSelection);
 
     m_addVariable = new QPushButton(tmp);
     m_addVariable->setIcon(QIcon(":/images/list-add.png"));
@@ -130,7 +131,9 @@ void WidgetGlossaire::ajouterVariable() {
 }
 
 void WidgetGlossaire::supprimerVariable() {
-
+    QModelIndex index = m_vueGlossaire->selectionModel()->selectedIndexes().at(0);
+    emit enleverVariable(m_modeleGlossaire->index(index.row(), 0).data().toString());
+    m_modeleGlossaire->removeRow(index.row());
 }
 
 void WidgetGlossaire::modifierVariable() {
