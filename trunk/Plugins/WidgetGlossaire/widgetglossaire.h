@@ -49,6 +49,9 @@ private slots:
     void supprimerVariable();
     void ajouterVariable();
     void modifierVariable();
+
+signals:
+    void enleverVariable(QString pNomVariable);
 };
 
 #endif // WIDGETGLOSSAIRE_H
