@@ -50,6 +50,8 @@ public slots:
     void remplacerTout(TRecherche);
     void ajouterTexte(QString pTexte);
 
+    void supprimerVariableGlossaire(QString pDesc);
+
 protected slots:
     void highlightCurrentLine();
 

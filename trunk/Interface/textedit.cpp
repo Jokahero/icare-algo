@@ -235,3 +235,14 @@ void TextEdit::loadSettings() {
     update();
     repaint();
 }
+
+void TextEdit::supprimerVariableGlossaire(QString pDesc) {
+    QRegExp line;
+    line.setPattern(pDesc);
+    QTextCursor tc = getTextEdit()->document()->find(line);
+    if (!tc.isNull()) {
+        tc.select(QTextCursor::LineUnderCursor);
+        tc.removeSelectedText();
+        tc.deletePreviousChar();
+    }
+}

@@ -99,6 +99,7 @@ int main(int argc, char *argv[]) {
         QObject::connect(analyse, SIGNAL(analyseSyntaxiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSyntaxiqueTerminee(bool)));
         QObject::connect(analyse, SIGNAL(analyseSemantiqueTerminee(bool)), g->getListePlugins().at(i), SLOT(analyseSemantiqueTerminee(bool)));
         QObject::connect(g->getListePlugins().at(i), SIGNAL(ajouterTexte(QString)), fenetre, SIGNAL(ajouterTexte(QString)));
+        QObject::connect(g->getListePlugins().at(i), SIGNAL(enleverVariable(QString)), fenetre->getZoneTexte(), SLOT(supprimerVariableGlossaire(QString)));
     }
 
     // Connects des modules
