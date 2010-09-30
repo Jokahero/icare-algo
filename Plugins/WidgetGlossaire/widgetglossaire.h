@@ -51,7 +51,7 @@ private slots:
     void modifierVariable();
 
 signals:
-    void enleverVariable(QString pNomVariable);
+    void enleverVariable(QString pLine);
 };
 
 #endif // WIDGETGLOSSAIRE_H
