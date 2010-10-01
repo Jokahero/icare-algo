@@ -1,5 +1,7 @@
 #include "widgetglossaire.h"
 
+#include "editionvariable.h"
+
 #include <QtCore/QModelIndex>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
@@ -127,7 +129,8 @@ void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
 }
 
 void WidgetGlossaire::ajouterVariable() {
-
+    EditionVariable* dialog = new EditionVariable();
+    dialog->show();
 }
 
 void WidgetGlossaire::supprimerVariable() {

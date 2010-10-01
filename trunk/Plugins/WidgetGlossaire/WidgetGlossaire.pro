@@ -10,6 +10,9 @@ INCLUDEPATH += .
 DESTDIR = ../
 
 # Input
-HEADERS += widgetglossaire.h
-SOURCES += widgetglossaire.cpp
+HEADERS += widgetglossaire.h \
+    editionvariable.h
+SOURCES += widgetglossaire.cpp \
+    editionvariable.cpp
 RESOURCES += icons.qrc
+FORMS += 
