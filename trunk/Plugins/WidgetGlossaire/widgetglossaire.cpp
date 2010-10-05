@@ -64,7 +64,7 @@ QDockWidget* WidgetGlossaire::getDockWidget() {
     return m_dockWidget;
 }
 
-void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription) {
+void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription, QString pValeur/*=""*/) {
     int rc = m_modeleGlossaire->rowCount();
     m_modeleGlossaire->insertRow(rc);
     QModelIndex index = m_modeleGlossaire->index(rc,0);
@@ -72,17 +72,26 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
     index = m_modeleGlossaire->index(rc, 1);
     m_modeleGlossaire->setData(index, pType);
     index = m_modeleGlossaire->index(rc, 2);
-    m_modeleGlossaire->setData(index, QChar(0x2205));
+    if (pValeur == "")
+        m_modeleGlossaire->setData(index, QChar(0x2205));
+    else
+        m_modeleGlossaire->setData(index, pValeur);
     index = m_modeleGlossaire->index(rc, 3);
     m_modeleGlossaire->setData(index, pDescription);
 }
 
-void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur) {
+void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur, QString pType/*=""*/, QString pDesc/*=""*/) {
     bool modifie = false;
     for (int i=0; i < m_modeleGlossaire->rowCount() && !modifie; i++) {
         if (m_modeleGlossaire->data((m_modeleGlossaire->index(i, 0))).toString() == pNomVar) {
             QModelIndex index = m_modeleGlossaire->index(i, 2);
             m_modeleGlossaire->setData(index, pValeur);
+            if (pType != "") {
+                index = m_modeleGlossaire->index(i, 1);
+                m_modeleGlossaire->setData(index, pType);
+                index = m_modeleGlossaire->index(i, 3);
+                m_modeleGlossaire->setData(index, pDesc);
+            }
             modifie = true;
         }
     }
@@ -130,6 +139,7 @@ void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
 
 void WidgetGlossaire::ajouterVariable() {
     EditionVariable* dialog = new EditionVariable();
+    connect(dialog, SIGNAL(ajouter(QString,QString,QString,QString)), this, SLOT(variableAjoutee(QString,QString,QString,QString)));
     dialog->show();
 }
 
@@ -147,7 +157,29 @@ void WidgetGlossaire::supprimerVariable() {
 }
 
 void WidgetGlossaire::modifierVariable() {
+    int type;
+    QString nom, valeur, desc;
+    if (m_vueGlossaire->selectionModel()->hasSelection()) {
+        QModelIndex index = m_vueGlossaire->selectionModel()->selectedIndexes().at(0);
 
+        nom = m_modeleGlossaire->index(index.row(), 0).data().toString();
+
+        QString stringType = m_modeleGlossaire->index(index.row(), 1).data().toString();
+        if (stringType == "Entier")
+            type = 0;
+        else if (stringType == "Réel")
+            type = 1;
+        else
+            type = 2;
+
+        valeur = m_modeleGlossaire->index(index.row(), 2).data().toString();
+
+        desc = m_modeleGlossaire->index(index.row(), 3).data().toString();
+
+        EditionVariable* dialog = new EditionVariable(type, nom, valeur, desc);
+        connect(dialog, SIGNAL(modifier(QString,QString,QString,QString)), this, SLOT(variableModifiee(QString,QString,QString,QString)));
+        dialog->show();
+    }
 }
 
 Q_EXPORT_PLUGIN2(widgetglossaire, WidgetGlossaire);
