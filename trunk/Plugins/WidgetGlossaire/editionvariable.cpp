@@ -79,9 +79,9 @@ void EditionVariable::accept() {
     } else {
         // On regarde si l'on est en modification ou en ajout et on envoi le signal approprié
         if (m_modification)
-            emit modifier(m_nom->text(), m_valeur->text(), m_type->currentText(), m_description->text());
+            emit modifier(m_nom->text(), m_valeur->text(), m_type->currentText(), m_description->text(), true);
         else
-            emit ajouter(m_nom->text(), m_type->currentText(), m_description->text(), m_valeur->text());
+            emit ajouter(m_nom->text(), m_type->currentText(), m_description->text(), m_valeur->text(), true);
 
         // On quitte ensuite à l'aide de la méthode accept() de QDialog
         QDialog::accept();
