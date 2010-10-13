@@ -246,3 +246,17 @@ void TextEdit::supprimerVariableGlossaire(QString pDesc) {
         tc.deletePreviousChar();
     }
 }
+
+void TextEdit::ajouterVariableGlossaire(QString line) {
+    QTextCursor tc = getTextEdit()->document()->find("Glossaire");
+    if (tc.isNull()) {
+        getTextEdit()->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
+        tc = getTextEdit()->textCursor();
+        tc.insertText("Glossaire:\n", tc.charFormat());
+        tc.insertText(line + "\n\n", tc.charFormat());
+    } else {
+        tc.clearSelection();
+        tc.movePosition(QTextCursor::EndOfLine, QTextCursor::MoveAnchor);
+        tc.insertText("\n" + line, tc.charFormat());
+    }
+}

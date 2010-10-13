@@ -31,8 +31,8 @@ private slots:
     void changeValidator(int pIndex);
 
 signals:
-    void ajouter(QString, QString, QString, QString);
-    void modifier(QString, QString, QString, QString);
+    void ajouter(QString, QString, QString, QString, bool);
+    void modifier(QString, QString, QString, QString, bool);
 };
 
 #endif // EDITIONVARIABLE_H

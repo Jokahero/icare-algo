@@ -64,7 +64,7 @@ QDockWidget* WidgetGlossaire::getDockWidget() {
     return m_dockWidget;
 }
 
-void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription, QString pValeur/*=""*/) {
+void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pDescription, QString pValeur/*=""*/, bool user/*=false*/) {
     int rc = m_modeleGlossaire->rowCount();
     m_modeleGlossaire->insertRow(rc);
     QModelIndex index = m_modeleGlossaire->index(rc,0);
@@ -78,9 +78,17 @@ void WidgetGlossaire::variableAjoutee(QString pNomVar, QString pType, QString pD
         m_modeleGlossaire->setData(index, pValeur);
     index = m_modeleGlossaire->index(rc, 3);
     m_modeleGlossaire->setData(index, pDescription);
+    if (user) {
+        QString line = pType;
+        line += "\t";
+        line += pNomVar;
+        line += "\t";
+        line += pDescription;
+        emit ajouterVariable(line);
+    }
 }
 
-void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur, QString pType/*=""*/, QString pDesc/*=""*/) {
+void WidgetGlossaire::variableModifiee(QString pNomVar, QString pValeur, QString pType/*=""*/, QString pDesc/*=""*/, bool user/*=false*/) {
     bool modifie = false;
     for (int i=0; i < m_modeleGlossaire->rowCount() && !modifie; i++) {
         if (m_modeleGlossaire->data((m_modeleGlossaire->index(i, 0))).toString() == pNomVar) {
@@ -139,7 +147,7 @@ void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
 
 void WidgetGlossaire::ajouterVariable() {
     EditionVariable* dialog = new EditionVariable();
-    connect(dialog, SIGNAL(ajouter(QString,QString,QString,QString)), this, SLOT(variableAjoutee(QString,QString,QString,QString)));
+    connect(dialog, SIGNAL(ajouter(QString,QString,QString,QString,bool)), this, SLOT(variableAjoutee(QString,QString,QString,QString,bool)));
     dialog->show();
 }
 
@@ -177,7 +185,7 @@ void WidgetGlossaire::modifierVariable() {
         desc = m_modeleGlossaire->index(index.row(), 3).data().toString();
 
         EditionVariable* dialog = new EditionVariable(type, nom, valeur, desc);
-        connect(dialog, SIGNAL(modifier(QString,QString,QString,QString)), this, SLOT(variableModifiee(QString,QString,QString,QString)));
+        connect(dialog, SIGNAL(modifier(QString,QString,QString,QString,bool)), this, SLOT(variableModifiee(QString,QString,QString,QString,bool)));
         dialog->show();
     }
 }

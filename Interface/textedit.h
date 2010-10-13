@@ -51,6 +51,7 @@ public slots:
     void ajouterTexte(QString pTexte);
 
     void supprimerVariableGlossaire(QString pDesc);
+    void ajouterVariableGlossaire(QString line);
 
 protected slots:
     void highlightCurrentLine();

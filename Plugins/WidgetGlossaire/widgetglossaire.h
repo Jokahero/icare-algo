@@ -26,8 +26,8 @@ public:
     QDockWidget* getDockWidget();
 
 public slots:
-    void variableAjoutee(QString pNomVar, QString pType, QString pDescription, QString pValeur="");
-    void variableModifiee(QString pNomVar, QString pValeur, QString pType="", QString pDesc="");
+    void variableAjoutee(QString pNomVar, QString pType, QString pDescription, QString pValeur="", bool user=false);
+    void variableModifiee(QString pNomVar, QString pValeur, QString pType="", QString pDesc="", bool user=false);
     void reinitialisationGlossaire();
     
     void afficherMenuContextuel(const QPoint& pos);
@@ -52,6 +52,7 @@ private slots:
 
 signals:
     void enleverVariable(QString pLine);
+    void ajouterVariable(QString pLine);
 };
 
 #endif // WIDGETGLOSSAIRE_H
