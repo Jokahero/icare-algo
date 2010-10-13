@@ -134,7 +134,8 @@ void WidgetGlossaire::afficherMenuContextuel(const QPoint &pos) {
         QAction *supprimer = new QAction("Supprimer", m_dockWidget);
         QAction *modifier = new QAction("Modifier", m_dockWidget);
         menu.addAction(supprimer);
-        menu.addAction(modifier);
+        // Modification enlevée du menu pour l'instant
+        //menu.addAction(modifier);
         // Connection des actions au slots correspondants
         connect(supprimer, SIGNAL(triggered()), this, SLOT(supprimerVariable()));
         connect(modifier, SIGNAL(triggered()), this, SLOT(modifierVariable()));
