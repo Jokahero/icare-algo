@@ -4,15 +4,13 @@ Entier	a		Reste 1
 Entier	b		Reste 2
 Entier	reste	Reste 3
 
-Début 
-a ← 3
-b ← 4
-TantQue b ≥ a
+Début
+Répéter
 	Saisir a
 	Saisir b
-FinTantQue
+Jusqua  b < a
 
-TantQue a >0 && b> 0
+TantQue a >0 && b > 0
 	reste ← a % b
 	a ← b
 	b← reste
