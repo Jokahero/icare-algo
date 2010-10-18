@@ -83,17 +83,21 @@ double MathExp::calculRec(Arbre* pArbre) const {
         return (g - d);
     else if (pArbre->getContenu() == QString("*"))
         return (g * d);
-    else if (pArbre->getContenu() == QString("%"))
-        return ((int)g % (int)d);
-    else if (pArbre->getContenu() == QString("/")) {
+    else if (pArbre->getContenu() == QString("%")) {
+        if (d > 0)
+            return ((int)g % (int)d);
+        else {
+            emit sigErreur(MathExp::DivisionParZero, m_numLigne);
+            return -1;
+        }
+    } else if (pArbre->getContenu() == QString("/")) {
         if (d != 0)
             return (g / d);
         else {
             emit sigErreur(MathExp::DivisionParZero, m_numLigne);
             return -1;
         }
-    }
-    else
+    } else
         return -1;
 }
 
