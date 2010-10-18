@@ -497,7 +497,7 @@ QString Dictionnaire::listeQuantites() {
     QString liste = listePipeVariable();
     QString expression = "(?:\\(*\\s*(?:(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*)|";
     expression += liste;
-    expression += "\\s*\\)*)(?:[+\\-\\*/×÷]\\s*\\(*\\s*(?:(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*\\s*)|";
+    expression += "\\s*\\)*)(?:[+\\-\\*/×÷%]\\s*\\(*\\s*(?:(?:[0-9]+(?:\\.[0-9]+)?\\s*\\)*\\s*)|";
     expression += liste;
     expression += ")\\s*\\)*\\s*)*\\)*\\s*)";
     return expression;

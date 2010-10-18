@@ -83,6 +83,8 @@ double MathExp::calculRec(Arbre* pArbre) const {
         return (g - d);
     else if (pArbre->getContenu() == QString("*"))
         return (g * d);
+    else if (pArbre->getContenu() == QString("%"))
+        return ((int)g % (int)d);
     else if (pArbre->getContenu() == QString("/")) {
         if (d != 0)
             return (g / d);
@@ -121,6 +123,8 @@ int MathExp::moinsPrioritaire(const QString& pExpression) const {
         return expression.indexOf('-');
     else if (expression.contains('*'))
         return expression.indexOf('*');
+    else if (expression.contains('%'))
+        return expression.indexOf('%');
     else if (expression.contains('/'))
         return expression.indexOf('/');
     else
