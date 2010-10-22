@@ -84,13 +84,17 @@ bool AnalyseSyntaxique::lectureGlossaire(QFile* pFichier) {
                 QString nomVar = rxVariable.cap(2);
                 QString desc = rxVariable.cap(3).trimmed();
                 if (rxEntier.exactMatch(type)) {
-                    m_analyse->getGlossaire()->ajoutEntier(nomVar, desc, cptLigne);
+					if (!m_analyse->getGlossaire()->ajoutEntier(nomVar, desc, cptLigne))
+						ret = false;
                 } else if (rxReel.exactMatch(type)) {
-                    m_analyse->getGlossaire()->ajoutReel(nomVar, desc, cptLigne);
+					if (!m_analyse->getGlossaire()->ajoutReel(nomVar, desc, cptLigne))
+						ret = false;
                 } else if (rxChaine.exactMatch(type) || rxCaractere.exactMatch(type)) {
-                    m_analyse->getGlossaire()->ajoutChaine(nomVar, desc, cptLigne);
+					if (!m_analyse->getGlossaire()->ajoutChaine(nomVar, desc, cptLigne))
+						ret = false;
                 } else if (rxBool.exactMatch(type)) {
-                    m_analyse->getGlossaire()->ajoutBool(nomVar, desc, cptLigne);
+					if (!m_analyse->getGlossaire()->ajoutBool(nomVar, desc, cptLigne))
+						ret = false;
                 }
             }
             qApp->processEvents();
