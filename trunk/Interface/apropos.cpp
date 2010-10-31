@@ -22,9 +22,9 @@ Apropos::Apropos() : QDialog() {
 
     QVBoxLayout *infosLayout = new QVBoxLayout ();
     m_version = new QLabel();
-    m_version->setText(tr("<b>Icare - Version 1.0</b>"));
+    m_version->setText(tr("<b>Icare - Version 1.1</b>"));
     m_Qt = new QLabel();
-    m_Qt->setText(tr("Basé sur Qt 4.6.2"));
+    m_Qt->setText(tr("Basé sur Qt 4.7"));
     m_noms = new QLabel ();
     m_noms->setText(tr("Développé par:\n- Buffon Nicolas\n- Desbeaux Vincent\n- Plano-Lesay Marc\n- Ramondou Clémence"));
     m_site = new QLabel();
