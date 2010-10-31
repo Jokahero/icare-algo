@@ -18,6 +18,7 @@ DefaultGroupName=Icare
 OutputBaseFilename=Installateur
 Compression=lzma/ultra
 SolidCompression=yes
+WizardSmallImageFile="{#builddir}\..\trunk\Interface\logo.bmp"
 
 [Languages]
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
