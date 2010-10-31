@@ -8,3 +8,4 @@ LIBS += -L.. \
     -lAnalyse \
     -lGUI
 RESOURCES += Splash.qrc
+RC_FILE = icone.rc
