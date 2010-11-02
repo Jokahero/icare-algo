@@ -35,5 +35,6 @@
     <qresource prefix="/Images">
         <file>menAtWork.gif</file>
         <file>icare.png</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>
