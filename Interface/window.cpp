@@ -27,6 +27,8 @@
 Window::Window() : QMainWindow() {
     /* L'objet est détruit lorsque la fenêtre est fermée */
     setAttribute(Qt::WA_DeleteOnClose);
+	//setWindowIcon(QIcon(":Images/logo.png"));
+	qApp->setWindowIcon(QIcon(":Images/logo.png"));
 
     /* On récupère la taille et la position de la fenêtre
        telle qu'elle était lorsque l'utilisateur l'a fermée la derniere fois */
