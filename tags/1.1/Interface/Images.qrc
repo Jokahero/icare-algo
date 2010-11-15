@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/Icônes">
+        <file>go.png</file>
+        <file>dialog-error.png</file>
+        <file>dialog-warning.png</file>
+        <file>document-save-as.png</file>
+        <file>gnome-dev-floppy.png</file>
+        <file>preferences-desktop-wallpaper.png</file>
+        <file>printer-error.png</file>
+        <file>software-properties.png</file>
+        <file>synaptic.png</file>
+        <file>window-new.png</file>
+        <file>dialog-ok-apply.png</file>
+        <file>edit-find.png</file>
+        <file>edit-find-replace.png</file>
+        <file>edit-select-all.png</file>
+        <file>edit-copy.png</file>
+        <file>edit-cut.png</file>
+        <file>edit-paste.png</file>
+        <file>document-open.png</file>
+        <file>document-print.png</file>
+        <file>edit-redo.png</file>
+        <file>edit-undo.png</file>
+        <file>media-playback-start.png</file>
+        <file>media-playback-stop.png</file>
+        <file>media-skip-forward.png</file>
+        <file>preferences-system.png</file>
+        <file>tools-check-spelling.png</file>
+        <file>media-eject.png</file>
+        <file>process-stop.png</file>
+        <file>system-run.png</file>
+        <file>system-run2.png</file>
+        <file>gtk-help.png</file>
+    </qresource>
+    <qresource prefix="/Images">
+        <file>menAtWork.gif</file>
+        <file>icare.png</file>
+        <file>logo.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,84 @@
+a img {
+    float : right;
+    border : 0;
+}
+h4 {
+    text-decoration : underline;
+}
+h1 {
+    text-align : center;
+}
+.sommaire h2, h3 {
+    line-height : 4px;
+}
+.sommaire p{
+	padding-left:0px;
+	padding-right:0px;
+}
+p{
+	padding-left:10px;
+	padding-right:40px;
+
+}
+pre,.exreg {
+    background : #f4f4f4;
+    border : 1px solid #e3e3e3;
+    color : #000000;
+    display : block;
+    font-family : "Bitstream Vera Sans Mono", "courier new", monospace;
+    font-size : 85%;
+    margin : auto auto 2px;
+    /*padding-bottom : 15px;
+    text-indent: 30px;
+    
+    */
+    padding-top : 15px;
+	padding-left:0px;
+	padding-right:0px;
+
+    white-space : pre-wrap;
+    width : 94% ;
+    
+}
+.exreg {
+    background : #f4f4f4 url("comment.png") no-repeat scroll left top;
+}
+h4 {
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+.sommaire {
+    text-align : center;
+    border : 1px solid gray;
+    margin-left : 30%;
+    margin-right : 30%;
+    min-width : 250px;
+}
+a.info {
+    position : relative;
+    color : black;
+    text-decoration : none;
+    border-bottom : 1px dotted gray;
+}
+a.info span {
+    display : none;
+}
+a.info:hover {
+    background : none;
+    z-index : 50;
+    cursor : help;
+}
+a.info:hover span {
+    display : inline;
+    position : absolute;
+    white-space : nowrap;
+    top : 20px;
+    left : 0px;
+    background : white;
+    color : blue;
+    padding : 3px;
+    border : 1px solid red;
+    border-left : 4px solid red;
+}
+
+

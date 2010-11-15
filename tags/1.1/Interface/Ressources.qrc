@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Algos">
+        <file>defaut.algo</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,22 @@
+Glossaire
+// Type	Nom		Description
+entier	nbVal
+réel		moy
+entier	i
+entier	val
+
+Début
+Afficher "Combien de valeurs voulez vous entrer ?"
+Saisir nbVal
+moy ← 0
+Pour i de 1 à nbVal faire
+	Afficher "Entrez la "
+	Afficher i
+	Afficher "ème valeur"
+	Saisir val
+	moy ← moy + val
+FinPour
+moy ← moy ÷ nbVal
+Afficher "Moyenne : "
+Afficher moy
+Fin
