@@ -1,4 +1,5 @@
 #summary Liste des tâches à faire, en cours, faites.
+#labels Phase-Requirements
 
 = Introduction =
 Sont listées ici les tâches en cours, à faire et réalisées.
@@ -17,39 +18,12 @@ Si l'avancement n'est pas spécifié, la tâche est à faire.
 
 *Traitement:*
 
-  # _Ouvrir un fichier *|OK|*
-  # Analyse syntaxique *|Ok|*_
-    * implémenter le dictionnaire *|Ok|*
-    * récupérer les variables *|Ok|*
-    * stocker les variables (Glossaire) *|Ok|*
-    * récupérer les instructions *|Ok|*
-    * stocker les instructions *|Ok|*
-    * Vérifier la syntaxe de chaque instruction *|Ok|*
-  # _Analyse mathématique *|Ok|*
-  # Analyse sémantique *|Ok|*
-  # Execution_
-    * structures de contrôles
-      * Si/Sinon/FinSi *|Ok|*
-      * Pour/FinPour *|Ok|*
-      * TantQue/FinTantQue *|Ok|*
-      * Répéter/Jusqu'à *|Ok|*
-      * Selon/Cas/FinSelon (Ajouter aux instructions une liste de lignes intermédiaires ?)
-    * implémenter les instructions *|Ok|*
-    * executer *|Ok|*
-  # _Variables `[`IUT`]`_
+  # _Variables_
     * Type booléen |Fait en partie|
     * Tableaux
 
 *Interface:*
  
-  # _Coloration syntaxique *|Ok|*
-  # Affichage du glossaire *|Ok|*
-  # Menus *|Ok|*_
-    * Principal *|Ok|*
-    * Analyse *|Ok|*
-    * Options *|Ok|*
-    * Aide *|Ok|*
-  # _Affichage des erreurs d'analyse *|Ok|*
   # Affichage spécial pour les tableaux_
 
 *Autres:*
