@@ -4,6 +4,7 @@
 #include <QtGui/QDialog>
 
 class QComboBox;
+class QCheckBox;
 class QDialogButtonBox;
 class QLabel;
 class QLineEdit;
@@ -18,6 +19,7 @@ private:
     QDialogButtonBox* m_buttonBox;
 
     QComboBox* m_type;
+    QCheckBox* m_tableau;
     QLineEdit* m_nom;
     QLineEdit* m_valeur;
     QLineEdit* m_description;

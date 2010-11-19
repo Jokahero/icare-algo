@@ -1,4 +1,5 @@
 Glossaire:
+Entier	Chevre	fd
 Entier	nbChevre			Nombre de chèvres du troupeau
 Réel		production		Volume de lait produit par une chèvre en une journée
 Réel		prodJourna		Production journalière du troupeau
@@ -18,7 +19,7 @@ prodJourna ← nbChevre × production
 Afficher "La production journalière du troupeau est de : "
 Afficher prodJourna 
 
-// Les commentaires c'est bien, mais les commentaires multilignes sont pas encore gérés !
+// Les commentaires c'est bien, mais les commentaires multilignes ne sont pas encore gérés !
 nbChevre ← 12
 production ← 8.6
 prodJourna ← nbChevre × production
