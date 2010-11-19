@@ -1,8 +1,10 @@
 #include "editionvariable.h"
 
 #include <QtGui/QComboBox>
+#include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QFormLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
@@ -14,6 +16,8 @@ EditionVariable::EditionVariable(int pType, QString pName, QString pValeur, QStr
     m_type->addItem("Chaîne de caractères");
     m_type->setCurrentIndex(pType);
 
+    m_tableau = new QCheckBox(this);
+
     m_nom = new QLineEdit(this);
     m_nom->setText(pName);
     m_valeur = new QLineEdit(this);
@@ -21,16 +25,26 @@ EditionVariable::EditionVariable(int pType, QString pName, QString pValeur, QStr
     m_description = new QLineEdit(this);
     m_description->setText(pDesc);
 
+    // Layout pour la ligne concernant le type de la variable
+    QHBoxLayout *typeLayout = new QHBoxLayout();
+    typeLayout->addWidget(new QLabel("Type :"));
+    typeLayout->addWidget(m_type);
+    typeLayout->addWidget(new QLabel("Tableau"));
+    typeLayout->addWidget(m_tableau);
+
+    // Layout du formulaire de saisie de la variable
     QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow("Type :", m_type);
+    formLayout->addRow(typeLayout);
     formLayout->addRow("Nom :", m_nom);
     formLayout->addRow("Valeur :", m_valeur);
     formLayout->addRow("Description: ", m_description);
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel | QDialogButtonBox::Ok, Qt::Horizontal, this);
 
+    // Label permettant d'afficher des erreurs
     m_errorLabel = new QLabel(this);
 
+    // LAyout général
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addLayout(formLayout);
     layout->addWidget(m_buttonBox);
