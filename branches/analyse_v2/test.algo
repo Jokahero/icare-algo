@@ -1,0 +1,61 @@
+Glossaire:
+Entier	Chevre	fd
+Entier	nbChevre			Nombre de chèvres du troupeau
+Réel		production		Volume de lait produit par une chèvre en une journée
+Réel		prodJourna		Production journalière du troupeau
+//Entier	prodJourna		Production journalière du troupeau
+Entier	i				Compteur de boucle
+
+Debut
+// Initialisations temporaires en attendant la saisie
+nbChevre ← 42
+production ← 12
+Afficher "Saisir le nombre de chèvres du troupeau : "
+Saisir nbChevre
+// Ceci est un commentaire (coloré en plus!! \o/)
+Afficher "Saisir la production journalière d'une chèvre : "
+Saisir production
+prodJourna ← nbChevre × production
+Afficher "La production journalière du troupeau est de : "
+Afficher prodJourna 
+
+// Les commentaires c'est bien, mais les commentaires multilignes ne sont pas encore gérés !
+nbChevre ← 12
+production ← 8.6
+prodJourna ← nbChevre × production
+Afficher "La production journalière du troupeau est de : "
+Afficher prodJourna
+
+Pour i de nbChevre à 2 Faire
+	Afficher "bleubleubleu"
+FinPour
+
+Pour i de 1 à nbChevre Faire
+	Afficher i
+FinPour
+
+Si  nbChevre > 4 Alors
+	Afficher "Oui"
+Sinon
+	Afficher "Non"
+FinSi
+
+Répéter
+	Afficher nbChevre
+	nbChevre ← nbChevre - 1
+Jusqu'à nbChevre < 5
+
+Si nbChevre < 4 && i > 5 Alors
+	Afficher "Oui"
+Sinon
+	Afficher "Non"
+FinSi
+
+i ← 2
+
+TantQue i <  4
+	Afficher i
+	i ← i + 1
+FinTantQue
+
+Fin

@@ -1,0 +1,16 @@
+Glossaire
+// Type	Nom		Description
+entier	nb		"Compteur"
+entier	val		"Valeur de la factorielle a calculer"
+entier	resultat	"Résultat de la factorielle"
+Début
+Afficher "Saisir la valeur de la factorielle a calculer"
+Saisir val
+resultat ← 1
+Pour nb de 1 a val faire
+	resultat ← resultat × nb
+Afficher resultat
+FinPour
+Afficher "Voici le résultat de la factorielle demandée :"
+Afficher resultat
+Fin
