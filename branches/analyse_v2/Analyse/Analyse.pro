@@ -15,7 +15,12 @@ SOURCES += analysesyntaxique.cpp \
     execution.cpp \
     arbre.cpp \
     mathexp.cpp \
-    expressionlogique.cpp
+    expressionlogique.cpp \
+    variable.cpp \
+    entier.cpp \
+    booleen.cpp \
+    flottant.cpp \
+    chaine.cpp
 HEADERS += Analyse_global.h \
     analysesyntaxique.h \
     analysesemantique.h \
@@ -26,5 +31,10 @@ HEADERS += Analyse_global.h \
     execution.h \
     arbre.h \
     mathexp.h \
-    expressionlogique.h
+    expressionlogique.h \
+    variable.h \
+    entier.h \
+    booleen.h \
+    flottant.h \
+    chaine.h
 DESTDIR = ../
